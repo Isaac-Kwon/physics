@@ -1,0 +1,471 @@
+---
+topic: detectors
+lang: en
+title: Particle Detectors
+subtitle: Seeing the unseen by the trail it leaves
+description: "Particles are far too small to see. Learn how detectors read the traces they leave in matter: ionization, showers, light and curved tracks."
+tagline: We never see a particle. We read what it leaves behind.
+layers:
+  - { id: hook, title: We only ever see traces }
+  - { id: history, title: A short history of traces }
+  - { id: interactions, title: What a particle does to matter }
+  - { id: measurement, title: From trace to measurement }
+  - { id: design, title: Designing a real detector }
+references:
+  - title: "Review of Particle Physics: Passage of particles through matter"
+    author: "Particle Data Group"
+    url: "https://pdg.lbl.gov/"
+    note: "Reference. Short and dense; the source of many numbers on this page."
+  - title: "Review of Particle Physics: Particle detectors (accelerator and non-accelerator)"
+    author: "Particle Data Group"
+    url: "https://pdg.lbl.gov/"
+    note: "Reference. Chapters on tracking, calorimetry, particle identification and detector systems."
+  - title: "Particle Detectors"
+    author: "Claus Grupen, Boris Shwartz — Cambridge University Press (2nd edition, 2008)"
+    note: "Textbook. Readable for undergraduates; covers every detector type on this page."
+  - title: "Particle Detectors: Fundamentals and Applications"
+    author: "Hermann Kolanoski, Norbert Wermes — Oxford University Press (2020)"
+    note: "Textbook. More modern and more detailed, with a long chapter on signal formation."
+  - title: "Radiation Detection and Measurement"
+    author: "Glenn F. Knoll — Wiley (4th edition, 2010)"
+    note: "Classic textbook. Strong on scintillators, photosensors and gas detectors."
+asOf: "2025"
+draft: true
+---
+
+<Layer id="hook">
+  <Scene id="det.hook" mode="scrub">
+    <Step state="dark">A particle is too small to see.</Step>
+    <Step state="burst">So we look at the trail it leaves.</Step>
+    <Step state="detector">Around the trail, a machine the size of a building.</Step>
+  </Scene>
+  <BigNumber value={1e8} unit="channels" approx caption="A large detector at the LHC reads out about a hundred million channels, all to rebuild the trails of particles nobody will ever see directly." />
+</Layer>
+
+<Layer id="history">
+  <Scene id="det.history">
+    <Step state="scintillation-screen">
+      1909. Geiger and Marsden sit in a dark room, counting faint flashes on a zinc sulphide screen. Each flash is one alpha particle. The detector is a human eye.
+    </Step>
+    <Step state="cloud-chamber">
+      1911. Charles Wilson makes a cloud chamber: air supersaturated with vapour, so that droplets form along a particle's path. Photographs of these tracks revealed the positron in 1932 and the muon in 1936.
+    </Step>
+    <Step state="emulsion">
+      Photographic emulsion records tracks as chains of silver grains. In 1947, emulsions exposed on mountain tops showed the pion.
+    </Step>
+    <Step state="bubble-chamber">
+      1952. Donald Glaser invents the bubble chamber: liquid held just above its boiling point, with bubbles along each path. It was dense, so particles interacted. Many new resonances were found, and in 1973 the Gargamelle chamber at CERN saw neutral currents.
+    </Step>
+    <Step state="wire-chamber">
+      1968. Georges Charpak builds a chamber of thin wires that gives an electrical pulse for each passing particle. Photographs were out. Data that a computer can read were in, and rates rose by orders of magnitude.
+    </Step>
+    <Step state="electronic">
+      From the 1980s, silicon strips and pixels bring micron precision, and dense crystal calorimeters bring precise energy. Today these are combined into detectors the size of a building.
+    </Step>
+  </Scene>
+
+  <Scene id="det.cloud-chamber">
+    <Step state="vapour">
+      You can build a cloud chamber at home: a sealed box with a cold floor and alcohol vapour above it. The vapour becomes supersaturated, ready to condense.
+    </Step>
+    <Step state="track">
+      A fast charged particle ionizes the vapour along its path. The ions are seeds for droplets. A thin white line of fog appears, and fades after a second.
+    </Step>
+    <Step state="muons">
+      Most of the straight lines you see are cosmic-ray muons, about one per minute passing through a hand-sized area. Short, thick tracks are alpha particles.
+    </Step>
+  </Scene>
+
+  The same trick, ionization seeds a visible change, runs through every detector below. Only the readout changed: from eyes, to film, to electronics.
+</Layer>
+
+<Layer id="interactions">
+  <Scene id="det.matter-block">
+    <Step state="ionization">
+      Every detection starts with an interaction. A fast charged particle crossing matter pushes on the electrons of atoms near its path and sometimes frees one. This is <Term id="ionization">ionization</Term>. Each event costs the particle a very small part of its energy, but along a centimetre it happens a hundred times in a gas, and thousands of times in a solid.
+    </Step>
+  </Scene>
+
+  The mean energy lost per unit path, called dE/dx, follows a characteristic curve with speed: it falls steeply as the particle speeds up, reaches a broad minimum, and then rises slowly. A particle at the minimum is a **minimum-ionizing particle** (MIP). It loses 1 to 2 MeV for each g/cm² of material it crosses (about 2 in light materials such as plastic or water, about 1.1 in lead), so the loss per unit mass changes surprisingly little from one material to another. Try it: choose a momentum and see where each particle sits on the curve.
+
+  <Widget name="BetheBloch" />
+
+  <Deeper title="The Bethe–Bloch formula and the Landau tail">
+    For a particle of charge $z$ and speed $\beta$ in a medium of atomic number $Z$ and mass number $A$, the mean loss is
+
+    $$\left\langle -\frac{dE}{dx}\right\rangle = K z^2\frac{Z}{A}\frac{1}{\beta^2}\left[\frac{1}{2}\ln\frac{2m_ec^2\beta^2\gamma^2 T_{\max}}{I^2}-\beta^2-\frac{\delta(\beta\gamma)}{2}\right],$$
+
+    with $K = 0.307\ \text{MeV cm}^2/\text{mol}$, $I$ the mean excitation energy (about $10\,Z$ eV) and $T_{\max}$ the largest energy transferable to one electron. The $1/\beta^2$ gives the fall, the logarithm the slow rise, and the density correction $\delta$ flattens the rise at high energy. The formula holds for heavy particles from about $\beta\gamma = 0.1$ to $1000$.
+
+    In a thin layer the actual loss fluctuates a lot, because a few rare collisions free electrons with large energy. The distribution is skewed: a **Landau distribution** with a long high-side tail. Its most probable value is lower than its mean, so a thin detector reports the most probable loss, not the mean.
+  </Deeper>
+
+  <Scene id="det.matter-block">
+    <Step state="brems">
+      Electrons are special. They are so light that when they are deflected by an atomic nucleus they radiate photons: **bremsstrahlung**, braking radiation. At high energy this dominates ionization. An electron loses most of its energy in a distance called the <Term id="radiation-length">radiation length</Term> $X_0$: about 0.5 cm in lead, 10 cm in silicon, 36 cm in water. A muon is two hundred times heavier, and radiates some forty thousand times less. That is why it passes through things.
+    </Step>
+    <Step state="photon-pe">
+      Photons have no charge, so they leave no trail of their own. They are detected only after something happens to them, once, and fully. At low energy (up to a few hundred keV in lead), a photon is absorbed by an atom and frees an electron: the photoelectric effect.
+    </Step>
+    <Step state="photon-compton">
+      At intermediate energies, around a MeV, the photon scatters off an electron and loses some of its energy: Compton scattering. It carries on in a new direction, with a fast electron knocked out.
+    </Step>
+    <Step state="photon-pair">
+      Above 1.022 MeV, twice the electron mass, the photon can turn into an electron and a positron in the field of a nucleus: pair production. At high energy this takes over completely. Which process wins depends on the energy and on the material.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schematic: which photon process dominates, as a function of photon energy and the atomic number Z of the material. Region boundaries are approximate.">
+    <Scene id="det.photon-regions">
+      <Step state="regions">
+        Low energy and high Z: photoelectric. Intermediate energy and low Z: Compton. High energy: pair production. In lead the Compton and pair regions meet at a few MeV; in silicon, not until tens of MeV.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Scene id="det.matter-block">
+    <Step state="em-shower">
+      Put the pieces together. An electron of high energy radiates a photon. The photon makes an electron–positron pair. Each of those radiates again. The number of particles doubles every radiation length or so while the energy per particle halves. This chain is an <Term id="shower">electromagnetic shower</Term>.
+    </Step>
+    <Step state="had-shower">
+      Hadrons such as pions and protons feel the strong force. They collide with nuclei, break them up and make new particles. This builds a <Term id="shower">hadronic shower</Term>. It is wider, longer and more irregular than an electromagnetic one, because a third of the pions made along the way are neutral. They decay at once to two photons, each starting a small electromagnetic shower inside it.
+    </Step>
+  </Scene>
+
+  <Primer id="quarks-gluons" />
+
+  <Deeper title="A toy model of an electromagnetic shower (Heitler)">
+    After $t$ radiation lengths there are $N = 2^t$ particles, each with energy $E_0/2^t$. The multiplication stops when the energy per particle falls to the critical energy $E_c$ (about 7 MeV in lead), below which ionization wins over radiation. That happens at
+
+    $$t_{\max} = \frac{\ln(E_0/E_c)}{\ln 2}.$$
+
+    So the depth of the shower grows only logarithmically with energy, while the number of particles at the maximum, $E_0/E_c$, grows in proportion to the energy. That proportionality is why a calorimeter can measure energy by counting particles. The toy model gets the scaling right and the numbers only roughly. Hadronic showers scale with the nuclear interaction length $\lambda_I$ (about 17 cm in iron, roughly ten times its $X_0$) instead of $X_0$.
+  </Deeper>
+
+  <Scene id="det.matter-block">
+    <Step state="neutral">
+      Neutral particles leave no ionization of their own. A neutron must hit a nucleus, and the charged fragments it knocks loose are then detected. A neutrino almost never interacts: for neutrinos from the Sun, roughly a light-year of lead would be needed to stop half of them. We detect it by what is missing, or by rare interactions in very large targets.
+    </Step>
+    <Step state="cherenkov">
+      A charged particle can also shine. In a medium with refractive index $n$, light travels at $c/n$. If the particle is faster, it emits <Term id="cherenkov-radiation">Cherenkov</Term> light on a cone with opening angle $\cos\theta_c = 1/(n\beta)$. In water the threshold is $\beta = 0.75$, and the light comes out at 41° for a particle near the speed of light. Transition radiation, a weaker X-ray flash when a very fast particle crosses between two materials, serves a similar role for electrons.
+    </Step>
+    <Step state="scintillation">
+      Finally, some materials give back the deposited energy as visible light, in proportion to how much was deposited. This is scintillation. A MeV of energy yields of order ten thousand photons in a good scintillator, a few hundred Cherenkov photons per centimetre in water, and none at all for a neutral particle that does not interact.
+    </Step>
+  </Scene>
+
+  <Deeper title="The Cherenkov angle and photon yield">
+    Wavefronts emitted at each point of the path overlap into a cone. In time $t$ the particle moves $\beta c t$ and the light moves $ct/n$, so
+
+    $$\cos\theta_c = \frac{ct/n}{\beta c t} = \frac{1}{n\beta}.$$
+
+    The number of photons per unit path length and per unit wavelength is
+
+    $$\frac{d^2N}{dx\,d\lambda} = \frac{2\pi\alpha z^2}{\lambda^2}\left(1-\frac{1}{\beta^2n^2}\right) = \frac{2\pi\alpha z^2}{\lambda^2}\sin^2\theta_c,$$
+
+    which gives a few hundred photons per cm in the visible range for $z = 1$ in water. Cherenkov light carries only a tiny fraction of the particle's energy compared with ionization.
+  </Deeper>
+
+  This is the full list. Everything a detector does is one of these: ionization, radiation, nuclear collision, light. The next layer asks how to turn each into a number.
+</Layer>
+
+<Layer id="measurement">
+  Every detector has to do two things: convert a trace into an electrical signal, and decide what that signal means. We start with the conversion.
+
+  <Scene id="det.signal-chain">
+    <Step state="charge">
+      **Collect the charge.** Ionization frees electrons. An electric field pulls them to an electrode, where they make a small current. In a gas the electrons can be amplified near a thin wire, where the field is strong enough to make avalanches. In silicon, where it takes only 3.6 eV to free a charge pair, a thin wafer gives thousands of pairs and the pulse needs no amplification in the medium.
+    </Step>
+  </Scene>
+
+  <Primer id="silicon-sensor" />
+
+  <Bridge id="det-measurement-to-sc-mechanism" />
+
+  <Scene id="det.signal-chain">
+    <Step state="scintillation">
+      **Collect the light.** A scintillator turns energy into photons. They must be converted back into electrons: a photomultiplier tube amplifies a single photoelectron a million times, and a silicon photomultiplier does the same in a compact, field-tolerant package. Plastic scintillator is fast and cheap. Dense crystals stop high-energy photons.
+    </Step>
+    <Step state="cherenkov">
+      **Collect Cherenkov light.** The same photosensors catch a cone of light. Its angle or its shape reports the speed of the particle, and, in a very large tank of water or ice, the direction of a single neutrino.
+    </Step>
+  </Scene>
+
+  <Bridge id="det-measurement-to-nu-detection" />
+
+  Now suppose we can read the signals. Four quantities are worth measuring: position and momentum, energy, identity and time. They need different tools, so a real detector layers them one after another.
+
+  <Scene id="shared.magnetic-track">
+    <Step state="tracks">
+      **Momentum, from a curve.** A charged particle moving through a magnetic field follows an arc. Its radius gives the momentum, and the direction of the bend gives the sign of the charge. A tracker records points along the path and the bend comes from fitting them.
+    </Step>
+    <Step state="fit">
+      The rule of thumb: $p\,[\text{GeV}/c] \approx 0.3\,B\,[\text{T}]\,R\,[\text{m}]$. In a 4 T solenoid, a 10 GeV/c track bends on a circle of radius 8 m. A 1 TeV/c track on 800 m: almost a straight line, which is why high momenta are hard.
+    </Step>
+  </Scene>
+
+  <Widget name="TrackCurvature" />
+
+  <Deeper title="Where p = 0.3 B R comes from">
+    The magnetic force provides the centripetal force: $qvB = mv^2/R$, so $p = qBR$. In units of GeV/c, tesla and metre, for charge $q = e$, this is
+
+    $$p\,[\text{GeV}/c] = c\times 10^{-9}\,B\,[\text{T}]\,R\,[\text{m}] \approx 0.2998\,B\,R.$$
+
+    The $p$ is the component perpendicular to the field. A particle with momentum along the field spirals as a helix. The measured sagitta over a track length $L$ is $s = L^2/8R = 0.3\,B L^2/8p$, which falls as $1/p$. This is the origin of the resolution behaviour discussed in the last layer.
+  </Deeper>
+
+  <Primer id="tpc" />
+
+  <Scene id="shared.tpc">
+    <Step state="drift">
+      **A whole track in one shot.** In a time projection chamber, electrons from ionization drift at constant speed along the field to the end plane, which records where each one arrives. That gives two coordinates. The arrival time gives the third.
+    </Step>
+    <Step state="readout">
+      The amount of charge along the track gives dE/dx. The price is time: a drift takes microseconds to milliseconds, long compared with the interval between collisions.
+    </Step>
+  </Scene>
+
+  <Bridge id="det-measurement-to-dm-direct" />
+  <Bridge id="det-measurement-to-hi-detection" />
+
+  <Walkthrough scene="det.walkthrough-calorimeter" experiment="the CMS electromagnetic calorimeter" also="ATLAS (liquid argon between lead plates), ALICE PHOS, and every collider and fixed-target calorimeter.">
+    <Step state="goal" kind="goal">
+      Goal: measure the energy of one electron or photon by stopping it completely in a block of dense scintillating crystal.
+    </Step>
+    <Step state="shower" kind="signal">
+      The particle enters a lead tungstate crystal, whose radiation length is under a centimetre. It starts a shower within a few centimetres, and the shower fills about 25 radiation lengths, a crystal about 23 cm deep. No energy escapes out of the back.
+    </Step>
+    <Step state="light" kind="signal">
+      The charged particles of the shower excite the crystal, which scintillates. The amount of light is proportional to the energy deposited, so the total light is proportional to the energy of the incoming particle.
+    </Step>
+    <Step state="photosensor" kind="signal">
+      A photosensor glued to the back of the crystal converts the light into charge. The crystal is a few centimetres wide, so each one reads out a small part of the transverse shower profile, about 90 % of which fits inside a Moliere radius of 2 cm.
+    </Step>
+    <Step state="sum" kind="readout">
+      The signals from the crystals around the shower are added. The sum gives the energy; the centre of gravity of the pattern gives the position, finer than one crystal.
+    </Step>
+    <Step state="containment" kind="trick">
+      The trick: the shower is wholly absorbed, so the more energy, the more particles. The relative precision therefore improves with energy, since statistical fluctuations of a larger number of particles are relatively smaller.
+    </Step>
+  </Walkthrough>
+
+  <Figure kind="schematic" caption="Schematic: relative energy resolution of a calorimeter versus energy. Three terms with different energy dependence, and their quadratic sum.">
+    <Scene id="det.energy-resolution">
+      <Step state="stochastic">
+        The first term is statistical: the number of particles in the shower fluctuates like $\sqrt{N}$, so $\sigma/E \propto 1/\sqrt{E}$. It dominates at low energy.
+      </Step>
+      <Step state="noise">
+        The second term is electronic noise, a fixed amount of energy no matter what. Relative to the signal it falls as $1/E$ and matters at very low energy.
+      </Step>
+      <Step state="constant">
+        The third term is a constant fraction: calibration errors and non-uniformities scale with the signal itself. It sets the limit at high energy.
+      </Step>
+      <Step state="sum">
+        They add in quadrature: $\sigma/E = a/\sqrt{E} \oplus b \oplus c/E$. Which term dominates depends on the energy, and on the detector.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="Resolution in numbers">
+    $$\frac{\sigma_E}{E} = \frac{a}{\sqrt{E}} \oplus b \oplus \frac{c}{E}, \qquad x\oplus y = \sqrt{x^2+y^2},$$
+
+    with $E$ in GeV. Typical values of the stochastic term $a$: about 2 to 3 % for a crystal calorimeter, 10 % for a sampling calorimeter with lead absorber, and about 50 % for a hadron calorimeter. The constant term $b$ is about 1 % in good cases. For a 100 GeV electron in a crystal calorimeter this gives roughly $0.03/10 \oplus 0.005 \approx 0.6\,\%$, but hadron calorimeter values are an order of magnitude worse. This is why the electromagnetic and hadronic calorimeters are separate layers.
+  </Deeper>
+
+  <Scene id="det.signal-chain">
+    <Step state="timing">
+      **Time.** Light travels 30 cm in a nanosecond. Timing layers, built from fast silicon or scintillator, record when a particle passes to tens of picoseconds: the time light takes to cross a few millimetres. A clock this fine can separate overlapping collisions, and measure the speed of a particle over a known distance.
+    </Step>
+  </Scene>
+
+  <Primer id="particle-id" />
+
+  <Walkthrough scene="det.walkthrough-rich" experiment="LHCb's ring-imaging Cherenkov detector" also="Belle II (its ARICH and TOP counters), ALICE HMPID, and neutrino experiments that image rings in water.">
+    <Step state="goal" kind="goal">
+      Goal: tell a kaon from a pion at the same momentum, with a measured momentum of tens of GeV/c.
+    </Step>
+    <Step state="cone" kind="signal">
+      The particle crosses a radiator, a gas or a block of aerogel, with refractive index only slightly above one. It travels faster than light does in that material and emits a cone of Cherenkov light.
+    </Step>
+    <Step state="ring" kind="signal">
+      A spherical mirror focuses the cone onto a plane of photon detectors. Wherever along its path a photon was emitted, it lands on a circle. The photons form a ring.
+    </Step>
+    <Step state="radius" kind="readout">
+      The radius of the ring gives the opening angle $\theta_c$, and the angle gives the speed through $\cos\theta_c = 1/(n\beta)$. With the momentum from the tracker, the mass follows. A pion makes a larger ring than a kaon of the same momentum.
+    </Step>
+    <Step state="focus" kind="trick">
+      The trick: the mirror turns angle into radius, so the ring does not blur when the emission point moves along the track. Two radiators with different indices cover a wide momentum range, since each is blind below its own threshold.
+    </Step>
+  </Walkthrough>
+
+  <Widget name="BetheBloch" mode="pid" />
+
+  <Scene id="det.onion">
+    <Step state="assembled">
+      **Putting it together.** Real detectors are built like an onion. Each layer measures something different, and each is chosen so that it disturbs the next layer as little as possible.
+    </Step>
+    <Step state="vertex">
+      The innermost layers are silicon pixels, a few centimetres from the beam pipe. They record a few precise points, enough to locate where a particle started, and whether it came from a decay a few millimetres away.
+    </Step>
+    <Step state="tracker">
+      The tracker follows, in a strong magnetic field. It is built light, since every bit of material scatters the particles it is trying to measure. It gives charge and momentum.
+    </Step>
+    <Step state="ecal">
+      The electromagnetic calorimeter is next. It is dense, to stop electrons and photons in a few tens of centimetres. It is destructive on purpose.
+    </Step>
+    <Step state="hcal">
+      Then the hadron calorimeter, thicker and made from iron, brass or steel, stops hadrons. Everything that is not a muon or a neutrino is absorbed here.
+    </Step>
+    <Step state="magnet">
+      Beyond the calorimeters, a magnet and its return yoke. In some detectors the solenoid sits inside the calorimeter; in others the field is outside.
+    </Step>
+    <Step state="muon">
+      The outermost layer is the muon system. Only muons, which barely radiate and do not feel the strong force, get this far. A track out here is a muon.
+    </Step>
+  </Scene>
+
+  <Primer id="standard-model" />
+
+  <Scene id="det.signatures">
+    <Step state="photon">
+      **Photon.** No track in the tracker. A shower in the electromagnetic calorimeter.
+    </Step>
+    <Step state="electron">
+      **Electron.** A track in the tracker, ending in a shower in the electromagnetic calorimeter, with the energy matching the momentum.
+    </Step>
+    <Step state="muon">
+      **Muon.** A track in the tracker, a faint trace in each calorimeter, and a track in the muon system.
+    </Step>
+    <Step state="charged-hadron">
+      **Charged hadron.** A track in the tracker, and a shower that begins late and ends in the hadron calorimeter.
+    </Step>
+    <Step state="neutral-hadron">
+      **Neutral hadron.** No track. A shower in the hadron calorimeter.
+    </Step>
+    <Step state="neutrino">
+      **Neutrino.** Nothing at all. The only trace is missing momentum: the visible particles do not add up to zero in the plane perpendicular to the beam.
+    </Step>
+  </Scene>
+
+  <Widget name="ParticleSignatures" />
+
+  <Walkthrough scene="det.walkthrough-muon" experiment="the ATLAS muon spectrometer" also="CMS (drift tubes and resistive plate chambers), and cosmic-ray muon telescopes.">
+    <Step state="goal" kind="goal">
+      Goal: measure the path and momentum of a muon that has just come through the whole detector, metres of absorber.
+    </Step>
+    <Step state="drift-tube" kind="signal">
+      The muon crosses long tubes filled with gas, each with a thin wire along its axis. It ionizes the gas, and the freed electrons drift toward the wire.
+    </Step>
+    <Step state="circles" kind="signal">
+      The time the electrons take to reach the wire gives the distance of the track from that wire, but not the direction: a circle around the wire. Several layers of tubes give several circles.
+    </Step>
+    <Step state="fit" kind="readout">
+      The track is the line tangent to all the circles. Its bend in a large toroidal magnetic field gives the momentum, measured to better than 100 micrometres in each tube, over several metres.
+    </Step>
+    <Step state="muon-trick" kind="trick">
+      The trick: the muon system sits behind all the absorber. Hadrons, electrons and photons are stopped long before, so whatever leaves a track here can be identified as a muon with little ambiguity.
+    </Step>
+  </Walkthrough>
+
+  This page's list of principles is the same in every experiment. In the last layer, we ask how to assemble them into a working instrument.
+</Layer>
+
+<Layer id="design">
+  <Scene id="det.trigger">
+    <Step state="rate">
+      **What to keep.** At the LHC, bunches of protons cross 40 million times each second, and each crossing is a possible event. Writing every one down is impossible: the data would fill a large disc store in seconds. Only about a thousand events per second can be stored permanently. The detector must decide, in real time, which are worth keeping.
+    </Step>
+    <Step state="levels">
+      This is the job of the <Term id="trigger">trigger</Term>. A first level, built from fast custom electronics, looks coarsely at the calorimeters and muon system and decides within a few microseconds, bringing the rate to about a hundred thousand per second. A second stage, running software on a computer farm, reconstructs the event more fully and keeps about one in a hundred. Anything discarded is gone for good, so the trigger encodes what the experiment is looking for.
+    </Step>
+    <Step state="streaming">
+      The recent trend is to trigger less. When the questions are about many common events rather than rare ones, a detector can read out everything continuously, with each hit time-stamped, and sort it later. ALICE has done this since Run 3 (as of 2025), and LHCb has moved to a purely software trigger. The cost is moving much more data, much faster.
+    </Step>
+  </Scene>
+
+  <Deeper title="Data volume, in numbers">
+    Suppose an event is 1 MB. At 40 MHz the stream would be 40 TB per second. After a first level with about 100 kHz accept rate, it is 100 GB per second, and after the software stage with a few kHz output, a few GB per second. Even the last figure means petabytes per year. Real events vary in size and detectors compress their data, but the order of magnitude explains why the trigger exists.
+  </Deeper>
+
+  <Figure kind="schematic" caption="Schematic: relative momentum resolution of a tracker versus momentum. Multiple scattering dominates at low momentum. The curvature measurement dominates at high momentum, where it grows in proportion to p.">
+    <Scene id="det.momentum-resolution">
+      <Step state="terms">
+        There is no best detector, only trade-offs. Take momentum. A long, strongly bent track measured at many accurate points is good. But at high momentum the track is almost straight, so the error grows with $p$. At low momentum, the particle is deflected by every atom it passes, and the error is set by the material, not the sensors.
+      </Step>
+      <Step state="lever-arm">
+        Which levers does a designer have? A longer track, a stronger field, more and more accurate points. Resolution improves as $1/(BL^2)$, so doubling the radius of the tracker gives four times the benefit, and ten times the cost.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="Momentum resolution, quantitatively">
+    For $N$ equally spaced points of resolution $\sigma_x$ over a length $L$ in a field $B$ (the Gluckstern formula),
+
+    $$\frac{\sigma_{p_T}}{p_T} = \frac{\sigma_x\,p_T}{0.3\,B\,L^2}\sqrt{\frac{720}{N+4}},$$
+
+    in GeV, tesla and metres. Multiple scattering adds a term independent of $p_T$ to the relative resolution,
+
+    $$\left(\frac{\sigma_{p_T}}{p_T}\right)_{\text{MS}} \approx \frac{0.0136}{0.3\,B\,L\,\beta}\sqrt{\frac{L}{X_0}}\times\text{(a factor of order 1)},$$
+
+    with $L/X_0$ the total material in radiation lengths. The first term grows with $p_T$, the second does not depend on it. The sum is smallest at some intermediate momentum.
+  </Deeper>
+
+  <Scene id="det.tradeoffs">
+    <Step state="material">
+      **Material.** Every sensor, wire, cable and cooling pipe is matter that scatters particles and that makes photons convert into pairs before they reach the calorimeter. Silicon trackers aim for a few per cent of a radiation length per layer. Thinner is better for measurement, but thinner means less signal.
+    </Step>
+    <Step state="readout">
+      **Speed, power, cooling.** Faster readout needs more power, and power turns into heat that must be carried away through more material. A designer trades read-out time against power and cooling mass. All three limit how fast a pixel can be read out.
+    </Step>
+    <Step state="radiation">
+      **Radiation and cost.** Near the beam, the radiation dose is large enough to damage silicon and blind photosensors. Components must survive, or be replaced as upgrades. And everything has to be built within a budget, in a fixed time, by hundreds of institutes.
+    </Step>
+  </Scene>
+
+  <Scene id="det.simulation">
+    <Step state="generate">
+      **Build it on a computer first.** Before steel is cut, the detector exists as a simulation. A generator produces the particles from a collision.
+    </Step>
+    <Step state="transport">
+      A program such as **Geant4** then follows each particle through a full 3D model of the detector, step by step, sampling every interaction described in this page: ionization, radiation, scattering, showers, light.
+    </Step>
+    <Step state="digitize">
+      A model of the electronics turns energy deposits into the signals the real sensors would give: noise, thresholds, dead channels.
+    </Step>
+    <Step state="compare">
+      The same reconstruction software is run on simulated and real events. Billions of virtual particles are produced before a design is chosen, and the match to data is tested continuously. Where they disagree, the physics or the model is wrong.
+    </Step>
+  </Scene>
+
+  <Scene id="det.frontier">
+    <Step state="timing4d">
+      **Detectors in four dimensions.** Timing layers with resolutions of a few tens of picoseconds are being added to the large LHC detectors for the high-luminosity upgrade, planned for around 2030. With position and time together, overlapping collisions that occur within the same bunch crossing can be told apart.
+    </Step>
+    <Step state="ml">
+      **Machine learning.** Neural networks are already used in triggers, track finding and jet identification. They can run inside custom electronics fast enough for the first trigger level. The open question is control: how to know an algorithm has not learned the simulation's flaws rather than the physics.
+    </Step>
+    <Step state="next">
+      **Next machines.** Experiments proposed for the 2030s and beyond, such as ALICE 3 and detectors for future colliders, aim for even thinner silicon, finer timing and more compact calorimeters. As of 2025 these remain designs under study.
+    </Step>
+  </Scene>
+
+  <Gallery>
+    <GalleryItem title="Tracker">
+      Silicon pixels and strips, optionally a gas chamber. Measures charge and momentum while disturbing as little as possible.
+    </GalleryItem>
+    <GalleryItem title="Calorimeter">
+      Dense material that absorbs the whole particle. Measures energy, and the position of the shower.
+    </GalleryItem>
+    <GalleryItem title="Particle identification">
+      Time of flight, Cherenkov rings and transition radiation. Measures speed, and with momentum, the mass.
+    </GalleryItem>
+    <GalleryItem title="Muon system">
+      Gas chambers behind all the absorber. Measures the one particle that gets through.
+    </GalleryItem>
+    <GalleryItem title="Trigger and data acquisition">
+      Fast electronics and computers. Decide what is kept.
+    </GalleryItem>
+  </Gallery>
+
+  This page uses simplified pictures and no real data. For detail, start with the Particle Data Group reviews and the two textbooks in the references below.
+</Layer>

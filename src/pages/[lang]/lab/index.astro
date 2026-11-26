@@ -1,0 +1,91 @@
+---
+/** Scroll-engine lab: every pattern (P1-P9) + Deeper + missing scene/widget fallbacks. noindex, not linked from the site. */
+import TopicLayout from '../../../layouts/TopicLayout.astro';
+import { LANGS, type Lang } from '../../../data/topics';
+import Layer from '../../../components/scrolly/Layer.astro';
+import BigNumber from '../../../components/scrolly/BigNumber.astro';
+import Scene from '../../../components/scrolly/Scene.astro';
+import Step from '../../../components/scrolly/Step.astro';
+import Walkthrough from '../../../components/scrolly/Walkthrough.astro';
+import Portal from '../../../components/scrolly/Portal.astro';
+import Gallery from '../../../components/scrolly/Gallery.astro';
+import GalleryItem from '../../../components/scrolly/GalleryItem.astro';
+import Figure from '../../../components/scrolly/Figure.astro';
+import Widget from '../../../components/scrolly/Widget.astro';
+import Deeper from '../../../components/ui/Deeper.astro';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+const lang = Astro.params.lang as Lang;
+const layers = [
+  { id: 'hook', title: 'Big number (P4)', tier: 'T0' },
+  { id: 'steps', title: 'Sticky steps (P2)', tier: 'T1' },
+  { id: 'scrub', title: 'Pinned scrub (P1)', tier: 'T2' },
+  { id: 'walk', title: 'Walkthrough (P9)', tier: 'T3' },
+  { id: 'misc', title: 'Gallery, figure, widget, deeper', tier: 'T3' },
+  { id: 'portal', title: 'Portal (P3)', tier: 'T4' },
+  { id: 'end', title: 'End', tier: 'T4' },
+];
+---
+
+<TopicLayout lang={lang} title="Scroll engine lab" subtitle="Every scroll pattern on one page. Not part of the site." layers={layers} noindex>
+  <Layer id="hook" title="Big number (P4)" tier="T0">
+    <BigNumber value={1e12} unit="K" approx caption="Counts up when it enters the viewport (static text without JS)." />
+  </Layer>
+
+  <Layer id="steps" title="Sticky steps (P2)" tier="T1">
+    <p>A charged particle in a magnetic field. Each step changes B; the shared three.js renderer draws the trajectory.</p>
+    <Scene id="demo.helix" mode="steps">
+      <Step state="off">With no field the particle flies straight. The radius of curvature is infinite.</Step>
+      <Step state="weak">Switch on B = 1 T. The Lorentz force bends the path into a helix with radius r = pT/(0.3 B).</Step>
+      <Step state="strong">Triple the field and the helix tightens threefold. This is how trackers measure momentum from curvature.</Step>
+    </Scene>
+  </Layer>
+
+  <Layer id="scrub" title="Pinned scrub (P1)" tier="T2">
+    <p>The stage stays pinned; scroll position drives time inside each step.</p>
+    <Scene id="demo.decay" mode="scrub">
+      <Step state="start">400 unstable nuclei. Every one will decay, but nobody knows which, or when.</Step>
+      <Step state="one">After one half-life, about half are gone, however many there were at the start.</Step>
+      <Step state="two">After two half-lives a quarter remain. The curve is exponential.</Step>
+      <Step state="three">After three, about one in eight. Scroll back up to run time backwards.</Step>
+    </Scene>
+    <Deeper title="Why exponential?">
+      Constant decay probability per unit time gives dN/dt = −λN, so N(t) = N₀ e^(−λt) and T½ = ln 2 / λ.
+    </Deeper>
+  </Layer>
+
+  <Layer id="walk" title="Walkthrough (P9)" tier="T3">
+    <Walkthrough scene="demo.helix" experiment="Generic tracker" also="Any magnetic spectrometer">
+      <Step state="off" kind="goal">Measure the momentum of a charged particle.</Step>
+      <Step state="weak" kind="signal">The field curves the track; the curvature is sampled by position hits.</Step>
+      <Step state="strong" kind="readout">The radius gives the transverse momentum, pT = 0.3 B r.</Step>
+      <Step state="weak" kind="trick">Stronger field means more curvature for the same momentum, so a better resolution at low momentum.</Step>
+    </Walkthrough>
+  </Layer>
+
+  <Layer id="misc" title="Gallery, figure, widget, deeper" tier="T3">
+    <Gallery>
+      <GalleryItem title="Item one"><p>Gallery items scroll sideways (native scroll-snap; pinned on desktop).</p></GalleryItem>
+      <GalleryItem title="Item two"><p>Second item.</p></GalleryItem>
+      <GalleryItem title="Item three"><p>Third item.</p></GalleryItem>
+      <GalleryItem title="Item four"><p>Fourth item.</p></GalleryItem>
+      <GalleryItem title="Item five"><p>Fifth item.</p></GalleryItem>
+    </Gallery>
+    <Figure kind="simulated" scene="demo.decay" state="two" caption="Inline scene wrapped in a Figure, with the simulated-example badge." />
+    <Figure kind="schematic" caption="A schematic badge around a missing scene.">
+      <Scene id="demo.not-registered" />
+    </Figure>
+    <Widget name="DoesNotExist" value={3} />
+    <Deeper title="A closed-by-default box">Keyboard accessible, native details element. E = mc².</Deeper>
+  </Layer>
+
+  <Layer id="portal" title="Portal (P3)" tier="T4">
+    <Portal scene="demo.decay" to="end" label="Zooming into the nuclei grid" />
+  </Layer>
+
+  <Layer id="end" title="End" tier="T4">
+    <p>The portal hands over to this layer.</p>
+  </Layer>
+</TopicLayout>

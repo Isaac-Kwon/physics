@@ -1,0 +1,40 @@
+---
+/** <Walkthrough scene experiment also> + <Step state kind> — P9 Detection Walkthrough (PLAN §3.5). */
+import Scene from './Scene.astro';
+import { getLangFromUrl, useT } from '../../i18n';
+interface Props {
+  scene: string;
+  experiment: string;
+  also?: string;
+}
+const { scene, experiment, also } = Astro.props;
+const t = useT(getLangFromUrl(Astro.url));
+---
+
+<div class="walkthrough">
+  <header class="walkthrough__head">
+    <p class="label">{t('scrolly.walkthrough.experiment')}</p>
+    <h3>{experiment}</h3>
+    {also && <p class="walkthrough__also"><span class="label">{t('scrolly.walkthrough.also')}</span> {also}</p>}
+  </header>
+  <Scene id={scene} mode="steps"><slot /></Scene>
+</div>
+
+<style>
+  .walkthrough {
+    margin-block: var(--space-12);
+  }
+  .walkthrough__head {
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+  }
+  .walkthrough__head h3 {
+    font-size: var(--fs-xl);
+    margin: var(--space-1) 0 var(--space-2);
+  }
+  .walkthrough__also {
+    color: var(--fg-muted);
+    font-size: var(--fs-sm);
+  }
+</style>

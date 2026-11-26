@@ -7,6 +7,10 @@
  */
 import type { SceneLoader } from './shared/types';
 
-export const scenes: Record<string, SceneLoader> = {};
+export const scenes: Record<string, SceneLoader> = {
+  // Track A demo scenes (lab page)
+  'demo.decay': () => import('./demo/decay'),
+  'demo.helix': () => import('./demo/helix'),
+};
 
 export const SCENE_IDS = Object.keys(scenes);

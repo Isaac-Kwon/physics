@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from 'astro:content';
+import TopicLayout from '../../../layouts/TopicLayout.astro';
+import RelatedTopics from '../../../components/connections/RelatedTopics.astro';
+import References from '../../../components/connections/References.astro';
+import components from '../../../components/scrolly/mdx-components';
+import { TOPICS } from '../../../data/topics';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('topics'); // drafts included while pre-release
+  return entries.map((entry) => ({
+    params: { lang: entry.data.lang, topic: entry.data.topic },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const layers = d.layers.map((l) => ({
+  id: l.id,
+  title: l.title,
+  tier: TOPICS[d.topic].layers.find((x) => x.id === l.id)?.tier ?? 'T1',
+}));
+---
+
+<TopicLayout lang={d.lang} topic={d.topic} title={d.title} subtitle={d.subtitle} description={d.description} layers={layers}>
+  <Content components={components} />
+  <Fragment slot="after">
+    <RelatedTopics topic={d.topic} />
+    <References references={d.references} />
+  </Fragment>
+</TopicLayout>

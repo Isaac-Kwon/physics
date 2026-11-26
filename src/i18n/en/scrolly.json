@@ -1,0 +1,20 @@
+{
+  "scrolly.scene.missing": "Scene “{id}” is not built yet",
+  "scrolly.scene.missingHint": "The text next to it is complete; the animation will appear here.",
+  "scrolly.scene.error": "This animation could not be started on your device.",
+  "scrolly.scene.label": "Interactive figure: {id}",
+  "scrolly.widget.missing": "Interactive widget “{name}” is not built yet",
+  "scrolly.widget.loading": "Loading interactive…",
+  "scrolly.widget.error": "The interactive could not be loaded.",
+  "scrolly.kind.goal": "What we want to catch",
+  "scrolly.kind.signal": "How the signal forms",
+  "scrolly.kind.readout": "What we read out",
+  "scrolly.kind.trick": "The key trick",
+  "scrolly.walkthrough.experiment": "Representative experiment",
+  "scrolly.walkthrough.also": "Same principle",
+  "scrolly.portal.continue": "Continue to the next layer",
+  "scrolly.gallery.label": "Horizontal gallery — scroll sideways or use the arrow keys",
+  "scrolly.gauge.current": "current layer",
+  "scrolly.layer.tier": "Depth: {tier}",
+  "scrolly.hero.eyebrow": "Topic"
+}

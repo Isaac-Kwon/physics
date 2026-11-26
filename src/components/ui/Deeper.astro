@@ -1,0 +1,55 @@
+---
+/** <Deeper title> — collapsible undergraduate-level box, closed by default. */
+import { getLangFromUrl, useT } from '../../i18n';
+interface Props {
+  title?: string;
+}
+const t = useT(getLangFromUrl(Astro.url));
+const { title } = Astro.props;
+---
+
+<details class="deeper">
+  <summary>
+    <span class="label deeper__tag">{t('deeper.label')}</span>
+    <span class="deeper__title">{title ?? t('deeper.open')}</span>
+  </summary>
+  <div class="deeper__body"><slot /></div>
+</details>
+
+<style is:global>
+  .deeper {
+    max-width: var(--measure);
+    margin: var(--space-6) auto;
+    border: 1px solid var(--tier-3);
+    border-left-width: 3px;
+    border-radius: var(--radius);
+    background: var(--bg-raised);
+  }
+  .deeper summary {
+    cursor: pointer;
+    list-style: none;
+    padding: var(--space-3) var(--space-4);
+    display: flex;
+    gap: var(--space-3);
+    align-items: baseline;
+  }
+  .deeper summary::-webkit-details-marker {
+    display: none;
+  }
+  .deeper summary::after {
+    content: '+';
+    margin-left: auto;
+    color: var(--accent);
+    font-family: var(--font-mono);
+  }
+  .deeper[open] summary::after {
+    content: '−';
+  }
+  .deeper__tag {
+    color: var(--accent);
+  }
+  .deeper__body {
+    padding: 0 var(--space-4) var(--space-3);
+    overflow-x: auto;
+  }
+</style>

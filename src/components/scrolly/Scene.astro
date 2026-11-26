@@ -1,0 +1,242 @@
+---
+/**
+ * <Scene id mode> + <Step state> — P1 (scrub) / P2 (steps) / P3 (portal, used by Portal.astro).
+ * Without <Step> children it renders an inline figure (optionally at `state`).
+ * The sticky stage is pure CSS; src/lib/scroll.ts adds the scroll triggers. Unregistered ids render a labelled placeholder.
+ */
+import { scenes } from '../../scenes/registry';
+import { getLangFromUrl, useT } from '../../i18n';
+
+interface Props {
+  id: string;
+  mode?: 'steps' | 'scrub' | 'portal';
+  /** Initial state for inline (step-less) scenes. */
+  state?: string;
+  /** Accessible description of the figure (falls back to the scene id). */
+  label?: string;
+  /** Portal target layer id. */
+  to?: string;
+}
+const { id, mode = 'steps', state, label, to } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useT(lang);
+const missing = !(id in scenes);
+const hasSteps = Astro.slots.has('default');
+const kind = mode === 'portal' ? 'portal' : hasSteps ? mode : 'inline';
+---
+
+<div
+  class={`scene scene--${kind}`}
+  data-scene-root
+  data-scene-id={id}
+  data-mode={kind}
+  data-lang={lang}
+  data-initial-state={state}
+  data-missing={missing ? '' : undefined}
+  data-portal-to={to}
+>
+  <div class="scene__stage">
+    <div class="scene__zoom">
+      <div class="scene__canvas" data-scene-canvas role="img" aria-label={label ?? t('scrolly.scene.label', { id })}>
+        {
+          missing && (
+            <div class="scene__placeholder">
+              <span class="label">{id}</span>
+              <p>{t('scrolly.scene.missing', { id })}</p>
+              <p class="scene__hint">{t('scrolly.scene.missingHint')}</p>
+            </div>
+          )
+        }
+      </div>
+    </div>
+    {to && <a class="scene__continue label" href={`#${to}`}>{t('scrolly.portal.continue')} ↓</a>}
+  </div>
+  {hasSteps && <div class="scene__steps"><slot /></div>}
+</div>
+
+<style is:global>
+  .scene {
+    --stage-h: calc(100vh - var(--header-h) - 2rem);
+    position: relative;
+    margin-block: var(--space-12);
+  }
+  .scene__stage {
+    position: relative;
+    z-index: var(--z-canvas);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--bg-sunken);
+    overflow: hidden;
+  }
+  .scene__zoom {
+    position: absolute;
+    inset: 0;
+    transform-origin: 50% 50%;
+  }
+  .scene__canvas {
+    position: absolute;
+    inset: 0;
+  }
+  .scene__canvas canvas {
+    max-width: none;
+  }
+  .scene__placeholder {
+    position: absolute;
+    inset: var(--space-4);
+    display: grid;
+    place-content: center;
+    text-align: center;
+    gap: var(--space-2);
+    border: 1px dashed var(--grid-strong);
+    border-radius: var(--radius);
+    color: var(--fg-muted);
+    padding: var(--space-4);
+  }
+  .scene__placeholder p {
+    margin: 0;
+  }
+  .scene__hint {
+    font-size: var(--fs-sm);
+    color: var(--fg-faint);
+  }
+  .scene__error {
+    position: absolute;
+    inset: auto var(--space-4) var(--space-4);
+    margin: 0;
+    color: var(--fg-muted);
+    font-size: var(--fs-sm);
+  }
+  .scene__continue {
+    position: absolute;
+    bottom: var(--space-4);
+    left: 50%;
+    translate: -50% 0;
+    background: var(--bg-raised);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: var(--space-2) var(--space-4);
+    color: var(--fg);
+    text-decoration: none;
+    z-index: 2;
+  }
+
+  /* inline */
+  .scene--inline .scene__stage {
+    aspect-ratio: 16 / 9;
+    max-width: 60rem;
+    margin-inline: auto;
+  }
+
+  /* steps (P2): stage left sticky, text right */
+  .scene--steps {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 1fr);
+    gap: var(--space-8);
+    align-items: start;
+    padding-inline: var(--space-6);
+    max-width: 90rem;
+    margin-inline: auto;
+  }
+  .scene--steps .scene__stage {
+    position: sticky;
+    top: calc(var(--header-h) + 1rem);
+    height: var(--stage-h);
+  }
+  .scene--steps .step {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+  }
+
+  /* scrub (P1): stage pinned (sticky) while the step segments scroll over it */
+  .scene--scrub {
+    display: grid;
+    padding-inline: var(--space-4);
+  }
+  .scene--scrub > * {
+    grid-area: 1 / 1;
+  }
+  .scene--scrub .scene__stage {
+    position: sticky;
+    top: calc(var(--header-h) + 1rem);
+    height: var(--stage-h);
+    align-self: start;
+  }
+  .scene--scrub .scene__steps {
+    z-index: var(--z-content);
+    pointer-events: none;
+  }
+  .scene--scrub .step {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 12vh;
+  }
+  .scene--scrub .step__card {
+    pointer-events: auto;
+    max-width: 26rem;
+    margin-left: var(--space-4);
+    background: color-mix(in oklab, var(--bg) 82%, transparent);
+    backdrop-filter: blur(6px);
+  }
+
+  /* portal (P3) */
+  .scene--portal {
+    min-height: 260vh;
+    margin-block: 0;
+  }
+  .scene--portal .scene__stage {
+    position: sticky;
+    top: var(--header-h);
+    height: calc(100vh - var(--header-h));
+    border-radius: 0;
+    border-inline: 0;
+  }
+
+  .step {
+    position: relative;
+  }
+  .step__card {
+    border-left: 2px solid var(--accent);
+    padding: var(--space-4) var(--space-6);
+    background: var(--bg-raised);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    max-width: var(--measure);
+  }
+  .step__card > :last-child {
+    margin-bottom: 0;
+  }
+  .step__kind {
+    color: var(--accent);
+    margin-bottom: var(--space-2);
+  }
+  .scrolly-on .scene .step__card {
+    opacity: 0.4;
+    transition: opacity var(--dur) var(--ease-out);
+  }
+  .scrolly-on .scene .step.is-active .step__card {
+    opacity: 1;
+  }
+
+  @media (max-width: 899px) {
+    .scene--steps {
+      display: block;
+      padding-inline: var(--space-4);
+    }
+    .scene--steps .scene__stage {
+      z-index: var(--z-content);
+      height: 42vh;
+      top: var(--header-h);
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    }
+    .scene--steps .step {
+      min-height: 60vh;
+    }
+    .scene--steps .step__card {
+      background: color-mix(in oklab, var(--bg-raised) 94%, transparent);
+    }
+    .scene--scrub .step__card {
+      margin-left: 0;
+    }
+  }
+</style>

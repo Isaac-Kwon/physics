@@ -1,0 +1,12 @@
+---
+/** <Portal scene to> — P3: scroll zooms into a point of the scene, then hands over to layer `to`. */
+import Scene from './Scene.astro';
+interface Props {
+  scene: string;
+  to: string;
+  label?: string;
+}
+const { scene, to, label } = Astro.props;
+---
+
+<Scene id={scene} mode="portal" to={to} label={label} />

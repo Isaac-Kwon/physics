@@ -1,0 +1,63 @@
+---
+/** <BigNumber value unit approx caption> — P4. Final value is in the HTML; JS counts up on enter. */
+import { formatSci } from '../../lib/format';
+import { getLangFromUrl } from '../../i18n';
+
+interface Props {
+  value: number;
+  unit?: string;
+  approx?: boolean;
+  caption?: string;
+}
+const { value, unit, approx = false, caption } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const text = formatSci(lang, value);
+---
+
+<figure class="bignum" data-bignumber data-value={value} data-lang={lang} data-approx={approx ? '' : undefined}>
+  <div class="bignum__row" aria-label={`${approx ? '~' : ''}${text} ${unit ?? ''}`}>
+    {approx && <span class="bignum__approx" aria-hidden="true">~</span>}
+    <span class="bignum__value" aria-hidden="true" data-bignumber-text>{text}</span>
+    {unit && <span class="bignum__unit" aria-hidden="true">{unit}</span>}
+  </div>
+  {caption && <figcaption class="bignum__caption">{caption}</figcaption>}
+</figure>
+
+<style>
+  .bignum {
+    margin: 0;
+    min-height: 70vh;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    padding: var(--space-8) var(--space-4);
+  }
+  .bignum__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.15em;
+    font-size: var(--fs-number);
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--accent-2);
+    text-shadow: 0 0 0.35em var(--accent-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .bignum__approx {
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .bignum__unit {
+    font-size: 0.4em;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .bignum__caption {
+    margin: var(--space-6) auto 0;
+    max-width: 30rem;
+    color: var(--fg-muted);
+    font-size: var(--fs-lg);
+  }
+</style>

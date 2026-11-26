@@ -1,0 +1,160 @@
+---
+/**
+ * Depth Gauge: fixed vertical list of the page's layers (PLAN §2.4). Tier = accent intensity (--tier-0..4),
+ * current layer highlighted via IntersectionObserver, links are plain anchors (Lenis smooths them), arrow keys move focus.
+ * Compact (dots only) below 900px.
+ */
+import { getLangFromUrl, useT } from '../../i18n';
+interface Props {
+  layers: { id: string; title: string; tier: string }[];
+}
+const { layers } = Astro.props;
+const t = useT(getLangFromUrl(Astro.url));
+---
+
+<nav class="gauge" aria-label={t('gauge.label')} data-gauge>
+  <ol class="gauge__list">
+    {
+      layers.map((l) => (
+        <li>
+          <a class="gauge__link" href={`#${l.id}`} data-gauge-link={l.id} style={`--tier-color:var(--tier-${Number(l.tier.slice(1)) || 0})`} aria-label={t('gauge.jump', { layer: l.title })}>
+            <span class="gauge__dot" aria-hidden="true" />
+            <span class="gauge__text">
+              <span class="gauge__title">{l.title}</span>
+              <span class="gauge__tier label">{t(`tier.${l.tier}`)}</span>
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<script>
+  const gauge = document.querySelector<HTMLElement>('[data-gauge]');
+  if (gauge) {
+    const links = [...gauge.querySelectorAll<HTMLAnchorElement>('[data-gauge-link]')];
+    const byId = new Map(links.map((a) => [a.dataset.gaugeLink!, a]));
+    const setCurrent = (id: string) => {
+      links.forEach((a) => {
+        if (a.dataset.gaugeLink === id) a.setAttribute('aria-current', 'location');
+        else a.removeAttribute('aria-current');
+      });
+    };
+    const sections = [...document.querySelectorAll<HTMLElement>('section[data-layer]')].filter((s) => byId.has(s.id));
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) setCurrent(e.target.id);
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    sections.forEach((s) => io.observe(s));
+    if (sections[0]) setCurrent(sections[0].id);
+    gauge.addEventListener('keydown', (e) => {
+      const i = links.indexOf(document.activeElement as HTMLAnchorElement);
+      if (i < 0) return;
+      const next = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? i - 1 : null;
+      if (next === null) return;
+      e.preventDefault();
+      links[(next + links.length) % links.length].focus();
+    });
+  }
+</script>
+
+<style>
+  .gauge {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    translate: 0 -50%;
+    z-index: var(--z-gauge);
+    padding: var(--space-2);
+  }
+  .gauge__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+    position: relative;
+  }
+  .gauge__list::before {
+    content: '';
+    position: absolute;
+    right: 0.5rem;
+    top: 0.4rem;
+    bottom: 0.4rem;
+    width: 1px;
+    background: var(--line);
+  }
+  .gauge__link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: var(--fg-muted);
+    position: relative;
+  }
+  .gauge__dot {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: var(--tier-color);
+    border: 1px solid var(--accent);
+    flex: none;
+    transition: transform var(--dur) var(--ease-out);
+  }
+  .gauge__text {
+    display: none;
+    flex-direction: column;
+    text-align: right;
+    max-width: 11rem;
+    font-size: var(--fs-sm);
+    line-height: 1.2;
+    background: color-mix(in oklab, var(--bg) 88%, transparent);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+  }
+  .gauge__tier {
+    font-size: 0.65rem;
+    color: var(--fg-faint);
+  }
+  .gauge__link[aria-current] .gauge__dot {
+    transform: scale(1.5);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+    background: var(--accent);
+  }
+  .gauge__link[aria-current] {
+    color: var(--fg);
+  }
+  .gauge__link:hover .gauge__text,
+  .gauge__link:focus-visible .gauge__text,
+  .gauge__link[aria-current] .gauge__text {
+    display: flex;
+  }
+  @media (max-width: 899px) {
+    .gauge {
+      padding: 0 var(--space-1);
+    }
+    .gauge__list {
+      gap: var(--space-2);
+    }
+    .gauge__dot {
+      width: 0.55rem;
+      height: 0.55rem;
+    }
+    .gauge__link[aria-current] .gauge__text,
+    .gauge__text {
+      display: none;
+    }
+    .gauge__link:focus-visible .gauge__text {
+      display: flex;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .gauge__dot {
+      transition: none;
+    }
+  }
+</style>

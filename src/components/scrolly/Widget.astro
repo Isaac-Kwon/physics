@@ -1,0 +1,34 @@
+---
+/** <Widget name ...props> — P5. Svelte widget src/components/widgets/<name>.svelte is mounted lazily on the client (see src/lib/scroll.ts). */
+import { getLangFromUrl, useT } from '../../i18n';
+interface Props {
+  name: string;
+  [prop: string]: unknown;
+}
+const { name, ...props } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useT(lang);
+const exists = Object.keys(import.meta.glob('../widgets/*.svelte')).some((p) => p.endsWith(`/${name}.svelte`));
+---
+
+<div class="widget" data-widget={name} data-lang={lang} data-props={JSON.stringify(props)} data-missing={exists ? undefined : ''}>
+  <p class="widget__status label">{exists ? t('scrolly.widget.loading') : t('scrolly.widget.missing', { name })}</p>
+</div>
+
+<style is:global>
+  .widget {
+    max-width: 48rem;
+    margin: var(--space-8) auto;
+    padding: var(--space-4);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--bg-raised);
+  }
+  .widget[data-missing] {
+    border-style: dashed;
+    color: var(--fg-muted);
+  }
+  .widget__status {
+    margin: 0;
+  }
+</style>

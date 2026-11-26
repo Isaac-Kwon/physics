@@ -1,0 +1,81 @@
+---
+/** <Layer id> — one depth layer of a topic page (PLAN §2.4). Title comes from frontmatter, tier from src/data/topics.ts. */
+import { getEntry } from 'astro:content';
+import { TOPICS, TOPIC_IDS, type TopicId } from '../../data/topics';
+import { getLangFromUrl, stripLang, useT } from '../../i18n';
+
+interface Props {
+  id: string;
+  /** Overrides (used by the lab page, which is not a registered topic). */
+  title?: string;
+  tier?: string;
+}
+const { id, title: titleProp, tier: tierProp } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useT(lang);
+const slug = stripLang(Astro.url).split('/').filter(Boolean)[0] as TopicId | undefined;
+const topic = slug && (TOPIC_IDS as readonly string[]).includes(slug) ? slug : undefined;
+let title = titleProp;
+let tier = tierProp;
+if (topic) {
+  tier ??= TOPICS[topic].layers.find((l) => l.id === id)?.tier;
+  if (!title) {
+    const entry = await getEntry('topics', `${topic}/${lang}`);
+    title = entry?.data.layers.find((l) => l.id === id)?.title;
+  }
+}
+tier ??= 'T1';
+const tierNum = Number(tier.slice(1)) || 0;
+---
+
+<section id={id} class="layer" data-layer={id} data-tier={tier} style={`--layer-tier:var(--tier-${tierNum})`}>
+  {
+    title && (
+      <header class:list={['layer__head', tierNum === 0 && 'layer__head--quiet']}>
+        <span class="label layer__tier">{t(`tier.${tier}`)}</span>
+        <h2 class:list={[tierNum === 0 && 'visually-hidden']}>{title}</h2>
+      </header>
+    )
+  }
+  <div class="layer__body"><slot /></div>
+</section>
+
+<style is:global>
+  .layer {
+    position: relative;
+    padding-block: var(--space-16);
+    border-top: 1px solid var(--line);
+    scroll-margin-top: var(--header-h);
+  }
+  .layer__head,
+  .layer__body > :where(p, ul, ol, h3, h4, blockquote, details, table, pre, .katex-display, .bridge, .primer) {
+    max-width: var(--measure);
+    margin-inline: auto;
+  }
+  .layer__head {
+    margin-bottom: var(--space-8);
+  }
+  .layer__head--quiet {
+    margin: 0;
+  }
+  .layer__head h2 {
+    font-size: var(--fs-2xl);
+    margin: var(--space-2) 0 0;
+  }
+  .layer__tier {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .layer__tier::before {
+    content: '';
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: var(--layer-tier);
+    border: 1px solid var(--accent);
+  }
+  .layer__body > :where(ul, ol) {
+    padding-left: 1.4em;
+  }
+</style>

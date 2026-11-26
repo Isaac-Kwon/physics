@@ -1,0 +1,90 @@
+---
+/** Topic page shell: hero, Depth Gauge, content slot, then "after" slot (related topics, references). Also used by the lab page. */
+import 'katex/dist/katex.min.css';
+import BaseLayout from './BaseLayout.astro';
+import DepthGauge from '../components/ui/DepthGauge.astro';
+import Scene from '../components/scrolly/Scene.astro';
+import { scenes } from '../scenes/registry';
+import { TOPICS, type TopicId } from '../data/topics';
+import { useT, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  topic?: TopicId;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  layers: { id: string; title: string; tier: string }[];
+  noindex?: boolean;
+}
+const { lang, topic, title, subtitle, description, layers, noindex = false } = Astro.props;
+const t = useT(lang);
+const heroScene = topic ? TOPICS[topic].heroScene : undefined;
+const minutes = topic ? TOPICS[topic].readingMinutes : undefined;
+---
+
+<BaseLayout lang={lang} topic={topic} title={title} description={description}>
+  {noindex && <meta slot="head" name="robots" content="noindex" />}
+  <header class="hero">
+    <p class="label">{t('scrolly.hero.eyebrow')}{minutes ? ` · ${t('card.readingTime', { min: minutes })}` : ''}</p>
+    <h1>{title}</h1>
+    {subtitle && <p class="hero__sub">{subtitle}</p>}
+    {heroScene && heroScene in scenes && <Scene id={heroScene} />}
+  </header>
+  <DepthGauge layers={layers} />
+  <article class="topic__content">
+    <slot />
+  </article>
+  <div class="topic__after"><slot name="after" /></div>
+  <script>
+    import { initScrolly } from '../lib/scroll';
+    initScrolly();
+  </script>
+</BaseLayout>
+
+<style is:global>
+  .hero {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: var(--space-16) var(--space-6) var(--space-8);
+  }
+  .hero h1 {
+    font-size: var(--fs-display);
+    margin: var(--space-2) 0 var(--space-4);
+    background: linear-gradient(120deg, var(--accent-2), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero__sub {
+    font-size: var(--fs-xl);
+    color: var(--fg-muted);
+    max-width: 40rem;
+  }
+  /* Right margin space for floating Bridge cards (>=1100px) and the Depth Gauge. No overflow:hidden here. */
+  .topic__content {
+    padding-inline: var(--space-4);
+  }
+  @media (min-width: 1100px) {
+    .topic__content {
+      padding-right: 16rem;
+    }
+  }
+  .topic__after {
+    padding: var(--space-8) var(--space-4) var(--space-16);
+  }
+  /* Lenis */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: clip;
+  }
+  .scene--portal.is-static {
+    min-height: 0;
+  }
+</style>

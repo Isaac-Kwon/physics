@@ -1,0 +1,52 @@
+---
+/** <Gallery> + <GalleryItem title> — P6. Native horizontal scroll-snap; with JS (and no reduced motion) vertical scroll drives it on desktop. */
+import { getLangFromUrl, useT } from '../../i18n';
+const t = useT(getLangFromUrl(Astro.url));
+---
+
+<section class="gallery" data-gallery>
+  <div class="gallery__pin" data-gallery-pin>
+    <div class="gallery__track" data-gallery-track tabindex="0" role="group" aria-label={t('scrolly.gallery.label')}>
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .gallery {
+    margin-block: var(--space-12);
+  }
+  .gallery__track {
+    display: flex;
+    gap: var(--space-6);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: var(--space-4) var(--space-6);
+    scrollbar-width: thin;
+  }
+  .gallery__item {
+    flex: 0 0 min(80vw, 28rem);
+    scroll-snap-align: center;
+    margin: 0;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+  }
+  .gallery__item h3 {
+    font-size: var(--fs-lg);
+  }
+  .gallery.is-pinned .gallery__pin {
+    position: sticky;
+    top: var(--header-h);
+    height: calc(100vh - var(--header-h));
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .gallery.is-pinned .gallery__track {
+    overflow: visible;
+    scroll-snap-type: none;
+    will-change: transform;
+  }
+</style>

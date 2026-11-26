@@ -28,7 +28,7 @@ States: `coma`, `rotation`, `lensing`, `bullet`, `cmb`.
 ### `dm.rotation` — P2 inside `<Figure kind="schematic">`
 States: `disc-only`, `with-halo`.
 Axes: x radius r (kpc, 0–30 ticks 0, 10, 20, 30), y speed v (km/s, 0–300). Model functions (shared with the `RotationCurve` widget, put in `src/scenes/dark-matter/_rotation.ts`):
-- Disc: M_d(r) = M_d [1 − e^(−r/a)(1 + r/a)], a = 3 kpc; v_d² = G M_d(r)/r (spherical approximation, labelled). M_d ≈ 6×10¹⁰ M☉ gives ~200 km/s peak near 2.2 a.
+- Disc: M_d(r) = M_d [1 − e^(−r/a)(1 + r/a)], a = 3 kpc; v_d² = G M_d(r)/r (spherical approximation, labelled). M_d ≈ 6×10¹⁰ M☉ gives ~160 km/s peak for the disc alone (total ~200 km/s with the halo) near 2.2 a.
 - Halo (pseudo-isothermal): ρ = ρ₀ / (1 + (r/r_c)²), r_c = 5 kpc; M_h(r) = 4πρ₀ r_c² [r − r_c arctan(r/r_c)]; v_h² → 4πGρ₀ r_c² (flat) at large r. Parametrise the halo by v_flat (km/s).
 - Total: v² = v_d² + v_h².
 - `disc-only`: the disc curve rises, peaks near 2–3 a, then falls as r^(−1/2) (dashed r^(−1/2) guide labelled "Keplerian fall").

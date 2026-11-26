@@ -1,0 +1,13 @@
+/* Wave-3 extras on top of _widget.css: plain outlined buttons and line styles. */
+.w3-btn { font: inherit; font-size: var(--fs-sm); color: var(--fg); background: none; border: 1px solid var(--fg-faint); border-radius: 0; padding: var(--space-2) var(--space-3); cursor: pointer; text-align: left; justify-self: start; }
+.w3-btn:hover:not(:disabled) { border-color: var(--accent); }
+.w3-btn:disabled { cursor: default; opacity: 0.55; }
+.w3-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.w3-btn.on { border: 2px solid var(--accent); font-weight: 650; }
+.w3-row { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); align-items: center; }
+.w input[type='checkbox'] { accent-color: var(--accent); }
+.w input[type='checkbox']:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.w .w3-check { display: inline-flex; align-items: center; gap: var(--space-2); cursor: pointer; font-weight: 600; }
+.w-svg .dash { stroke-dasharray: 5 4; }
+.w-svg .dot { stroke-dasharray: 1.5 3; }
+.w-svg .thin { stroke-width: 1; }

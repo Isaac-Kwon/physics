@@ -1,0 +1,306 @@
+---
+topic: dark-matter
+lang: en
+title: Dark Matter
+subtitle: What holds the universe together, and how we try to catch it
+description: Most matter in the universe is invisible. See the evidence for dark matter, the candidates, and how a xenon detector waits for one nucleus to recoil.
+tagline: Most of the matter is unseen. We wait for it to nudge one nucleus.
+layers:
+  - { id: hook, title: Most of the matter is invisible }
+  - { id: evidence, title: Why do we think it is there? }
+  - { id: candidates, title: What could it be? }
+  - { id: search, title: Three ways to look }
+  - { id: direct-detection, title: Waiting for one nucleus to recoil }
+  - { id: frontier, title: The frontier }
+references:
+  - title: "Review of Particle Physics: Dark Matter"
+    author: "Particle Data Group"
+    url: "https://pdg.lbl.gov/"
+    note: "Reference review. The overview and the sections on evidence and direct detection are readable for undergraduates."
+  - title: "A History of Dark Matter"
+    author: "G. Bertone, D. Hooper — Rev. Mod. Phys. 90 (2018) 045002"
+    url: "https://arxiv.org/abs/1605.04909"
+    note: "Historical review, from Zwicky to WIMPs. Very readable."
+  - title: "Introduction to Cosmology"
+    author: "Barbara Ryden — Cambridge University Press (2nd edition, 2016)"
+    note: "Textbook. The chapters on dark matter and on the cosmic microwave background."
+  - title: "A direct empirical proof of the existence of dark matter"
+    author: "D. Clowe et al. — Astrophys. J. 648 (2006) L109"
+    url: "https://arxiv.org/abs/astro-ph/0608407"
+    note: "The Bullet Cluster paper. Short."
+  - title: "Rotation curves of spiral galaxies"
+    author: "V. Rubin, W. K. Ford, N. Thonnard — Astrophys. J. 238 (1980) 471"
+    note: "The classic measurement of flat rotation curves."
+  - title: "Planck 2018 results. VI. Cosmological parameters"
+    author: "Planck Collaboration — Astron. Astrophys. 641 (2020) A6"
+    url: "https://arxiv.org/abs/1807.06209"
+    note: "Source of the composition of the universe. The introduction is accessible."
+asOf: "2025"
+draft: true
+---
+
+<Layer id="hook">
+  <Scene id="dm.hook" mode="scrub">
+    <Step state="galaxy-visible">A spiral galaxy: billions of stars, glowing gas, dust.</Step>
+    <Step state="halo-reveal">Weigh it by its gravity, and a vast invisible halo appears, many times larger and heavier than everything we see.</Step>
+    <Step state="rotation-curve">The stars at its edge circle too fast for the visible matter alone.</Step>
+  </Scene>
+  <BigNumber value={85} unit="%" approx caption="of all matter in the universe is dark: it gives off no light we can see. In the whole energy budget, ordinary matter is only about 5 %, dark matter about 27 %, and dark energy the rest (as of Planck)." />
+</Layer>
+
+<Layer id="evidence">
+  <Scene id="dm.evidence">
+    <Step state="coma">
+      1933: Fritz Zwicky weighs the Coma galaxy cluster by how fast its galaxies move. They move far too fast for the light we see. The cluster should have flown apart. Something unseen is adding gravity.
+    </Step>
+    <Step state="rotation">
+      1970s: Vera Rubin and Kent Ford measure the <Term id="rotation-curve">rotation curve</Term>, the speed of stars against distance. Far out, stars should slow down like outer planets. They do not. The speed stays flat: mass continues where light does not.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schematic: orbital speed against distance from the galactic centre, from simple model functions. The visible disc alone gives a falling curve. Adding a dark halo keeps the curve flat. Not real data.">
+    <Scene id="dm.rotation">
+      <Step state="disc-only">
+        With only the visible disc, speed rises and then falls with distance, roughly as one over the square root of the radius.
+      </Step>
+      <Step state="with-halo">
+        Add a halo whose mass keeps growing with radius, and the curve stays flat. That is what is observed.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Widget name="RotationCurve" />
+
+  <Deeper title="Rotation curves and halo shapes">
+    For a circular orbit, gravity supplies the centripetal force:
+
+    $$\frac{v^2}{r} = \frac{G\,M(r)}{r^2} \quad\Rightarrow\quad v(r) = \sqrt{\frac{G\,M(r)}{r}}.$$
+
+    Outside the visible disc, $M(r)$ stops growing, so $v \propto r^{-1/2}$ (a Keplerian fall). A flat curve, $v$ = constant, needs $M(r) \propto r$. For an isothermal sphere, the density falls as $\rho \propto r^{-2}$, which gives exactly $M \propto r$.
+
+    Simulations of cold dark matter suggest a halo profile of the Navarro–Frenk–White (NFW) form,
+
+    $$\rho(r) = \frac{\rho_s}{(r/r_s)\,(1 + r/r_s)^2},$$
+
+    which falls as $r^{-1}$ near the centre and $r^{-3}$ far out, while the speed stays roughly flat over the observed range. The widget uses a simpler core-and-plateau halo. Real discs are not spheres, so the formula for $M(r)$ is an approximation.
+  </Deeper>
+
+  <Scene id="dm.evidence">
+    <Step state="lensing">
+      Mass bends light (<Term id="gravitational-lensing">gravitational lensing</Term>). A cluster in front of a distant galaxy acts as a lens, smearing it into arcs. The bending weighs the cluster, whatever it is made of: several times more than its stars and gas.
+    </Step>
+    <Step state="bullet">
+      Two clusters collided. Their hot gas, glowing in X-rays, slammed together and stayed near the middle. But lensing shows most of the mass passed straight through, along with the galaxies. The mass is not where the visible matter is.
+    </Step>
+    <Step state="cmb">
+      In the infant universe, ordinary matter was tied to light and could not clump. The ripples in the microwave background fit only if extra matter, blind to light, was already gathering. Without it, galaxies could not have grown in time.
+    </Step>
+  </Scene>
+
+  <Deeper title="What the measurements add up to">
+    Weak gravitational lensing deflects light by an angle $\alpha \approx 4GM/(c^2 b)$ for a light ray passing a mass $M$ at distance $b$. Mapping many distorted background galaxies gives a map of the mass.
+
+    The microwave background pattern is a sound wave in the photon–baryon fluid. Extra matter that does not couple to light changes the relative heights of the acoustic peaks. Fits give densities relative to the critical density $\Omega_b \approx 0.05$, $\Omega_c \approx 0.27$, $\Omega_\Lambda \approx 0.68$. The ratio of dark to total matter is then $0.27 / (0.27 + 0.05) \approx 85\,\%$.
+
+    Independent methods (clusters, lensing, the microwave background, galaxy rotation) give consistent answers. That agreement is the strongest argument.
+  </Deeper>
+
+  <Bridge id="hi-universe-to-dm-evidence" />
+</Layer>
+
+<Layer id="candidates">
+  <Primer id="standard-model" />
+
+  <Scene id="dm.candidates">
+    <Step state="axis">
+      Whatever <Term id="dark-matter">dark matter</Term> is, it is not made of any Standard Model particle we know. So what is it? The candidates span a staggering range of masses, from far lighter than an electron to many times heavier than the Sun: about 90 powers of ten.
+    </Step>
+    <Step state="axion">
+      <Term id="axion">Axions</Term> are extremely light, of order a millionth to a thousandth of an electronvolt. They were proposed to solve an unrelated puzzle in the strong force, and would fill space as a wave rather than as separate particles. Lighter still: "fuzzy" dark matter.
+    </Step>
+    <Step state="wimp">
+      <Term id="wimp">WIMPs</Term>: weakly interacting massive particles, with masses of roughly 1 GeV to 10 TeV. A particle that feels only gravity and the weak force, and was made in the hot early universe, would be left over today in about the right amount. This "WIMP miracle" made them the favourite for decades.
+    </Step>
+    <Step state="sterile">
+      Sterile neutrinos: heavier cousins of the neutrinos that do not even feel the weak force, with masses around a kiloelectronvolt. They would decay extremely slowly into an X-ray photon and a neutrino, which telescopes could see.
+    </Step>
+    <Step state="pbh">
+      Primordial black holes: black holes made in the first second of the universe, not from dying stars. They are not new particles at all. Observations rule out most masses, but some windows are still open.
+    </Step>
+  </Scene>
+
+  <Primer id="weak-interaction" />
+
+  <Deeper title="What does cold mean, and why a particle?">
+    "Cold" means moving slowly compared with light when structure began to form. Fast, "hot" particles such as ordinary neutrinos would smear out small clumps, but we see small dwarf galaxies. So most dark matter is cold or nearly so.
+
+    The WIMP miracle is a short calculation. A particle in thermal equilibrium that stops annihilating (freezes out) as the universe expands ends up with a relic density
+    $$\Omega_\chi h^2 \approx \frac{3\times 10^{-27}\ \text{cm}^3\,\text{s}^{-1}}{\langle\sigma v\rangle}.$$
+    The measured value, about 0.12, needs $\langle\sigma v\rangle \approx 3 \times 10^{-26}\ \text{cm}^3\,\text{s}^{-1}$, which is what a weak-scale cross-section gives. It is a hint, not a proof.
+
+    Modified gravity (MOND, Milgrom 1983) changes the force law at very low accelerations instead of adding mass. It describes galaxy rotation curves surprisingly well. But it struggles with galaxy clusters, the Bullet Cluster and the microwave background, where it still seems to need unseen mass. That is why most physicists prefer particle dark matter. The question is still tested, not closed.
+  </Deeper>
+
+  **We know dark matter is there through gravity. No other force has yet shown us anything.**
+</Layer>
+
+<Layer id="search">
+  <Scene id="dm.channels">
+    <Step state="direct">
+      Draw one interaction: a dark-matter particle χ meets an ordinary particle. Read it top to bottom. A dark-matter particle hits an atomic nucleus and bounces off. We build a detector to see that one recoil: direct detection.
+    </Step>
+    <Step state="indirect">
+      Read the same diagram left to right. Two dark-matter particles meet and annihilate into ordinary particles. Where dark matter is dense, such as the centre of our galaxy, telescopes can look for the gamma rays, antimatter or neutrinos: indirect detection.
+    </Step>
+    <Step state="collider">
+      Read it backwards. Smash ordinary particles together hard enough, and dark matter could be made. It would fly out of the detector unseen, leaving missing energy: collider searches at the LHC.
+    </Step>
+  </Scene>
+
+  Each way has its own strength. Direct detection is the most sensitive for heavy particles. Indirect detection probes the cosmos. Colliders reach light ones and do not depend on the dark matter being around us. A real discovery would need more than one.
+</Layer>
+
+<Layer id="direct-detection">
+  <Primer id="scintillation" />
+  <Primer id="tpc" />
+
+  Earth is not at rest. The Sun carries us around the galaxy at about 230 km/s, through a halo of dark matter with a local density of about 0.3 GeV per cubic centimetre. For a 100 GeV particle, that is only about three particles per thousand cubic centimetres. Yet about 70,000 of them cross every square centimetre each second. Nearly all pass straight through. We hope for one that does not.
+
+  <Walkthrough scene="dm.xenon-tpc" experiment="XENONnT" also="LZ and PandaX-4T (all dual-phase liquid-xenon time projection chambers).">
+    <Step state="cutaway" kind="goal">
+      Goal: catch the moment a dark-matter particle gives one xenon nucleus a tiny kick. The detector is a tall cylinder holding several tonnes of liquid xenon, deep underground, with a thin layer of xenon gas on top and arrays of light sensors above and below.
+    </Step>
+    <Step state="recoil" kind="signal">
+      A dark-matter particle hits a xenon nucleus, which recoils with a few to tens of keV of energy. That is a <Term id="nuclear-recoil">nuclear recoil</Term>: a nucleus moving through the liquid, tens of nanometres before it stops.
+    </Step>
+    <Step state="s1" kind="signal">
+      The recoiling nucleus excites and ionizes xenon atoms along its tiny path. The excited atoms emit ultraviolet scintillation light within nanoseconds. The sensors see a brief flash of a few dozen photons. This is the first signal, called S1.
+    </Step>
+    <Step state="drift" kind="signal">
+      Meanwhile some of the freed electrons escape recombination. An electric field of a few hundred volts per centimetre drags them up through the liquid at a few millimetres per microsecond. They take up to about a millisecond to arrive at the top.
+    </Step>
+    <Step state="s2" kind="signal">
+      At the surface they are pulled into the gas, where a much stronger field accelerates them so that they excite the gas atoms. This makes a bright, longer flash, S2, hundreds of times stronger per electron. One electron is enough to see it.
+    </Step>
+    <Step state="reconstruct" kind="readout">
+      The top sensors see where S2 lights up: the horizontal position. The delay between S1 and S2 gives the depth. Together they give a 3D position to within a centimetre or so. Events near the walls are thrown away; the xenon shields its own centre. The size of S1 and S2 gives the energy.
+    </Step>
+    <Step state="s2-s1-ratio" kind="trick">
+      The trick is the ratio S2/S1. A nuclear recoil (the signal) packs its energy into a tiny track, where many electrons recombine and give more light and less charge. An electron recoil (from radioactivity, the main background) gives relatively more charge. The two fall in different bands. Try to sort events yourself.
+    </Step>
+  </Walkthrough>
+
+  <Widget name="ErNrClassifier" />
+
+  <Deeper title="Recoil kinematics for a heavy particle">
+    A dark-matter particle of mass $m_\chi$ and speed $v$ scatters elastically off a nucleus of mass $m_N$. In the centre-of-mass frame it transfers momentum $q = 2\mu v \sin(\theta/2)$, with the reduced mass $\mu = m_\chi m_N/(m_\chi + m_N)$. The nucleus recoils with
+
+    $$E_R = \frac{q^2}{2 m_N} = \frac{\mu^2 v^2}{m_N}\,(1 - \cos\theta).$$
+
+    Take $m_\chi = 100$ GeV, xenon with $m_N \approx 122$ GeV, and $v = 220$ km/s $\approx 7 \times 10^{-4}\,c$. Then $\mu \approx 55$ GeV and the largest recoil (head-on, $\theta = \pi$) is $2\mu^2 v^2/m_N \approx 25$ keV. A typical scatter gives roughly half that, so about 10 keV: far below the energy of any radioactive decay.
+
+    The recoil spectrum is falling and nearly exponential, so a low detector threshold matters. The event rate also grows with the target nucleus roughly as $A^2$ for a spin-independent interaction (the nucleons act coherently), one reason why xenon ($A \approx 131$) is a good target.
+  </Deeper>
+
+  <Bridge id="dm-tpc-to-det-measurement" />
+
+  Xenon is not the only way. Each technique below trades something for something else.
+
+  <Scene id="dm.technique-cards">
+    <Step state="bolometer">
+      Cryogenic bolometers (CRESST, SuperCDMS): a crystal cooled to a few thousandths of a degree above absolute zero. A recoil heats it by a millionth of a degree or so, which a sensitive thermometer detects. Light or charge read out in parallel separates nuclear from electron recoils. Because the energy is so well measured, thresholds can be very low, ideal for light dark matter.
+    </Step>
+    <Step state="ccd">
+      Skipper CCDs (SENSEI, DAMIC-M): silicon sensors that can measure each pixel's charge many times and so count single electrons. A very light dark-matter particle can free an electron or two, far too little for xenon to notice. They search for dark matter much lighter than a proton.
+    </Step>
+    <Step state="bubble">
+      Bubble chambers (PICO): a liquid held just below its boiling point. A nuclear recoil deposits enough energy in a tiny spot to start a bubble, which is photographed. Electron recoils from radioactivity are too sparse to make bubbles, so the chamber is blind to most background. It is a good way to search for spin-dependent interactions.
+    </Step>
+    <Step state="nai-modulation">
+      Annual modulation: Earth orbits the Sun, and in June the orbital motion adds to the Sun's motion through the halo, while in December it subtracts. A dark-matter signal should rise and fall once a year. DAMA/LIBRA, a set of sodium iodide crystals, reports exactly such a modulation. Others using the same material (COSINE-100, ANAIS-112) have not confirmed it, and the tension has grown. It is unresolved (as of 2025).
+    </Step>
+    <Step state="argon-psd">
+      Liquid argon (DarkSide-20k): argon scintillation light fades with two time constants. Nuclear recoils make mostly the fast part; electron recoils make more of the slow part. The pulse shape alone rejects most of the background.
+    </Step>
+  </Scene>
+
+  <Bridge id="dm-ccd-to-sc-zoo" />
+
+  <Primer id="silicon-sensor" />
+</Layer>
+
+<Layer id="frontier">
+  <Scene id="dm.backgrounds">
+    <Step state="muons">
+      Cosmic rays strike the atmosphere and make muons that rain down at about one per square centimetre per minute and go through anything. A rare-event detector must go <Term id="underground-laboratory">underground</Term>: with one to two kilometres of rock above, the muon flux drops by a factor of a million or more. Whatever muons remain are tagged by a surrounding water tank that lights up (Cherenkov light).
+    </Step>
+    <Step state="radioactivity">
+      Then comes the detector's own radioactivity: trace uranium, thorium and potassium in steel and glass, radon gas in the air, and radioactive krypton in the xenon itself. Everything near the detector is selected for radiopurity, some of it made of copper electroformed underground. Shielding comes from water, and from the liquid xenon itself: the fiducial volume.
+    </Step>
+  </Scene>
+
+  <Gallery>
+    <GalleryItem title="Italy: LNGS, Gran Sasso">
+      Beneath a mountain in the Apennines, about 1.4 km of rock. Hosts XENONnT, DarkSide and many other low-background experiments.
+    </GalleryItem>
+    <GalleryItem title="Korea: Yemilab, Jeongseon">
+      Built in a mine in Gangwon Province and opened in 2022, about 1 km of rock. Hosts a dark-matter programme based on sodium iodide crystals, and is a base for neutrino and neutrinoless double-beta decay searches.
+    </GalleryItem>
+    <GalleryItem title="USA: SURF, Sanford Underground Research Facility">
+      A former gold mine in South Dakota, about 1.5 km deep. Hosts LZ.
+    </GalleryItem>
+    <GalleryItem title="Canada: SNOLAB">
+      In an active nickel mine near Sudbury, about 2 km deep. Hosts PICO and SuperCDMS.
+    </GalleryItem>
+    <GalleryItem title="China: CJPL, Jinping">
+      Under a mountain, with about 2.4 km of rock. Hosts PandaX.
+    </GalleryItem>
+  </Gallery>
+
+  <Scene id="dm.exclusion">
+    <Step state="axes">
+      Experiments report not discoveries but limits. The plot has the particle mass on one axis and the strength of its interaction with nuclei (a cross-section) on the other. A curve shows the weakest interaction an experiment could have seen. Everything above it is ruled out, under the assumptions of the analysis.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schematic: exclusion limits on the interaction strength against dark-matter mass. Each generation of experiment draws a lower curve and excludes more. The shaded band at the bottom is the neutrino fog. Not real data.">
+    <Scene id="dm.exclusion">
+      <Step state="early">
+        Early experiments rule out only strong interactions. The best sensitivity is near a mass of tens of GeV, where the dark-matter recoil is best matched to the target nucleus. For lighter or heavier masses, the curve rises.
+      </Step>
+      <Step state="improving">
+        Over decades, bigger and cleaner detectors push the curve down by many orders of magnitude, and the signal is not seen. The simplest WIMP models, and many others, are now ruled out. This is real progress even without a discovery.
+      </Step>
+      <Step state="neutrino-fog">
+        Near the bottom, the curve meets a floor. Neutrinos from the Sun and the atmosphere bounce off nuclei in a similar way: coherent elastic neutrino–nucleus scattering. Below this "neutrino fog", a recoil could be a neutrino. Getting through needs a directional detector or a very different idea. Xenon experiments reported first hints of solar neutrinos in 2024.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Bridge id="dm-fog-to-nu-cevns" />
+
+  <Scene id="dm.axion-cavity">
+    <Step state="magnet">
+      Axions need a different trap. A strong magnet surrounds a metal cavity, a hollow cylinder cooled to nearly absolute zero. Axions are so light that the dark matter would behave like a wave oscillating at one frequency, set by the axion mass.
+    </Step>
+    <Step state="conversion">
+      In a strong magnetic field an axion can convert into a microwave photon, with the same frequency. The conversion is incredibly weak: a signal of about 10⁻²³ watts. If the cavity resonates at that frequency, the signal is built up in the cavity and amplified by an extremely quiet amplifier.
+    </Step>
+    <Step state="tuning">
+      We do not know the axion mass, so we do not know the frequency. Move a rod inside the cavity and its resonance changes. Like turning a radio dial, we scan slowly and listen for a faint hum at each setting. ADMX in the US does this. In Korea, the IBS Center for Axion and Precision Physics Research (CAPP) built cavity experiments, some with stronger magnets, to scan higher frequencies. No axion has yet been heard (as of 2025).
+    </Step>
+  </Scene>
+
+  <Scene id="dm.indirect">
+    <Step state="annihilation">
+      Indirect detection looks where dark matter is dense. If two particles can annihilate, the centre of our galaxy, dwarf galaxies and clusters would glow in gamma rays, and make extra positrons and antiprotons. Satellites such as Fermi-LAT and the AMS-02 detector on the space station search for such an excess.
+    </Step>
+    <Step state="sky">
+      Interesting excesses have appeared, such as a glow of gamma rays at the galactic centre and an excess of cosmic positrons. But ordinary astrophysics, for example pulsars, can also explain them. So far none is conclusive.
+    </Step>
+  </Scene>
+
+  No dark-matter particle has been seen after four decades of direct searches (as of 2025). That is information: the simplest WIMPs are nearly ruled out, and the field is widening to lighter particles, axions and other ideas. The next generation of liquid-xenon detectors (XLZD, with a design of about 60 to 100 tonnes, merging the XENON, LZ and DARWIN groups) aims to reach the neutrino fog. Dark matter may be a single particle, many, or something we have not imagined. Gravity says it is there. We are still waiting for it to knock.
+
+  This page uses simplified pictures and no real data. For detail, start with the Particle Data Group review and Bertone and Hooper's history in the references below.
+</Layer>

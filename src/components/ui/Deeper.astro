@@ -10,8 +10,7 @@ const { title } = Astro.props;
 
 <details class="deeper">
   <summary>
-    <span class="label deeper__tag">{t('deeper.label')}</span>
-    <span class="deeper__title">{title ?? t('deeper.open')}</span>
+    <span class="deeper__title">{title ? `${t('deeper.label')}: ${title}` : t('deeper.open')}</span>
   </summary>
   <div class="deeper__body"><slot /></div>
 </details>
@@ -20,36 +19,34 @@ const { title } = Astro.props;
   .deeper {
     max-width: var(--measure);
     margin: var(--space-6) auto;
-    border: 1px solid var(--tier-3);
-    border-left-width: 3px;
-    border-radius: var(--radius);
-    background: var(--bg-raised);
+    border-block: 1px solid var(--line);
+    font-size: var(--fs-sm);
+    line-height: 1.6;
   }
   .deeper summary {
     cursor: pointer;
     list-style: none;
-    padding: var(--space-3) var(--space-4);
-    display: flex;
-    gap: var(--space-3);
-    align-items: baseline;
+    padding: var(--space-3) 0;
+    font-weight: 600;
   }
   .deeper summary::-webkit-details-marker {
     display: none;
   }
-  .deeper summary::after {
-    content: '+';
-    margin-left: auto;
-    color: var(--accent);
-    font-family: var(--font-mono);
+  .deeper summary::before {
+    content: '▸';
+    display: inline-block;
+    width: 1.1em;
+    color: var(--fg-muted);
+    font-weight: 400;
   }
-  .deeper[open] summary::after {
-    content: '−';
-  }
-  .deeper__tag {
-    color: var(--accent);
+  .deeper[open] summary::before {
+    content: '▾';
   }
   .deeper__body {
-    padding: 0 var(--space-4) var(--space-3);
+    padding: 0 0 var(--space-3);
     overflow-x: auto;
+  }
+  .deeper__body > :last-child {
+    margin-bottom: 0;
   }
 </style>

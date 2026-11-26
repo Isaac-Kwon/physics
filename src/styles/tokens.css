@@ -53,7 +53,8 @@
 
   --lh-tight: 1.1;
   --lh-body: 1.65;
-  --measure: 38rem;
+  --measure: 38rem; /* text column */
+  --col-wide: 64rem; /* figures, scenes, widgets */
 
   /* Space */
   --space-1: 0.25rem;

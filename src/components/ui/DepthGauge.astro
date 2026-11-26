@@ -1,8 +1,8 @@
 ---
 /**
- * Depth Gauge: fixed vertical list of the page's layers (PLAN §2.4). Tier = accent intensity (--tier-0..4),
+ * Depth Gauge: fixed vertical list of the page's layers (PLAN §2.4). Tier = tick length,
  * current layer highlighted via IntersectionObserver, links are plain anchors (Lenis smooths them), arrow keys move focus.
- * Compact (dots only) below 900px.
+ * Numbers hidden below 900px; titles on hover/focus.
  */
 import { getLangFromUrl, useT } from '../../i18n';
 interface Props {
@@ -15,14 +15,15 @@ const t = useT(getLangFromUrl(Astro.url));
 <nav class="gauge" aria-label={t('gauge.label')} data-gauge>
   <ol class="gauge__list">
     {
-      layers.map((l) => (
+      layers.map((l, i) => (
         <li>
-          <a class="gauge__link" href={`#${l.id}`} data-gauge-link={l.id} style={`--tier-color:var(--tier-${Number(l.tier.slice(1)) || 0})`} aria-label={t('gauge.jump', { layer: l.title })}>
-            <span class="gauge__dot" aria-hidden="true" />
+          <a class="gauge__link" href={`#${l.id}`} data-gauge-link={l.id} style={`--tier:${Number(l.tier.slice(1)) || 0}`} aria-label={t('gauge.jump', { layer: l.title })}>
             <span class="gauge__text">
               <span class="gauge__title">{l.title}</span>
-              <span class="gauge__tier label">{t(`tier.${l.tier}`)}</span>
+              <span class="gauge__tier">{t(`tier.${l.tier}`)}</span>
             </span>
+            <span class="gauge__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="gauge__tick" aria-hidden="true" />
           </a>
         </li>
       ))
@@ -68,22 +69,20 @@ const t = useT(getLangFromUrl(Astro.url));
     top: 50%;
     translate: 0 -50%;
     z-index: var(--z-gauge);
-    padding: var(--space-2);
+    padding: var(--space-2) var(--space-2) var(--space-2) 0;
   }
   .gauge__list {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid;
-    gap: var(--space-3);
     position: relative;
   }
   .gauge__list::before {
     content: '';
     position: absolute;
-    right: 0.5rem;
-    top: 0.4rem;
-    bottom: 0.4rem;
+    right: 0;
+    top: 0;
+    bottom: 0;
     width: 1px;
     background: var(--line);
   }
@@ -91,70 +90,71 @@ const t = useT(getLangFromUrl(Astro.url));
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: var(--space-3);
+    gap: var(--space-2);
+    height: 1.6rem;
     text-decoration: none;
-    color: var(--fg-muted);
+    color: var(--fg-faint);
     position: relative;
   }
-  .gauge__dot {
-    width: 0.8rem;
-    height: 0.8rem;
-    border-radius: 50%;
-    background: var(--tier-color);
-    border: 1px solid var(--accent);
+  .gauge__num {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    font-variant-numeric: tabular-nums;
+  }
+  /* Tick length encodes the tier (T0 short .. T4 long). */
+  .gauge__tick {
+    width: calc(0.4rem + var(--tier) * 0.15rem);
+    height: 1px;
+    background: var(--fg-faint);
     flex: none;
-    transition: transform var(--dur) var(--ease-out);
   }
   .gauge__text {
     display: none;
-    flex-direction: column;
+    position: absolute;
+    right: calc(100% + var(--space-2));
+    top: 50%;
+    translate: 0 -50%;
+    width: max-content;
+    max-width: 14rem;
     text-align: right;
-    max-width: 11rem;
     font-size: var(--fs-sm);
-    line-height: 1.2;
-    background: color-mix(in oklab, var(--bg) 88%, transparent);
-    padding: 0.2rem 0.5rem;
+    line-height: 1.25;
+    color: var(--fg);
+    background: var(--bg);
+    border: 1px solid var(--line);
     border-radius: var(--radius-sm);
+    padding: var(--space-1) var(--space-2);
+    box-shadow: 0 2px 8px var(--shadow);
   }
   .gauge__tier {
-    font-size: 0.65rem;
-    color: var(--fg-faint);
+    display: block;
+    font-size: var(--fs-xs);
+    color: var(--fg-muted);
   }
-  .gauge__link[aria-current] .gauge__dot {
-    transform: scale(1.5);
-    box-shadow: 0 0 0 3px var(--accent-soft);
-    background: var(--accent);
-  }
-  .gauge__link[aria-current] {
+  .gauge__link:hover,
+  .gauge__link:focus-visible {
     color: var(--fg);
   }
   .gauge__link:hover .gauge__text,
-  .gauge__link:focus-visible .gauge__text,
-  .gauge__link[aria-current] .gauge__text {
-    display: flex;
+  .gauge__link:focus-visible .gauge__text {
+    display: block;
+  }
+  .gauge__link[aria-current] {
+    color: var(--accent);
+  }
+  .gauge__link[aria-current] .gauge__tick {
+    background: var(--accent);
+    height: 2px;
   }
   @media (max-width: 899px) {
     .gauge {
-      padding: 0 var(--space-1);
+      padding-right: 0;
     }
-    .gauge__list {
-      gap: var(--space-2);
-    }
-    .gauge__dot {
-      width: 0.55rem;
-      height: 0.55rem;
-    }
-    .gauge__link[aria-current] .gauge__text,
-    .gauge__text {
+    .gauge__num {
       display: none;
     }
-    .gauge__link:focus-visible .gauge__text {
-      display: flex;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .gauge__dot {
-      transition: none;
+    .gauge__link {
+      height: 1.3rem;
     }
   }
 </style>

@@ -48,8 +48,7 @@ const originTitle = origin ? t(`topic.${origin.topic}.title`) : '';
   ) : (
     <details class="primer" data-primer={id} open={open} lang={shownLang !== lang ? shownLang : undefined}>
       <summary>
-        <span class="primer__label">{t('primer.label')}</span>
-        <span class="primer__title">{entry.data.title}</span>
+        <span class="primer__title">{t('primer.label')}: {entry.data.title}</span>
       </summary>
       <div class="primer__body">
         {Body && <Body components={map} />}
@@ -69,66 +68,52 @@ const originTitle = origin ? t(`topic.${origin.topic}.title`) : '';
 
 <style>
   .primer {
-    margin: var(--space-6) 0;
-    border: 1px solid var(--line);
-    border-left: 3px solid var(--accent);
-    border-radius: var(--radius);
-    background: var(--bg-raised);
+    max-width: var(--measure);
+    margin: var(--space-6) auto;
+    border-block: 1px solid var(--line);
     font-size: var(--fs-sm);
+    line-height: 1.6;
   }
   .primer summary {
-    display: flex;
-    gap: var(--space-3);
-    align-items: baseline;
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-3) 0;
     cursor: pointer;
     list-style: none;
+    font-weight: 600;
   }
   .primer summary::-webkit-details-marker {
     display: none;
   }
   .primer summary::before {
     content: '▸';
-    color: var(--accent);
-    transition: transform var(--dur-fast);
+    display: inline-block;
+    width: 1.1em;
+    color: var(--fg-muted);
+    font-weight: 400;
   }
   .primer[open] summary::before {
-    transform: rotate(90deg);
+    content: '▾';
   }
   .primer summary:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
-  .primer__label {
-    font-family: var(--font-mono);
-    font-size: var(--fs-xs);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-label);
-    color: var(--accent);
-  }
-  .primer__title {
-    color: var(--fg);
-    font-weight: 600;
-  }
   .primer__body {
-    padding: 0 var(--space-4) var(--space-4);
+    padding: 0 0 var(--space-3);
     color: var(--fg-muted);
+  }
+  .primer__body > :last-child {
+    margin-bottom: 0;
   }
   .primer__from {
     margin: var(--space-3) 0 0;
     font-size: var(--fs-xs);
     color: var(--fg-faint);
   }
-  .primer__from a {
-    color: var(--accent);
-  }
   .primer--missing {
     margin: var(--space-4) 0;
-    padding: var(--space-2) var(--space-3);
-    border: 1px dashed var(--grid-strong);
-    border-radius: var(--radius-sm);
-    font-family: var(--font-mono);
-    font-size: var(--fs-xs);
+    padding: var(--space-2) 0;
+    font-size: var(--fs-sm);
+    font-style: italic;
     color: var(--fg-faint);
   }
 </style>

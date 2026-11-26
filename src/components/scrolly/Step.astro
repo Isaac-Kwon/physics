@@ -12,7 +12,7 @@ const t = useT(getLangFromUrl(Astro.url));
 
 <div class="step" data-step data-state={state} data-kind={kind}>
   <div class="step__card">
-    {kind && <p class="label step__kind">{t(`scrolly.kind.${kind}`)}</p>}
+    {kind && <p class="step__kind">{t(`scrolly.kind.${kind}`)}</p>}
     <slot />
   </div>
 </div>

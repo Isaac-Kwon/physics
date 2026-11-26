@@ -12,23 +12,22 @@ const exists = Object.keys(import.meta.glob('../widgets/*.svelte')).some((p) => 
 ---
 
 <div class="widget" data-widget={name} data-lang={lang} data-props={JSON.stringify(props)} data-missing={exists ? undefined : ''}>
-  <p class="widget__status label">{exists ? t('scrolly.widget.loading') : t('scrolly.widget.missing', { name })}</p>
+  <p class="widget__status">{exists ? t('scrolly.widget.loading') : t('scrolly.widget.missing', { name })}</p>
 </div>
 
 <style is:global>
   .widget {
-    max-width: 48rem;
+    max-width: var(--col-wide);
     margin: var(--space-8) auto;
-    padding: var(--space-4);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    background: var(--bg-raised);
+    padding: var(--space-4) 0;
+    border-block: 1px solid var(--line);
   }
   .widget[data-missing] {
-    border-style: dashed;
-    color: var(--fg-muted);
+    color: var(--fg-faint);
   }
   .widget__status {
     margin: 0;
+    font-size: var(--fs-sm);
+    color: var(--fg-muted);
   }
 </style>

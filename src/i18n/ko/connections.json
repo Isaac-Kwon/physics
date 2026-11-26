@@ -4,5 +4,6 @@
   "connections.primer.fallback": "영어로 표시됨",
   "connections.bridge.soon": "준비 중",
   "connections.related.go": "읽기",
-  "connections.term.alsoKnownAs": "다른 언어"
+  "connections.term.alsoKnownAs": "다른 언어",
+  "connections.bridge.more": "{topic}에서 더 보기"
 }

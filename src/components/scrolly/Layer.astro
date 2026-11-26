@@ -32,8 +32,8 @@ const tierNum = Number(tier.slice(1)) || 0;
   {
     title && (
       <header class:list={['layer__head', tierNum === 0 && 'layer__head--quiet']}>
-        <span class="label layer__tier">{t(`tier.${tier}`)}</span>
         <h2 class:list={[tierNum === 0 && 'visually-hidden']}>{title}</h2>
+        {tierNum > 0 && <p class="layer__tier">{t(`tier.${tier}`)}</p>}
       </header>
     )
   }
@@ -59,21 +59,17 @@ const tierNum = Number(tier.slice(1)) || 0;
     margin: 0;
   }
   .layer__head h2 {
-    font-size: var(--fs-2xl);
-    margin: var(--space-2) 0 0;
+    font-size: var(--fs-xl);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  :lang(ko) .layer__head h2 {
+    letter-spacing: 0;
   }
   .layer__tier {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-  }
-  .layer__tier::before {
-    content: '';
-    width: 0.6rem;
-    height: 0.6rem;
-    border-radius: 50%;
-    background: var(--layer-tier);
-    border: 1px solid var(--accent);
+    margin: var(--space-1) 0 0;
+    font-size: var(--fs-sm);
+    color: var(--fg-muted);
   }
   .layer__body > :where(ul, ol) {
     padding-left: 1.4em;

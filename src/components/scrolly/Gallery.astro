@@ -28,13 +28,12 @@ const t = useT(getLangFromUrl(Astro.url));
     flex: 0 0 min(80vw, 28rem);
     scroll-snap-align: center;
     margin: 0;
-    background: var(--bg-raised);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: var(--space-4);
+    border-top: 1px solid var(--line);
+    padding: var(--space-3) 0 0;
   }
   .gallery__item h3 {
     font-size: var(--fs-lg);
+    letter-spacing: -0.01em;
   }
   .gallery.is-pinned .gallery__pin {
     position: sticky;

@@ -1,6 +1,6 @@
 ---
 import { relatedTopics } from '../../lib/connections';
-import { TOPICS, accentCss, type TopicId } from '../../data/topics';
+import { TOPICS, type TopicId } from '../../data/topics';
 import { getLangFromUrl, localizePath, useT } from '../../i18n';
 
 interface Props {
@@ -24,10 +24,10 @@ const items = relatedTopics(Astro.props.topic).map((r) => ({
           const Tag = r.href ? 'a' : 'div';
           return (
             <li>
-              <Tag class:list={['card', { soon: !r.href }]} href={r.href} style={`--card-accent:${accentCss(r.def.id)}`}>
+              <Tag class:list={['card', { soon: !r.href }]} href={r.href}>
                 <span class="card__title">{t(`topic.${r.topic}.title`)}</span>
                 <span class="card__reason">{r.link.reason[lang]}</span>
-                {!r.href && <span class="card__soon">{t('card.comingSoon')}</span>}
+                {!r.href && <em class="card__soon">{t('card.comingSoon')}</em>}
               </Tag>
             </li>
           );
@@ -39,59 +39,52 @@ const items = relatedTopics(Astro.props.topic).map((r) => ({
 
 <style>
   .related {
-    max-width: 60rem;
+    max-width: var(--measure);
     margin: var(--space-16) auto var(--space-8);
     padding: 0 var(--space-4);
   }
   h2 {
     font-size: var(--fs-lg);
-    margin: 0 0 var(--space-4);
+    letter-spacing: -0.01em;
+    margin: 0 0 var(--space-3);
   }
   ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid;
-    gap: var(--space-4);
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    border-top: 1px solid var(--line);
+  }
+  li {
+    border-bottom: 1px solid var(--line);
   }
   .card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    height: 100%;
-    box-sizing: border-box;
-    padding: var(--space-4);
-    border: 1px solid var(--line);
-    border-top: 3px solid var(--card-accent);
-    border-radius: var(--radius);
-    background: var(--bg-raised);
+    display: block;
+    padding: var(--space-3) 0;
     color: var(--fg);
     text-decoration: none;
-    transition: background var(--dur-fast);
-  }
-  a.card:hover,
-  a.card:focus-visible {
-    background: color-mix(in oklab, var(--card-accent) 8%, var(--bg-raised));
-  }
-  a.card:focus-visible {
-    outline: 2px solid var(--card-accent);
-    outline-offset: 2px;
   }
   .card__title {
+    display: block;
     font-weight: 600;
   }
+  a.card:hover .card__title,
+  a.card:focus-visible .card__title {
+    color: var(--accent);
+  }
+  a.card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
   .card__reason {
+    display: block;
     font-size: var(--fs-sm);
     color: var(--fg-muted);
   }
   .card__soon {
-    font-family: var(--font-mono);
-    font-size: var(--fs-xs);
+    font-size: var(--fs-sm);
     color: var(--fg-faint);
   }
-  .soon {
-    border-style: dashed;
-    opacity: 0.75;
+  .soon .card__title {
+    color: var(--fg-muted);
   }
 </style>

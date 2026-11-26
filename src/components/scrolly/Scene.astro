@@ -41,15 +41,14 @@ const kind = mode === 'portal' ? 'portal' : hasSteps ? mode : 'inline';
         {
           missing && (
             <div class="scene__placeholder">
-              <span class="label">{id}</span>
-              <p>{t('scrolly.scene.missing', { id })}</p>
-              <p class="scene__hint">{t('scrolly.scene.missingHint')}</p>
+              <code class="scene__id">{id}</code>
+              <p>{t('scrolly.scene.missing')} {t('scrolly.scene.missingHint')}</p>
             </div>
           )
         }
       </div>
     </div>
-    {to && <a class="scene__continue label" href={`#${to}`}>{t('scrolly.portal.continue')} ↓</a>}
+    {to && <a class="scene__continue" href={`#${to}`}>{t('scrolly.portal.continue')} ↓</a>}
   </div>
   {hasSteps && <div class="scene__steps"><slot /></div>}
 </div>
@@ -63,9 +62,9 @@ const kind = mode === 'portal' ? 'portal' : hasSteps ? mode : 'inline';
   .scene__stage {
     position: relative;
     z-index: var(--z-canvas);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    background: var(--bg-sunken);
+    border-radius: var(--radius);
+    outline: 1px solid var(--line);
+    outline-offset: -1px;
     overflow: hidden;
   }
   .scene__zoom {
@@ -86,18 +85,16 @@ const kind = mode === 'portal' ? 'portal' : hasSteps ? mode : 'inline';
     display: grid;
     place-content: center;
     text-align: center;
-    gap: var(--space-2);
-    border: 1px dashed var(--grid-strong);
-    border-radius: var(--radius);
-    color: var(--fg-muted);
+    gap: var(--space-1);
+    color: var(--fg-faint);
+    font-size: var(--fs-sm);
     padding: var(--space-4);
   }
   .scene__placeholder p {
     margin: 0;
   }
-  .scene__hint {
-    font-size: var(--fs-sm);
-    color: var(--fg-faint);
+  .scene__id {
+    font-size: var(--fs-xs);
   }
   .scene__error {
     position: absolute;
@@ -112,9 +109,10 @@ const kind = mode === 'portal' ? 'portal' : hasSteps ? mode : 'inline';
     left: 50%;
     translate: -50% 0;
     background: var(--bg-raised);
-    border: 1px solid var(--accent);
-    border-radius: 999px;
-    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--fs-sm);
     color: var(--fg);
     text-decoration: none;
     z-index: 2;
@@ -123,7 +121,7 @@ const kind = mode === 'portal' ? 'portal' : hasSteps ? mode : 'inline';
   /* inline */
   .scene--inline .scene__stage {
     aspect-ratio: 16 / 9;
-    max-width: 60rem;
+    max-width: var(--col-wide);
     margin-inline: auto;
   }
 
@@ -133,8 +131,7 @@ const kind = mode === 'portal' ? 'portal' : hasSteps ? mode : 'inline';
     grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 1fr);
     gap: var(--space-8);
     align-items: start;
-    padding-inline: var(--space-6);
-    max-width: 90rem;
+    max-width: var(--col-wide);
     margin-inline: auto;
   }
   .scene--steps .scene__stage {
@@ -151,7 +148,8 @@ const kind = mode === 'portal' ? 'portal' : hasSteps ? mode : 'inline';
   /* scrub (P1): stage pinned (sticky) while the step segments scroll over it */
   .scene--scrub {
     display: grid;
-    padding-inline: var(--space-4);
+    max-width: var(--col-wide);
+    margin-inline: auto;
   }
   .scene--scrub > * {
     grid-area: 1 / 1;
@@ -176,8 +174,7 @@ const kind = mode === 'portal' ? 'portal' : hasSteps ? mode : 'inline';
     pointer-events: auto;
     max-width: 26rem;
     margin-left: var(--space-4);
-    background: color-mix(in oklab, var(--bg) 82%, transparent);
-    backdrop-filter: blur(6px);
+    background: var(--bg);
   }
 
   /* portal (P3) */
@@ -197,18 +194,20 @@ const kind = mode === 'portal' ? 'portal' : hasSteps ? mode : 'inline';
     position: relative;
   }
   .step__card {
-    border-left: 2px solid var(--accent);
+    border: 1px solid var(--line);
     padding: var(--space-4) var(--space-6);
     background: var(--bg-raised);
-    border-radius: 0 var(--radius) var(--radius) 0;
+    border-radius: var(--radius);
     max-width: var(--measure);
   }
   .step__card > :last-child {
     margin-bottom: 0;
   }
   .step__kind {
-    color: var(--accent);
-    margin-bottom: var(--space-2);
+    margin: 0 0 var(--space-2);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--fg-muted);
   }
   /* Fade only the text of inactive steps — the card's backdrop must stay opaque so text over a scene stays legible. */
   .scrolly-on .scene .step__card > * {
@@ -222,19 +221,18 @@ const kind = mode === 'portal' ? 'portal' : hasSteps ? mode : 'inline';
   @media (max-width: 899px) {
     .scene--steps {
       display: block;
-      padding-inline: var(--space-4);
     }
     .scene--steps .scene__stage {
       z-index: var(--z-content);
       height: 42vh;
       top: var(--header-h);
-      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      border-radius: 0 0 var(--radius) var(--radius);
     }
     .scene--steps .step {
       min-height: 60vh;
     }
     .scene--steps .step__card {
-      background: color-mix(in oklab, var(--bg-raised) 94%, transparent);
+      background: var(--bg-raised);
     }
     .scene--scrub .step__card {
       margin-left: 0;

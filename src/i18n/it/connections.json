@@ -4,5 +4,6 @@
   "connections.primer.fallback": "Mostrato in inglese",
   "connections.bridge.soon": "Prossimamente",
   "connections.related.go": "Leggi",
-  "connections.term.alsoKnownAs": "Altre lingue"
+  "connections.term.alsoKnownAs": "Altre lingue",
+  "connections.bridge.more": "Altro in {topic}"
 }

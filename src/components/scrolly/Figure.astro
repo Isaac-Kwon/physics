@@ -1,5 +1,5 @@
 ---
-/** <Figure kind caption> — P8 badge wrapper. Optional `scene`/`state` renders an inline scene; otherwise wraps the slot (e.g. an image). */
+/** <Figure kind caption> — figure wrapper with a numbered caption below. Optional `scene`/`state` renders an inline scene; otherwise wraps the slot (e.g. an image). */
 import Scene from './Scene.astro';
 import { getLangFromUrl, useT } from '../../i18n';
 interface Props {
@@ -14,42 +14,44 @@ const t = useT(getLangFromUrl(Astro.url));
 
 <figure class="fig">
   <div class="fig__frame">
-    {kind && <span class={`fig__badge fig__badge--${kind} label`}>{t(`figure.${kind}`)}</span>}
     {scene && <Scene id={scene} state={state} label={caption} />}
     <slot />
   </div>
-  {caption && <figcaption class="fig__caption">{caption}</figcaption>}
+  {
+    (caption || kind) && (
+      <figcaption class="fig__caption">
+        <span class="fig__num">{t('scrolly.figure.label')} </span>
+        {caption}
+        {kind && <em class="fig__kind"> {t(`scrolly.figure.${kind}`)}</em>}
+      </figcaption>
+    )
+  }
 </figure>
 
 <style is:global>
   .fig {
     margin: var(--space-8) auto;
-    max-width: 60rem;
-    padding-inline: var(--space-4);
-  }
-  .fig__frame {
-    position: relative;
+    max-width: var(--col-wide);
+    counter-increment: fig;
   }
   .fig__frame .scene {
     margin: 0;
   }
-  .fig__badge {
-    position: absolute;
-    top: var(--space-3);
-    left: var(--space-3);
-    z-index: 3;
-    background: color-mix(in oklab, var(--bg) 85%, transparent);
-    border: 1px solid var(--grid-strong);
-    border-radius: 999px;
-    padding: 0.15rem 0.7rem;
-    color: var(--fg);
+  .fig__num {
+    font-weight: 600;
   }
-  .fig__badge--schematic {
-    border-style: dashed;
+  .fig__num::after {
+    content: counter(fig) '.';
+    margin-right: 0.3em;
   }
   .fig__caption {
     color: var(--fg-muted);
     font-size: var(--fs-sm);
+    line-height: 1.5;
     margin-top: var(--space-2);
+    max-width: var(--measure);
+  }
+  .fig__kind {
+    font-style: italic;
   }
 </style>

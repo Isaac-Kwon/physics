@@ -17,9 +17,8 @@ const Tag = href ? 'a' : 'div';
 
 <aside class="bridge-wrap" data-bridge={link.id}>
   <Tag class:list={['bridge', { 'bridge--soon': !href }]} href={href} style={`--bridge-accent:${accentCss(link.to.topic)}`}>
-    <span class="bridge__label">{href ? t('bridge.label') : t('connections.bridge.soon')}</span>
-    <span class="bridge__title">{title}</span>
-    <span class="bridge__reason">{link.reason[lang]}</span>
+    <span class="bridge__title">{t('connections.bridge.more', { topic: title })}</span>: <span class="bridge__reason">{link.reason[lang]}</span>
+    {href ? <span aria-hidden="true"> →</span> : <em class="bridge__soon"> ({t('connections.bridge.soon')})</em>}
   </Tag>
 </aside>
 
@@ -29,48 +28,29 @@ const Tag = href ? 'a' : 'div';
   }
   .bridge {
     display: block;
-    padding: var(--space-3) var(--space-4);
-    border: 1px solid var(--line);
-    border-left: 3px solid var(--bridge-accent);
-    border-radius: var(--radius);
-    background: var(--bg-raised);
-    color: var(--fg);
+    padding: var(--space-2) 0 0;
+    border-top: 1px solid var(--line);
+    color: var(--fg-muted);
     text-decoration: none;
     font-size: var(--fs-sm);
-    line-height: 1.45;
-    transition:
-      border-color var(--dur-fast),
-      background var(--dur-fast);
+    line-height: 1.5;
   }
-  a.bridge:hover,
-  a.bridge:focus-visible {
-    border-color: var(--bridge-accent);
-    background: color-mix(in oklab, var(--bridge-accent) 8%, var(--bg-raised));
+  a.bridge:hover .bridge__title,
+  a.bridge:focus-visible .bridge__title {
+    text-decoration: underline;
   }
   a.bridge:focus-visible {
-    outline: 2px solid var(--bridge-accent);
+    outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
-  .bridge--soon {
-    border-style: dashed;
-    opacity: 0.75;
-  }
-  .bridge__label {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: var(--fs-xs);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-label);
-    color: var(--bridge-accent);
-  }
   .bridge__title {
-    display: block;
-    font-weight: 600;
-    margin: 2px 0;
+    color: var(--accent);
   }
-  .bridge__reason {
-    display: block;
+  .bridge--soon .bridge__title {
     color: var(--fg-muted);
+  }
+  .bridge__soon {
+    color: var(--fg-faint);
   }
   /* Desktop: float into the right margin of the text column without affecting flow. */
   @media (min-width: 1100px) {

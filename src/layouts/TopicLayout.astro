@@ -4,6 +4,7 @@ import 'katex/dist/katex.min.css';
 import BaseLayout from './BaseLayout.astro';
 import DepthGauge from '../components/ui/DepthGauge.astro';
 import Scene from '../components/scrolly/Scene.astro';
+import { getEntry } from 'astro:content';
 import { scenes } from '../scenes/registry';
 import { TOPICS, type TopicId } from '../data/topics';
 import { useT, type Lang } from '../i18n';
@@ -21,14 +22,16 @@ const { lang, topic, title, subtitle, description, layers, noindex = false } = A
 const t = useT(lang);
 const heroScene = topic ? TOPICS[topic].heroScene : undefined;
 const minutes = topic ? TOPICS[topic].readingMinutes : undefined;
+const entry = topic ? await getEntry('topics', `${topic}/${lang}`) : undefined;
+const meta = [minutes ? t('card.readingTime', { min: minutes }) : null, entry?.data.draft ? t('scrolly.hero.draft') : null].filter(Boolean).join(' · ');
 ---
 
 <BaseLayout lang={lang} topic={topic} title={title} description={description}>
   {noindex && <meta slot="head" name="robots" content="noindex" />}
   <header class="hero">
-    <p class="label">{t('scrolly.hero.eyebrow')}{minutes ? ` · ${t('card.readingTime', { min: minutes })}` : ''}</p>
     <h1>{title}</h1>
     {subtitle && <p class="hero__sub">{subtitle}</p>}
+    {meta && <p class="hero__meta">{meta}</p>}
     {heroScene && heroScene in scenes && <Scene id={heroScene} />}
   </header>
   <DepthGauge layers={layers} />
@@ -43,31 +46,45 @@ const minutes = topic ? TOPICS[topic].readingMinutes : undefined;
 </BaseLayout>
 
 <style is:global>
+  /* One text column for the whole page: hero, layer headings, prose and asides share the same left edge. */
   .hero {
-    max-width: 60rem;
-    margin: 0 auto;
-    padding: var(--space-16) var(--space-6) var(--space-8);
+    padding: var(--space-16) var(--space-4) var(--space-8);
+  }
+  .hero > h1,
+  .hero > .hero__sub,
+  .hero > .hero__meta {
+    max-width: var(--measure);
+    margin-inline: auto !important;
   }
   .hero h1 {
-    font-size: var(--fs-display);
-    margin: var(--space-2) 0 var(--space-4);
-    background: linear-gradient(120deg, var(--accent-2), var(--accent));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-size: var(--fs-2xl);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0 0 var(--space-3);
+  }
+  :lang(ko) .hero h1 {
+    letter-spacing: 0;
   }
   .hero__sub {
-    font-size: var(--fs-xl);
+    font-size: var(--fs-lg);
     color: var(--fg-muted);
-    max-width: 40rem;
+    margin: 0 0 var(--space-3);
   }
-  /* Right margin space for floating Bridge cards (>=1100px) and the Depth Gauge. No overflow:hidden here. */
+  .hero__meta {
+    font-size: var(--fs-sm);
+    color: var(--fg-muted);
+    margin: 0 0 var(--space-8);
+  }
+  /* The text column is centred; at >=1100px the side margins (~250px+) hold the floating Bridge notes and the
+     Depth Gauge. No overflow:hidden here (Bridge floats out of the column). */
   .topic__content {
     padding-inline: var(--space-4);
+    counter-reset: fig;
   }
-  @media (min-width: 1100px) {
+  /* Keep the Depth Gauge strip (right edge) clear of wide figures. */
+  @media (min-width: 900px) {
     .topic__content {
-      padding-right: 16rem;
+      padding-inline: calc(var(--gauge-w) + var(--space-8));
     }
   }
   .topic__after {

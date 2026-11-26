@@ -131,7 +131,7 @@ const mod: SceneModule = {
       const narrow = w < 560;
       const S = wide ? Math.min(h - 8, w * 0.6) : Math.min(w - 8, h * 0.62);
       const mx = 4;
-      const my = 4;
+      const my = wide ? 4 : 72; // portrait: leave room for the legend above the end view
       const cx = mx + S / 2;
       const cy = my + S / 2;
       const ks = ((S / 2 - 8) / R_VIEW) * lv.zoom;
@@ -290,7 +290,7 @@ const mod: SceneModule = {
       ];
       lg.forEach((e, i) => {
         if (narrow && e.a < 0.5) return;
-        const yy = my + 12 + (narrow ? 0 : i * 15);
+        const yy = 16 + (narrow ? 0 : i * 15); // fixed at the top of the stage
         line(g, mx + 8, yy, mx + 24, yy, e.c, 1.5, 0.45 + 0.55 * e.a);
         txt(g, L(e.key), mx + 30, yy, { color: th.fg, alpha: 0.5 + 0.45 * e.a });
       });

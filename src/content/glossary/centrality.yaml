@@ -1,0 +1,12 @@
+id: centrality
+ko:
+  term: 중심도
+  definition: 충돌이 얼마나 정면으로 일어났는지를 나타내는 백분율이다. 값이 작을수록 정면 충돌에 가깝고, 값이 클수록 스치는 충돌이다.
+en:
+  term: centrality
+  definition: "A percentage that describes how head-on a collision was: low values mean nearly head-on, high values mean a glancing hit."
+it:
+  term: centralità
+  definition: "Una percentuale che descrive quanto una collisione sia frontale: valori bassi indicano urti quasi frontali, valori alti urti periferici."
+topics: [heavy-ion]
+reviewed: false

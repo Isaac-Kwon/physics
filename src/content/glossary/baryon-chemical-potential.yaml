@@ -1,0 +1,12 @@
+id: baryon-chemical-potential
+ko:
+  term: 바리온 화학 퍼텐셜
+  definition: 물질 안에 바리온(양성자, 중성자 같은 입자)이 얼마나 쉽게 늘어나는지를 나타내는 양이다. 값이 클수록 바리온이 많은 물질이다.
+en:
+  term: baryon chemical potential
+  definition: A quantity that describes how readily baryons (such as protons and neutrons) are added to a system; larger values mean more baryon-rich matter.
+it:
+  term: potenziale chimico barionico
+  definition: Una grandezza che descrive quanto facilmente si aggiungono barioni (come protoni e neutroni) a un sistema; valori maggiori indicano materia più ricca di barioni.
+topics: [heavy-ion]
+reviewed: false

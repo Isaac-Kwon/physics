@@ -1,0 +1,12 @@
+id: underground-laboratory
+ko:
+  term: 지하 실험실
+  definition: 우주선이 잘 닿지 않도록 암석 아래 깊숙이 만든 실험실이다. 배경 잡음이 적어 희귀한 현상을 찾기에 적합하다.
+en:
+  term: underground laboratory
+  definition: A laboratory built deep underground, beneath rock, to shield sensitive experiments from cosmic rays and other background noise.
+it:
+  term: laboratorio sotterraneo
+  definition: Un laboratorio costruito in profondità sotto la roccia, per schermare gli esperimenti sensibili dai raggi cosmici e dal rumore di fondo.
+topics: [dark-matter, neutrinos]
+reviewed: false

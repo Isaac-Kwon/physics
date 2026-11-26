@@ -1,0 +1,12 @@
+id: first-order-transition
+ko:
+  term: 1차 상전이
+  definition: 얼음이 녹거나 물이 끓을 때처럼, 에너지를 주고받으며 상태가 갑자기 바뀌는 전이다.
+en:
+  term: first-order phase transition
+  definition: A transition that happens abruptly, with a jump in density or energy, like water boiling or ice melting.
+it:
+  term: transizione di fase del primo ordine
+  definition: "Una transizione che avviene in modo brusco, con un salto di densità o di energia, come l'acqua che bolle o il ghiaccio che fonde."
+topics: [heavy-ion]
+reviewed: false

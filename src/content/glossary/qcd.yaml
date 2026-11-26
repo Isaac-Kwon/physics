@@ -1,0 +1,13 @@
+id: qcd
+abbr: QCD
+ko:
+  term: 양자색역학
+  definition: 쿼크와 글루온 사이에 작용하는 강한 상호작용을 기술하는 이론이다.
+en:
+  term: quantum chromodynamics
+  definition: The quantum field theory that describes the strong interaction between quarks and gluons.
+it:
+  term: cromodinamica quantistica
+  definition: "La teoria quantistica dei campi che descrive l'interazione forte tra quark e gluoni."
+topics: [heavy-ion]
+reviewed: false

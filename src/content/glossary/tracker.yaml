@@ -1,0 +1,13 @@
+id: tracker
+ko:
+  term: 비적 검출기
+  alt: 트래커
+  definition: 입자가 지나간 자리를 여러 지점에서 측정해 궤적을 그려 내는 검출기다.
+en:
+  term: tracker
+  definition: A detector that measures the points where a particle passes, so its path can be reconstructed and its momentum estimated.
+it:
+  term: tracciatore
+  definition: Un rivelatore che misura i punti di passaggio di una particella, in modo da ricostruirne la traiettoria e stimarne la quantità di moto.
+topics: [detectors]
+reviewed: false

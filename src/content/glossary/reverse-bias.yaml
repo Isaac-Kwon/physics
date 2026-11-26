@@ -1,0 +1,12 @@
+id: reverse-bias
+ko:
+  term: 역방향 바이어스
+  definition: p–n 접합에 외부 전압을 반대 방향으로 걸어 공핍층을 넓히는 것이다. 검출기에서 신호를 잘 모으기 위해 쓰인다.
+en:
+  term: reverse bias
+  definition: An external voltage applied to a p–n junction in the blocking direction, which widens the depletion region and improves signal collection in detectors.
+it:
+  term: polarizzazione inversa
+  definition: Una tensione esterna applicata a una giunzione p-n nel verso di blocco, che allarga la regione di svuotamento e migliora la raccolta del segnale nei rivelatori.
+topics: [semiconductor-detectors]
+reviewed: false

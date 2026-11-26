@@ -1,0 +1,12 @@
+id: nuclear-recoil
+ko:
+  term: 핵 되튐
+  definition: 입자가 원자핵과 부딪혀 원자핵이 뒤로 튕겨 나가는 현상이다. 암흑물질 검출기는 이 희미한 신호를 찾는다.
+en:
+  term: nuclear recoil
+  definition: The kick a nucleus receives when a particle collides with it and knocks it backward. Dark-matter detectors look for this faint signal.
+it:
+  term: rinculo nucleare
+  definition: Il contraccolpo di un nucleo colpito da una particella, che lo fa rinculare. I rivelatori di materia oscura cercano questo segnale debole.
+topics: [dark-matter, detectors]
+reviewed: false

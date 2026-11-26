@@ -1,0 +1,13 @@
+id: baryon-stopping
+ko:
+  term: 바리온 정지
+  definition: 충돌할 때 원자핵 속 양성자와 중성자가 상대 원자핵과 부딪히며 앞으로 나아가던 속도를 크게 잃는 현상이다.
+en:
+  term: baryon stopping
+  definition: The slowing down of protons and neutrons from the colliding nuclei, which lose much of their forward momentum as they pass through each other.
+it:
+  term: arresto barionico
+  alt: baryon stopping
+  definition: Il rallentamento dei protoni e dei neutroni dei nuclei in collisione, che perdono gran parte della loro quantità di moto in avanti.
+topics: [heavy-ion]
+reviewed: false

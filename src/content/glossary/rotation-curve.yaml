@@ -1,0 +1,12 @@
+id: rotation-curve
+ko:
+  term: 회전 곡선
+  definition: 은하 중심에서 떨어진 거리에 따라 별의 공전 속도가 어떻게 변하는지 나타낸 그래프다. 바깥 별들의 속도가 예상만큼 줄지 않아 암흑물질의 중요한 증거가 된다.
+en:
+  term: rotation curve
+  definition: A graph of how fast stars orbit a galaxy at different distances from its center. Outer stars move faster than expected, which points to dark matter.
+it:
+  term: curva di rotazione
+  definition: Un grafico della velocità delle stelle in orbita attorno a una galassia in funzione della distanza dal centro. Le stelle esterne si muovono più velocemente del previsto, indizio della materia oscura.
+topics: [dark-matter]
+reviewed: false

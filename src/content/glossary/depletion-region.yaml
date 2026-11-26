@@ -1,0 +1,12 @@
+id: depletion-region
+ko:
+  term: 공핍층
+  definition: p–n 접합 근처에서 자유롭게 움직이는 전하가 거의 없는 영역이다. 이 영역이 넓을수록 입자가 만든 신호를 더 잘 모을 수 있다.
+en:
+  term: depletion region
+  definition: The region around a p–n junction that is nearly free of mobile charges; a wider region collects the signal from a particle more efficiently.
+it:
+  term: regione di svuotamento
+  definition: La zona attorno a una giunzione p-n quasi priva di cariche mobili; più è ampia, più efficacemente raccoglie il segnale di una particella.
+topics: [semiconductor-detectors]
+reviewed: false

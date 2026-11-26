@@ -1,0 +1,12 @@
+id: fixed-target
+ko:
+  term: 고정 표적
+  definition: 가속한 빔을 움직이지 않는 표적에 쏘는 실험 방식이다. 충돌기와 달리 한쪽 입자만 움직인다.
+en:
+  term: fixed target
+  definition: An experimental setup in which an accelerated beam hits a stationary target, so only one of the colliding particles is moving.
+it:
+  term: bersaglio fisso
+  definition: Una configurazione sperimentale in cui un fascio accelerato colpisce un bersaglio fermo; a differenza del collisore, si muove solo una delle particelle.
+topics: [heavy-ion]
+reviewed: false

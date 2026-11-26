@@ -1,0 +1,13 @@
+id: ionization
+ko:
+  term: 이온화
+  alt: 전리
+  definition: 원자나 분자에서 전자가 떨어져 나가 전기를 띠는 입자가 생기는 현상이다. 하전 입자가 물질을 지날 때 그 경로를 따라 일어난다.
+en:
+  term: ionization
+  definition: The process by which an atom or molecule loses an electron and becomes electrically charged; a charged particle passing through matter causes it along its path.
+it:
+  term: ionizzazione
+  definition: Il processo in cui un atomo o una molecola perde un elettrone e diventa carico elettricamente; una particella carica che attraversa la materia lo provoca lungo il suo percorso.
+topics: [detectors, semiconductor-detectors]
+reviewed: false

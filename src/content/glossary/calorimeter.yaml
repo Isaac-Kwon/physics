@@ -1,0 +1,13 @@
+id: calorimeter
+ko:
+  term: 열량계
+  alt: 칼로리미터
+  definition: 입자를 두꺼운 물질 안에 완전히 멈춰 세워, 그 에너지를 모두 흡수해 측정하는 검출기다.
+en:
+  term: calorimeter
+  definition: A detector that stops a particle inside dense material so that its full energy is absorbed and measured.
+it:
+  term: calorimetro
+  definition: "Un rivelatore che arresta una particella all'interno di un materiale denso, così da assorbirne e misurarne tutta l'energia."
+topics: [detectors]
+reviewed: false

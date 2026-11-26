@@ -1,0 +1,13 @@
+id: beam-energy-scan
+abbr: BES
+ko:
+  term: 빔 에너지 스캔
+  definition: 충돌 빔의 에너지를 여러 값으로 바꿔 가며 실험해, 상태도 위에서 물질의 성질이 어떻게 변하는지 찾는 측정이다.
+en:
+  term: beam energy scan
+  definition: A series of collision experiments run at many different beam energies to map how the behavior of matter changes across the phase diagram.
+it:
+  term: scansione in energia del fascio
+  definition: Una serie di esperimenti con collisioni a diverse energie del fascio, per mappare come cambia il comportamento della materia nel diagramma di fase.
+topics: [heavy-ion]
+reviewed: false

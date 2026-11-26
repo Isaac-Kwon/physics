@@ -1,0 +1,12 @@
+id: pn-junction
+ko:
+  term: p–n 접합
+  definition: 양의 전하를 띤 p형 반도체와 음의 전하를 띤 n형 반도체를 맞붙여 만든 경계면이다. 전류가 한 방향으로만 쉽게 흐른다.
+en:
+  term: p–n junction
+  definition: The boundary formed where a p-type and an n-type semiconductor meet; current flows easily in only one direction across it.
+it:
+  term: giunzione p-n
+  definition: Il confine che si forma dove si uniscono un semiconduttore di tipo p e uno di tipo n; la corrente vi fluisce facilmente in una sola direzione.
+topics: [semiconductor-detectors]
+reviewed: false

@@ -1,0 +1,12 @@
+id: gravitational-lensing
+ko:
+  term: 중력 렌즈
+  definition: 무거운 천체의 중력 때문에 뒤에 있는 천체의 빛이 휘어져, 상이 왜곡되거나 여러 개로 보이는 현상이다.
+en:
+  term: gravitational lensing
+  definition: The bending of light from a distant object by the gravity of a massive object in front of it, which can distort or multiply the image.
+it:
+  term: lente gravitazionale
+  definition: "La deviazione della luce di un oggetto lontano causata dalla gravità di un oggetto massiccio interposto, che può deformare o moltiplicare l'immagine."
+topics: [dark-matter]
+reviewed: false

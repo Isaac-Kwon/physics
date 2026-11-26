@@ -1,0 +1,12 @@
+id: neutrino-oscillation
+ko:
+  term: 중성미자 진동
+  definition: 중성미자가 날아가는 동안 전자형, 뮤온형, 타우형 사이를 주기적으로 바꾸는 현상이다.
+en:
+  term: neutrino oscillation
+  definition: The phenomenon in which a neutrino changes its flavor (electron, muon, or tau type) as it travels. It shows that neutrinos have mass.
+it:
+  term: oscillazione dei neutrini
+  definition: Il fenomeno per cui un neutrino cambia sapore (elettronico, muonico o tauonico) mentre si propaga; prova che i neutrini hanno massa.
+topics: [neutrinos]
+reviewed: false

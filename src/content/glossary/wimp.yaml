@@ -1,0 +1,14 @@
+id: wimp
+abbr: WIMP
+ko:
+  term: 윔프
+  alt: WIMP
+  definition: 약한 상호작용만 하면서 질량이 큰 가상의 입자로, 암흑물질 후보 가운데 하나다.
+en:
+  term: weakly interacting massive particle
+  definition: A hypothetical heavy particle that interacts only weakly with ordinary matter and is a leading candidate for dark matter.
+it:
+  term: WIMP
+  definition: Una particella massiccia ipotetica che interagisce solo debolmente con la materia ordinaria ed è un candidato principale per la materia oscura.
+topics: [dark-matter]
+reviewed: false

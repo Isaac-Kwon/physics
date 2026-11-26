@@ -1,0 +1,15 @@
+id: particle-identification
+abbr: PID
+ko:
+  term: 입자 식별
+  alt: PID
+  definition: 측정값을 바탕으로 검출된 입자가 파이온, 케온, 양성자 등 어떤 종류인지 알아내는 과정이다.
+en:
+  term: particle identification
+  definition: The process of determining what kind of particle was detected, such as a pion, kaon, or proton, from its speed, energy, and path.
+it:
+  term: identificazione delle particelle
+  alt: PID
+  definition: Il processo con cui si stabilisce di quale tipo sia la particella rivelata, come un pione, un kaone o un protone, a partire da velocità, energia e traiettoria.
+topics: [detectors, heavy-ion]
+reviewed: false

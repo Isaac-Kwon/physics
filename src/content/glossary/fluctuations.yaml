@@ -1,0 +1,12 @@
+id: fluctuations
+ko:
+  term: 요동
+  definition: 측정값이 평균 주변에서 무작위로 흔들리는 정도다. 상태가 바뀌는 지점 근처에서 특히 크게 나타난다.
+en:
+  term: fluctuations
+  definition: Random variations of a measured quantity around its average value; they tend to grow strongly near a phase transition or critical point.
+it:
+  term: fluttuazioni
+  definition: Variazioni casuali di una grandezza misurata attorno al suo valore medio; tendono a crescere molto vicino a una transizione di fase o a un punto critico.
+topics: [heavy-ion]
+reviewed: false

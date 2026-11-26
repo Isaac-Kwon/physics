@@ -1,0 +1,12 @@
+id: directed-flow
+ko:
+  term: 방향 흐름
+  definition: 충돌 때 입자들이 한 방향으로 옆으로 밀려 나가는 집단 운동이다. 충돌한 물질이 어떻게 밀리며 퍼지는지 알려 준다.
+en:
+  term: directed flow
+  definition: A collective sideways push of particles in one direction, showing how the colliding matter is shoved and spreads out.
+it:
+  term: flusso diretto
+  definition: Uno spostamento collettivo delle particelle in una direzione, che mostra come la materia in collisione venga spinta e si disperda.
+topics: [heavy-ion]
+reviewed: false

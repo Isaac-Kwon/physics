@@ -1,0 +1,12 @@
+id: heavy-ion-collision
+ko:
+  term: 중이온 충돌
+  definition: 금이나 납 같은 무거운 원자핵을 빛에 가까운 속도로 부딪게 해, 아주 뜨겁고 빽빽한 물질을 잠깐 만드는 실험이다.
+en:
+  term: heavy-ion collision
+  definition: An experiment that smashes heavy atomic nuclei, such as gold or lead, together at nearly the speed of light to briefly create extremely hot, dense matter.
+it:
+  term: collisione di ioni pesanti
+  definition: Esperimento in cui nuclei atomici pesanti, come oro o piombo, vengono fatti scontrare a velocità prossime a quella della luce per creare brevemente materia caldissima e densa.
+topics: [heavy-ion]
+reviewed: false

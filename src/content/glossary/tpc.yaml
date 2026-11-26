@@ -1,0 +1,15 @@
+id: tpc
+abbr: TPC
+ko:
+  term: 시간 투영 상자
+  alt: TPC
+  definition: 기체로 채운 큰 상자 안에서 입자가 남긴 이온화 흔적을 전기장으로 끌어내, 입자의 3차원 궤적을 재구성하는 검출기다.
+en:
+  term: time projection chamber
+  definition: "A large gas-filled chamber in which a charged particle leaves a trail of ionization; an electric field drifts the electrons so the particle's three-dimensional path can be reconstructed."
+it:
+  term: camera a proiezione temporale
+  alt: TPC
+  definition: Una grande camera riempita di gas in cui una particella carica lascia una scia di ionizzazione; un campo elettrico spinge gli elettroni verso i rivelatori, ricostruendo la traiettoria in tre dimensioni.
+topics: [detectors]
+reviewed: false

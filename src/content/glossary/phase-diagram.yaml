@@ -1,0 +1,13 @@
+id: phase-diagram
+ko:
+  term: 상태도
+  alt: 상 도표
+  definition: 온도와 압력(또는 밀도)에 따라 물질이 고체, 액체, 기체 같은 어떤 상태인지 한눈에 보여 주는 그림이다.
+en:
+  term: phase diagram
+  definition: A map showing which state of matter (solid, liquid, gas, or exotic phases) a substance is in for each combination of temperature and pressure or density.
+it:
+  term: diagramma di fase
+  definition: Una mappa che mostra in quale stato si trova una sostanza (solido, liquido, gas o fasi esotiche) per ogni combinazione di temperatura e pressione o densità.
+topics: [heavy-ion]
+reviewed: false

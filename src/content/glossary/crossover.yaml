@@ -1,0 +1,13 @@
+id: crossover
+ko:
+  term: 매끄러운 교차
+  alt: 크로스오버
+  definition: 두 상태 사이의 변화가 뚜렷한 경계 없이 여러 조건에 걸쳐 완만하게 일어나는 전이다.
+en:
+  term: crossover
+  definition: A transition between two states that happens smoothly over a range of conditions, with no sharp boundary.
+it:
+  term: crossover
+  definition: Una transizione tra due stati che avviene gradualmente in un intervallo di condizioni, senza un confine netto.
+topics: [heavy-ion]
+reviewed: false

@@ -1,0 +1,12 @@
+id: inverse-beta-decay
+ko:
+  term: 역베타붕괴
+  definition: 반중성미자가 양성자와 부딪혀 중성자와 양전자를 만드는 반응이다. 원자로에서 나오는 중성미자를 검출할 때 쓰인다.
+en:
+  term: inverse beta decay
+  definition: A reaction in which an antineutrino hits a proton and turns it into a neutron and a positron; it is a classic way to detect reactor neutrinos.
+it:
+  term: decadimento beta inverso
+  definition: Una reazione in cui un antineutrino colpisce un protone e lo trasforma in un neutrone e in un positrone; è un metodo classico per rivelare i neutrini dei reattori.
+topics: [neutrinos]
+reviewed: false

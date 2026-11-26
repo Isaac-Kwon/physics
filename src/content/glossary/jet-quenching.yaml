@@ -1,0 +1,14 @@
+id: jet-quenching
+ko:
+  term: 제트 소멸
+  alt: 제트 퀜칭
+  definition: 고에너지 입자 다발인 제트가 뜨거운 물질을 지나며 에너지를 잃어 약해지는 현상이다.
+en:
+  term: jet quenching
+  definition: The suppression of high-energy particle sprays, called jets, because they lose energy while passing through the hot, dense matter.
+it:
+  term: soppressione dei jet
+  alt: jet quenching
+  definition: Lo smorzamento dei jet, cioè getti di particelle ad alta energia, che perdono energia attraversando la materia calda e densa.
+topics: [heavy-ion]
+reviewed: false

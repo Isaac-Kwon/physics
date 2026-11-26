@@ -1,0 +1,12 @@
+id: dark-matter
+ko:
+  term: 암흑물질
+  definition: 빛을 내지 않아 직접 보이지 않지만, 은하가 도는 모습으로 그 존재가 추론되는 물질이다.
+en:
+  term: dark matter
+  definition: Invisible matter that emits and absorbs no light, yet its gravity is needed to explain how galaxies rotate. It makes up most of the matter in the universe.
+it:
+  term: materia oscura
+  definition: "Materia invisibile che non emette né assorbe luce, ma la cui gravità serve a spiegare il moto delle galassie. Costituisce la maggior parte della materia dell'universo."
+topics: [dark-matter]
+reviewed: false

@@ -1,0 +1,12 @@
+id: detector
+ko:
+  term: 검출기
+  definition: 입자가 지나갈 때 그 흔적을 전기 신호나 빛 같은 측정 가능한 신호로 바꾸는 장치다.
+en:
+  term: detector
+  definition: A device that turns the passage of a particle into a signal we can measure, such as an electric pulse or a flash of light.
+it:
+  term: rivelatore
+  definition: Un dispositivo che trasforma il passaggio di una particella in un segnale misurabile, come un impulso elettrico o un lampo di luce.
+topics: [detectors]
+reviewed: false

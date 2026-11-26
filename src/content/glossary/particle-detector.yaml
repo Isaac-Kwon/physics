@@ -1,0 +1,12 @@
+id: particle-detector
+ko:
+  term: 입자 검출기
+  definition: 입자를 직접 볼 수 없으므로, 입자가 지나며 남긴 흔적으로 존재와 성질을 알아내는 검출기다.
+en:
+  term: particle detector
+  definition: A detector built to register subatomic particles. Since particles cannot be seen directly, it records the traces they leave behind.
+it:
+  term: rivelatore di particelle
+  definition: Un rivelatore progettato per registrare particelle subatomiche. Poiché le particelle non si vedono direttamente, ne registra le tracce.
+topics: [detectors]
+reviewed: false

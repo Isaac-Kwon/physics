@@ -1,0 +1,12 @@
+id: collider
+ko:
+  term: 충돌기
+  definition: 두 빔을 반대 방향으로 가속해 정면으로 부딪히게 하는 가속기다. 양쪽 입자가 모두 움직여 더 큰 충돌 에너지를 얻는다.
+en:
+  term: collider
+  definition: An accelerator that sends two beams in opposite directions so they collide head-on, giving much more collision energy than a fixed target.
+it:
+  term: collisore
+  definition: "Un acceleratore che fa circolare due fasci in direzioni opposte e li fa scontrare frontalmente, ottenendo un'energia di collisione molto maggiore di un bersaglio fisso."
+topics: [heavy-ion]
+reviewed: false

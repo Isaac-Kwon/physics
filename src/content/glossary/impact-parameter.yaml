@@ -1,0 +1,12 @@
+id: impact-parameter
+ko:
+  term: 충돌 매개변수
+  definition: 두 원자핵 중심이 어긋난 거리로, 충돌이 정면에서 얼마나 벗어났는지를 나타내는 양이다.
+en:
+  term: impact parameter
+  definition: The offset between the centers of the two colliding nuclei; it measures how far the collision is from being head-on.
+it:
+  term: "parametro d'impatto"
+  definition: "La distanza tra i centri dei due nuclei che collidono; misura quanto la collisione sia lontana dall'essere frontale."
+topics: [heavy-ion]
+reviewed: false

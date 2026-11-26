@@ -1,0 +1,12 @@
+id: scintillator
+ko:
+  term: 섬광체
+  definition: 입자가 지나갈 때 짧은 빛을 내는 물질이다. 이 빛을 광검출기로 모아 입자를 세거나 시간을 잰다.
+en:
+  term: scintillator
+  definition: A material that emits a brief flash of light when a particle passes through it; the flash is then detected to count particles or time them.
+it:
+  term: scintillatore
+  definition: Materiale che emette un breve lampo di luce quando vi passa una particella; il lampo viene rivelato per contare le particelle o misurarne il tempo.
+topics: [detectors]
+reviewed: false

@@ -1,0 +1,12 @@
+id: elliptic-flow
+ko:
+  term: 타원 흐름
+  definition: 비스듬한 충돌에서 생긴 입자들이 타원 모양으로 퍼져 나가는 집단 운동이다. 뜨거운 물질이 유체처럼 흐른다는 증거다.
+en:
+  term: elliptic flow
+  definition: A collective pattern in which particles from an off-center collision spread out in an elliptical shape. It shows that the hot matter flows like a fluid.
+it:
+  term: flusso ellittico
+  definition: Un movimento collettivo per cui le particelle prodotte da una collisione non centrale si disperdono con forma ellittica. Indica che la materia calda scorre come un fluido.
+topics: [heavy-ion]
+reviewed: false

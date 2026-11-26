@@ -1,0 +1,12 @@
+id: cherenkov-radiation
+ko:
+  term: 체렌코프 복사
+  definition: 입자가 물질 속에서 그 물질의 빛 속도보다 빠르게 움직일 때 나오는 푸른 빛이다. 충격파가 소리를 내는 것과 비슷하다.
+en:
+  term: Cherenkov radiation
+  definition: Light emitted when a charged particle travels through a medium faster than light travels in that medium; it is like a sonic boom made of light.
+it:
+  term: radiazione Čerenkov
+  definition: Luce emessa quando una particella carica attraversa un mezzo più velocemente della luce nel mezzo; è come un boom sonico fatto di luce.
+topics: [detectors, neutrinos]
+reviewed: false

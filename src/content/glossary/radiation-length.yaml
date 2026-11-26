@@ -1,0 +1,12 @@
+id: radiation-length
+ko:
+  term: 복사 길이
+  definition: 고에너지 전자가 제동 복사로 빛을 내며 에너지가 약 37%(1/e)로 줄어드는 거리다. 고에너지 광자도 비슷한 거리에서 전자-양전자 쌍으로 바뀌므로, 전자기 샤워의 크기를 재는 기본 단위가 된다.
+en:
+  term: radiation length
+  definition: The distance over which a high-energy electron loses all but about 37% (1/e) of its energy by radiating photons. High-energy photons turn into electron–positron pairs over a similar distance, so it sets the size scale of electromagnetic showers.
+it:
+  term: lunghezza di radiazione
+  definition: La distanza in cui un elettrone di alta energia perde, irraggiando fotoni, tutta la sua energia tranne circa il 37% (1/e). I fotoni di alta energia si convertono in coppie elettrone–positrone su una distanza simile, quindi essa fissa la scala degli sciami elettromagnetici.
+topics: [detectors]
+reviewed: false

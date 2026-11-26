@@ -1,0 +1,12 @@
+id: hadronization
+ko:
+  term: 강입자화
+  definition: 뜨거운 쿼크-글루온 물질이 식으면서 쿼크와 글루온이 다시 묶여 양성자, 파이온 같은 강입자가 되는 과정이다.
+en:
+  term: hadronization
+  definition: The process in which quarks and gluons regroup into hadrons, such as protons and pions, as the hot matter cools.
+it:
+  term: adronizzazione
+  definition: Il processo in cui quark e gluoni si riaggregano in adroni, come protoni e pioni, man mano che la materia calda si raffredda.
+topics: [heavy-ion]
+reviewed: false

@@ -1,0 +1,12 @@
+id: lorentz-contraction
+ko:
+  term: 로렌츠 수축
+  definition: 물체가 빠르게 움직이면 운동 방향으로 길이가 짧아져 보이는 상대성이론의 효과다. 빛에 가까운 속도의 원자핵은 납작하게 보인다.
+en:
+  term: Lorentz contraction
+  definition: The relativistic effect by which a fast-moving object appears shorter along its direction of motion; colliding nuclei look like thin pancakes.
+it:
+  term: contrazione di Lorentz
+  definition: "L'effetto relativistico per cui un oggetto in rapido movimento appare più corto nella direzione del moto; i nuclei in collisione appaiono come sottili dischi."
+topics: [heavy-ion]
+reviewed: false

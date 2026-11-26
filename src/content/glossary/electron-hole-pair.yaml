@@ -1,0 +1,12 @@
+id: electron-hole-pair
+ko:
+  term: 전자–정공 쌍
+  definition: 입자가 반도체를 지날 때 생기는 것으로, 자유롭게 움직이는 전자와 그 자리에 남은 빈자리(정공)가 짝을 이룬 것이다.
+en:
+  term: electron–hole pair
+  definition: A pair created when radiation frees an electron in a semiconductor, leaving behind a vacancy called a hole that behaves like a positive charge.
+it:
+  term: coppia elettrone-lacuna
+  definition: La coppia che si forma quando una radiazione libera un elettrone in un semiconduttore, lasciando una lacuna che si comporta come una carica positiva.
+topics: [semiconductor-detectors]
+reviewed: false

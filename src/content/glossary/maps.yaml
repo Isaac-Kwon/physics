@@ -1,0 +1,15 @@
+id: maps
+abbr: MAPS
+ko:
+  term: 모놀리식 능동 픽셀 센서
+  alt: MAPS
+  definition: 센서 회로와 읽기 회로를 같은 실리콘 칩 안에 함께 만든 픽셀형 입자 센서다. 얇고 가벼워 입자 추적기에 많이 쓰인다.
+en:
+  term: monolithic active pixel sensor
+  definition: A particle sensor built as a grid of pixels, with the readout electronics integrated into the same silicon chip. Thin and light, it is widely used in particle trackers.
+it:
+  term: sensore a pixel attivi monolitico
+  alt: MAPS
+  definition: "Un sensore di particelle a pixel, con l'elettronica di lettura integrata nello stesso chip di silicio. Sottile e leggero, è molto usato nei tracciatori di particelle."
+topics: [semiconductor-detectors, detectors]
+reviewed: false

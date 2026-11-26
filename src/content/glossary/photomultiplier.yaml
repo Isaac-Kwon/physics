@@ -1,0 +1,15 @@
+id: photomultiplier
+abbr: PMT
+ko:
+  term: 광전자증배관
+  alt: PMT
+  definition: 아주 약한 빛을 전기 신호로 바꾸고 수백만 배로 증폭하는 진공관 형태의 광검출기다.
+en:
+  term: photomultiplier tube
+  definition: A vacuum tube that converts very faint light into an electrical pulse and amplifies it millions of times.
+it:
+  term: fotomoltiplicatore
+  alt: PMT
+  definition: Un tubo a vuoto che converte luce debolissima in un impulso elettrico e lo amplifica di milioni di volte.
+topics: [detectors]
+reviewed: false

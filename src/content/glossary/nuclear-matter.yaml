@@ -1,0 +1,12 @@
+id: nuclear-matter
+ko:
+  term: 핵물질
+  definition: 양성자와 중성자(핵자)가 빽빽하게 모여 있는 물질이다. 중성자별의 내부가 이런 상태에 가깝다.
+en:
+  term: nuclear matter
+  definition: Matter made of densely packed nucleons, the protons and neutrons that make up atomic nuclei, such as the interior of a neutron star.
+it:
+  term: materia nucleare
+  definition: "Materia formata da nucleoni, cioè protoni e neutroni, impacchettati in modo denso, come quella all'interno di una stella di neutroni."
+topics: [heavy-ion]
+reviewed: false

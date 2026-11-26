@@ -1,0 +1,12 @@
+id: trigger
+ko:
+  term: 트리거
+  definition: 수많은 충돌 가운데 흥미로운 사건만 골라 기록하도록 결정하는 빠른 전자 회로나 알고리즘이다.
+en:
+  term: trigger
+  definition: A fast electronic decision system that selects which collision events are interesting enough to be recorded.
+it:
+  term: trigger
+  definition: Un sistema elettronico veloce che decide quali eventi di collisione siano abbastanza interessanti da essere registrati.
+topics: [detectors]
+reviewed: false

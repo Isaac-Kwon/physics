@@ -1,0 +1,12 @@
+id: test-beam
+ko:
+  term: 테스트빔
+  definition: 검출기 성능을 시험하고 보정하기 위해 가속기에서 에너지와 종류를 알고 있는 입자를 내보내는 빔이다.
+en:
+  term: test beam
+  definition: A beam of particles with known energy and type, sent from an accelerator into a detector to test and calibrate it.
+it:
+  term: test su fascio
+  definition: Un fascio di particelle di energia e tipo noti, inviato da un acceleratore verso un rivelatore per collaudarlo e calibrarlo.
+topics: [detectors]
+reviewed: false

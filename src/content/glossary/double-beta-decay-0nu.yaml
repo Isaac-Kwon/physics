@@ -1,0 +1,12 @@
+id: double-beta-decay-0nu
+ko:
+  term: 무중성미자 이중베타붕괴
+  definition: 원자핵 두 개의 중성자가 중성미자를 내지 않고 동시에 양성자로 바뀌는 가설적 과정이다. 발견된다면 중성미자가 자기 자신의 반입자라는 뜻이다.
+en:
+  term: neutrinoless double-beta decay
+  definition: A hypothetical nuclear decay in which two neutrons turn into protons and emit no neutrinos. If observed, it would mean neutrinos are their own antiparticles.
+it:
+  term: doppio decadimento beta senza neutrini
+  definition: Un decadimento nucleare ipotetico in cui due neutroni si trasformano in protoni senza emettere neutrini. Se osservato, significherebbe che il neutrino coincide con la propria antiparticella.
+topics: [neutrinos]
+reviewed: false

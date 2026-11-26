@@ -1,0 +1,12 @@
+id: semiconductor
+ko:
+  term: 반도체
+  definition: 전기가 잘 통하는 도체와 전기가 거의 통하지 않는 절연체의 중간 성질을 가진 물질이다. 실리콘이 대표적이다.
+en:
+  term: semiconductor
+  definition: A material whose electrical conductivity lies between that of a conductor and an insulator and can be precisely controlled; silicon is the best-known example.
+it:
+  term: semiconduttore
+  definition: "Materiale con una conducibilità elettrica intermedia tra quella dei conduttori e quella degli isolanti, controllabile con precisione; il silicio è l'esempio più noto."
+topics: [semiconductor-detectors]
+reviewed: false

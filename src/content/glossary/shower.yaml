@@ -1,0 +1,13 @@
+id: shower
+ko:
+  term: 샤워
+  alt: 소나기
+  definition: 고에너지 입자가 물질과 부딪혀 많은 이차 입자를 연쇄적으로 만들어 내며 퍼지는 현상이다. 소나기처럼 쏟아진다.
+en:
+  term: shower
+  definition: A cascade of secondary particles produced when a high-energy particle hits matter and triggers a chain of new particles, spreading out like a rain of debris.
+it:
+  term: sciame
+  definition: Una cascata di particelle secondarie prodotta quando una particella ad alta energia colpisce la materia e innesca una catena di nuove particelle.
+topics: [detectors]
+reviewed: false

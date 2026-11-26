@@ -1,0 +1,12 @@
+id: bethe-bloch
+ko:
+  term: 베테-블로흐 식
+  definition: 하전 입자가 물질을 지날 때 단위 길이당 평균적으로 잃는 에너지를 입자의 속도에 따라 나타낸 공식이다. 입자의 종류를 알아내는 데 쓰인다.
+en:
+  term: Bethe–Bloch formula
+  definition: A formula giving the average energy a charged particle loses per unit distance in matter, depending on its speed; it is used to identify particles.
+it:
+  term: formula di Bethe-Bloch
+  definition: "Una formula che dà l'energia media persa per unità di percorso da una particella carica che attraversa la materia, in funzione della sua velocità; serve a identificare le particelle."
+topics: [detectors]
+reviewed: false

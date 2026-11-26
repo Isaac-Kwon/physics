@@ -1,0 +1,12 @@
+id: radiation-damage
+ko:
+  term: 방사선 손상
+  definition: 방사선이 반도체나 검출기 재료의 원자를 제자리에서 밀어내 성능을 점차 떨어뜨리는 현상이다.
+en:
+  term: radiation damage
+  definition: Degradation of a detector or electronics material when radiation knocks atoms out of their regular positions, reducing performance over time.
+it:
+  term: danno da radiazione
+  definition: Il deterioramento di un materiale di rivelatori o di elettronica causato dalle radiazioni, che spostano gli atomi dalla loro posizione nel reticolo e ne riducono le prestazioni nel tempo.
+topics: [semiconductor-detectors]
+reviewed: false

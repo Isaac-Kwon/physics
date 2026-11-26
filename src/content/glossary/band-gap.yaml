@@ -1,0 +1,14 @@
+id: band-gap
+ko:
+  term: 띠틈
+  alt: 밴드갭
+  definition: 반도체에서 전자가 전기를 통하는 상태로 올라가기 위해 넘어야 하는 에너지 간격이다.
+en:
+  term: band gap
+  definition: The energy gap that an electron in a semiconductor must cross to become free to conduct electricity.
+it:
+  term: banda proibita
+  alt: band gap
+  definition: "L'intervallo di energia che un elettrone deve superare per diventare libero di condurre elettricità in un semiconduttore."
+topics: [semiconductor-detectors]
+reviewed: false

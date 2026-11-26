@@ -1,0 +1,12 @@
+id: hybrid-pixel
+ko:
+  term: 하이브리드 픽셀
+  definition: 센서와 읽기 칩을 따로 만든 뒤 미세한 금속 돌기로 붙여 연결한 픽셀 검출기다.
+en:
+  term: hybrid pixel
+  definition: A pixel detector in which the sensor and the readout chip are made separately and joined together with tiny metal bumps.
+it:
+  term: pixel ibrido
+  definition: Un rivelatore a pixel in cui il sensore e il chip di lettura sono prodotti separatamente e uniti tramite minuscole protuberanze metalliche.
+topics: [semiconductor-detectors, detectors]
+reviewed: false

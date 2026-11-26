@@ -1,0 +1,13 @@
+id: qgp
+abbr: QGP
+ko:
+  term: 쿼크-글루온 플라스마
+  definition: 쿼크와 글루온이 양성자·중성자 안에 갇히지 않고 자유롭게 움직이는, 극도로 뜨겁거나 빽빽한 물질 상태다.
+en:
+  term: quark–gluon plasma
+  definition: A state of matter so hot or dense that quarks and gluons are no longer confined inside protons and neutrons.
+it:
+  term: plasma di quark e gluoni
+  definition: Uno stato della materia così caldo o denso che quark e gluoni non sono più confinati dentro protoni e neutroni.
+topics: [heavy-ion]
+reviewed: false

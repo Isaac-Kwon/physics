@@ -1,0 +1,13 @@
+id: freeze-out
+ko:
+  term: 동결
+  definition: 충돌 뒤 생긴 입자들이 더 이상 서로 상호작용하지 않게 되어, 각 입자의 운동이 사실상 고정되는 순간이다.
+en:
+  term: freeze-out
+  definition: The moment after a collision when the produced particles stop interacting with each other, so their motion is effectively fixed.
+it:
+  term: freeze-out
+  alt: congelamento
+  definition: Il momento, dopo la collisione, in cui le particelle prodotte smettono di interagire tra loro e il loro moto si fissa.
+topics: [heavy-ion]
+reviewed: false

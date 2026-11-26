@@ -1,1 +1,69 @@
-{}
+{
+  "site.title": "La fisica, dall'esterno verso l'interno",
+  "site.tagline": "Modi di vedere l'invisibile",
+  "site.description": "Un'introduzione interattiva e guidata dallo scorrimento alla fisica degli ioni pesanti, alla materia oscura, ai neutrini e ai rivelatori di particelle.",
+
+  "nav.skip": "Vai al contenuto",
+  "nav.topics": "Argomenti",
+  "nav.glossary": "Glossario",
+  "nav.about": "Info",
+  "nav.home": "Home",
+  "nav.language": "Lingua",
+  "nav.menu": "Menu",
+
+  "topic.heavy-ion.title": "Fisica degli ioni pesanti",
+  "topic.heavy-ion.tagline": "Ricreare il primo microsecondo dell'universo.",
+  "topic.dark-matter.title": "Materia oscura",
+  "topic.dark-matter.tagline": "La maggior parte della materia è invisibile. Come cercarla?",
+  "topic.neutrinos.title": "Neutrini",
+  "topic.neutrinos.tagline": "Catturare particelle fantasma che attraversano tutto.",
+  "topic.semiconductor-detectors.title": "Rivelatori a semiconduttore",
+  "topic.semiconductor-detectors.tagline": "Come una sottile lamina di silicio trasforma una particella in un segnale.",
+  "topic.detectors.title": "Rivelatori",
+  "topic.detectors.tagline": "Non vediamo mai le particelle, solo le tracce che lasciano.",
+
+  "hub.hero.title": "Modi di vedere l'invisibile",
+  "hub.hero.subtitle": "Domande diverse, collegate dagli stessi strumenti e dalla stessa fisica.",
+  "hub.map.title": "Mappa degli argomenti",
+  "hub.map.axis": "Scala di lunghezza",
+  "hub.map.tool": "Strumento",
+  "hub.list.title": "Tutti gli argomenti",
+
+  "card.comingSoon": "Prossimamente",
+  "card.readingTime": "Lettura: {min} min",
+
+  "tier.T0": "Introduzione",
+  "tier.T1": "Intuizione",
+  "tier.T2": "Meccanismo",
+  "tier.T3": "Livello universitario",
+  "tier.T4": "Frontiera",
+
+  "gauge.label": "Profondità",
+  "gauge.jump": "Vai a {layer}",
+
+  "deeper.label": "Approfondimento",
+  "deeper.open": "Mostra i dettagli",
+  "deeper.close": "Nascondi i dettagli",
+
+  "primer.label": "Primer",
+  "primer.from": "Da {topic}",
+  "bridge.label": "Approfondisci in",
+  "related.title": "Argomenti correlati",
+  "references.title": "Letture consigliate",
+
+  "figure.schematic": "Schema, non dati reali",
+  "figure.simulated": "Esempio simulato",
+  "figure.asOf": "Aggiornato al {date}",
+
+  "glossary.title": "Glossario",
+  "glossary.intro": "Ogni termine in tre lingue.",
+  "glossary.relatedTopics": "Compare in",
+
+  "about.title": "Info",
+
+  "langPicker.title": "Scegli una lingua",
+  "langPicker.redirecting": "Reindirizzamento alla tua lingua…",
+
+  "footer.license": "Testi CC BY 4.0 · Codice MIT",
+  "a11y.reducedMotion": "Le animazioni sono ridotte in base alle impostazioni del sistema."
+}

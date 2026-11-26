@@ -1,0 +1,12 @@
+id: critical-point
+ko:
+  term: 임계점
+  definition: 두 상태의 구별이 사라지는, 상태도 위의 특별한 점이다. 물의 임계점에서는 액체와 기체의 차이가 없어진다.
+en:
+  term: critical point
+  definition: A special point on the phase diagram where two phases become indistinguishable; for water, liquid and gas merge there.
+it:
+  term: punto critico
+  definition: "Un punto speciale del diagramma di fase in cui due fasi diventano indistinguibili; nell'acqua, liquido e gas si confondono."
+topics: [heavy-ion]
+reviewed: false

@@ -1,0 +1,13 @@
+id: confinement
+ko:
+  term: 가둠
+  alt: 색 가둠
+  definition: 쿼크는 혼자 떨어져 나올 수 없고, 항상 양성자나 중성자 같은 입자 안에 묶여 있는 성질이다.
+en:
+  term: confinement
+  definition: The property that quarks can never be isolated on their own and are always bound inside larger particles such as protons and neutrons.
+it:
+  term: confinamento
+  definition: "La proprietà per cui i quark non possono essere isolati da soli e restano sempre legati all'interno di particelle più grandi, come protoni e neutroni."
+topics: [heavy-ion]
+reviewed: false

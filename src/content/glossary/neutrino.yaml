@@ -1,0 +1,13 @@
+id: neutrino
+ko:
+  term: 중성미자
+  alt: 뉴트리노
+  definition: 전하가 없고 질량이 극히 작아, 거의 모든 물질을 그대로 통과해 지나가는 기본 입자다.
+en:
+  term: neutrino
+  definition: A nearly massless, electrically neutral elementary particle that passes through ordinary matter almost without interacting.
+it:
+  term: neutrino
+  definition: Particella elementare neutra e con massa quasi nulla, che attraversa quasi senza interagire la materia ordinaria.
+topics: [neutrinos]
+reviewed: false

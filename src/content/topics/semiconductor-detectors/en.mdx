@@ -1,0 +1,510 @@
+---
+topic: semiconductor-detectors
+lang: en
+title: Semiconductor Detectors
+subtitle: How the silicon in your phone camera became particle physics' sharpest eye
+description: A silicon wafer turns one passing particle into an electric pulse. See how sensors work, how they are tested, and why ALICE is bending silicon into cylinders.
+tagline: From a phone-camera chip to the sharpest eye in particle physics.
+layers:
+  - { id: hook, title: Ten billion pixels }
+  - { id: intuition, title: Turning a particle into electricity }
+  - { id: mechanism, title: Inside the silicon }
+  - { id: zoo, title: A zoo of semiconductor detectors }
+  - { id: research, title: How a sensor is made and tested }
+  - { id: case-its3, title: Bending silicon, and what comes next }
+references:
+  - title: "Semiconductor Detector Systems"
+    author: "Helmuth Spieler — Oxford University Press (2005)"
+    note: "Textbook. The first chapters on signal formation and noise are written for physics students."
+  - title: "Semiconductor Radiation Detectors: Device Physics"
+    author: "Gerhard Lutz — Springer (1999, revised 2007)"
+    note: "Textbook. Band structure, junctions and depletion, from the basics."
+  - title: "Radiation Detection and Measurement"
+    author: "Glenn F. Knoll — Wiley (4th edition, 2010)"
+    note: "Classic textbook. The chapters on semiconductor diode detectors and on germanium detectors."
+  - title: "Particle Detectors: Fundamentals and Applications"
+    author: "Hermann Kolanoski, Norbert Wermes — Oxford University Press (2020)"
+    note: "Textbook with a long chapter on solid-state detectors."
+  - title: "Evolution of Silicon Sensor Technology in Particle Physics"
+    author: "Frank Hartmann — Springer Tracts in Modern Physics (2nd edition, 2017)"
+    note: "From strips to pixels, radiation damage and the road to the HL-LHC."
+  - title: "Review of Particle Physics: Particle detectors (chapters on passage of particles through matter and on detectors)"
+    author: "Particle Data Group"
+    url: "https://pdg.lbl.gov/"
+    note: "Reference. Short, dense, and the source of many numbers on this page."
+asOf: "2025"
+draft: true
+---
+
+<Layer id="hook">
+  <Scene id="sc.hook" mode="scrub">
+    <Step state="wafer">A silicon wafer, the same material as your phone's camera.</Step>
+    <Step state="chips">Cut into thousands of chips, each the size of a postage stamp.</Step>
+    <Step state="staves">The chips are glued into long, thin ladders.</Step>
+    <Step state="barrel">Ladders wrap around the beam pipe, a few centimetres from the collision.</Step>
+  </Scene>
+  <BigNumber value={1e10} unit="pixels" approx caption="ALICE's inner tracker, on its own: more than ten billion pixels on about 10 square metres of silicon. Each pixel is a few tens of micrometres across, thinner than half a hair." />
+</Layer>
+
+<Layer id="intuition">
+  <Primer id="ionization" />
+
+  <Scene id="sc.charge-ladder">
+    <Step state="ladder">
+      Think of silicon as a building with a full ground floor and an empty first floor. The electrons are stuck downstairs. To jump the gap between floors, an electron needs a small, fixed amount of energy.
+    </Step>
+    <Step state="kick">
+      A particle racing through silicon gives electrons that kick. Some of them jump to the upper floor, where they can move freely.
+    </Step>
+    <Step state="hole">
+      Each jump leaves an empty seat downstairs, a "hole". The hole behaves like a positive charge that can move too. One <Term id="electron-hole-pair">electron–hole pair</Term> is the unit of signal.
+    </Step>
+  </Scene>
+
+  <Scene id="sc.camera-vs-particle">
+    <Step state="camera">
+      A phone camera does the same thing with light. Each pixel collects the pairs made by thousands of photons over a fraction of a second, and the picture is the sum.
+    </Step>
+    <Step state="particle">
+      A particle detector faces a different problem. One particle, passing in a few picoseconds, has to leave a clear mark in one place at one time. It does: a single fast particle leaves tens of thousands of pairs.
+    </Step>
+  </Scene>
+
+  <Scene id="sc.mip-charge">
+    <Step state="crossing">
+      Take a fast charged particle that loses almost the minimum energy that any particle does: a "minimum-ionizing particle", or MIP. Send it through a silicon sensor 300 micrometres thick, about three times the thickness of a sheet of paper.
+    </Step>
+    <Step state="pairs">
+      It frees about 80 electron–hole pairs for every micrometre it travels. Over 300 micrometres that adds up to more than 20,000 pairs. Electronics can measure that.
+    </Step>
+  </Scene>
+
+  <Widget name="MipCharge" />
+
+  <Bridge id="sc-mip-to-det-interactions" />
+
+  **Silicon turns a particle's passage into a packet of charge you can count. The rest of this page is about how to collect that charge, and what to build with it.**
+
+  <Deeper title="Why 80 pairs per micrometre?">
+    The mean energy loss of a minimum-ionizing particle in silicon is about $3.9\ \text{MeV/cm}$, or $0.39\ \text{keV}/\mu\text{m}$. Dividing by the energy needed per pair, $w \approx 3.6\ \text{eV}$, gives about 108 pairs per micrometre on average. The *most probable* value is lower, about 75 to 80, because the energy-loss distribution (a Landau distribution) has a long tail of rare, large losses that pull the mean up. Detectors respond to the most probable value, so we quote about 80.
+
+    $$N_{\text{pairs}} \approx \frac{\Delta E}{w}, \qquad N_{\text{pairs}}(300\,\mu\text{m}) \approx 80 \times 300 = 2.4\times 10^4 .$$
+  </Deeper>
+</Layer>
+
+<Layer id="mechanism">
+  <Scene id="sc.band-gap">
+    <Step state="bands">
+      In a crystal, the allowed electron energies form bands. In silicon the full valence band and the empty conduction band are separated by a <Term id="band-gap">band gap</Term> of 1.12 eV. A <Term id="semiconductor">semiconductor</Term> has a gap small enough to cross with a modest kick, but large enough that almost no electron crosses by itself at room temperature.
+    </Step>
+    <Step state="pair-energy">
+      A particle needs on average 3.6 eV to make one pair, about three times the gap. The rest goes into lattice vibrations. In a gas it costs about 30 eV, so silicon gives roughly ten times more charge for the same energy deposited.
+    </Step>
+    <Step state="n-type">
+      Pure silicon has few free carriers. We add them on purpose. Replace one atom in a million of silicon with phosphorus, which has one extra electron, and you get n-type silicon with free electrons.
+    </Step>
+    <Step state="p-type">
+      Replace silicon with boron, which is one electron short, and you get p-type: mobile holes. This is doping.
+    </Step>
+  </Scene>
+
+  <Deeper title="Intrinsic carriers, and why the gap matters">
+    In pure silicon at temperature $T$ the density of thermally excited carriers is
+
+    $$n_i = \sqrt{N_c N_v}\;e^{-E_g/2k_BT} \approx 10^{10}\ \text{cm}^{-3} \quad (300\ \text{K}),$$
+
+    against $5\times 10^{22}$ atoms per cm³. In a 300 µm sensor that is thousands of thermal carriers under each 50 µm pixel, comparable with a MIP's signal, which is why we must sweep them out (next steps). Germanium has $E_g = 0.67$ eV and so many thermal carriers that it has to be cooled with liquid nitrogen. Empirically the pair-creation energy follows $w \approx 2.8\,E_g + 0.6\ \text{eV}$, close to 3.6 eV for silicon.
+  </Deeper>
+
+  <Scene id="sc.junction">
+    <Step state="contact">
+      Now put p-type and n-type silicon side by side. Electrons from the n side wander over to fill holes on the p side. Near the boundary they cancel.
+    </Step>
+    <Step state="depletion">
+      What is left is a thin layer with no free charges, only the fixed, charged atoms: the <Term id="depletion-region">depletion region</Term>. It has an electric field across it. Any pair made inside it is separated at once, before it can recombine. This layer is the active volume of a detector.
+    </Step>
+    <Step state="reverse-bias">
+      Connect a battery so that the n side is positive. This is <Term id="reverse-bias">reverse bias</Term>. It pulls free carriers further away from the boundary, so the depleted layer grows thicker.
+    </Step>
+    <Step state="full-depletion">
+      At a high enough voltage the layer spans the whole sensor. Beyond this "full depletion voltage", the field keeps growing and charge is collected faster. Try it.
+    </Step>
+  </Scene>
+
+  <Widget name="BiasDepletion" />
+
+  <Deeper title="The depletion width">
+    Solve Poisson's equation for an abrupt junction with the doping on one side much lower than on the other (a typical detector: lightly doped bulk, effective doping $N_{\text{eff}}$). The depleted width is
+
+    $$W = \sqrt{\frac{2\varepsilon\,(V_{bi}+V)}{q\,N_{\text{eff}}}}, \qquad V_{bi} = \frac{k_BT}{q}\ln\frac{N_A N_D}{n_i^2}\approx 0.6\ \text{V},$$
+
+    with $\varepsilon = 11.9\,\varepsilon_0$ for silicon. For $N_{\text{eff}} = 10^{12}\ \text{cm}^{-3}$ and $V = 100$ V, $W \approx 360\ \mu\text{m}$. Setting $W$ equal to the thickness $d$ gives the full depletion voltage
+
+    $$V_{fd} \approx \frac{q\,N_{\text{eff}}\,d^2}{2\varepsilon} \;(\approx 70\ \text{V for } d = 300\,\mu\text{m}).$$
+
+    In terms of resistivity, $W \propto \sqrt{\rho V}$: high-resistivity silicon (low doping) depletes deeper at the same voltage. The depleted sensor acts as a parallel-plate capacitor, $C = \varepsilon A / W$, which is how $C$–$V$ measurements find $V_{fd}$ (see the research layer).
+  </Deeper>
+
+  <Scene id="sc.drift">
+    <Step state="mip-crossing">
+      A particle crosses the depleted sensor and leaves a thin line of pairs along its path.
+    </Step>
+    <Step state="drift">
+      The field pushes electrons toward the positive electrode and holes toward the negative one. They move through the crystal at a speed proportional to the field, constantly bumping into the lattice.
+    </Step>
+    <Step state="speed">
+      Electrons are about three times more mobile than holes. Across a 300 micrometre sensor, the electrons arrive in a few nanoseconds and the holes in tens of nanoseconds. That is fast enough for detectors that count tens of millions of particles per second.
+    </Step>
+  </Scene>
+
+  <Scene id="sc.signal-induction">
+    <Step state="weighting-field">
+      When does the signal appear? Not when the charges reach the electrode. Each moving charge induces a current on the electrodes as soon as it moves, in proportion to how strongly the electrode "sees" the charge at that position.
+    </Step>
+    <Step state="moving-charge">
+      Near a small pixel electrode the sensitivity is steepest. A charge close to the pixel contributes a lot, a charge far away almost nothing. So most of the signal is made in the last stretch before the pixel.
+    </Step>
+    <Step state="pulse">
+      Add up electrons and holes and you get a short current pulse lasting a few nanoseconds. The area under the pulse is the total charge. Its shape tells you how the charge moved.
+    </Step>
+  </Scene>
+
+  <Deeper title="The Shockley–Ramo theorem">
+    Let $\mathbf{E}_w(\mathbf{x})$ be the *weighting field*: the electric field you would get if the readout electrode were at unit potential and every other electrode at zero. A charge $q$ moving with velocity $\mathbf{v}$ induces a current on that electrode
+
+    $$i(t) = -\,q\,\mathbf{v}\cdot\mathbf{E}_w(\mathbf{x}(t)).$$
+
+    The induced charge is $Q=-q\,[\phi_w(\mathbf{x}_f)-\phi_w(\mathbf{x}_i)]$, the change in the weighting potential along the path. For parallel plates $E_w = 1/d$ is uniform, so current is proportional to $v$ and both carriers contribute through their whole drift. For a small pixel $E_w$ is concentrated near the electrode (the "small pixel effect"), and the signal is dominated by the last part of the drift.
+
+    Drift velocity is $v = \mu E$ at low field, with $\mu_e \approx 1400$ and $\mu_h \approx 450\ \text{cm}^2/\text{Vs}$ in silicon, and saturates at about $10^7$ cm/s (100 µm per ns) at high field. In a magnetic field, carriers drift at the Lorentz angle $\tan\theta_L\approx \mu_H B$ to the field, which shifts the measured position.
+  </Deeper>
+
+  <Scene id="sc.charge-sharing">
+    <Step state="cloud">
+      While the charge drifts, it spreads by diffusion into a cloud. After crossing a few hundred micrometres it is typically about ten micrometres wide.
+    </Step>
+    <Step state="pixels">
+      If the particle passes near a boundary between pixels, the cloud is shared between neighbours. Two pixels fire, each with part of the charge.
+    </Step>
+    <Step state="centroid">
+      Weigh each pixel's position by its charge and you get the cloud's centre of gravity. This locates the particle better than the pixel size. A good analogue readout reaches a few micrometres.
+    </Step>
+    <Step state="binary">
+      If the electronics only say "hit" or "no hit", you lose the charge information. A hit is then somewhere in the pixel, and the error is the pitch divided by the square root of 12.
+    </Step>
+  </Scene>
+
+  <Widget name="ChargeSharing" />
+
+  <Deeper title="Diffusion and the binary resolution">
+    The cloud's width grows as $\sigma = \sqrt{2Dt}$ with $D = \mu k_BT/q$ (Einstein relation). For electrons, $D\approx 36\ \text{cm}^2/\text{s}$, so after $t = 10$ ns, $\sigma \approx 8\ \mu\text{m}$.
+
+    A particle equally likely to hit anywhere in a pixel of width $p$, read out as "hit at the pixel centre", has an error with variance $\int_{-p/2}^{p/2} x^2\,dx/p = p^2/12$, so $\sigma_x = p/\sqrt{12}\approx 0.29\,p$. A 50 µm pitch gives 14 µm. If the cloud is shared and charges are measured, interpolating can improve this several times.
+  </Deeper>
+
+  **Summary: dope silicon to make a junction, reverse-bias it to empty out a layer, let the particle fill that layer with pairs, and read the pulse that their motion induces.**
+
+  <Primer id="silicon-sensor" />
+</Layer>
+
+<Layer id="zoo">
+  Every detector in this zoo follows the same recipe: a depleted volume turns a particle into pairs, and electrodes read the charge. What differs is one clever trick each. We follow one particle through three of them, then take a quick tour of the rest.
+
+  <Scene id="sc.strip">
+    <Step state="strips">
+      **Strips.** Cut the electrode into long parallel strips, tens of micrometres wide and several centimetres long. Each strip gives one coordinate. A single sensor covers a large area with only a few hundred readout channels, so strips are cheap. They are used in the large outer trackers.
+    </Step>
+    <Step state="stereo">
+      For a second coordinate, glue two layers with strips tilted by a small angle. A particle fires one strip in each layer, and where the two strips cross gives the position. The price is "ghost" crossings when many particles arrive together.
+    </Step>
+  </Scene>
+
+  <Walkthrough scene="sc.walkthrough-hybrid" experiment="ATLAS pixel detector" also="Same principle: CMS pixels, LHCb VELO, and Timepix chips used in medicine and in space.">
+    <Step state="goal" kind="goal">
+      Goal: mark exactly where one particle passed, in two dimensions, even when millions of other particles arrive each second.
+    </Step>
+    <Step state="drift" kind="signal">
+      The particle frees pairs in a sensor of high-resistivity silicon, fully depleted. The charge drifts to a grid of small pixel electrodes, each about 50 micrometres wide.
+    </Step>
+    <Step state="bump" kind="signal">
+      Below every pixel sits a tiny solder ball, a "bump". It joins the pixel to its own amplifier in a separate readout chip, laid face to face under the sensor.
+    </Step>
+    <Step state="amplify" kind="signal">
+      The amplifier turns a few thousand electrons into a voltage pulse. A discriminator then compares the pulse with a threshold. Above it: this pixel was hit.
+    </Step>
+    <Step state="readout" kind="readout">
+      The chip records which pixels fired, often with the pulse height too. A cluster of fired pixels is one particle crossing, and its centre of gravity is the position.
+    </Step>
+    <Step state="trick" kind="trick">
+      The trick: sensor and electronics are made separately, each in the process that suits it best. The sensor is optimised for radiation hardness and the chip for speed. The bumps are what connect them, pixel by pixel.
+    </Step>
+  </Walkthrough>
+
+  <Walkthrough scene="sc.walkthrough-maps" experiment="ALICE ITS2 (ALPIDE chip)" also="Same principle: STAR's MAPS vertex detector, the CBM micro-vertex detector, and ALICE's next-generation ITS3.">
+    <Step state="goal" kind="goal">
+      Goal: make a very thin, very light tracker, so that particles are barely disturbed on their way out, for a low price over many square metres.
+    </Step>
+    <Step state="epi-layer" kind="signal">
+      The sensor is a thin, lightly doped layer grown on top of a silicon chip, about 25 micrometres thick. Particles make pairs inside that layer.
+    </Step>
+    <Step state="collect" kind="signal">
+      Part of the layer has only a weak field. The pairs spread by diffusion until they reach the small collection electrode, and are then collected. It is slower than drift, but plenty fast for this use.
+    </Step>
+    <Step state="in-pixel" kind="signal">
+      On the same chip, in the same pixel, are an amplifier, a discriminator and a memory cell. The circuits are protected from the charge by a deep well, so they do not steal it.
+    </Step>
+    <Step state="readout" kind="readout">
+      Only the addresses of the pixels that fired leave the chip. Nothing else is sent, so the power per area stays low enough to cool with air or a little water.
+    </Step>
+    <Step state="trick" kind="trick">
+      The trick: sensor and electronics are the same piece of silicon, made in a standard chip factory. No bump bonds, so the chip can be thinned to about 50 micrometres, and a whole detector costs far less.
+    </Step>
+  </Walkthrough>
+
+  <Walkthrough scene="sc.walkthrough-lgad" experiment="ATLAS High-Granularity Timing Detector (HGTD)" also="Same principle: CMS endcap timing layer (ETL). Timing layers add a clock to tracking.">
+    <Step state="goal" kind="goal">
+      Goal: stamp the time of a particle's arrival to a few tens of picoseconds, so we can tell apart particles from collisions that overlap in space but not in time.
+    </Step>
+    <Step state="drift" kind="signal">
+      A thin silicon sensor, only about 50 micrometres thick, makes pairs as usual. Thin means a short drift and a short pulse.
+    </Step>
+    <Step state="gain-layer" kind="signal">
+      Near the electrode sits an extra, specially doped layer with a strong field. Electrons crossing it gain enough energy to knock out more pairs: an avalanche. The signal is multiplied about ten to thirty times.
+    </Step>
+    <Step state="fast-edge" kind="signal">
+      A bigger pulse has a steeper rising edge, and a steeper edge can be timed to a small fraction of the pulse width. The thin sensor keeps the edge sharp.
+    </Step>
+    <Step state="timestamp" kind="readout">
+      The electronics note the moment the edge crosses a threshold. The time of arrival, good to roughly 30 to 50 picoseconds, is saved with the hit.
+    </Step>
+    <Step state="trick" kind="trick">
+      The trick: the gain is kept low, about 20, not the thousands of a Geiger counter. It is just enough to lift the edge above the noise, and the pulse stays proportional to the original charge.
+    </Step>
+  </Walkthrough>
+
+  <Deeper title="Why time resolution depends on gain, noise and thickness">
+    The jitter of a threshold crossing is the noise divided by the slope of the signal: $\sigma_t \approx \sigma_n / (dV/dt)$. Gain raises $dV/dt$ without raising the electronics noise, so $\sigma_t$ falls. Thin sensors make the pulse short and its slope high, but also reduce the charge, hence the use of gain. A second term, from fluctuations in where and how the charge is deposited along the track (Landau fluctuations), puts a floor of a few tens of picoseconds for sensors thicker than about 50 µm.
+
+    In an LGAD the multiplication in the gain layer is $M = \exp\!\big(\int \alpha(E)\,dx\big)$ with the impact-ionization coefficient $\alpha(E)$ rising steeply with field near $3\times 10^{5}$ V/cm. Gain is therefore very sensitive to bias voltage and temperature.
+  </Deeper>
+
+  The rest of the zoo changes the material, or what is read.
+
+  <Scene id="sc.zoo-more">
+    <Step state="hpge">
+      **High-purity germanium (HPGe).** A big, cooled crystal of ultra-pure germanium, centimetres thick, used as one giant diode. Its small gap (0.67 eV) gives more pairs per keV than silicon, so the charge fluctuates less. It gives the best energy resolution of any common detector for gamma rays, about 0.2 % at 1 MeV. It is cooled to about 77 K to suppress thermal carriers. Germanium is used in nuclear spectroscopy, and in the hunt for neutrinoless double-beta decay.
+    </Step>
+    <Step state="ccd">
+      **Charge-coupled device (CCD).** A silicon chip whose electrodes act as buckets. The charge from a pixel is passed, bucket by bucket, to a single output amplifier. This is what is in a camera, and in telescopes. Science-grade silicon CCDs reach very low noise and can register single visible photons.
+    </Step>
+    <Step state="skipper">
+      **Skipper CCD.** A modified CCD whose output stage can measure the same charge packet again and again without destroying it. Averaging N measurements cuts the noise as $1/\sqrt{N}$ until a single electron stands out. Because silicon needs only about 1 eV to free an electron, such a chip can notice very small energy deposits. It is used in dark-matter searches such as SENSEI and DAMIC-M.
+    </Step>
+    <Step state="sipm">
+      **Silicon photomultiplier (SiPM).** A grid of tiny diodes biased just above breakdown (Geiger mode). A single photon triggers a full avalanche of about a million electrons in one cell. Each cell is an on/off switch, and the sum counts photons. SiPMs read out scintillators in PET scanners and in particle physics.
+    </Step>
+    <Step state="3d">
+      **3D sensors.** Instead of flat electrodes on the surface, thin columns are etched all the way through the silicon. The charge then drifts sideways, a short distance between columns, so it is collected fast, and trapping after heavy irradiation matters less. Part of ATLAS's innermost pixel layer uses 3D sensors.
+    </Step>
+    <Step state="wide-gap">
+      **Wide-gap materials.** Diamond (5.5 eV), silicon carbide and gallium nitride are harder to damage and work hot, at the price of fewer pairs per MeV. Their main use is monitoring intense beams.
+    </Step>
+  </Scene>
+
+  <Bridge id="sc-hpge-to-nu-frontier" />
+  <Bridge id="sc-ccd-to-dm-direct" />
+
+  <Deeper title="Energy resolution and the Fano factor">
+    For $N = E/w$ pairs created by independent events, counting statistics would give $\sigma_N = \sqrt{N}$. The pair-making steps are not independent, since the total energy is fixed, and the variance is reduced to $\sigma_N^2 = F N$, with the Fano factor $F\approx 0.1$ for silicon and germanium. The intrinsic energy resolution is then
+
+    $$\frac{\sigma_E}{E} = \sqrt{\frac{F\,w}{E}}, \qquad \text{FWHM}=2.355\,\sigma_E .$$
+
+    For germanium ($w=2.96$ eV) at 1.33 MeV, $\sigma_E\approx 0.6$ keV (FWHM $\approx 1.5$ keV) from the statistics alone, and real detectors reach a FWHM of about 2 keV once electronic noise and incomplete collection are included. A scintillator with a photomultiplier gives roughly ten times worse. Silicon detectors operate in the same way, with electronic noise (a few tens to hundreds of electrons) usually the limit.
+  </Deeper>
+</Layer>
+
+<Layer id="research">
+  Most of a detector physicist's year is not spent looking at data from the experiment. It is spent on sensors before they are anywhere near an experiment. Here is the path of one sensor, from idea to detector. We call it the pipeline.
+
+  <Scene id="sc.lab-pipeline">
+    <Step state="tcad">
+      **1. Design and simulate.** Before anything is built, a device simulation (TCAD) solves the electric field, depletion and charge collection inside the silicon, with models for radiation damage. A particle simulation (Geant4, together with the Allpix² framework) follows a particle through the sensor and electronics, and predicts what the readout would see.
+    </Step>
+    <Step state="asic">
+      **1b. Design the readout.** A small signal has to be amplified, shaped, and compared with a threshold. Amplify more and you get noise; lower the threshold and noise starts to fire pixels by itself; spend more power and the detector heats. Choosing the compromise is the circuit designer's job.
+    </Step>
+    <Step state="probe">
+      **2. Make and check the wafers.** After fabrication, a probe station touches pads on each sensor. Two measurements are standard: current versus voltage (I–V) and capacitance versus voltage (C–V). Together they find the breakdown voltage and the voltage that fully depletes the sensor.
+    </Step>
+    <Step state="source">
+      **3. Radioactive sources.** A ⁹⁰Sr source emits electrons that behave almost like MIPs. A ⁵⁵Fe source emits 5.9 keV X-rays that each free about 1,600 pairs, which is a convenient, known charge for calibrating a chip's gain.
+    </Step>
+    <Step state="tct">
+      **3b. Laser scans.** A focused infrared laser makes charge at a chosen point. Scanning it across the sensor, or focusing it at different depths with two-photon absorption (TPA-TCT), gives a map of how well charge is collected, in depth and in position.
+    </Step>
+    <Step state="testbeam">
+      **4. Test beam.** The sensor is taken to an accelerator (DESY or CERN's SPS, for example) and placed in a beam of real, fast particles, between reference planes. This is the real test, and the next section is about it.
+    </Step>
+    <Step state="irradiation">
+      **5. Irradiation.** The sensor is bombarded with neutrons or protons to age it, as years of running would. Then it is tested again.
+    </Step>
+    <Step state="integration">
+      **6. Build the detector.** Many sensors are mounted on lightweight supports, wire-bonded, cooled, and connected to a readout system. It is as much mechanical and thermal engineering as physics.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schematic: sensor current versus bias voltage. A gentle leakage current, then a sharp rise at breakdown. Not real data.">
+    <Scene id="sc.iv-curve">
+      <Step state="iv">
+        The I–V curve of a good sensor is flat and small, tens of nanoamperes per square centimetre, until breakdown. Then the current shoots up. The sensor must work well below this voltage.
+      </Step>
+      <Step state="cv">
+        In C–V, the capacitance falls as the depletion layer grows, and stays flat once the sensor is fully depleted. The knee gives the full depletion voltage.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="Reading C–V and noise from first principles">
+    For a depleted diode of area $A$, $C = \varepsilon A/W$, so using $W\propto\sqrt{V}$ below full depletion, $1/C^2 \propto V$ with slope $2/(q\varepsilon A^2 N_{\text{eff}})$, which gives $N_{\text{eff}}$. Above $V_{fd}$, $C = \varepsilon A/d$ is constant.
+
+    The readout noise is quoted as an equivalent noise charge (ENC), the signal charge for which signal and noise are equal. For a charge amplifier it depends on the sensor capacitance, the leakage current $I_L$ and the shaping time $\tau$ roughly as
+    $$\text{ENC}^2 \approx a\,\frac{C^2}{\tau} + b\,I_L\,\tau + c .$$
+    Short shaping favours speed but raises the first (series) term, long shaping lowers it but raises the second (parallel) term, and so there is an optimum. A threshold set at about five times ENC makes noise hits rare. Scanning the threshold and counting hits traces an S-shaped error function, the "S-curve", whose width is the noise.
+  </Deeper>
+
+  <Primer id="magnetic-tracking" />
+
+  <Scene id="sc.testbeam">
+    <Step state="telescope">
+      A "beam telescope" is a row of precise pixel planes with the device under test (DUT) in the middle. A beam of particles passes through all of them. Each plane gives one point, and a straight line through the reference planes predicts where the particle should hit the DUT.
+    </Step>
+    <Step state="track">
+      Software links hits into a track, extrapolates it to the DUT and asks whether the DUT also fired. The fraction that did is the efficiency. The cluster size tells about charge sharing.
+    </Step>
+    <Step state="residual">
+      The distance between the predicted point and the measured one is the residual. Collect many, and the residuals form a bell-shaped histogram. Its width gives the position resolution, once the telescope's own uncertainty is taken out.
+    </Step>
+  </Scene>
+
+  <Widget name="TestbeamResiduals" />
+
+  <Deeper title="From residual width to resolution">
+    The residual combines the DUT's own error with the uncertainty of the track prediction:
+    $$\sigma_{\text{res}}^2 = \sigma_{\text{DUT}}^2 + \sigma_{\text{pred}}^2 .$$
+    The telescope's prediction error depends on the planes' resolution, their spacing, and on multiple scattering, which bends the track slightly in every layer. For a particle of momentum $p$ crossing material of thickness $x$ and radiation length $X_0$ (9.4 cm in silicon), the scattering angle is roughly
+    $$\theta_0 \approx \frac{13.6\ \text{MeV}}{\beta c\,p}\sqrt{\frac{x}{X_0}}.$$
+    A higher beam momentum scatters less, which is why test beams with energies of several GeV are sought. Software frameworks (for instance EUDAQ for data taking and Corryvreckan for analysis) are a large part of the work.
+  </Deeper>
+
+  <Scene id="sc.radiation-damage">
+    <Step state="defects">
+      A fast particle sometimes hits a silicon nucleus hard enough to knock an atom out of its place. This leaves a defect in the crystal. At the heart of a collider detector this happens billions of times. The damage is measured in "1 MeV neutron equivalent" per square centimetre, a standard fluence.
+    </Step>
+    <Step state="leakage">
+      Defects create energy levels inside the gap. Electrons hop up more easily, which raises the leakage current in proportion to the fluence.
+    </Step>
+    <Step state="doping">
+      Some defects also act as charged dopants, so the effective doping of the bulk changes, and with it the full depletion voltage. At high fluence the sensor needs a much higher voltage to deplete.
+    </Step>
+    <Step state="trapping">
+      Other defects trap electrons and holes while they drift. Trapped charge never reaches the electrode, and the signal shrinks.
+    </Step>
+    <Step state="anneal">
+      Defects change over time, and warmth speeds that up. Some heal, and some get worse. So a sensor is kept cold, which also reduces leakage, and the plan includes warm-up periods.
+    </Step>
+  </Scene>
+
+  <Deeper title="Damage scaling, in numbers">
+    Under the non-ionizing energy loss (NIEL) hypothesis, damage scales with the displacement energy and not with the particle type, so fluences are expressed as 1 MeV neutron equivalents $\Phi_{eq}$. The increase of leakage current is
+    $$\Delta I = \alpha\,\Phi_{eq}\,V_{\text{act}}, \qquad \alpha\approx 4\times10^{-17}\ \text{A/cm}\ \text{(after annealing, 20 °C)},$$
+    and falls by half for roughly every 7 K of cooling. Trapping shortens the carrier lifetime as $1/\tau_{\text{eff}} = \beta\,\Phi_{eq}$ with $\beta\sim 5\times10^{-16}\ \text{cm}^2/\text{ns}$, so at $\Phi_{eq} = 10^{15}\ \text{cm}^{-2}$ the trapping time is about 2 ns, shorter than the collection time of a thick sensor. Inner layers of the HL-LHC trackers are designed for about $10^{16}$. Detectors that are far from the beam see $10^{13}$ or less.
+  </Deeper>
+
+  **The days of beam time at a test beam are a small part of the work. What makes it work is the months of simulation and bench measurements before it, and the cooling and mechanics after.**
+</Layer>
+
+<Layer id="case-its3">
+  <Scene id="sc.its3" mode="scrub">
+    <Step state="its2">
+      ALICE's current inner tracker (ITS2, running since 2021) has seven cylindrical layers of MAPS around the beam pipe. The innermost layer is about 2.2 centimetres from the collision, and each layer of it is about 0.35 % of a radiation length thick.
+    </Step>
+    <Step state="limits">
+      Two things now limit it. The inner layers are made of many flat chips on a support, and the supports, cooling pipes and cables add much more material than the silicon. And the beam pipe sets how close it can go.
+    </Step>
+    <Step state="flat-wafer">
+      The ITS3 idea: use a whole wafer as one chip. Stitching, the same step that builds large chips, can place identical blocks side by side to make a sensor about 26 centimetres long. Then thin it to tens of micrometres.
+    </Step>
+    <Step state="bending">
+      Silicon this thin is flexible, like paper. Bend it.
+    </Step>
+    <Step state="cylinder">
+      Two half-cylinders form each layer. The sensor is its own structure. Supported only by light foam, cooled by a stream of air, there is almost no material other than the silicon. The innermost layer moves in to about 2 centimetres.
+    </Step>
+    <Step state="material">
+      The material per layer falls to about 0.07 % of a radiation length, a few times lower than before. Particles scatter less, and the impact parameter, the distance by which a track misses the collision point, is measured about twice as precisely.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schematic: a flat wafer-scale sensor bends into a half-cylinder. Not to scale.">
+    <Scene id="sc.its3-bending">
+      <Step state="wafer">A flat, thinned wafer-scale sensor, a bit longer than a ruler.</Step>
+      <Step state="half-cylinder">Bent to the radius of the layer, it holds its shape.</Step>
+    </Scene>
+  </Figure>
+
+  <Walkthrough scene="sc.walkthrough-its3-heavyflavour" experiment="ALICE ITS3" also="Same principle: any vertex detector. The closer and thinner the first layer, the better the vertex resolution.">
+    <Step state="goal" kind="goal">
+      Goal: tell apart a charm particle that decays after a fraction of a millimetre from the many particles produced at the collision point itself.
+    </Step>
+    <Step state="vertex" kind="signal">
+      The first layer measures a point very close to the collision, and the second layer a second one. The two define a line back to the vertex.
+    </Step>
+    <Step state="extrapolate" kind="signal">
+      Extrapolate the line to the collision point. Because the first point is close, errors in position, and scattering in the beam pipe and first layer, count only a little.
+    </Step>
+    <Step state="displaced" kind="readout">
+      A track that misses the primary vertex by tens of micrometres comes from a decay downstream. Charm and beauty hadrons, which live about a picosecond, make exactly such tracks.
+    </Step>
+    <Step state="trick" kind="trick">
+      The trick: the resolution of the miss distance goes as the sum of the sensor error and the scattering error, scaled by how close the first layer is. Less material and a smaller radius improve both.
+    </Step>
+  </Walkthrough>
+
+  <Deeper title="Impact parameter resolution">
+    For two layers at radii $r_1 < r_2$, with position resolution $\sigma_1,\sigma_2$, and ignoring scattering, the extrapolation error at the vertex is
+    $$\sigma_{d_0}^2 = \frac{r_2^2\,\sigma_1^2 + r_1^2\,\sigma_2^2}{(r_2-r_1)^2}.$$
+    Multiple scattering in the first layer of thickness $x$ adds
+    $$\sigma_{\text{ms}} \approx r_1\,\theta_0\propto \frac{r_1}{p}\sqrt{x/X_0},$$
+    so the resolution improves with smaller $r_1$ (first term) and lower $x/X_0$ (second term). Going from $r_1\approx 2.2$ cm to about 1.9 cm and from 0.35 % to 0.07 % $X_0$ brings the improvement quoted above, mainly at low momentum, where scattering matters. Treat the numbers as indicative: they depend on the final design.
+  </Deeper>
+
+  **Where do we stand (as of 2025)?** ITS3 is in its engineering and prototyping phase. The first wafer-scale sensors and bent prototypes have been tested, including in beams. Installation is planned for the long shutdown that precedes LHC Run 4, at the end of the decade. Dates move, so check the ALICE pages.
+
+  <Bridge id="sc-its3-to-hi-detection" />
+
+  <Scene id="sc.cbm-silicon">
+    <Step state="mvd">
+      The same idea in another experiment. CBM, at FAIR, studies matter at the highest baryon density. Its micro-vertex detector places MAPS stations just downstream of the target, in vacuum, to find the short-lived particles with strange or charm quarks.
+    </Step>
+    <Step state="sts">
+      Behind it, stations of double-sided silicon strips sit inside a dipole magnet. They measure the curvature of each track, and so the momentum, for millions of collisions every second. The detector reads out continuously, with a time stamp on every hit. It is planned to start taking data late in the decade, as of 2025.
+    </Step>
+  </Scene>
+
+  <Scene id="sc.future">
+    <Step state="timing-4d">
+      **Four dimensions.** Today's trackers give three spatial coordinates per hit. Sensors that also give a time to tens of picoseconds, such as LGADs and fast MAPS, would add a fourth. At the highest rates, time is the way to tell overlapping collisions apart.
+    </Step>
+    <Step state="alice3">
+      **ALICE 3.** A proposed next-generation heavy-ion experiment for the 2030s, built almost entirely of silicon. Its innermost layers would sit inside the beam pipe's vacuum, only a few millimetres from the beam, retracted during injection. As of 2025 it is at the design stage.
+    </Step>
+    <Step state="fcc">
+      **Future colliders.** Proposals such as the FCC-ee electron–positron collider ask for vertex detectors with even less material and a few micrometres of resolution, which monolithic sensors are the leading candidates to provide.
+    </Step>
+    <Step state="beyond">
+      **Beyond the collider.** Silicon trackers fly in space telescopes and cosmic-ray experiments, and hybrid pixel chips are used for imaging in hospitals and for radiation monitoring. The physics of this page is the same everywhere.
+    </Step>
+  </Scene>
+
+  This page uses simplified pictures and no real data. For depth, start with the textbooks by Spieler and Lutz, and the review chapters on silicon detectors in the references below.
+</Layer>

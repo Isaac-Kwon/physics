@@ -72,7 +72,7 @@ draft: true
       Una particella carica veloce ionizza il vapore lungo il suo percorso. Gli ioni sono i semi delle goccioline. Compare una sottile linea bianca di nebbia, che svanisce dopo un secondo.
     </Step>
     <Step state="muons">
-      Gran parte delle linee dritte che si vedono sono muoni dei raggi cosmici, circa uno al minuto su un'area grande come una mano. Le tracce corte e spesse sono particelle alfa.
+      Gran parte delle linee dritte che si vedono sono muoni dei raggi cosmici, circa uno al minuto per centimetro quadrato: più di uno al secondo attraverso una mano. Le tracce corte e spesse sono particelle alfa.
     </Step>
   </Scene>
 
@@ -125,7 +125,7 @@ draft: true
 
   <Scene id="det.matter-block">
     <Step state="em-shower">
-      Mettiamo insieme i pezzi. Un elettrone ad alta energia irraggia un fotone. Il fotone crea una coppia elettrone-positrone. Ciascuno dei due irraggia di nuovo. Il numero di particelle raddoppia a ogni lunghezza di radiazione circa, mentre l'energia per particella si dimezza. Questa catena è uno <Term id="shower">sciame elettromagnetico</Term>.
+      Mettiamo insieme i pezzi. Un elettrone ad alta energia irraggia un fotone. Il fotone crea una coppia elettrone-positrone. Ciascuno dei due irraggia di nuovo. Il numero di particelle raddoppia circa ogni due terzi di lunghezza di radiazione, mentre l'energia per particella si dimezza. Questa catena è uno <Term id="shower">sciame elettromagnetico</Term>.
     </Step>
     <Step state="had-shower">
       Gli adroni come i pioni e i protoni risentono della forza forte. Urtano i nuclei, li frantumano e producono nuove particelle. Si forma così uno <Term id="shower">sciame adronico</Term>. È più largo, più lungo e più irregolare di uno elettromagnetico, perché un terzo dei pioni prodotti lungo il cammino è neutro. Decadono subito in due fotoni, ciascuno dei quali dà inizio a un piccolo sciame elettromagnetico al suo interno.
@@ -135,9 +135,9 @@ draft: true
   <Primer id="quarks-gluons" />
 
   <Deeper title="Un modello semplificato di sciame elettromagnetico (Heitler)">
-    Dopo $t$ lunghezze di radiazione ci sono $N = 2^t$ particelle, ciascuna con energia $E_0/2^t$. La moltiplicazione si ferma quando l'energia per particella scende all'energia critica $E_c$ (circa 7 MeV nel piombo), al di sotto della quale la ionizzazione prevale sull'irraggiamento. Ciò accade a
+    Nel modello più semplice (di Heitler) ogni particella si divide in due dopo una distanza $X_0\ln 2 \approx 0{,}7\,X_0$. Dopo $n$ divisioni ci sono $N = 2^n$ particelle, ciascuna con energia $E_0/2^n$. La moltiplicazione si ferma quando l'energia per particella scende all'energia critica $E_c$ (circa 7 MeV nel piombo), al di sotto della quale la ionizzazione prevale sull'irraggiamento. Ciò accade a
 
-    $$t_{\max} = \frac{\ln(E_0/E_c)}{\ln 2}.$$
+    $$n_{\max} = \frac{\ln(E_0/E_c)}{\ln 2}, \qquad t_{\max} = n_{\max}\,X_0\ln 2 = X_0\,\ln\frac{E_0}{E_c}.$$
 
     Quindi la profondità dello sciame cresce solo logaritmicamente con l'energia, mentre il numero di particelle al massimo, $E_0/E_c$, cresce in proporzione all'energia. Questa proporzionalità è il motivo per cui un calorimetro può misurare l'energia contando le particelle. Il modello giocattolo coglie giusta la scala e solo approssimativamente i numeri. Gli sciami adronici scalano con la lunghezza di interazione nucleare $\lambda_I$ (circa 17 cm nel ferro, circa dieci volte il suo $X_0$) al posto di $X_0$.
   </Deeper>
@@ -274,7 +274,7 @@ draft: true
 
   <Scene id="det.signal-chain">
     <Step state="timing">
-      **Il tempo.** La luce percorre 30 cm in un nanosecondo. Gli strati di timing, costruiti con silicio veloce o scintillatore, registrano il passaggio di una particella con una precisione di decine di picosecondi: il tempo che la luce impiega ad attraversare qualche millimetro. Un orologio così fine può separare collisioni sovrapposte e misurare la velocità di una particella su una distanza nota.
+      **Il tempo.** La luce percorre 30 cm in un nanosecondo. Gli strati di timing, costruiti con silicio veloce o scintillatore, registrano il passaggio di una particella con una precisione di decine di picosecondi: il tempo che la luce impiega ad attraversare circa un centimetro. Un orologio così fine può separare collisioni sovrapposte e misurare la velocità di una particella su una distanza nota.
     </Step>
   </Scene>
 

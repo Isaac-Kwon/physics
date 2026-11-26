@@ -13,8 +13,7 @@ const t = useT(lang);
 
 <BaseLayout lang={lang}>
   <HeroTrack lang={lang} />
-  <section class="wrap" aria-labelledby="map-title">
-    <p class="label">{t('hub.map.axis')}</p>
+  <section class="wrap map-section" aria-labelledby="map-title">
     <h2 id="map-title">{t('hub.map.title')}</h2>
     <TopicMap lang={lang} />
   </section>
@@ -28,9 +27,14 @@ const t = useT(lang);
   .wrap {
     max-width: 80rem;
     margin: 0 auto;
-    padding: var(--space-24) var(--space-4) 0;
+    padding: var(--space-16) var(--space-4) 0;
+  }
+  @media (max-width: 47.99rem) {
+    .map-section {
+      display: none;
+    }
   }
   h2 {
-    font-size: var(--fs-2xl);
+    font-size: var(--fs-xl);
   }
 </style>

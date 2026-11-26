@@ -2,16 +2,13 @@
   "chrome.logoLabel": "{title} — home",
   "chrome.topicsMenu": "Topics",
   "chrome.comingSoonShort": "soon",
-  "chrome.footer.explore": "Explore",
-  "chrome.footer.languages": "Languages",
   "chrome.footer.draftNote": "Draft — content is being written and reviewed.",
 
   "chrome.hub.mapIntro": "Each topic is a different question. Hover or focus a line to see why two topics are connected.",
   "chrome.hub.mapLabel": "Map of topics, arranged by length scale, with connections between them",
-  "chrome.hub.connectionHint": "Select a connection to read why the topics are linked.",
   "chrome.hub.connections": "Connected to",
   "chrome.hub.toolNote": "Not on the scale — used by all",
-  "chrome.hub.heroLabel": "A single glowing particle track crossing the dark",
+  "chrome.hub.heroLabel": "A charged particle track curving through a detector",
 
   "chrome.glossary.empty": "The glossary is being written. Check back soon.",
   "chrome.glossary.count": "{n} terms",

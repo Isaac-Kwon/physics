@@ -7,7 +7,6 @@ const t = useT(lang);
 
 <BaseLayout lang={lang} title={t('chrome.notFound.title')}>
   <div class="wrap">
-    <p class="label">404</p>
     <h1>{t('chrome.notFound.title')}</h1>
     <p>{t('chrome.notFound.body')}</p>
     <ul>
@@ -28,10 +27,10 @@ const t = useT(lang);
   .wrap {
     max-width: 46rem;
     margin: 0 auto;
-    padding: var(--space-24) var(--space-4) 0;
+    padding: var(--space-16) var(--space-4) 0;
   }
   h1 {
-    font-size: var(--fs-display);
+    font-size: var(--fs-2xl);
   }
   p {
     color: var(--fg-muted);

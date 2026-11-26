@@ -2,16 +2,13 @@
   "chrome.logoLabel": "{title} — home",
   "chrome.topicsMenu": "Argomenti",
   "chrome.comingSoonShort": "Presto",
-  "chrome.footer.explore": "Esplora",
-  "chrome.footer.languages": "Lingue",
   "chrome.footer.draftNote": "Bozza — i contenuti sono in fase di stesura e revisione.",
 
   "chrome.hub.mapIntro": "Ogni argomento è una domanda diversa. Passa il mouse o il focus su una linea per vedere perché due argomenti sono collegati.",
   "chrome.hub.mapLabel": "Mappa degli argomenti, disposti per scala di lunghezza, con i collegamenti tra loro",
-  "chrome.hub.connectionHint": "Seleziona un collegamento per leggere perché gli argomenti sono legati.",
   "chrome.hub.connections": "Collegato a",
   "chrome.hub.toolNote": "Fuori scala — usato da tutti",
-  "chrome.hub.heroLabel": "Una singola traccia luminosa di particella che attraversa il buio",
+  "chrome.hub.heroLabel": "Traccia di una particella carica che curva in un rivelatore",
 
   "chrome.glossary.empty": "Il glossario è in preparazione. Torna a trovarci presto.",
   "chrome.glossary.count": "{n} termini",

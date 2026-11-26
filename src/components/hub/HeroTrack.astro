@@ -10,26 +10,25 @@ const t = useT(Astro.props.lang);
   <canvas aria-hidden="true" data-hero-canvas></canvas>
   <p class="visually-hidden">{t('chrome.hub.heroLabel')}</p>
   <div class="copy">
-    <p class="label">{t('site.tagline')}</p>
     <h1 id="hero-title">{t('hub.hero.title')}</h1>
     <p class="sub">{t('hub.hero.subtitle')}</p>
   </div>
 </section>
 
 <script>
-  // Lightweight Canvas2D scene: one glowing particle curving through the dark, leaving a fading trail.
+  // One charged-particle track, drawn as a thin ink line (like a bubble-chamber photograph), no glow.
   const canvas = document.querySelector<HTMLCanvasElement>('[data-hero-canvas]');
   const ctx = canvas?.getContext('2d');
   if (canvas && ctx) {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
     // --accent is a light-dark() expression; resolve it to a concrete colour via the canvas' computed style.
     const resolve = () => {
-      canvas.style.color = 'var(--accent)';
-      return getComputedStyle(canvas).color || '#087ea3';
+      canvas.style.color = 'var(--fg)';
+      return getComputedStyle(canvas).color || '#111318';
     };
-    let accent = resolve();
+    let ink = resolve();
     new MutationObserver(() => {
-      accent = resolve();
+      ink = resolve();
       if (reduce.matches) still();
     }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     let w = 0;
@@ -38,11 +37,40 @@ const t = useT(Astro.props.lang);
     let visible = true;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    // Track = a spiral arc (charged particle in a magnetic field), param u in [0,1].
-    const pos = (u: number) => {
-      const x = -0.05 * w + u * 1.1 * w;
-      const y = h * 0.62 - Math.sin(u * Math.PI) * h * 0.28 + Math.sin(u * 18) * h * 0.012 * (1 - u * 0.6);
-      return [x, y] as const;
+    // Track: a low-energy electron in a magnetic field. It loses energy as it ionizes the medium, so its
+    // radius of curvature shrinks and the track curls into a tightening spiral (as in bubble-chamber photos).
+    // Integrated once per resize into a polyline, placed in the empty area to the right of the text.
+    let pts: [number, number][] = [];
+    const copy = canvas.parentElement?.querySelector<HTMLElement>('.copy .sub');
+    const buildTrack = () => {
+      const narrow = w < 768;
+      const textRight = copy ? copy.getBoundingClientRect().right - canvas.getBoundingClientRect().left : w * 0.5;
+      const x0 = narrow ? 0 : Math.min(Math.max(w * 0.58, textRight + 48), w * 0.8);
+      const regionW = w - x0;
+      const R0 = Math.min(regionW * 0.32, h * 0.42); // initial radius of curvature (px)
+      const L = 160; // energy-loss length scale (px): r(s) = R0·e^(−s/L)
+      let x = x0 + regionW * 0.12;
+      let y = h + 4; // enters from below
+      let phi = -Math.PI / 2 + 0.35; // heading up and slightly right
+      pts = [[x, y]];
+      for (let s = 0, i = 0; i < 4000; i++) {
+        const r = R0 * Math.exp(-s / L);
+        if (r < 2.5) break;
+        const ds = Math.max(0.6, r * 0.04);
+        phi += ds / r; // clockwise bend
+        x += Math.cos(phi) * ds;
+        y += Math.sin(phi) * ds;
+        s += ds;
+        pts.push([x, y]);
+      }
+      // Fit the track into the free region (keeps its shape; the electron is simply produced inside the view —
+      // e.g. a knock-on electron — rather than entering from the edge).
+      const xs = pts.map((q) => q[0]);
+      const ys = pts.map((q) => q[1]);
+      const [bx0, bx1, by0, by1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+      const k = Math.min(1, (regionW * 0.8) / (bx1 - bx0), (h * 0.8) / (by1 - by0));
+      const [cx, cy] = [narrow ? w * 0.5 : x0 + regionW * 0.45, h * 0.5];
+      pts = pts.map(([px, py]) => [cx + (px - (bx0 + bx1) / 2) * k, cy + (py - (by0 + by1) / 2) * k]);
     };
 
     const resize = () => {
@@ -52,55 +80,38 @@ const t = useT(Astro.props.lang);
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      buildTrack();
     };
 
-    const drawTrail = (head: number, len: number) => {
-      const N = 90;
+    // Draw the first `n` points of the track as a thin ink line (the whole track persists, like a photograph).
+    const drawTrack = (n: number, alpha = 1) => {
+      ctx.clearRect(0, 0, w, h);
+      if (n < 2) return;
+      ctx.strokeStyle = ink;
+      ctx.globalAlpha = 0.85 * alpha;
+      ctx.lineWidth = 1.1;
+      ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
-      for (let i = 0; i < N; i++) {
-        const u0 = head - (len * (i + 1)) / N;
-        const u1 = head - (len * i) / N;
-        if (u1 < 0 || u0 > 1) continue;
-        const [x0, y0] = pos(Math.max(0, u0));
-        const [x1, y1] = pos(Math.min(1, u1));
-        const a = 1 - i / N;
-        ctx.strokeStyle = accent;
-        ctx.globalAlpha = a * a * 0.9;
-        ctx.lineWidth = 0.6 + a * 2;
-        ctx.beginPath();
-        ctx.moveTo(x0, y0);
-        ctx.lineTo(x1, y1);
-        ctx.stroke();
-      }
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < n; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+      ctx.stroke();
       ctx.globalAlpha = 1;
     };
 
-    const drawHead = (u: number) => {
-      const [x, y] = pos(Math.min(1, Math.max(0, u)));
-      const g = ctx.createRadialGradient(x, y, 0, x, y, 28);
-      g.addColorStop(0, accent);
-      g.addColorStop(0.2, accent);
-      g.addColorStop(1, 'transparent');
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(x, y, 28, 0, Math.PI * 2);
-      ctx.fill();
-    };
-
+    // Timeline per cycle: draw (3.5 s, ease-out ~ particle slowing) → hold (3 s) → fade (0.8 s) → gap (0.7 s).
     const frame = (time: number) => {
-      ctx.clearRect(0, 0, w, h);
-      const period = 7000;
-      const head = ((time % period) / period) * 1.5 - 0.1; // pause offscreen between passes
-      drawTrail(head, 0.55);
-      drawHead(head);
+      const t = (time % 8000) / 1000;
+      if (t < 3.5) {
+        const p = 1 - (1 - t / 3.5) ** 2;
+        drawTrack(Math.round(p * pts.length));
+      } else if (t < 6.5) drawTrack(pts.length);
+      else if (t < 7.3) drawTrack(pts.length, 1 - (t - 6.5) / 0.8);
+      else ctx.clearRect(0, 0, w, h);
       if (visible && !reduce.matches) raf = requestAnimationFrame(frame);
     };
 
-    const still = () => {
-      ctx.clearRect(0, 0, w, h);
-      drawTrail(0.7, 0.7);
-      drawHead(0.7);
-    };
+    const still = () => drawTrack(pts.length);
 
     const start = () => {
       cancelAnimationFrame(raf);
@@ -125,22 +136,8 @@ const t = useT(Astro.props.lang);
 <style>
   .hero {
     position: relative;
-    min-height: calc(100svh - var(--header-h));
-    display: flex;
-    align-items: flex-end;
-    overflow: hidden;
     border-bottom: 1px solid var(--line);
-    background:
-      linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 100% 4rem,
-      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 4rem 100%, var(--bg);
-    background-blend-mode: normal;
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 50% 40%, transparent 30%, var(--bg) 100%);
-    pointer-events: none;
+    overflow: hidden;
   }
   canvas {
     position: absolute;
@@ -152,19 +149,34 @@ const t = useT(Astro.props.lang);
   .copy {
     position: relative;
     z-index: var(--z-content);
-    width: 100%;
     max-width: 80rem;
     margin: 0 auto;
-    padding: var(--space-16) var(--space-4);
+    padding: var(--space-24) var(--space-4) var(--space-16);
+    min-height: 22rem;
+  }
+  @media (max-width: 47.99rem) {
+    canvas {
+      top: auto;
+      height: 9rem;
+    }
+    .copy {
+      padding-bottom: 9rem;
+      min-height: 0;
+    }
   }
   h1 {
-    font-size: var(--fs-display);
-    max-width: 14ch;
-    margin-bottom: var(--space-6);
+    font-size: var(--fs-2xl);
+    font-weight: 700;
+    max-width: 18ch;
+    margin-bottom: var(--space-4);
+  }
+  :lang(ko) h1 {
+    letter-spacing: 0;
   }
   .sub {
     font-size: var(--fs-lg);
     color: var(--fg-muted);
     max-width: var(--measure);
+    margin: 0;
   }
 </style>

@@ -13,12 +13,12 @@ const t = useT(lang);
 const W = 1000;
 const TOP = 80;
 const SPAN = 440;
-const CARD_W = 330;
-const CARD_H = 84;
+const CARD_W = 270;
+const CARD_H = 60;
 const CARD_X = 190;
 const AXIS_X = 110;
-const TOOL_X = 690;
-const TOOL_W = 250;
+const TOOL_X = 640;
+const TOOL_W = 230;
 
 const subjects = TOPIC_ORDER.filter((id) => TOPICS[id].kind === 'subject');
 const tools = TOPIC_ORDER.filter((id) => TOPICS[id].kind === 'tool');
@@ -70,7 +70,7 @@ const connected = (id: TopicId) => edges.filter((e) => e.a === id || e.b === id)
   <p class="intro">{t('chrome.hub.mapIntro')}</p>
   <svg viewBox={`0 0 ${W} ${H}`} role="group" aria-label={t('chrome.hub.mapLabel')} class="map">
     <!-- axis -->
-    <text x={AXIS_X - 40} y={TOP - 40} class="axis-title">{t('hub.map.axis')}</text>
+    <text x={AXIS_X - 40} y={TOP - 36} class="axis-title">{t('hub.map.axis')}</text>
     <line x1={AXIS_X} y1={TOP - 24} x2={AXIS_X} y2={TOP + SPAN + 24} class="axis" />
     {
       ticks.map((k) => (
@@ -82,7 +82,7 @@ const connected = (id: TopicId) => edges.filter((e) => e.a === id || e.b === id)
         </g>
       ))
     }
-    <text x={TOOL_X} y={TOP - 40} class="axis-title">{t('hub.map.tool')}</text>
+    <text x={TOOL_X} y={TOP - 36} class="axis-title">{t('hub.map.tool')}</text>
 
     <!-- edges (under cards) -->
     {
@@ -114,12 +114,12 @@ const connected = (id: TopicId) => edges.filter((e) => e.a === id || e.b === id)
             style={`--c:${accentCss(def.id)}`}
             transform={`translate(${b.x} ${b.y - CARD_H / 2})`}
           >
-            <rect width={b.w} height={CARD_H} rx="10" class="box" />
-            <circle cx="22" cy={CARD_H / 2} r="5" class="dot" />
-            <text x="42" y="36" class="card-title">
+            <rect width={b.w} height={CARD_H} class="box" />
+            <circle cx="8" cy="19" r="4.5" class="dot" />
+            <text x="24" y="24" class="card-title">
               {title(id)}
             </text>
-            <text x="42" y="60" class="card-meta">
+            <text x="24" y="46" class="card-meta">
               {def.released
                 ? t('card.readingTime', { min: def.readingMinutes })
                 : t('card.comingSoon')}
@@ -137,14 +137,13 @@ const connected = (id: TopicId) => edges.filter((e) => e.a === id || e.b === id)
     }
     {
       tools.map((id) => (
-        <text x={TOOL_X} y={box[id]!.y + CARD_H / 2 + 24} class="tick-label">
+        <text x={TOOL_X + 24} y={box[id]!.y + CARD_H / 2 + 22} class="note">
           {t('chrome.hub.toolNote')}
         </text>
       ))
     }
   </svg>
-  <p class="reason" data-reason aria-live="polite">{t('chrome.hub.connectionHint')}</p>
-  <div hidden data-default>{t('chrome.hub.connectionHint')}</div>
+  <p class="reason" data-reason aria-live="polite"></p>
 </div>
 
 <script>
@@ -153,14 +152,13 @@ const connected = (id: TopicId) => edges.filter((e) => e.a === id || e.b === id)
     const edges = [...root.querySelectorAll<SVGGElement>('[data-edge]')];
     const cards = [...root.querySelectorAll<SVGGElement>('[data-card]')];
     const reason = root.querySelector<HTMLElement>('[data-reason]')!;
-    const dflt = root.querySelector<HTMLElement>('[data-default]')!.textContent ?? '';
     const svg = root.querySelector('svg')!;
 
     const clear = () => {
       svg.classList.remove('focus-mode');
       edges.forEach((e) => e.classList.remove('on'));
       cards.forEach((c) => c.classList.remove('on'));
-      reason.textContent = dflt;
+      reason.textContent = '';
     };
     const showEdge = (e: SVGGElement) => {
       clear();
@@ -213,40 +211,42 @@ const connected = (id: TopicId) => edges.filter((e) => e.a === id || e.b === id)
   }
   .map {
     width: 100%;
+    max-width: 62rem;
     height: auto;
     overflow: visible;
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
   }
   .axis {
-    stroke: var(--grid-strong);
+    stroke: var(--fg-faint);
     stroke-width: 1;
   }
   .tick {
-    stroke: var(--grid-strong);
-    stroke-dasharray: 2 4;
+    stroke: var(--line);
+    stroke-width: 1;
   }
-  .tick-label,
+  .tick-label {
+    fill: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
   .axis-title {
     fill: var(--fg-muted);
-    font-size: 13px;
-    letter-spacing: var(--tracking-label);
+    font-size: 14px;
   }
-  .axis-title {
-    text-transform: uppercase;
+  .note {
     fill: var(--fg-faint);
+    font-size: 13px;
+    font-style: italic;
   }
   .edge .line {
     fill: none;
     stroke: var(--fg-faint);
-    stroke-width: 1.2;
-    opacity: 0.7;
-    transition:
-      opacity var(--dur) var(--ease-out),
-      stroke var(--dur) var(--ease-out);
+    stroke-width: 1;
+    opacity: 0.9;
+    transition: opacity var(--dur-fast) var(--ease-out);
   }
   .edge.off .line {
-    stroke-dasharray: 5 6;
-    opacity: 0.6;
+    stroke-dasharray: 4 5;
   }
   .edge .hit {
     fill: none;
@@ -259,75 +259,72 @@ const connected = (id: TopicId) => edges.filter((e) => e.a === id || e.b === id)
   }
   .edge.on .line {
     stroke: var(--fg);
-    stroke-width: 2;
+    stroke-width: 1.75;
     opacity: 1;
-    filter: drop-shadow(0 0 4px var(--fg));
   }
   .focus-mode .edge:not(.on) .line {
-    opacity: 0.12;
+    opacity: 0.15;
   }
   .card .box {
-    fill: var(--bg-raised);
-    stroke: var(--c);
-    stroke-opacity: 0.55;
-    stroke-width: 1;
-    transition:
-      stroke-opacity var(--dur) var(--ease-out),
-      filter var(--dur) var(--ease-out);
+    fill: transparent;
+    stroke: none;
   }
   .card .dot {
     fill: var(--c);
-    filter: drop-shadow(0 0 5px var(--c));
+  }
+  .card.off .dot {
+    fill: none;
+    stroke: var(--c);
+    stroke-width: 1.5;
   }
   .card-title {
     fill: var(--fg);
-    font-family: var(--font-sans);
-    font-weight: 700;
+    font-weight: 650;
     font-size: 19px;
   }
   .card-meta {
     fill: var(--fg-muted);
-    font-size: 12px;
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
+    font-size: 14px;
   }
-  .card.tool .box {
-    stroke-dasharray: 2 4;
+  .card.off .card-meta {
+    font-style: italic;
+    fill: var(--fg-faint);
   }
-  .card.off {
-    opacity: 0.8;
+  .card.off .card-title {
+    fill: var(--fg-muted);
   }
-  .card.off .box {
-    stroke-opacity: 0.3;
+  .card.tool .dot {
+    fill: var(--fg-faint);
   }
-  .card.on .box {
-    stroke-opacity: 1;
-    filter: drop-shadow(0 0 8px var(--c));
+  .card {
+    transition: opacity var(--dur-fast) var(--ease-out);
   }
   .focus-mode .card:not(.on) {
-    opacity: 0.35;
+    opacity: 0.4;
   }
   [data-card-link] {
     cursor: pointer;
+  }
+  [data-card-link]:hover .card-title {
+    text-decoration: underline;
   }
   [data-card-link]:focus-visible {
     outline: none;
   }
   [data-card-link]:focus-visible .box {
-    stroke-opacity: 1;
+    stroke: var(--accent);
     stroke-width: 2;
   }
   .edge:has(.hit:focus-visible) .line {
     stroke: var(--fg);
-    stroke-width: 2;
+    stroke-width: 1.75;
+    opacity: 1;
   }
   .reason {
     min-height: 3em;
-    margin-top: var(--space-4);
-    font-family: var(--font-mono);
+    margin: var(--space-4) 0 0;
+    max-width: var(--measure);
     font-size: var(--fs-sm);
     color: var(--fg-muted);
-    border-left: 2px solid var(--grid-strong);
-    padding-left: var(--space-4);
   }
 </style>

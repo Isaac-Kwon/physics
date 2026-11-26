@@ -1,6 +1,6 @@
 ---
 import { LANGS, LANG_LABEL, LANG_SHORT, localizePath, stripLang, useT, type Lang } from '../../i18n';
-import { TOPICS, TOPIC_ORDER, accentCss, type TopicId } from '../../data/topics';
+import { TOPICS, TOPIC_ORDER, type TopicId } from '../../data/topics';
 interface Props {
   lang: Lang;
   topic?: TopicId;
@@ -13,7 +13,6 @@ const path = stripLang(Astro.url);
 <header class="site-header">
   <div class="bar">
     <a class="logo" href={localizePath(lang, '/')} aria-label={t('chrome.logoLabel', { title: t('site.title') })}>
-      <span class="mark" aria-hidden="true"></span>
       <span class="name">{t('site.title')}</span>
     </a>
 
@@ -25,15 +24,13 @@ const path = stripLang(Astro.url);
             TOPIC_ORDER.map((id) => {
               const def = TOPICS[id];
               return (
-                <li style={`--dot:${accentCss(def.id)}`}>
+                <li>
                   {def.released ? (
                     <a href={localizePath(lang, `/${id}/`)} aria-current={id === topic ? 'page' : undefined}>
-                      <i aria-hidden="true" />
                       {t(`topic.${id}.title`)}
                     </a>
                   ) : (
                     <span class="off" aria-disabled="true">
-                      <i aria-hidden="true" />
                       {t(`topic.${id}.title`)}
                       <small>{t('chrome.comingSoonShort')}</small>
                     </span>
@@ -133,19 +130,15 @@ const path = stripLang(Astro.url);
     place-items: center;
     width: 2rem;
     height: 2rem;
-    margin-left: var(--space-2);
-    border: 1px solid var(--line);
+    border: 0;
     border-radius: var(--radius);
     background: transparent;
     color: var(--fg-muted);
     cursor: pointer;
-    transition:
-      color var(--dur-fast) var(--ease-out),
-      border-color var(--dur-fast) var(--ease-out);
+    transition: color var(--dur-fast) var(--ease-out);
   }
   .theme-toggle:hover {
     color: var(--fg);
-    border-color: var(--fg-faint);
   }
   .theme-toggle .icon {
     grid-area: 1 / 1;
@@ -164,8 +157,7 @@ const path = stripLang(Astro.url);
     top: 0;
     z-index: var(--z-header);
     height: var(--header-h);
-    background: color-mix(in oklab, var(--bg) 82%, transparent);
-    backdrop-filter: blur(10px);
+    background: var(--bg);
     border-bottom: 1px solid var(--line);
   }
   .bar {
@@ -179,26 +171,13 @@ const path = stripLang(Astro.url);
     gap: var(--space-4);
   }
   .logo {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3);
     color: var(--fg);
     text-decoration: none;
-    font-weight: 700;
-    letter-spacing: -0.01em;
+    font-weight: 650;
     min-width: 0;
   }
-  .mark {
-    flex: none;
-    width: 0.7rem;
-    height: 0.7rem;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow:
-      0 0 10px 2px var(--accent-soft),
-      0 0 2px var(--accent);
-  }
   .name {
+    display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -221,76 +200,62 @@ const path = stripLang(Astro.url);
   summary {
     list-style: none;
     cursor: pointer;
-    font-family: var(--font-mono);
-    font-size: var(--fs-xs);
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
+    font-size: var(--fs-sm);
     color: var(--fg-muted);
-    padding: var(--space-2) var(--space-3);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
+    padding: var(--space-2) 0;
     user-select: none;
   }
   summary::-webkit-details-marker {
     display: none;
   }
   summary::after {
-    content: ' ▾';
+    content: '';
+    display: inline-block;
+    margin-left: 0.4em;
+    width: 0.4em;
+    height: 0.4em;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-0.15em) rotate(45deg);
   }
   summary:hover,
   details[open] > summary {
     color: var(--fg);
-    border-color: var(--grid-strong);
   }
   .topics ul {
     position: absolute;
     right: 0;
     top: calc(100% + var(--space-2));
-    width: min(19rem, calc(100vw - 2rem));
+    width: min(18rem, calc(100vw - 2rem));
     margin: 0;
-    padding: var(--space-2);
+    padding: var(--space-2) 0;
     list-style: none;
-    background: var(--bg-raised);
-    border: 1px solid var(--grid-strong);
+    background: var(--bg);
+    border: 1px solid var(--line);
     border-radius: var(--radius);
-    box-shadow: 0 20px 50px var(--shadow);
   }
   .topics li a,
   .topics li .off {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: var(--space-3);
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-sm);
+    padding: var(--space-2) var(--space-4);
     color: var(--fg);
     text-decoration: none;
     font-size: var(--fs-sm);
   }
   .topics li a:hover,
   .topics li a[aria-current='page'] {
-    background: var(--accent-soft);
-  }
-  .topics li i {
-    flex: none;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    background: var(--dot);
-    box-shadow: 0 0 8px var(--dot);
+    background: var(--bg-raised);
   }
   .off {
     color: var(--fg-faint) !important;
     cursor: default;
   }
-  .off i {
-    opacity: 0.4;
-  }
   .off small {
     margin-left: auto;
-    font-family: var(--font-mono);
-    font-size: var(--fs-xs);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-label);
+    font-style: italic;
+    font-size: var(--fs-sm);
   }
   .sep {
     margin-top: var(--space-2);
@@ -302,28 +267,23 @@ const path = stripLang(Astro.url);
   }
   .langs {
     display: flex;
+    gap: var(--space-3);
     margin: 0;
     padding: 0;
     list-style: none;
-    font-family: var(--font-mono);
-    font-size: var(--fs-xs);
-    letter-spacing: var(--tracking-label);
+    font-size: var(--fs-sm);
   }
   .langs a {
     display: block;
-    padding: var(--space-2);
-    color: var(--fg-faint);
+    padding: var(--space-2) 0;
+    color: var(--fg-muted);
     text-decoration: none;
-  }
-  .langs li + li a::before {
-    content: '·';
-    margin-right: var(--space-2);
-    color: var(--fg-faint);
   }
   .langs a:hover {
     color: var(--fg);
   }
   .langs a[aria-current] {
-    color: var(--accent);
+    color: var(--fg);
+    font-weight: 600;
   }
 </style>

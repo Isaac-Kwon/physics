@@ -176,6 +176,27 @@ const kind = mode === 'portal' ? 'portal' : hasSteps ? mode : 'inline';
     margin-left: var(--space-4);
     background: var(--bg);
   }
+  /* Desktop: a scrub figure (plots, diagrams) keeps its text in a column beside the pinned stage, so cards never
+     cover the figure. Only the T0 hook keeps the cinematic overlay (short headlines over the opening animation). */
+  @media (min-width: 900px) {
+    .layer:not([data-tier='T0']) .scene--scrub {
+      grid-template-columns: minmax(0, 1.6fr) minmax(16rem, 1fr);
+      gap: var(--space-8);
+    }
+    .layer:not([data-tier='T0']) .scene--scrub > .scene__stage {
+      grid-area: 1 / 1;
+    }
+    .layer:not([data-tier='T0']) .scene--scrub > .scene__steps {
+      grid-area: 1 / 2;
+    }
+    .layer:not([data-tier='T0']) .scene--scrub .step {
+      align-items: center;
+      padding-bottom: 0;
+    }
+    .layer:not([data-tier='T0']) .scene--scrub .step__card {
+      margin-left: 0;
+    }
+  }
 
   /* portal (P3) */
   .scene--portal {

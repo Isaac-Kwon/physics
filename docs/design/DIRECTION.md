@@ -39,3 +39,22 @@ The page is a *document* that contains *figures*. The figures (scenes) may be da
 
 ## Copy in chrome
 - Plain, short, no slogans in UI strings. No em-dash flourishes in labels. "Coming soon", not "✨ Coming soon".
+
+## Figures (scenes and widgets)
+Scenes render inside a dark panel (`.theme-dark`); `ctx.theme` gives the resolved dark-ground colours.
+- **Every mark is a quantity.** A moving dot is a particle with a position/momentum; colour encodes energy, temperature or
+  species; line width or alpha may encode intensity. No decorative particles, no ambient drift, no parallax for its own sake.
+- **Lines**: 1–1.5 px. Particle tracks are thin lines; particles are small dots (1.5–3 px). Light emission (scintillation,
+  Cherenkov, a hot fireball) may use additive blending — that is the physics. Nothing else glows.
+- **Colour**: topic accent (`ctx.theme.accent`) for the subject of the figure, `accent2` for a secondary species, `fg` at
+  reduced alpha for labels/axes, `grid` for guides. Continuous quantities (temperature, energy) use perceptual maps only:
+  `interpolateInferno` / `interpolateViridis` from `d3`. Never red/green as the only distinction.
+- **Text in figures**: sans 12 px for words, mono 11 px for numbers with units (`FONT_SANS`, `FONT_MONO` in
+  `src/scenes/shared/plot.ts`). Sentence case. Labels come from `ctx.label(key)` (strings in `src/i18n/<lang>/scenes-*.json`
+  as `scene.<id>.<key>`), numbers through `ctx.formatNumber` (Italian decimal comma).
+- **Plots**: use `plot()` from `src/scenes/shared/plot.ts` — left/bottom axes only, sparse ticks, no grid box, no legend box
+  (label curves directly at their end). Shapes come from textbook formulas; no fake error bars or data points.
+- **Motion**: transitions 0.4–1.2 s with `approach()`; scrub scenes map `setProgress` directly to physical time.
+  Reduced motion → draw the final frame of each state, no loops.
+- **Widgets** (Svelte, light page, not dark panels): plain HTML controls styled with tokens, a native `<input type="range">`
+  with a visible value + unit, the plot beside/below. No custom knobs, no pill toggles.

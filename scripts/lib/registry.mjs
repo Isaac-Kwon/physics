@@ -48,13 +48,16 @@ export function loadTopicRegistry() {
   return { LANGS, PRIMER_IDS, TOPICS };
 }
 
+/** Mirrors src/scenes/registry.ts auto-discovery: src/scenes/<dir>/<name>.ts → "<prefix>.<name>". */
+const SCENE_DIR_PREFIX = { 'heavy-ion': 'hi', 'dark-matter': 'dm', neutrinos: 'nu', 'semiconductor-detectors': 'sc', detectors: 'det', hub: 'hub', common: 'shared', demo: 'demo' };
 export function loadSceneIds() {
-  const path = p('src/scenes/registry.ts');
-  if (!existsSync(path)) return new Set();
-  const src = read(path)
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    .replace(/^\s*\/\/.*$/gm, '');
-  return new Set([...src.matchAll(/['"]([\w.-]+)['"]\s*:\s*\(/g)].map((m) => m[1]));
+  const ids = new Set();
+  for (const [dir, prefix] of Object.entries(SCENE_DIR_PREFIX)) {
+    const d = p(`src/scenes/${dir}`);
+    if (!existsSync(d)) continue;
+    for (const f of readdirSync(d)) if (f.endsWith('.ts') && !f.startsWith('_')) ids.add(`${prefix}.${f.slice(0, -3)}`);
+  }
+  return ids;
 }
 
 export function loadConnections() {

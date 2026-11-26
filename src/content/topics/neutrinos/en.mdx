@@ -1,0 +1,379 @@
+---
+topic: neutrinos
+lang: en
+title: Neutrinos
+subtitle: How detectors catch the ghost particles
+description: Neutrinos pass through planets almost untouched. See how six detector designs, from chemistry to Antarctic ice, still catch them.
+tagline: Catch the particle that passes through everything.
+layers:
+  - { id: hook, title: The ghost particles }
+  - { id: ghost, title: What is a neutrino? }
+  - { id: sources, title: Where they come from, how they interact }
+  - { id: detection, title: How do we catch one? }
+  - { id: frontier, title: The frontier }
+references:
+  - title: "Review of Particle Physics: Neutrino Masses, Mixing, and Oscillations"
+    author: "Particle Data Group — pdg.lbl.gov"
+    url: "https://pdg.lbl.gov/"
+    note: "The standard reference for the oscillation parameters. The reviews are technical."
+  - title: "Fundamentals of Neutrino Physics and Astrophysics"
+    author: "Carlo Giunti and Chung W. Kim — Oxford University Press (2007)"
+    note: "Graduate textbook. The first chapters on oscillations are readable for advanced undergraduates."
+  - title: "Neutrino Physics"
+    author: "Kai Zuber — CRC Press (2nd edition, 2011)"
+    note: "Textbook with a good chapter on detection methods."
+  - title: "Modern Particle Physics"
+    author: "Mark Thomson — Cambridge University Press (2013)"
+    note: "Undergraduate textbook. See the chapters on the weak interaction and on neutrino oscillations."
+  - title: "The Nobel Prize in Physics 2015: popular information"
+    author: "The Nobel Committee for Physics"
+    url: "https://www.nobelprize.org/prizes/physics/2015/popular-information/"
+    note: "Plain-language account of the discovery of neutrino oscillations."
+  - title: "Observation of an ultra-high-energy cosmic neutrino with KM3NeT"
+    author: "KM3NeT Collaboration — Nature 638 (2025) 376"
+    note: "The event KM3-230213A. Technical, but the abstract and introduction are readable."
+asOf: "2025"
+draft: true
+---
+
+<Layer id="hook">
+  <Scene id="nu.hook" mode="scrub">
+    <Step state="dark">Sixty billion ghosts are crossing your thumbnail.</Step>
+    <Step state="sun">They left the Sun eight minutes ago.</Step>
+    <Step state="through-earth">Night does not stop them. The whole Earth is transparent to them.</Step>
+    <Step state="thumbnail">And in your lifetime, perhaps one will actually hit you.</Step>
+  </Scene>
+  <BigNumber value={6e10} unit="neutrinos per cm² per second" approx caption="Solar neutrinos passing through an area the size of your thumbnail, every second." />
+</Layer>
+
+<Layer id="ghost">
+  <Primer id="standard-model" />
+
+  <Scene id="nu.beta-decay">
+    <Step state="missing-energy">
+      In 1930 beta decay looked wrong. A nucleus emits an electron, but the electrons come out with a whole range of energies, as if energy were disappearing.
+    </Step>
+    <Step state="neutrino">
+      Wolfgang Pauli called it a "desperate remedy": a second particle, invisible, carries off the missing energy. It was finally caught in 1956, beside a nuclear reactor. We call it the <Term id="neutrino">neutrino</Term>.
+    </Step>
+  </Scene>
+
+  <Scene id="nu.flavours">
+    <Step state="three">
+      Neutrinos come in three flavours: electron, muon and tau, each the partner of the charged lepton with the same name. A neutrino born together with an electron is an electron neutrino.
+    </Step>
+    <Step state="neutral">
+      A neutrino has no electric charge and no colour charge. Only the weak force, and gravity, can touch it. Its mass is not zero, but it is below a millionth of the electron's.
+    </Step>
+  </Scene>
+
+  <Primer id="weak-interaction" />
+
+  <Scene id="nu.oscillation">
+    <Step state="produce">
+      A neutrino is born with a definite flavour. Say, an electron neutrino made in the Sun.
+    </Step>
+    <Step state="fly">
+      On its way, the flavour changes. Electron, then muon, then back, as though the particle cannot make up its mind. This is <Term id="neutrino-oscillation">neutrino oscillation</Term>, and it is only possible if neutrinos have mass.
+    </Step>
+    <Step state="detect">
+      At the detector, the chance of finding each flavour depends on two things: how far the neutrino flew, and its energy.
+    </Step>
+  </Scene>
+
+  <Widget name="Oscillation" />
+
+  <Figure kind="schematic" caption="Schematic: the chance that a muon neutrino is still a muon neutrino, versus distance divided by energy, from the two-flavour formula with round-number parameters.">
+    <Scene id="nu.oscillation">
+      <Step state="probability-plot">
+        The probability swings between 1 and a lower value, over and over. The first minimum sits at a particular distance for a given energy.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="The two-flavour oscillation formula">
+    For two flavours mixed by an angle $\theta$, with squared-mass difference $\Delta m^2$, the probability that a neutrino of flavour $\alpha$ is found as flavour $\beta$ after a distance $L$ is
+
+    $$P(\nu_\alpha \to \nu_\beta) = \sin^2 2\theta \,\sin^2\!\left(1.27\,\frac{\Delta m^2\,L}{E}\right),$$
+
+    with $\Delta m^2$ in eV², $L$ in km and $E$ in GeV. For atmospheric neutrinos, $\Delta m^2 \approx 2.5\times10^{-3}$ eV² and the mixing is nearly maximal, so the first full conversion happens at $L/E \approx 500$ km/GeV. For example, 1 GeV neutrinos need about 500 km. Real neutrinos have three flavours and three masses, which adds a third mixing angle and a phase. The two-flavour picture is a good approximation near each oscillation maximum.
+  </Deeper>
+
+  <Scene id="nu.oscillation">
+    <Step state="solar-deficit">
+      In the 1960s, Raymond Davis Jr. counted only about a third of the electron neutrinos the Sun should send. They had changed flavour on the way. Super-Kamiokande (1998) and SNO (2001–02) confirmed it. The 2015 Nobel Prize honoured the discovery.
+    </Step>
+  </Scene>
+</Layer>
+
+<Layer id="sources">
+  <Scene id="nu.sources">
+    <Step state="cosmic-background">
+      The faintest are the relic neutrinos from the Big Bang, about 100 per cubic centimetre of each flavour. Their energy is a fraction of a millielectronvolt. No one has detected them yet.
+    </Step>
+    <Step state="geo-reactor">
+      Next, around the MeV scale: antineutrinos from radioactive decay of uranium and thorium inside the Earth, and from nuclear reactors. A reactor makes about 2 × 10²⁰ per second for every gigawatt of thermal power. These are the easiest to catch with a known source.
+    </Step>
+    <Step state="sun">
+      The Sun burns hydrogen into helium and releases electron neutrinos. The main reaction, proton–proton fusion, gives the most but the lowest energies (below 0.5 MeV). A rare branch involving boron-8 gives few but up to 15 MeV.
+    </Step>
+    <Step state="supernova">
+      A collapsing star releases about 99% of its energy as neutrinos, a few tens of MeV each. In 1987, about twenty were caught from supernova SN1987A, in a burst lasting 10 seconds, hours before the light arrived.
+    </Step>
+    <Step state="atmosphere">
+      Cosmic rays hit air and make pions and muons, whose decays give neutrinos from about 0.1 GeV upward. They arrive from every direction: from above after 20 km of air, from below after crossing up to 13,000 km of Earth.
+    </Step>
+    <Step state="accelerator">
+      Accelerators make beams: smash protons into a target, collect the pions, let them decay. The beam can be pointed at a detector hundreds of kilometres away, at energies of a few GeV.
+    </Step>
+    <Step state="astro">
+      The most energetic, from cosmic accelerators far outside our Galaxy, reach TeV to PeV, a million times beyond the beams. They are rare, and carry the direction of their source.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schematic: where each neutrino source sits on an energy axis (logarithmic). Positions are approximate; the vertical heights carry no meaning.">
+    <Scene id="nu.sources">
+      <Step state="overview">
+        Twenty orders of magnitude in energy, from relic neutrinos to cosmic accelerators. No single detector covers more than a few of them.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Scene id="nu.interactions">
+    <Step state="cc">
+      A neutrino can interact in two ways. In a <strong>charged-current</strong> interaction it hands over an electric charge and turns into its charged partner: an electron neutrino into an electron, a muon neutrino into a muon. The charged particle is what we see, and it tells us the flavour.
+    </Step>
+    <Step state="nc">
+      In a <strong>neutral-current</strong> interaction the neutrino bounces off, leaves a little energy, and escapes still a neutrino. It works for every flavour, so it cannot tell them apart. It is harder to see.
+    </Step>
+    <Step state="targets">
+      Three important targets. An <strong>electron</strong>: elastic scattering. A <strong>proton</strong>: inverse beta decay, for antineutrinos of a few MeV. A whole <strong>nucleus</strong>: at low energy the nucleus recoils as a unit, a process called CEvNS. Each will be a detector below.
+    </Step>
+    <Step state="cross-section">
+      How rare is it? For a GeV neutrino, the chance of hitting a nucleon is of order $10^{-38}$ cm². A light-year of lead stops only about half of a few-MeV neutrinos. So detectors need kilotons of target, up to a cubic kilometre, and a lot of patience.
+    </Step>
+  </Scene>
+</Layer>
+
+<Layer id="detection">
+  <Scene id="nu.site">
+    <Step state="surface-background">
+      At the surface, cosmic rays make a constant rain of muons and other particles. They would bury the few neutrino events. So most neutrino detectors go deep underground, or under water or ice.
+    </Step>
+  </Scene>
+
+  <Primer id="underground-lab" />
+
+  Six ways to catch neutrinos follow. Each is a different answer to one question: what is the one signal that only a neutrino can make?
+
+  <Walkthrough scene="nu.radiochem" experiment="Homestake" also="GALLEX/GNO (Gran Sasso) and SAGE (Baksan), which use gallium instead of chlorine.">
+    <Step state="tank" kind="goal">
+      Goal: count solar neutrinos, one atom at a time. In the 1960s Raymond Davis Jr. placed a tank of about 600 tonnes of cleaning fluid, perchloroethylene, 1.5 km down in the Homestake gold mine in South Dakota.
+    </Step>
+    <Step state="capture" kind="signal">
+      Now and then, a neutrino hits a chlorine-37 nucleus and turns it into radioactive argon-37: $\nu_e + {}^{37}\mathrm{Cl} \to {}^{37}\mathrm{Ar} + e^-$. This happens about once every couple of days in the whole tank.
+    </Step>
+    <Step state="extract" kind="signal">
+      Every few weeks, helium is bubbled through the tank. Argon, a noble gas, does not stick to anything and is swept out. A few tens of atoms are collected in a small trap.
+    </Step>
+    <Step state="count" kind="signal">
+      Argon-37 is radioactive, with a half-life of 35 days. The trap is placed in a small counter, and each atom is counted when it decays and emits a tiny burst of electrons.
+    </Step>
+    <Step state="rate" kind="readout">
+      Readout: how many neutrinos arrived, averaged over weeks. Nothing about direction, arrival time or flavour. The answer, about a third of the prediction, started the solar neutrino problem.
+    </Step>
+    <Step state="needle" kind="trick">
+      The trick: chemistry does the selecting. Finding a few tens of argon atoms among about $10^{30}$ chlorine atoms sounds impossible, but a noble gas can be flushed out almost completely, and nothing else in the tank turns into argon.
+    </Step>
+  </Walkthrough>
+
+  <Primer id="cherenkov" />
+
+  <Walkthrough scene="nu.water-cherenkov" experiment="Super-Kamiokande" also="Hyper-Kamiokande (under construction), and the earlier Kamiokande.">
+    <Step state="tank" kind="goal">
+      Goal: catch single neutrinos in real time, and find out their direction, energy and flavour. Super-Kamiokande is a tank of 50,000 tonnes of ultrapure water, 1 km below Mount Ikeno in Japan, lined with about 11,000 large light sensors.
+    </Step>
+    <Step state="interaction" kind="signal">
+      A neutrino rarely hits an atom in the water. A muon neutrino produces a muon, an electron neutrino an electron. This charged particle carries most of the energy and moves almost at the speed of light.
+    </Step>
+    <Step state="cone" kind="signal">
+      In water, light travels at only 75% of its vacuum speed, so the particle outruns it. It leaves a cone of <Term id="cherenkov-radiation">Cherenkov light</Term>, opening at about 42° to its path.
+    </Step>
+    <Step state="ring" kind="signal">
+      The cone reaches the tank wall as a ring of lit <Term id="photomultiplier">photomultiplier tubes</Term>. The ring's centre points along the particle's path, and the total light grows with its energy.
+    </Step>
+    <Step state="reconstruct" kind="readout">
+      Readout: the particle's direction, its energy, and a first hint of its identity, all from the pattern of lit sensors, event by event. The neutrino direction follows from the charged particle's.
+    </Step>
+    <Step state="ring-sharpness" kind="trick">
+      The trick: a muon flies straight, so its ring is sharp. An electron makes a small <Term id="shower">shower</Term> of electrons and photons, each with its own cone, so the ring is fuzzy. A sharp ring means a muon neutrino, a fuzzy ring an electron neutrino. Try it.
+    </Step>
+  </Walkthrough>
+
+  <Widget name="RingClassifier" />
+
+  <Deeper title="The Cherenkov angle, and the threshold">
+    $$\cos\theta_c = \frac{1}{n\beta}.$$
+
+    For water, $n \approx 1.33$, and a particle with $\beta \to 1$ gives $\theta_c = \arccos(0.75) \approx 41^\circ$. Light appears only above the threshold $\beta > 1/n \approx 0.75$. That corresponds to a kinetic energy of about 0.26 MeV for an electron, and about 54 MeV for a muon. Below these the particle is invisible to the detector.
+  </Deeper>
+
+  <Primer id="scintillation" />
+
+  <Walkthrough scene="nu.ibd" experiment="JUNO" also="RENO (Korea), Daya Bay and Double Chooz, which use reactor antineutrinos in the same way; KamLAND in Japan.">
+    <Step state="reactor" kind="goal">
+      Goal: catch the electron antineutrinos from nuclear reactors about 50 km away, and measure their energy precisely. JUNO, in southern China, holds 20,000 tonnes of liquid <Term id="scintillator">scintillator</Term> in a transparent sphere, watched by tens of thousands of light sensors. It began taking data in 2025.
+    </Step>
+    <Step state="inverse-beta" kind="signal">
+      An antineutrino hits a proton, a hydrogen nucleus in the liquid. This is <Term id="inverse-beta-decay">inverse beta decay</Term>: $\bar\nu_e + p \to e^+ + n$. It needs at least 1.8 MeV, and reactors make plenty above that.
+    </Step>
+    <Step state="prompt" kind="signal">
+      The positron stops within centimetres and annihilates with an electron. The liquid flashes: a first pulse of light. Its brightness equals the antineutrino energy, minus about 0.8 MeV.
+    </Step>
+    <Step state="delayed" kind="signal">
+      Meanwhile the neutron wanders and slows. After tens to hundreds of microseconds it is captured by a hydrogen nucleus, which emits a 2.2 MeV gamma ray: a second, weaker flash, at the same place.
+    </Step>
+    <Step state="energy" kind="readout">
+      Readout: the first flash gives the antineutrino's energy with a few per cent precision. Collect many, and the spectrum shows how many are missing at each energy. The missing ones have oscillated.
+    </Step>
+    <Step state="coincidence" kind="trick">
+      The trick: delayed coincidence. Only two flashes at nearly the same place and a short time apart, with the right energies, count. Natural radioactivity flashes everywhere but rarely in such pairs. Narrow the time window and the background disappears.
+    </Step>
+  </Walkthrough>
+
+  <Widget name="IbdCoincidence" />
+
+  <Bridge id="nu-detection-to-det-interactions" />
+
+  <Primer id="tpc" />
+
+  <Walkthrough scene="nu.lartpc" experiment="DUNE" also="ICARUS (the idea of Carlo Rubbia, at Gran Sasso), MicroBooNE and SBND at Fermilab.">
+    <Step state="argon" kind="goal">
+      Goal: a full photograph of a single neutrino interaction. DUNE will send a beam from Fermilab near Chicago, 1,300 km through the Earth, to tanks of tens of thousands of tonnes of liquid argon, 1.5 km down in South Dakota.
+    </Step>
+    <Step state="ionize" kind="signal">
+      A GeV neutrino hits an argon nucleus. The charged particles that come out, a muon, protons, pions, ionize the argon along their paths and leave trails of free electrons.
+    </Step>
+    <Step state="drift" kind="signal">
+      An electric field pulls the electrons toward the detector wall, a few metres of drift through the liquid. This is a <Term id="tpc">time projection chamber</Term>, at large scale.
+    </Step>
+    <Step state="wires" kind="signal">
+      Planes of wires record when, and on which wires, charge arrives. Two or three planes with the wires at different angles give two coordinates. The arrival time gives the third.
+    </Step>
+    <Step state="event" kind="readout">
+      Readout: a three-dimensional picture of the whole interaction, with millimetre detail. Tracks, their directions, their energies and the type of each particle (from the density of ionization) can all be read off.
+    </Step>
+    <Step state="purity" kind="trick">
+      The trick: purity. Electrons drifting for metres are lost if any oxygen or water is present, which grabs them. So the argon is purified to far below one part per billion. Cleaner argon allows longer drift, and a bigger detector.
+    </Step>
+  </Walkthrough>
+
+  <Walkthrough scene="nu.neutrino-telescope" experiment="IceCube" also="KM3NeT (Mediterranean Sea) and Baikal-GVD (Lake Baikal), which use water instead of ice.">
+    <Step state="lattice" kind="goal">
+      Goal: catch the rare, very high energy neutrinos, so the detector must be huge. IceCube is a cubic kilometre of clear ice at the South Pole, with 86 cables each carrying 60 light sensors, hung between 1.5 and 2.5 km deep.
+    </Step>
+    <Step state="muon" kind="signal">
+      A muon neutrino hits a nucleus in the ice or the rock below, and makes a muon. At high energy the muon flies on for kilometres, emitting Cherenkov light along its whole path.
+    </Step>
+    <Step state="timing" kind="signal">
+      Each sensor records when the light reaches it. The cone of light sweeps across the sensors one after another, like a wave across a stadium.
+    </Step>
+    <Step state="direction" kind="readout">
+      Readout: the order of arrival times gives the direction of the muon, to about a degree or better at the highest energies. The total amount of light gives its energy.
+    </Step>
+    <Step state="earth-shield" kind="trick">
+      The trick: look down. Muons made by cosmic rays in the atmosphere flood the detector from above. The Earth stops them. A muon coming up through the planet can only have been made by a neutrino.
+    </Step>
+  </Walkthrough>
+
+  <Walkthrough scene="nu.cevns" experiment="COHERENT" also="CONUS+ and other reactor experiments with very low threshold detectors.">
+    <Step state="goal" kind="goal">
+      Goal: see a neutrino scatter off a whole nucleus at once. The process, coherent elastic neutrino–nucleus scattering (CEvNS), was predicted in 1974 and first seen in 2017 by COHERENT, at the Spallation Neutron Source in Oak Ridge, Tennessee.
+    </Step>
+    <Step state="target" kind="signal">
+      Neutrinos of a few tens of MeV come in short pulses from the neutron source and cross a crystal of caesium iodide of about 15 kg, roughly 20 m away.
+    </Step>
+    <Step state="coherent" kind="signal">
+      At this energy the neutrino's wavelength is larger than the nucleus, so it cannot see the single protons and neutrons. It pushes the whole nucleus. The contributions of all the neutrons add together, and the probability grows roughly as the square of their number.
+    </Step>
+    <Step state="recoil" kind="signal">
+      The nucleus recoils with a tiny energy, a few keV: a gentle nudge. In the crystal it makes a handful of photons, picked up by a photomultiplier tube.
+    </Step>
+    <Step state="rate" kind="readout">
+      Readout: the rate and energy of the recoils, compared with the Standard Model prediction. The signal is only a few photons, so the detector's threshold has to be extremely low and its noise extremely small.
+    </Step>
+    <Step state="fog" kind="trick">
+      The trick: coherence makes the interaction so likely that a detector of about 15 kg is enough. But the nuclear recoil also looks like the signal of a dark-matter particle. Large xenon dark-matter detectors reported the first hints of solar neutrinos seen this way in 2024, and the next generation will see many: the "neutrino fog".
+    </Step>
+  </Walkthrough>
+
+  <Bridge id="nu-cevns-to-dm-frontier" />
+
+  Six very different detectors, one theme. A neutrino never shows itself. We see what it leaves behind: a chemical atom, a ring of light, two flashes, a trail of electrons, a wave of light through the ice, a nudge of a nucleus. From that, we reason backward.
+</Layer>
+
+<Layer id="frontier">
+  <Scene id="nu.frontier">
+    <Step state="mass-ordering">
+      **Mass ordering.** Oscillations tell us the differences between squared masses, not which neutrino is heaviest. Two options: three masses in the "normal" ordering (the third heaviest), or "inverted" (the third lightest). As of 2025 the global fits lean toward normal, but not decisively. JUNO, which uses interference of two oscillations at 50 km, aims for a first strong answer within years. DUNE, Hyper-Kamiokande and the atmospheric telescopes add independent evidence.
+    </Step>
+    <Step state="cp">
+      **CP violation.** Do neutrinos and antineutrinos oscillate in exactly the same way? If not, the difference could be one ingredient in why the universe contains matter and almost no antimatter. T2K and NOvA, as of 2025, see hints of a difference but no discovery. DUNE and Hyper-Kamiokande, both expected to begin physics in the coming years, are designed to settle it. The link to the matter surplus is a hypothesis, not a result.
+    </Step>
+    <Step state="absolute-mass">
+      **Absolute mass.** The KATRIN experiment measures the electron energy spectrum in tritium beta decay near its endpoint, where a neutrino mass would shave off a little. Its 2025 result: the electron-neutrino mass is below about 0.45 eV (90% confidence). Oscillations require a sum of masses of at least about 0.06 eV. Cosmology gives model-dependent limits around 0.1 eV. The true value sits in a window of one order of magnitude.
+    </Step>
+    <Step state="majorana">
+      **Is the neutrino its own antiparticle?** Every other fermion we know has a distinct antiparticle. A neutrino, with no charge, might not. Such a particle is called a Majorana particle. The test is a very rare decay: neutrinoless double-beta decay.
+    </Step>
+  </Scene>
+
+  <Walkthrough scene="nu.dbd-spectrum" experiment="LEGEND" also="CUORE and CUPID (tellurium crystals read as tiny thermometers), AMoRE (molybdenum, at Yemilab in Korea), KamLAND-Zen (xenon in liquid scintillator).">
+    <Step state="decay" kind="goal">
+      Goal: find a decay of one nucleus into another in which two electrons are emitted and no neutrinos. In ordinary double-beta decay, two neutrinos escape too. If the neutrino is its own antiparticle, the neutrino-free decay can happen, extremely rarely.
+    </Step>
+    <Step state="source-detector" kind="signal">
+      The unusual design: the decaying nucleus <em>is</em> the detector. LEGEND uses crystals of germanium enriched in germanium-76. The electrons stop inside the crystal and free charge there. Nothing is lost.
+    </Step>
+    <Step state="sum-energy" kind="signal">
+      The detector measures the total energy of the two electrons. Ordinary decay shares energy with two neutrinos, so the total is spread over a continuum. Neutrino-free decay has nothing else to carry energy, so the total is always the same: the decay energy.
+    </Step>
+    <Step state="spectrum" kind="readout">
+      Readout: an energy histogram of many decays. A continuous bump from ordinary decay, and, if the process exists, one narrow peak at its very end.
+    </Step>
+    <Step state="resolution" kind="trick">
+      The trick: resolution and quiet. The peak is only visible if the detector's energy resolution is much narrower than the bump's edge, and if background radioactivity is nearly zero. That is why these experiments sit deep underground in the cleanest materials. Try worsening the resolution.
+    </Step>
+  </Walkthrough>
+
+  <Widget name="DbdSpectrum" />
+
+  <Deeper title="What a half-life limit means">
+    If the process is mediated by the exchange of a light Majorana neutrino, the decay rate is
+
+    $$\frac{1}{T_{1/2}^{0\nu}} = G^{0\nu}\,\left|M^{0\nu}\right|^2\,\frac{\langle m_{\beta\beta}\rangle^2}{m_e^2},$$
+
+    where $G^{0\nu}$ is a phase-space factor, $M^{0\nu}$ a nuclear matrix element, and $\langle m_{\beta\beta}\rangle$ the effective Majorana mass. Current limits on the half-life are above $10^{26}$ years for germanium-76 and xenon-136, millions of billions of times the age of the universe. They translate into limits of several tens to a hundred or so meV, with an uncertainty set mostly by the nuclear matrix elements. This is a hypothesis-specific limit: other mechanisms would give different numbers.
+  </Deeper>
+
+  <Bridge id="nu-0vbb-to-sc-zoo" />
+
+  <Scene id="nu.frontier">
+    <Step state="cosmic">
+      **Cosmic neutrinos.** In 2013 IceCube saw neutrinos from outside the Solar System. In 2018 one was traced to a blazar, TXS 0506+056, and later ones to the galaxy NGC 1068 and the plane of the Milky Way. In 2025 the KM3NeT telescope reported KM3-230213A, a single muon with an estimated neutrino energy of about 220 PeV, the highest ever seen. Its origin is unknown. Neutrinos point back at the places where cosmic rays are made.
+    </Step>
+    <Step state="snews">
+      **The next supernova.** Neutrinos leave a collapsing star hours before its light does. Several detectors now share an alert network, SNEWS, that warns astronomers within minutes. A supernova in our Galaxy, expected about once or twice a century, would give thousands of events in Super-Kamiokande, JUNO, IceCube and DUNE, compared with the twenty from SN1987A.
+    </Step>
+  </Scene>
+
+  | Open question | Experiments (as of 2025) | Principle used |
+  |---|---|---|
+  | Mass ordering | JUNO, DUNE, Hyper-Kamiokande, KM3NeT/ORCA | liquid scintillator, liquid argon, water Cherenkov |
+  | CP violation | T2K, NOvA, DUNE, Hyper-Kamiokande | beams and far detectors |
+  | Absolute mass | KATRIN, cosmological surveys | tritium beta decay, large-scale structure |
+  | Majorana nature | LEGEND, CUORE/CUPID, KamLAND-Zen, AMoRE | germanium, bolometers, xenon scintillator |
+  | High-energy sources | IceCube, KM3NeT, Baikal-GVD | ice and water telescopes |
+
+  This page uses simplified pictures and no real data. For detail, start with the PDG review and the textbooks in the references below.
+</Layer>

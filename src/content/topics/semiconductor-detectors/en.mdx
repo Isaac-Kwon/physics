@@ -426,7 +426,7 @@ draft: true
 <Layer id="case-its3">
   <Scene id="sc.its3" mode="scrub">
     <Step state="its2">
-      ALICE's current inner tracker (ITS2, running since 2021) has seven cylindrical layers of MAPS around the beam pipe. The innermost layer is about 2.2 centimetres from the collision, and each layer of it is about 0.35 % of a radiation length thick.
+      ALICE's current inner tracker (ITS2, running since 2021) has seven cylindrical layers of MAPS around the beam pipe. The innermost layer is about 2.2 centimetres from the collision, and each of the three inner layers is about 0.35 % of a radiation length thick.
     </Step>
     <Step state="limits">
       Two things now limit it. The inner layers are made of many flat chips on a support, and the supports, cooling pipes and cables add much more material than the silicon. And the beam pipe sets how close it can go.
@@ -441,7 +441,7 @@ draft: true
       Two half-cylinders form each layer. The sensor is its own structure. Supported only by light foam, cooled by a stream of air, there is almost no material other than the silicon. The innermost layer moves in to about 2 centimetres.
     </Step>
     <Step state="material">
-      The material per layer falls to about 0.07 % of a radiation length, a few times lower than before. Particles scatter less, and the impact parameter, the distance by which a track misses the collision point, is measured about twice as precisely.
+      The material per layer falls to about 0.07 % of a radiation length, a few times lower than before. Particles scatter less, and the impact parameter, the distance by which a track misses the collision point, is measured about twice as precisely, over the whole momentum range according to the design studies.
     </Step>
   </Scene>
 
@@ -466,7 +466,7 @@ draft: true
       A track that misses the primary vertex by tens of micrometres comes from a decay downstream. Charm and beauty hadrons, which live about a picosecond, make exactly such tracks.
     </Step>
     <Step state="trick" kind="trick">
-      The trick: the resolution of the miss distance goes as the sum of the sensor error and the scattering error, scaled by how close the first layer is. Less material and a smaller radius improve both.
+      The trick: the resolution of the miss distance combines, in quadrature, the sensor error and the scattering error, both scaled by how close the first layer is. Less material and a smaller radius improve both.
     </Step>
   </Walkthrough>
 
@@ -475,7 +475,7 @@ draft: true
     $$\sigma_{d_0}^2 = \frac{r_2^2\,\sigma_1^2 + r_1^2\,\sigma_2^2}{(r_2-r_1)^2}.$$
     Multiple scattering in the first layer of thickness $x$ adds
     $$\sigma_{\text{ms}} \approx r_1\,\theta_0\propto \frac{r_1}{p}\sqrt{x/X_0},$$
-    so the resolution improves with smaller $r_1$ (first term) and lower $x/X_0$ (second term). Going from $r_1\approx 2.2$ cm to about 1.9 cm and from 0.35 % to 0.07 % $X_0$ brings the improvement quoted above, mainly at low momentum, where scattering matters. Treat the numbers as indicative: they depend on the final design.
+    so the first term improves with better hits and a long lever arm $r_2-r_1$ compared with $r_1$, and the second with smaller $r_1$ and lower $x/X_0$. ITS3 gains on all of these at once: smaller pixels, $r_1$ from about 2.2 cm to 1.9 cm, and 0.35 % to 0.07 % $X_0$. Together they give the factor of about two quoted above; the material term matters most at low momentum, where scattering matters. Treat the numbers as indicative: they depend on the final design.
   </Deeper>
 
   **Where do we stand (as of 2025)?** ITS3 is in its engineering and prototyping phase. The first wafer-scale sensors and bent prototypes have been tested, including in beams. Installation is planned for the long shutdown that precedes LHC Run 4, at the end of the decade. Dates move, so check the ALICE pages.

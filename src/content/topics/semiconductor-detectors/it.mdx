@@ -426,7 +426,7 @@ draft: true
 <Layer id="case-its3">
   <Scene id="sc.its3" mode="scrub">
     <Step state="its2">
-      L'attuale tracciatore interno di ALICE (ITS2, in funzione dal 2021) ha sette strati cilindrici di MAPS attorno al tubo del fascio. Lo strato più interno si trova a circa 2,2 centimetri dalla collisione, e ciascuno dei suoi strati è spesso circa lo 0,35 % di una lunghezza di radiazione.
+      L'attuale tracciatore interno di ALICE (ITS2, in funzione dal 2021) ha sette strati cilindrici di MAPS attorno al tubo del fascio. Lo strato più interno si trova a circa 2,2 centimetri dalla collisione, e ciascuno dei tre strati interni è spesso circa lo 0,35 % di una lunghezza di radiazione.
     </Step>
     <Step state="limits">
       Due cose lo limitano oggi. Gli strati interni sono fatti di molti chip piatti su un supporto, e i supporti, i tubi di raffreddamento e i cavi aggiungono molto più materiale del silicio stesso. E il tubo del fascio stabilisce quanto ci si può avvicinare.
@@ -441,7 +441,7 @@ draft: true
       Due semicilindri formano ogni strato. Il sensore è la propria struttura. Sostenuto soltanto da una schiuma leggera, raffreddato da un flusso d'aria, praticamente non c'è altro materiale oltre al silicio. Lo strato più interno si avvicina a circa 2 centimetri.
     </Step>
     <Step state="material">
-      Il materiale per strato scende a circa lo 0,07 % di una lunghezza di radiazione, alcune volte meno di prima. Le particelle diffondono meno, e il parametro d'impatto, la distanza di cui una traccia manca il punto di collisione, viene misurato con una precisione circa doppia.
+      Il materiale per strato scende a circa lo 0,07 % di una lunghezza di radiazione, alcune volte meno di prima. Le particelle diffondono meno, e il parametro d'impatto, la distanza di cui una traccia manca il punto di collisione, viene misurato con una precisione circa doppia su tutto l'intervallo di impulso, secondo gli studi di progetto.
     </Step>
   </Scene>
 
@@ -466,7 +466,7 @@ draft: true
       Una traccia che manca il vertice primario di decine di micrometri proviene da un decadimento più a valle. Gli adroni con charm e beauty, che vivono circa un picosecondo, producono proprio tracce di questo tipo.
     </Step>
     <Step state="trick" kind="trick">
-      Il trucco: la risoluzione sulla distanza di mancato incontro va come la somma dell'errore del sensore e dell'errore di scattering, scalata in base alla vicinanza del primo strato. Meno materiale e un raggio minore migliorano entrambi.
+      Il trucco: la risoluzione sulla distanza di mancato incontro combina in quadratura l'errore del sensore e l'errore di scattering, entrambi scalati in base alla vicinanza del primo strato. Meno materiale e un raggio minore migliorano entrambi.
     </Step>
   </Walkthrough>
 
@@ -475,7 +475,7 @@ draft: true
     $$\sigma_{d_0}^2 = \frac{r_2^2\,\sigma_1^2 + r_1^2\,\sigma_2^2}{(r_2-r_1)^2}.$$
     Lo scattering multiplo nel primo strato di spessore $x$ aggiunge
     $$\sigma_{\text{ms}} \approx r_1\,\theta_0\propto \frac{r_1}{p}\sqrt{x/X_0},$$
-    quindi la risoluzione migliora con un $r_1$ più piccolo (primo termine) e un $x/X_0$ più basso (secondo termine). Passare da $r_1\approx 2{,}2$ cm a circa 1,9 cm e dallo 0,35 % allo 0,07 % di $X_0$ porta al miglioramento citato sopra, soprattutto a basso impulso, dove lo scattering conta. I numeri sono indicativi: dipendono dal progetto finale.
+    quindi il primo termine migliora con hit più precisi e un braccio di leva $r_2-r_1$ lungo rispetto a $r_1$, il secondo con un $r_1$ più piccolo e un $x/X_0$ più basso. ITS3 guadagna su tutti questi fronti: pixel più piccoli, $r_1$ da circa 2,2 cm a 1,9 cm e dallo 0,35 % allo 0,07 % di $X_0$. Insieme danno il fattore circa due citato sopra; il termine di materiale pesa di più a basso impulso, dove lo scattering conta. I numeri sono indicativi: dipendono dal progetto finale.
   </Deeper>
 
   **A che punto siamo (al 2025)?** ITS3 è nella fase di ingegnerizzazione e di prototipazione. I primi sensori delle dimensioni di un wafer e i prototipi piegati sono stati collaudati, anche in fascio. L'installazione è prevista durante il lungo arresto che precede il Run 4 di LHC, alla fine del decennio. Le date cambiano, quindi consultate le pagine di ALICE.

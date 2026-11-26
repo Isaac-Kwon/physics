@@ -24,7 +24,8 @@ const Tag = href ? 'a' : 'div';
 
 <style>
   .bridge-wrap {
-    margin: var(--space-4) 0;
+    max-width: var(--measure);
+    margin: var(--space-4) auto;
   }
   .bridge {
     display: block;
@@ -52,13 +53,16 @@ const Tag = href ? 'a' : 'div';
   .bridge__soon {
     color: var(--fg-faint);
   }
-  /* Desktop: float into the right margin of the text column without affecting flow. */
-  @media (min-width: 1100px) {
+  /* Wide screens only: float into the right margin of the text column without affecting flow.
+     Needs (100vw − measure)/2 ≥ note width + gap + Depth-Gauge strip; below 82rem the note stays inline. */
+  @media (min-width: 82rem) {
     .bridge-wrap {
       float: right;
       clear: right;
-      width: 15rem;
-      margin: 0 calc(-15rem - var(--space-8)) var(--space-4) var(--space-6);
+      width: 13.5rem;
+      /* The wrapper's container is the wide layer body, so place the note just right of the centred text column:
+         right margin = half the free space beside the column − note width − gap. */
+      margin: 0 calc((100% - var(--measure)) / 2 - 13.5rem - var(--space-8)) var(--space-4) var(--space-6);
     }
   }
 </style>

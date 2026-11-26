@@ -1,52 +1,140 @@
 ---
-/** <Deeper title> — collapsible undergraduate-level box, closed by default. */
+/**
+ * <Deeper title> — undergraduate-level aside. Shown in the text as a compact link; the content opens in a modal
+ * (native <dialog>, see src/lib/modal.ts), so it never takes a full-width block or an extra scroll stop.
+ * The shared .aside-* styles here are also used by <Primer>.
+ */
 import { getLangFromUrl, useT } from '../../i18n';
 interface Props {
   title?: string;
 }
 const t = useT(getLangFromUrl(Astro.url));
 const { title } = Astro.props;
+const label = title ? `${t('deeper.label')}: ${title}` : t('deeper.open');
+const uid = `deeper-${Math.random().toString(36).slice(2, 9)}`;
 ---
 
-<details class="deeper">
-  <summary>
-    <span class="deeper__title">{title ? `${t('deeper.label')}: ${title}` : t('deeper.open')}</span>
-  </summary>
-  <div class="deeper__body"><slot /></div>
-</details>
+<div class="aside deeper">
+  <button type="button" class="aside__open" data-modal-open aria-haspopup="dialog" aria-controls={uid}>
+    <span class="aside__kind">{t('deeper.label')}</span>
+    <span class="aside__title">{title ?? t('deeper.open')}</span>
+    <svg class="aside__icon" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M6 3H3v10h10v-3M9 3h4v4M13 3 7.5 8.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+  </button>
+  <dialog class="aside__dialog" id={uid} data-modal data-lenis-prevent aria-label={label}>
+    <header class="aside__head">
+      <p class="aside__dlg-kind">{t('deeper.label')}</p>
+      <h3 class="aside__dlg-title">{title ?? t('deeper.open')}</h3>
+      <button type="button" class="aside__close" data-modal-close aria-label={t('deeper.close')}>
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+      </button>
+    </header>
+    <div class="aside__body"><slot /></div>
+  </dialog>
+</div>
+
+<script>
+  import { installModals } from '../../lib/modal';
+  installModals();
+</script>
 
 <style is:global>
-  .deeper {
+  /* ---- compact trigger in the text column ---- */
+  .aside {
     max-width: var(--measure);
-    margin: var(--space-6) auto;
-    border-block: 1px solid var(--line);
-    font-size: var(--fs-sm);
-    line-height: 1.6;
+    margin: var(--space-2) auto var(--space-4);
   }
-  .deeper summary {
-    cursor: pointer;
-    list-style: none;
-    padding: var(--space-3) 0;
-    font-weight: 600;
-  }
-  .deeper summary::-webkit-details-marker {
-    display: none;
-  }
-  .deeper summary::before {
-    content: '▸';
-    display: inline-block;
-    width: 1.1em;
+  .aside__open {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.45em;
+    max-width: 100%;
+    padding: 0.2rem 0;
+    border: 0;
+    border-bottom: 1px dotted var(--fg-faint);
+    background: none;
     color: var(--fg-muted);
-    font-weight: 400;
+    font: inherit;
+    font-size: var(--fs-sm);
+    line-height: 1.4;
+    text-align: left;
+    cursor: pointer;
   }
-  .deeper[open] summary::before {
-    content: '▾';
+  .aside__open:hover,
+  .aside__open:focus-visible {
+    color: var(--fg);
+    border-bottom-color: var(--accent);
   }
-  .deeper__body {
-    padding: 0 0 var(--space-3);
-    overflow-x: auto;
+  .aside__kind {
+    font-weight: 600;
+    color: var(--fg);
   }
-  .deeper__body > :last-child {
+  .aside__icon {
+    flex: none;
+    align-self: center;
+    color: var(--fg-faint);
+  }
+
+  /* ---- modal ---- */
+  .aside__dialog {
+    width: min(40rem, calc(100vw - 2rem));
+    max-height: min(80vh, 48rem);
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--fg);
+    box-shadow: 0 12px 48px var(--shadow);
+    overflow: hidden;
+  }
+  .aside__dialog[open] {
+    display: flex;
+    flex-direction: column;
+  }
+  .aside__dialog::backdrop {
+    background: color-mix(in oklab, var(--bg-sunken) 55%, transparent);
+  }
+  .aside__head {
+    position: relative;
+    padding: var(--space-4) 3.5rem var(--space-3) var(--space-6);
+    border-bottom: 1px solid var(--line);
+  }
+  .aside__dlg-kind {
+    margin: 0 0 var(--space-1);
+    font-size: var(--fs-sm);
+    color: var(--fg-muted);
+  }
+  .aside__dlg-title {
+    margin: 0;
+    font-size: var(--fs-lg);
+  }
+  .aside__close {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--fg-muted);
+    cursor: pointer;
+  }
+  .aside__close:hover {
+    color: var(--fg);
+  }
+  .aside__body {
+    padding: var(--space-4) var(--space-6) var(--space-6);
+    overflow: auto;
+    font-size: var(--fs-base);
+    line-height: 1.65;
+  }
+  .aside__body > :last-child {
     margin-bottom: 0;
+  }
+  html.has-modal {
+    overflow: hidden;
   }
 </style>

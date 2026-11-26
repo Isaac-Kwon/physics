@@ -55,5 +55,8 @@
   "a11y.reducedMotion": "Animations are reduced to match your system setting.",
   "theme.toggle": "Switch light / dark theme",
   "theme.light": "Switch to light theme",
-  "theme.dark": "Switch to dark theme"
+  "theme.dark": "Switch to dark theme",
+  "gauge.prev": "Previous step",
+  "gauge.next": "Next step",
+  "gauge.step": "Step"
 }

@@ -1,0 +1,163 @@
+---
+/**
+ * Previous / next arrows for the reading area (not on the Depth Gauge).
+ * They walk through every block of the page in reading order (headings, prose, figures, widgets, step boxes) —
+ * see src/lib/checkpoints.ts.
+ *
+ * Mouse: hidden until the pointer enters the top (▲) or bottom (▼) 15 % of the screen; then a translucent gradient
+ * band fades in with a large button. Touch screens (no hover): the buttons stay visible. Keyboard focus shows them.
+ * Only the button catches clicks — the band never blocks the content underneath.
+ */
+import { getLangFromUrl, useT } from '../../i18n';
+const t = useT(getLangFromUrl(Astro.url));
+---
+
+<div class="stepnav" data-stepnav hidden>
+  <div class="stepnav__zone stepnav__zone--top" data-zone="top">
+    <button type="button" class="stepnav__btn" data-stepnav-prev aria-label={t('gauge.prev')} title={t('gauge.prev')}>
+      <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M5 15.5 12 8.5l7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </button>
+  </div>
+  <div class="stepnav__zone stepnav__zone--bottom" data-zone="bottom">
+    <button type="button" class="stepnav__btn" data-stepnav-next aria-label={t('gauge.next')} title={t('gauge.next')}>
+      <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M5 8.5 12 15.5l7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  import { hasNext, hasPrev, next, prev } from '../../lib/checkpoints';
+
+  const nav = document.querySelector<HTMLElement>('[data-stepnav]');
+  if (nav) {
+    nav.hidden = false;
+    const top = nav.querySelector<HTMLElement>('[data-zone="top"]')!;
+    const bottom = nav.querySelector<HTMLElement>('[data-zone="bottom"]')!;
+    const btnPrev = top.querySelector<HTMLButtonElement>('button')!;
+    const btnNext = bottom.querySelector<HTMLButtonElement>('button')!;
+    btnPrev.addEventListener('click', prev);
+    btnNext.addEventListener('click', next);
+
+    const content = document.querySelector<HTMLElement>('.topic__content');
+    let raf = 0;
+    const update = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const inside = !content || content.getBoundingClientRect().top < innerHeight * 0.6;
+        nav.classList.toggle('is-on', inside);
+        btnPrev.disabled = !hasPrev();
+        btnNext.disabled = !hasNext();
+      });
+    };
+    addEventListener('scroll', update, { passive: true });
+    addEventListener('resize', update, { passive: true });
+    update();
+
+    // Reveal a zone while the mouse is within the top / bottom 15 % of the screen (below the header for the top one).
+    const headerH = () => document.querySelector('header')?.getBoundingClientRect().height ?? 56;
+    addEventListener(
+      'pointermove',
+      (e) => {
+        if (e.pointerType !== 'mouse') return;
+        const band = innerHeight * 0.15;
+        top.classList.toggle('is-shown', e.clientY > headerH() && e.clientY < headerH() + band);
+        bottom.classList.toggle('is-shown', e.clientY > innerHeight - band);
+      },
+      { passive: true },
+    );
+    document.documentElement.addEventListener('pointerleave', () => {
+      top.classList.remove('is-shown');
+      bottom.classList.remove('is-shown');
+    });
+  }
+</script>
+
+<style>
+  .stepnav {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: var(--z-gauge);
+  }
+  .stepnav__zone {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 15vh;
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 180ms var(--ease-out);
+  }
+  .stepnav__zone--top {
+    top: var(--header-h);
+    align-items: flex-start;
+    padding-top: 0.75rem;
+    background: linear-gradient(to bottom, color-mix(in oklab, var(--bg) 85%, transparent), transparent);
+  }
+  .stepnav__zone--bottom {
+    bottom: 0;
+    align-items: flex-end;
+    padding-bottom: 1rem;
+    background: linear-gradient(to top, color-mix(in oklab, var(--bg) 85%, transparent), transparent);
+  }
+  .stepnav__btn {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius);
+    background: var(--fg);
+    color: var(--bg);
+    cursor: pointer;
+    box-shadow: 0 4px 16px var(--shadow);
+    pointer-events: none;
+    transition:
+      transform var(--dur-fast) var(--ease-out),
+      background var(--dur-fast) var(--ease-out);
+  }
+  .stepnav__btn:hover {
+    background: var(--accent);
+    transform: scale(1.05);
+  }
+  .stepnav__btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* Mouse: show a zone while the pointer is in it, or while its button has keyboard focus. */
+  .stepnav.is-on .stepnav__zone.is-shown,
+  .stepnav.is-on .stepnav__zone:has(.stepnav__btn:focus-visible) {
+    opacity: 1;
+  }
+  .stepnav.is-on .stepnav__zone.is-shown .stepnav__btn,
+  .stepnav.is-on .stepnav__zone:has(.stepnav__btn:focus-visible) .stepnav__btn {
+    pointer-events: auto;
+  }
+
+  /* Touch screens: no hover — keep the buttons visible (no band), still large. */
+  @media (hover: none) {
+    .stepnav__zone {
+      background: none;
+      height: auto;
+    }
+    .stepnav.is-on .stepnav__zone {
+      opacity: 0.9;
+    }
+    .stepnav.is-on .stepnav__btn {
+      pointer-events: auto;
+    }
+    .stepnav__btn {
+      width: 3rem;
+      height: 2.5rem;
+    }
+  }
+
+  /* Nowhere to go: hide that arrow entirely. */
+  .stepnav__btn:disabled,
+  .stepnav__zone:has(.stepnav__btn:disabled) {
+    visibility: hidden;
+  }
+</style>

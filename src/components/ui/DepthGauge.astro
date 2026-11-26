@@ -1,8 +1,10 @@
 ---
 /**
- * Depth Gauge: fixed vertical list of the page's layers (PLAN §2.4). Tier = tick length,
- * current layer highlighted via IntersectionObserver, links are plain anchors (Lenis smooths them), arrow keys move focus.
- * Numbers hidden below 900px; titles on hover/focus.
+ * Depth Gauge: fixed vertical outline of the page (PLAN §2.4).
+ *  - Layers: number + tick (tick length = tier). Click/keyboard to jump; titles on hover/focus.
+ *  - Steps: under each layer, one small tick per step text box (the scroll checkpoints, src/lib/checkpoints.ts),
+ *    built on the client from the page; the current step is highlighted; click a tick to go there.
+ * Numbers hidden below 900px.
  */
 import { getLangFromUrl, useT } from '../../i18n';
 interface Props {
@@ -12,11 +14,11 @@ const { layers } = Astro.props;
 const t = useT(getLangFromUrl(Astro.url));
 ---
 
-<nav class="gauge" aria-label={t('gauge.label')} data-gauge>
+<nav class="gauge" aria-label={t('gauge.label')} data-gauge data-step-label={t('gauge.step')}>
   <ol class="gauge__list">
     {
       layers.map((l, i) => (
-        <li>
+        <li class="gauge__layer">
           <a class="gauge__link" href={`#${l.id}`} data-gauge-link={l.id} style={`--tier:${Number(l.tier.slice(1)) || 0}`} aria-label={t('gauge.jump', { layer: l.title })}>
             <span class="gauge__text">
               <span class="gauge__title">{l.title}</span>
@@ -25,6 +27,7 @@ const t = useT(getLangFromUrl(Astro.url));
             <span class="gauge__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
             <span class="gauge__tick" aria-hidden="true" />
           </a>
+          <ol class="gauge__steps" data-gauge-steps={l.id} />
         </li>
       ))
     }
@@ -32,11 +35,16 @@ const t = useT(getLangFromUrl(Astro.url));
 </nav>
 
 <script>
+  import { list, go, currentIndex } from '../../lib/checkpoints';
+
   const gauge = document.querySelector<HTMLElement>('[data-gauge]');
   if (gauge) {
     const links = [...gauge.querySelectorAll<HTMLAnchorElement>('[data-gauge-link]')];
     const byId = new Map(links.map((a) => [a.dataset.gaugeLink!, a]));
-    const setCurrent = (id: string) => {
+    const stepLabel = gauge.dataset.stepLabel ?? 'Step';
+
+    // ---- layer highlight (fallback when no step box is near the centre) ----
+    const setLayer = (id: string) => {
       links.forEach((a) => {
         if (a.dataset.gaugeLink === id) a.setAttribute('aria-current', 'location');
         else a.removeAttribute('aria-current');
@@ -45,19 +53,50 @@ const t = useT(getLangFromUrl(Astro.url));
     const sections = [...document.querySelectorAll<HTMLElement>('section[data-layer]')].filter((s) => byId.has(s.id));
     const io = new IntersectionObserver(
       (entries) => {
-        for (const e of entries) if (e.isIntersecting) setCurrent(e.target.id);
+        for (const e of entries) if (e.isIntersecting && currentIndex() < 0) setLayer(e.target.id);
       },
       { rootMargin: '-45% 0px -50% 0px' },
     );
     sections.forEach((s) => io.observe(s));
-    if (sections[0]) setCurrent(sections[0].id);
+    if (sections[0]) setLayer(sections[0].id);
+
+    // ---- step ticks, one per checkpoint, grouped under their layer ----
+    const cards = list();
+    const subs: HTMLButtonElement[] = [];
+    const layerOf: string[] = [];
+    cards.forEach((card, i) => {
+      const layer = card.closest<HTMLElement>('section[data-layer]')?.id ?? '';
+      const ol = gauge.querySelector<HTMLOListElement>(`[data-gauge-steps="${layer}"]`);
+      layerOf[i] = layer;
+      if (!ol) return;
+      const n = ol.children.length + 1;
+      const text = (card.textContent ?? '').replace(/\s+/g, ' ').trim();
+      const li = document.createElement('li');
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'gauge__sub';
+      b.setAttribute('aria-label', `${stepLabel} ${n}: ${text.slice(0, 80)}${text.length > 80 ? '…' : ''}`);
+      b.title = text.length > 90 ? `${text.slice(0, 90)}…` : text;
+      b.addEventListener('click', () => go(i));
+      li.append(b);
+      ol.append(li);
+      subs[i] = b;
+    });
+
+    document.addEventListener('checkpoint:change', (e) => {
+      const i = (e as CustomEvent<{ index: number }>).detail.index;
+      subs.forEach((b, j) => (j === i ? b.setAttribute('aria-current', 'step') : b?.removeAttribute('aria-current')));
+      if (i >= 0 && layerOf[i]) setLayer(layerOf[i]);
+    });
+
+    // ---- keyboard: arrow keys move focus between layer links ----
     gauge.addEventListener('keydown', (e) => {
       const i = links.indexOf(document.activeElement as HTMLAnchorElement);
       if (i < 0) return;
-      const next = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? i - 1 : null;
-      if (next === null) return;
+      const n = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? i - 1 : null;
+      if (n === null) return;
       e.preventDefault();
-      links[(next + links.length) % links.length].focus();
+      links[(n + links.length) % links.length].focus();
     });
   }
 </script>
@@ -70,12 +109,18 @@ const t = useT(getLangFromUrl(Astro.url));
     translate: 0 -50%;
     z-index: var(--z-gauge);
     padding: var(--space-2) var(--space-2) var(--space-2) 0;
+    max-height: calc(100vh - var(--header-h) - 2rem);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
   }
   .gauge__list {
     list-style: none;
     margin: 0;
     padding: 0;
     position: relative;
+    overflow-y: auto;
+    scrollbar-width: none;
   }
   .gauge__list::before {
     content: '';
@@ -91,7 +136,7 @@ const t = useT(getLangFromUrl(Astro.url));
     align-items: center;
     justify-content: flex-end;
     gap: var(--space-2);
-    height: 1.6rem;
+    height: 1.5rem;
     text-decoration: none;
     color: var(--fg-faint);
     position: relative;
@@ -146,6 +191,50 @@ const t = useT(getLangFromUrl(Astro.url));
     background: var(--accent);
     height: 2px;
   }
+
+  /* Step ticks: short marks hanging off the rule, one per step box. */
+  .gauge__steps {
+    list-style: none;
+    margin: 0 0 0.25rem;
+    padding: 0;
+  }
+  .gauge__steps:empty {
+    display: none;
+  }
+  .gauge__steps :global(.gauge__sub) {
+    display: block;
+    margin-left: auto;
+    width: 0.9rem;
+    height: 0.45rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+  }
+  .gauge__steps :global(.gauge__sub)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 0.3rem;
+    height: 1px;
+    background: var(--fg-faint);
+    opacity: 0.7;
+  }
+  .gauge__steps :global(.gauge__sub:hover)::after,
+  .gauge__steps :global(.gauge__sub:focus-visible)::after {
+    width: 0.6rem;
+    opacity: 1;
+    background: var(--fg);
+  }
+  .gauge__steps :global(.gauge__sub[aria-current])::after {
+    width: 0.6rem;
+    height: 2px;
+    opacity: 1;
+    background: var(--accent);
+  }
+
   @media (max-width: 899px) {
     .gauge {
       padding-right: 0;
@@ -154,7 +243,10 @@ const t = useT(getLangFromUrl(Astro.url));
       display: none;
     }
     .gauge__link {
-      height: 1.3rem;
+      height: 1.2rem;
+    }
+    .gauge__steps :global(.gauge__sub) {
+      height: 0.35rem;
     }
   }
 </style>

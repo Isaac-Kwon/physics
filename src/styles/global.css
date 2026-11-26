@@ -107,3 +107,13 @@ samp,
 .katex {
   font-size: 1.05em;
 }
+
+/* Reduced motion (no Lenis): native proximity snapping to step text boxes, same behaviour as the Lenis snap. */
+@media (prefers-reduced-motion: reduce) {
+  html:has([data-step]) {
+    scroll-snap-type: y proximity;
+  }
+  [data-step] .step__card {
+    scroll-snap-align: center;
+  }
+}

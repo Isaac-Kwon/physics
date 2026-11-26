@@ -39,6 +39,7 @@ const usage = primerUsage.find((p) => p.id === id);
 const origin = usage?.origin ?? null;
 const originDef = origin ? TOPICS[origin.topic] : null;
 const originTitle = origin ? t(`topic.${origin.topic}.title`) : '';
+const uid = Math.random().toString(36).slice(2, 8);
 ---
 
 {
@@ -47,83 +48,63 @@ const originTitle = origin ? t(`topic.${origin.topic}.title`) : '';
       {t('connections.primer.missing', { id })}
     </aside>
   ) : (
-    <details class="primer" data-primer={id} open={open} lang={shownLang !== lang ? shownLang : undefined}>
-      <summary>
-        <span class="primer__title">{t('primer.label')}: {entry.data.title}</span>
-      </summary>
-      <div class="primer__body">
-        {entry.data.figure && (
-          <div class="primer__figure">
-            <Scene id={entry.data.figure} label={entry.data.title} />
-          </div>
-        )}
-        {Body && <Body components={map} />}
-        {origin && originDef && (
-          <p class="primer__from">
-            {originDef.released ? (
-              <a href={localizePath(lang, `/${origin.topic}/#${origin.layer}`)}>{t('primer.from', { topic: originTitle })}</a>
-            ) : (
-              <span>{t('connections.primer.fromSoon', { topic: originTitle })}</span>
-            )}
-          </p>
-        )}
-      </div>
-    </details>
+    <div class="aside primer" data-primer={id} lang={shownLang !== lang ? shownLang : undefined}>
+      <button type="button" class="aside__open" data-modal-open aria-haspopup="dialog" aria-controls={`primer-${id}-${uid}`}>
+        <span class="aside__kind">{t('primer.label')}</span>
+        <span class="aside__title">{entry.data.title}</span>
+        <svg class="aside__icon" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M6 3H3v10h10v-3M9 3h4v4M13 3 7.5 8.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+      <dialog class="aside__dialog" id={`primer-${id}-${uid}`} data-modal data-lenis-prevent aria-label={`${t('primer.label')}: ${entry.data.title}`}>
+        <header class="aside__head">
+          <p class="aside__dlg-kind">{t('primer.label')}</p>
+          <h3 class="aside__dlg-title">{entry.data.title}</h3>
+          <button type="button" class="aside__close" data-modal-close aria-label={t('deeper.close')}>
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+          </button>
+        </header>
+        <div class="aside__body primer__body">
+          {entry.data.figure && (
+            <div class="primer__figure">
+              <Scene id={entry.data.figure} label={entry.data.title} />
+            </div>
+          )}
+          {Body && <Body components={map} />}
+          {origin && originDef && (
+            <p class="primer__from">
+              {originDef.released ? (
+                <a href={localizePath(lang, `/${origin.topic}/#${origin.layer}`)}>{t('primer.from', { topic: originTitle })}</a>
+              ) : (
+                <span>{t('connections.primer.fromSoon', { topic: originTitle })}</span>
+              )}
+            </p>
+          )}
+        </div>
+      </dialog>
+    </div>
   )
 }
 
+<script>
+  import { installModals } from '../../lib/modal';
+  installModals();
+</script>
+
 <style>
+  /* Trigger + modal styles are the shared .aside-* rules in ui/Deeper.astro. */
   .primer__figure {
     margin-bottom: var(--space-4);
   }
   .primer__figure :global(.scene) {
     margin: 0;
   }
-  .primer {
-    max-width: var(--measure);
-    margin: var(--space-6) auto;
-    border-block: 1px solid var(--line);
-    font-size: var(--fs-sm);
-    line-height: 1.6;
-  }
-  .primer summary {
-    padding: var(--space-3) 0;
-    cursor: pointer;
-    list-style: none;
-    font-weight: 600;
-  }
-  .primer summary::-webkit-details-marker {
-    display: none;
-  }
-  .primer summary::before {
-    content: '▸';
-    display: inline-block;
-    width: 1.1em;
-    color: var(--fg-muted);
-    font-weight: 400;
-  }
-  .primer[open] summary::before {
-    content: '▾';
-  }
-  .primer summary:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-  .primer__body {
-    padding: 0 0 var(--space-3);
-    color: var(--fg-muted);
-  }
-  .primer__body > :last-child {
-    margin-bottom: 0;
-  }
   .primer__from {
-    margin: var(--space-3) 0 0;
-    font-size: var(--fs-xs);
-    color: var(--fg-faint);
+    margin: var(--space-4) 0 0;
+    font-size: var(--fs-sm);
+    color: var(--fg-muted);
   }
   .primer--missing {
-    margin: var(--space-4) 0;
-    padding: var(--space-2) 0;
+    margin: var(--space-4) auto;
+    max-width: var(--measure);
     font-size: var(--fs-sm);
     font-style: italic;
     color: var(--fg-faint);

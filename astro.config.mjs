@@ -5,6 +5,7 @@ import svelte from '@astrojs/svelte';
 import sitemap from '@astrojs/sitemap';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import remarkDisplayMath from './src/lib/remark-display-math.mjs';
 
 export default defineConfig({
   site: 'https://isaac-kwon.github.io',
@@ -17,7 +18,7 @@ export default defineConfig({
     routing: { prefixDefaultLocale: true, redirectToDefaultLocale: false },
   },
   markdown: {
-    remarkPlugins: [remarkMath],
+    remarkPlugins: [remarkMath, remarkDisplayMath],
     rehypePlugins: [rehypeKatex],
   },
   integrations: [

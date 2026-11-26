@@ -55,5 +55,8 @@
   "a11y.reducedMotion": "Le animazioni sono ridotte in base alle impostazioni del sistema.",
   "theme.toggle": "Cambia tema chiaro / scuro",
   "theme.light": "Passa al tema chiaro",
-  "theme.dark": "Passa al tema scuro"
+  "theme.dark": "Passa al tema scuro",
+  "gauge.prev": "Passo precedente",
+  "gauge.next": "Passo successivo",
+  "gauge.step": "Passo"
 }

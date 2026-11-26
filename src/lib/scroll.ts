@@ -66,7 +66,12 @@ export async function initScrolly(): Promise<void> {
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((t) => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
+
   }
+
+  // Step-box checkpoints: auto-snap when the wheel stops between steps (Lenis case), prev/next for the gauge arrows.
+  const { initCheckpoints } = await import('./checkpoints');
+  initCheckpoints({ snap: !reduced });
 
   const header = () => document.querySelector('header')?.getBoundingClientRect().height ?? 56;
 

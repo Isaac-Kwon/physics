@@ -3,6 +3,7 @@
 import 'katex/dist/katex.min.css';
 import BaseLayout from './BaseLayout.astro';
 import DepthGauge from '../components/ui/DepthGauge.astro';
+import StepNav from '../components/scrolly/StepNav.astro';
 import Scene from '../components/scrolly/Scene.astro';
 import { getEntry } from 'astro:content';
 import { scenes } from '../scenes/registry';
@@ -35,6 +36,7 @@ const meta = [minutes ? t('card.readingTime', { min: minutes }) : null, entry?.d
     {heroScene && heroScene in scenes && <Scene id={heroScene} />}
   </header>
   <DepthGauge layers={layers} />
+  <StepNav />
   <article class="topic__content">
     <slot />
   </article>

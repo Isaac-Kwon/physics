@@ -55,5 +55,8 @@
   "a11y.reducedMotion": "시스템 설정에 맞춰 애니메이션이 줄어듭니다.",
   "theme.toggle": "밝은 / 어두운 테마 전환",
   "theme.light": "밝은 테마로 전환",
-  "theme.dark": "어두운 테마로 전환"
+  "theme.dark": "어두운 테마로 전환",
+  "gauge.prev": "이전 단계",
+  "gauge.next": "다음 단계",
+  "gauge.step": "단계"
 }

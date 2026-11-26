@@ -3,6 +3,7 @@ import { getEntry, render } from 'astro:content';
 import { primerUsage } from '../../lib/connections';
 import { TOPICS, type Lang } from '../../data/topics';
 import { getLangFromUrl, localizePath, useT } from '../../i18n';
+import Scene from '../scrolly/Scene.astro';
 
 interface Props {
   id: string;
@@ -51,6 +52,11 @@ const originTitle = origin ? t(`topic.${origin.topic}.title`) : '';
         <span class="primer__title">{t('primer.label')}: {entry.data.title}</span>
       </summary>
       <div class="primer__body">
+        {entry.data.figure && (
+          <div class="primer__figure">
+            <Scene id={entry.data.figure} label={entry.data.title} />
+          </div>
+        )}
         {Body && <Body components={map} />}
         {origin && originDef && (
           <p class="primer__from">
@@ -67,6 +73,12 @@ const originTitle = origin ? t(`topic.${origin.topic}.title`) : '';
 }
 
 <style>
+  .primer__figure {
+    margin-bottom: var(--space-4);
+  }
+  .primer__figure :global(.scene) {
+    margin: 0;
+  }
   .primer {
     max-width: var(--measure);
     margin: var(--space-6) auto;

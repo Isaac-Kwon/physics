@@ -125,6 +125,13 @@ const kind = mode === 'portal' ? 'portal' : hasSteps ? mode : 'inline';
     margin-inline: auto;
   }
 
+  /* Phones: a 16:9 figure is only ~380×210 px — use 4:3 so labels and plots stay legible. */
+  @media (max-width: 600px) {
+    .scene--inline .scene__stage {
+      aspect-ratio: 4 / 3;
+    }
+  }
+
   /* steps (P2): stage left sticky, text right */
   .scene--steps {
     display: grid;

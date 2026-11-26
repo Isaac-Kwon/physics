@@ -1,0 +1,306 @@
+---
+topic: dark-matter
+lang: ko
+title: 암흑물질
+subtitle: 우주를 하나로 붙드는 것, 그리고 그것을 잡으려는 시도
+description: "우주 물질의 대부분은 보이지 않습니다. 암흑물질의 증거와 후보, 그리고 제논 검출기가 원자핵 하나가 튕겨 나가기를 기다리는 방법을 알아봅니다."
+tagline: 물질의 대부분은 보이지 않습니다. 우리는 그것이 원자핵 하나를 툭 치기를 기다립니다.
+layers:
+  - { id: hook, title: 물질의 대부분은 보이지 않는다 }
+  - { id: evidence, title: 왜 있다고 생각할까? }
+  - { id: candidates, title: 정체는 무엇일까? }
+  - { id: search, title: 찾는 세 가지 방법 }
+  - { id: direct-detection, title: 원자핵 하나가 튕겨 나가기를 기다리며 }
+  - { id: frontier, title: 최전선 }
+references:
+  - title: "Review of Particle Physics: Dark Matter"
+    author: "Particle Data Group"
+    url: "https://pdg.lbl.gov/"
+    note: "Reference review. The overview and the sections on evidence and direct detection are readable for undergraduates."
+  - title: "A History of Dark Matter"
+    author: "G. Bertone, D. Hooper — Rev. Mod. Phys. 90 (2018) 045002"
+    url: "https://arxiv.org/abs/1605.04909"
+    note: "Historical review, from Zwicky to WIMPs. Very readable."
+  - title: "Introduction to Cosmology"
+    author: "Barbara Ryden — Cambridge University Press (2nd edition, 2016)"
+    note: "Textbook. The chapters on dark matter and on the cosmic microwave background."
+  - title: "A direct empirical proof of the existence of dark matter"
+    author: "D. Clowe et al. — Astrophys. J. 648 (2006) L109"
+    url: "https://arxiv.org/abs/astro-ph/0608407"
+    note: "The Bullet Cluster paper. Short."
+  - title: "Rotation curves of spiral galaxies"
+    author: "V. Rubin, W. K. Ford, N. Thonnard — Astrophys. J. 238 (1980) 471"
+    note: "The classic measurement of flat rotation curves."
+  - title: "Planck 2018 results. VI. Cosmological parameters"
+    author: "Planck Collaboration — Astron. Astrophys. 641 (2020) A6"
+    url: "https://arxiv.org/abs/1807.06209"
+    note: "Source of the composition of the universe. The introduction is accessible."
+asOf: "2025"
+draft: true
+---
+
+<Layer id="hook">
+  <Scene id="dm.hook" mode="scrub">
+    <Step state="galaxy-visible">나선 은하 하나. 수십억 개의 별, 빛나는 기체, 먼지.</Step>
+    <Step state="halo-reveal">중력으로 무게를 재 보면, 우리가 보는 모든 것보다 몇 배나 크고 무거운 보이지 않는 거대한 헤일로가 나타납니다.</Step>
+    <Step state="rotation-curve">가장자리의 별들은 눈에 보이는 물질만으로는 설명할 수 없을 만큼 빠르게 돕니다.</Step>
+  </Scene>
+  <BigNumber value={85} unit="%" approx caption="우주 물질의 대부분은 어두워서, 우리가 볼 수 있는 빛을 내지 않습니다. 우주 전체 에너지 수지에서는 보통 물질이 약 5%, 암흑물질이 약 27%이고 나머지는 암흑 에너지입니다(플랑크 기준)." />
+</Layer>
+
+<Layer id="evidence">
+  <Scene id="dm.evidence">
+    <Step state="coma">
+      1933년: 프리츠 츠비키는 은하들이 움직이는 속도로 코마 은하단의 무게를 잽니다. 은하들은 눈에 보이는 빛으로 설명하기에는 너무 빠르게 움직입니다. 은하단은 흩어져 버렸어야 합니다. 보이지 않는 무언가가 중력을 더하고 있습니다.
+    </Step>
+    <Step state="rotation">
+      1970년대: 베라 루빈과 켄트 포드가 별의 속도를 거리에 따라 나타낸 <Term id="rotation-curve">회전 곡선</Term>(rotation curve)을 측정합니다. 멀리 있는 별은 바깥쪽 행성처럼 느려져야 합니다. 그렇지 않습니다. 속도는 평평하게 유지됩니다. 빛이 끝나는 곳 너머에도 질량이 이어지는 것입니다.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="개념도: 은하 중심으로부터의 거리에 따른 공전 속도를 간단한 모형 함수로 그렸습니다. 눈에 보이는 원반만 있으면 곡선은 내려갑니다. 암흑 헤일로를 더하면 곡선이 평평하게 유지됩니다. 실제 자료가 아닙니다.">
+    <Scene id="dm.rotation">
+      <Step state="disc-only">
+        눈에 보이는 원반만 있으면 속도는 거리에 따라 올랐다가 내려가며, 대략 반지름의 제곱근에 반비례합니다.
+      </Step>
+      <Step state="with-halo">
+        반지름에 따라 질량이 계속 늘어나는 헤일로를 더하면 곡선이 평평하게 유지됩니다. 관측되는 것이 바로 이것입니다.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Widget name="RotationCurve" />
+
+  <Deeper title="회전 곡선과 헤일로의 모양">
+    원운동에서는 중력이 구심력을 공급합니다.
+
+    $$\frac{v^2}{r} = \frac{G\,M(r)}{r^2} \quad\Rightarrow\quad v(r) = \sqrt{\frac{G\,M(r)}{r}}.$$
+
+    눈에 보이는 원반 바깥에서는 $M(r)$이 더 늘지 않으므로 $v \propto r^{-1/2}$(케플러식 감소)입니다. 평평한 곡선, 곧 $v$ = 일정하려면 $M(r) \propto r$이 필요합니다. 등온 구에서는 밀도가 $\rho \propto r^{-2}$로 줄어들며, 정확히 $M \propto r$이 됩니다.
+
+    차가운 암흑물질의 시뮬레이션은 나바로–프렌크–화이트(NFW) 꼴의 헤일로 분포를 시사합니다.
+
+    $$\rho(r) = \frac{\rho_s}{(r/r_s)\,(1 + r/r_s)^2},$$
+
+    이 분포는 중심 근처에서 $r^{-1}$, 멀리서는 $r^{-3}$으로 줄어들면서도 관측 범위에서는 속도가 대략 평평하게 유지됩니다. 위젯은 더 단순한 중심핵과 고원 꼴의 헤일로를 씁니다. 실제 원반은 구가 아니므로 $M(r)$ 공식은 근사입니다.
+  </Deeper>
+
+  <Scene id="dm.evidence">
+    <Step state="lensing">
+      질량은 빛을 휘게 합니다(<Term id="gravitational-lensing">중력 렌즈</Term>, gravitational lensing). 먼 은하 앞에 놓인 은하단은 렌즈처럼 작용하여 은하의 상을 호로 늘입니다. 이 휘어짐은 무엇으로 이루어졌든 은하단의 무게를 달아 줍니다. 별과 기체의 몇 배나 됩니다.
+    </Step>
+    <Step state="bullet">
+      은하단 둘이 충돌했습니다. X선으로 빛나는 뜨거운 기체는 서로 세게 부딪혀 한가운데 근처에 남았습니다. 그러나 렌즈 효과를 보면 질량 대부분은 은하들과 함께 그대로 통과했습니다. 질량은 눈에 보이는 물질이 있는 곳에 있지 않습니다.
+    </Step>
+    <Step state="cmb">
+      갓 태어난 우주에서 보통 물질은 빛에 묶여 있어서 뭉칠 수 없었습니다. 마이크로파 배경의 잔물결은 빛을 보지 못하는 추가 물질이 이미 모이고 있었을 때에만 맞아떨어집니다. 그것이 없었다면 은하는 제때 자라지 못했을 것입니다.
+    </Step>
+  </Scene>
+
+  <Deeper title="측정들이 합쳐지면">
+    약한 중력 렌즈 효과는 거리 $b$를 지나는 광선을 질량 $M$이 $\alpha \approx 4GM/(c^2 b)$만큼 휘게 합니다. 일그러진 배경 은하를 많이 지도로 그리면 질량 지도를 얻습니다.
+
+    마이크로파 배경의 무늬는 광자–바리온 유체 속의 음파입니다. 빛과 상호작용하지 않는 추가 물질은 음향 봉우리들의 상대적 높이를 바꿉니다. 맞춰 보면 임계 밀도에 대한 밀도는 $\Omega_b \approx 0.05$, $\Omega_c \approx 0.27$, $\Omega_\Lambda \approx 0.68$입니다. 그러면 전체 물질 중 암흑물질의 비율은 $0.27 / (0.27 + 0.05) \approx 85\,\%$입니다.
+
+    서로 독립적인 방법들(은하단, 렌즈 효과, 마이크로파 배경, 은하 회전)이 일치하는 답을 줍니다. 이 일치가 가장 강력한 논거입니다.
+  </Deeper>
+
+  <Bridge id="hi-universe-to-dm-evidence" />
+</Layer>
+
+<Layer id="candidates">
+  <Primer id="standard-model" />
+
+  <Scene id="dm.candidates">
+    <Step state="axis">
+      <Term id="dark-matter">암흑물질</Term>(dark matter)이 무엇이든, 우리가 아는 표준 모형 입자로 이루어진 것은 아닙니다. 그렇다면 무엇일까요? 후보들의 질량은 전자보다 훨씬 가벼운 것에서 태양보다 몇 배나 무거운 것까지, 약 90자릿수에 걸쳐 놀랍도록 넓게 퍼져 있습니다.
+    </Step>
+    <Step state="axion">
+      <Term id="axion">액시온</Term>(axion)은 극도로 가벼워서 질량이 100만분의 1에서 1000분의 1 전자볼트 정도입니다. 강한 힘의 전혀 다른 수수께끼를 풀려고 제안되었고, 개별 입자가 아니라 파동으로 공간을 채울 것입니다. 이보다 더 가벼운 것은 "퍼지(fuzzy)" 암흑물질입니다.
+    </Step>
+    <Step state="wimp">
+      <Term id="wimp">윔프</Term>(WIMP): 약하게 상호작용하는 무거운 입자(weakly interacting massive particle)로, 질량은 대략 1 GeV에서 10 TeV입니다. 중력과 약한 힘만 느끼며 뜨거운 초기 우주에서 만들어진 입자라면, 오늘날 남은 양이 대략 맞아떨어집니다. 이 "윔프의 기적"은 수십 년 동안 윔프를 가장 유력한 후보로 만들었습니다.
+    </Step>
+    <Step state="sterile">
+      비활성 중성미자(sterile neutrino): 중성미자의 더 무거운 사촌으로, 약한 힘조차 느끼지 않으며 질량은 키로전자볼트 정도입니다. 아주 느리게 붕괴하여 X선 광자와 중성미자가 되는데, 망원경이 이를 볼 수 있을 것입니다.
+    </Step>
+    <Step state="pbh">
+      원시 블랙홀(primordial black hole): 죽어 가는 별이 아니라 우주의 첫 1초 안에 만들어진 블랙홀입니다. 새로운 입자가 아예 아닙니다. 관측은 대부분의 질량 범위를 배제하지만 아직 열려 있는 구간도 있습니다.
+    </Step>
+  </Scene>
+
+  <Primer id="weak-interaction" />
+
+  <Deeper title="차갑다는 것은 무슨 뜻이고, 왜 입자일까?">
+    "차갑다"는 것은 구조가 생기기 시작할 때 빛에 비해 느리게 움직인다는 뜻입니다. 보통의 중성미자처럼 빠른 "뜨거운" 입자는 작은 덩어리를 흩어 놓겠지만, 우리는 작은 왜소 은하를 봅니다. 그래서 암흑물질의 대부분은 차갑거나 거의 차갑습니다.
+
+    윔프의 기적은 짧은 계산입니다. 열평형에 있다가 우주가 팽창하면서 쌍소멸을 멈추는(동결되는) 입자는 다음과 같은 잔존 밀도를 갖게 됩니다.
+    $$\Omega_\chi h^2 \approx \frac{3\times 10^{-27}\ \text{cm}^3\,\text{s}^{-1}}{\langle\sigma v\rangle}.$$
+    측정값 약 0.12는 $\langle\sigma v\rangle \approx 3 \times 10^{-26}\ \text{cm}^3\,\text{s}^{-1}$을 요구하는데, 이는 약한 힘 규모의 단면적이 주는 값입니다. 증명이 아니라 단서입니다.
+
+    수정 중력(MOND, 밀그롬 1983)은 질량을 더하는 대신 아주 낮은 가속도에서 힘의 법칙을 바꿉니다. 은하의 회전 곡선을 놀라울 만큼 잘 설명합니다. 그러나 은하단, 총알 은하단, 마이크로파 배경에서는 여전히 보이지 않는 질량이 필요해 보여 어려움을 겪습니다. 그래서 대부분의 물리학자는 입자 암흑물질을 선호합니다. 이 문제는 아직 검증 중이며 끝난 것이 아닙니다.
+  </Deeper>
+
+  **암흑물질이 있다는 것은 중력으로 압니다. 다른 어떤 힘도 아직 아무것도 보여 주지 않았습니다.**
+</Layer>
+
+<Layer id="search">
+  <Scene id="dm.channels">
+    <Step state="direct">
+      상호작용 하나를 그려 봅시다. 암흑물질 입자 χ가 보통 입자와 만납니다. 위에서 아래로 읽으면, 암흑물질 입자가 원자핵에 부딪혀 튕겨 나갑니다. 이 되튐 하나를 보려고 검출기를 만듭니다. 직접 탐색(direct detection)입니다.
+    </Step>
+    <Step state="indirect">
+      같은 그림을 왼쪽에서 오른쪽으로 읽습니다. 암흑물질 입자 둘이 만나 쌍소멸하여 보통 입자가 됩니다. 우리 은하 중심처럼 암흑물질이 빽빽한 곳에서, 망원경으로 감마선, 반물질, 중성미자를 찾을 수 있습니다. 간접 탐색(indirect detection)입니다.
+    </Step>
+    <Step state="collider">
+      거꾸로 읽습니다. 보통 입자들을 충분히 세게 부딪히면 암흑물질이 만들어질 수 있습니다. 암흑물질은 보이지 않게 검출기를 빠져나가며 빠진 에너지를 남깁니다. LHC의 충돌기 탐색입니다.
+    </Step>
+  </Scene>
+
+  방법마다 저마다의 강점이 있습니다. 직접 탐색은 무거운 입자에 가장 민감합니다. 간접 탐색은 우주를 살핍니다. 충돌기는 가벼운 입자에 닿으며, 암흑물질이 우리 주변에 있는지에 의존하지 않습니다. 진짜 발견에는 한 가지 이상이 필요할 것입니다.
+</Layer>
+
+<Layer id="direct-detection">
+  <Primer id="scintillation" />
+  <Primer id="tpc" />
+
+  지구는 정지해 있지 않습니다. 태양이 우리를 은하 속으로 약 230 km/s로 실어 나르며, 국소 밀도가 1 cm³당 약 0.3 GeV인 암흑물질 헤일로를 지납니다. 100 GeV 입자라면 1000 cm³당 겨우 세 개쯤입니다. 그래도 매초 제곱센티미터마다 약 7만 개가 지나갑니다. 거의 모두 그대로 통과합니다. 우리는 그러지 않는 하나를 바랍니다.
+
+  <Walkthrough scene="dm.xenon-tpc" experiment="XENONnT" also="LZ와 PandaX-4T(모두 이중상 액체 제논 시간 투영 상자).">
+    <Step state="cutaway" kind="goal">
+      목표: 암흑물질 입자가 제논 원자핵 하나를 아주 조금 걷어차는 순간을 잡는 것입니다. 검출기는 깊은 지하에 있는, 액체 제논 수 톤이 든 키 큰 원통이며, 위에는 얇은 제논 기체 층이, 위아래에는 광센서 배열이 있습니다.
+    </Step>
+    <Step state="recoil" kind="signal">
+      암흑물질 입자가 제논 원자핵에 부딪히면 핵은 수 keV에서 수십 keV의 에너지로 되튑니다. 이것이 <Term id="nuclear-recoil">핵 되튐</Term>(nuclear recoil)입니다. 원자핵이 멈추기 전까지 액체 속을 수십 나노미터 움직입니다.
+    </Step>
+    <Step state="s1" kind="signal">
+      되튀는 원자핵은 아주 짧은 경로를 따라 제논 원자를 들뜨게 하고 이온화합니다. 들뜬 원자는 몇 나노초 안에 자외선 섬광을 냅니다. 센서는 수십 개의 광자로 이루어진 짧은 섬광을 봅니다. 이것이 첫 번째 신호인 S1입니다.
+    </Step>
+    <Step state="drift" kind="signal">
+      그 사이 풀려난 전자 일부는 재결합을 피합니다. 1 cm당 수백 볼트의 전기장이 이 전자들을 마이크로초당 수 밀리미터의 속도로 액체 속에서 위로 끌어올립니다. 꼭대기에 닿기까지 최대 약 1밀리초가 걸립니다.
+    </Step>
+    <Step state="s2" kind="signal">
+      표면에서 전자들은 기체 속으로 끌려 나가고, 훨씬 강한 전기장이 이들을 가속하여 기체 원자를 들뜨게 합니다. 이렇게 더 밝고 더 긴 섬광 S2가 생기며, 전자 하나당 수백 배 강합니다. 전자 하나만으로도 볼 수 있습니다.
+    </Step>
+    <Step state="reconstruct" kind="readout">
+      위쪽 센서는 S2가 어디서 켜지는지, 곧 수평 위치를 봅니다. S1과 S2 사이의 지연이 깊이를 줍니다. 둘을 합치면 1 cm 안팎의 3차원 위치를 얻습니다. 벽 가까운 사건은 버립니다. 제논이 스스로 중심부를 차폐합니다. S1과 S2의 크기가 에너지를 줍니다.
+    </Step>
+    <Step state="s2-s1-ratio" kind="trick">
+      비결은 S2/S1 비율입니다. 핵 되튐(신호)은 에너지를 아주 작은 궤적에 몰아넣으므로 많은 전자가 재결합하여 빛이 더 많고 전하는 더 적습니다. 전자 되튐(electron recoil, 주된 배경인 방사능에서 나옴)은 상대적으로 전하가 더 많습니다. 둘은 서로 다른 띠에 놓입니다. 직접 사건을 분류해 보세요.
+    </Step>
+  </Walkthrough>
+
+  <Widget name="ErNrClassifier" />
+
+  <Deeper title="무거운 입자의 되튐 운동학">
+    질량 $m_\chi$, 속력 $v$인 암흑물질 입자가 질량 $m_N$인 원자핵에 탄성 산란합니다. 질량 중심계에서 전달되는 운동량은 환산 질량 $\mu = m_\chi m_N/(m_\chi + m_N)$을 써서 $q = 2\mu v \sin(\theta/2)$입니다. 원자핵의 되튐 에너지는
+
+    $$E_R = \frac{q^2}{2 m_N} = \frac{\mu^2 v^2}{m_N}\,(1 - \cos\theta).$$
+
+    $m_\chi = 100$ GeV, $m_N \approx 122$ GeV인 제논, $v = 220$ km/s $\approx 7 \times 10^{-4}\,c$라고 합시다. 그러면 $\mu \approx 55$ GeV이고 가장 큰 되튐(정면 충돌, $\theta = \pi$)은 $2\mu^2 v^2/m_N \approx 25$ keV입니다. 보통의 산란은 그 절반쯤, 곧 약 10 keV로, 어떤 방사성 붕괴의 에너지보다도 훨씬 낮습니다.
+
+    되튐 스펙트럼은 줄어드는 거의 지수 함수 꼴이어서, 검출기의 문턱이 낮은 것이 중요합니다. 사건률은 스핀 무관 상호작용에서 표적 원자핵에 대해 대략 $A^2$으로 커지기도 하는데(핵자들이 결맞게 작용), 제논($A \approx 131$)이 좋은 표적인 이유 가운데 하나입니다.
+  </Deeper>
+
+  <Bridge id="dm-tpc-to-det-measurement" />
+
+  제논만이 방법은 아닙니다. 아래 기술들은 저마다 무엇을 얻는 대신 무엇을 내줍니다.
+
+  <Scene id="dm.technique-cards">
+    <Step state="bolometer">
+      극저온 볼로미터(CRESST, SuperCDMS): 절대 영도보다 1000분의 몇 도 높은 온도로 식힌 결정입니다. 되튐이 결정을 100만분의 1도쯤 데우면 민감한 온도계가 이를 검출합니다. 빛이나 전하를 함께 읽어 핵 되튐과 전자 되튐을 가릅니다. 에너지를 아주 잘 잴 수 있어서 문턱을 아주 낮출 수 있고, 가벼운 암흑물질에 이상적입니다.
+    </Step>
+    <Step state="ccd">
+      스키퍼 CCD(SENSEI, DAMIC-M): 각 픽셀의 전하를 여러 번 재어 전자를 하나씩 셀 수 있는 실리콘 센서입니다. 아주 가벼운 암흑물질 입자는 전자를 한두 개 떼어 낼 수 있는데, 제논이 알아채기에는 너무 작은 양입니다. 이들은 양성자보다 훨씬 가벼운 암흑물질을 찾습니다.
+    </Step>
+    <Step state="bubble">
+      거품 상자(PICO): 끓는점 바로 아래로 유지한 액체입니다. 핵 되튐이 아주 작은 자리에 충분한 에너지를 쏟으면 거품이 생기기 시작하고, 이를 사진으로 찍습니다. 방사능에서 나오는 전자 되튐은 거품을 만들기에는 너무 드물어서, 이 상자는 대부분의 배경에 눈이 멀어 있습니다. 스핀 의존 상호작용을 찾기에 좋은 방법입니다.
+    </Step>
+    <Step state="nai-modulation">
+      연주기 변조: 지구가 태양을 공전하므로, 6월에는 공전 운동이 태양의 헤일로 속 운동에 더해지고 12월에는 빠집니다. 암흑물질 신호는 1년에 한 번 오르내려야 합니다. 아이오딘화 나트륨 결정 여러 개로 이루어진 DAMA/LIBRA는 바로 이런 변조를 보고합니다. 같은 물질을 쓰는 다른 실험(COSINE-100, ANAIS-112)은 이를 확인하지 못했고, 긴장은 커졌습니다. 해결되지 않았습니다(2025년 기준).
+    </Step>
+    <Step state="argon-psd">
+      액체 아르곤(DarkSide-20k): 아르곤 섬광은 두 가지 시간 상수로 잦아듭니다. 핵 되튐은 주로 빠른 부분을, 전자 되튐은 느린 부분을 더 많이 만듭니다. 펄스 모양만으로 배경 대부분을 걸러 낼 수 있습니다.
+    </Step>
+  </Scene>
+
+  <Bridge id="dm-ccd-to-sc-zoo" />
+
+  <Primer id="silicon-sensor" />
+</Layer>
+
+<Layer id="frontier">
+  <Scene id="dm.backgrounds">
+    <Step state="muons">
+      우주선이 대기에 부딪혀 뮤온을 만들고, 이 뮤온은 1분에 제곱센티미터당 하나쯤 쏟아져 무엇이든 통과합니다. 희귀 사건 검출기는 <Term id="underground-laboratory">지하 실험실</Term>(underground laboratory)로 가야 합니다. 위에 1~2 km의 암석이 있으면 뮤온 선속은 100만분의 1 이하로 줄어듭니다. 남은 뮤온은 주위를 둘러싼 물 탱크가 켜지는 것(체렌코프 빛)으로 표지합니다.
+    </Step>
+    <Step state="radioactivity">
+      그다음은 검출기 자체의 방사능입니다. 강철과 유리에 든 극미량의 우라늄, 토륨, 칼륨, 공기 중의 라돈 기체, 제논 속의 방사성 크립톤입니다. 검출기 주변의 모든 것은 방사성 순도를 따져 고르며, 일부는 지하에서 전기 도금한 구리로 만듭니다. 차폐는 물에서, 그리고 액체 제논 자체에서 옵니다. 이것이 유효 부피(fiducial volume)입니다.
+    </Step>
+  </Scene>
+
+  <Gallery>
+    <GalleryItem title="이탈리아: 그란사소 국립연구소(LNGS)">
+      아펜니노산맥의 산 아래, 암석 약 1.4 km. XENONnT, DarkSide를 비롯한 많은 저배경 실험이 있습니다.
+    </GalleryItem>
+    <GalleryItem title="한국: 예미랩(Yemilab), 정선">
+      강원도의 광산에 지어 2022년에 문을 열었고, 암석 약 1 km. 아이오딘화 나트륨 결정 기반의 암흑물질 연구를 하며, 중성미자와 중성미자 없는 이중 베타 붕괴 탐색의 기지이기도 합니다.
+    </GalleryItem>
+    <GalleryItem title="미국: SURF, 샌퍼드 지하 연구 시설">
+      사우스다코타의 옛 금광으로 깊이 약 1.5 km. LZ가 있습니다.
+    </GalleryItem>
+    <GalleryItem title="캐나다: SNOLAB">
+      서드베리 근처의 현역 니켈 광산, 깊이 약 2 km. PICO와 SuperCDMS가 있습니다.
+    </GalleryItem>
+    <GalleryItem title="중국: CJPL, 진핑">
+      산 아래, 암석 약 2.4 km. PandaX가 있습니다.
+    </GalleryItem>
+  </Gallery>
+
+  <Scene id="dm.exclusion">
+    <Step state="axes">
+      실험은 발견이 아니라 한계를 보고합니다. 그래프의 한 축은 입자의 질량, 다른 축은 원자핵과의 상호작용 세기(단면적)입니다. 곡선은 실험이 볼 수 있었던 가장 약한 상호작용을 나타냅니다. 곡선 위쪽은 분석의 가정 아래에서 모두 배제됩니다.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="개념도: 암흑물질 질량에 대한 상호작용 세기의 배제 곡선입니다. 실험이 세대를 거듭할 때마다 더 낮은 곡선을 그리며 더 많이 배제합니다. 아래쪽 음영 띠는 중성미자 안개입니다. 실제 자료가 아닙니다.">
+    <Scene id="dm.exclusion">
+      <Step state="early">
+        초기 실험은 강한 상호작용만 배제합니다. 가장 좋은 감도는 수십 GeV 근처로, 암흑물질의 되튐이 표적 원자핵과 가장 잘 맞는 곳입니다. 더 가볍거나 무거운 질량에서는 곡선이 올라갑니다.
+      </Step>
+      <Step state="improving">
+        수십 년에 걸쳐 더 크고 더 깨끗한 검출기가 곡선을 여러 자릿수 낮추었지만 신호는 보이지 않습니다. 가장 단순한 윔프 모형과 다른 많은 모형이 이제 배제되었습니다. 발견이 없어도 이것은 진짜 진전입니다.
+      </Step>
+      <Step state="neutrino-fog">
+        바닥 근처에서 곡선은 하한에 부딪힙니다. 태양과 대기에서 오는 중성미자가 비슷한 방식으로 원자핵에 튕기기 때문입니다. 결맞음 중성미자–원자핵 탄성 산란입니다. 이 "중성미자 안개" 아래에서는 되튐이 중성미자일 수 있습니다. 이를 뚫으려면 방향을 아는 검출기나 아주 다른 아이디어가 필요합니다. 제논 실험들은 2024년에 태양 중성미자의 첫 징후를 보고했습니다.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Bridge id="dm-fog-to-nu-cevns" />
+
+  <Scene id="dm.axion-cavity">
+    <Step state="magnet">
+      액시온에는 다른 덫이 필요합니다. 강한 자석이 금속 공동, 곧 절대 영도 가까이 식힌 속이 빈 원통을 둘러쌉니다. 액시온은 너무 가벼워서 암흑물질이 액시온 질량으로 정해지는 하나의 진동수로 진동하는 파동처럼 행동할 것입니다.
+    </Step>
+    <Step state="conversion">
+      강한 자기장 안에서 액시온은 같은 진동수의 마이크로파 광자로 바뀔 수 있습니다. 이 변환은 믿기 어려울 만큼 약해서, 신호는 약 10⁻²³ 와트입니다. 공동이 그 진동수로 공명하면 신호가 공동 안에 쌓이고 극도로 조용한 증폭기가 이를 키웁니다.
+    </Step>
+    <Step state="tuning">
+      액시온의 질량을 모르니 진동수도 모릅니다. 공동 안의 막대를 움직이면 공명이 바뀝니다. 라디오 다이얼을 돌리듯 천천히 훑으며 설정마다 희미한 웅웅거림을 듣습니다. 미국의 ADMX가 이렇게 합니다. 한국에서는 기초과학연구원(IBS) 액시온 및 극한상호작용 연구단(CAPP)이 더 높은 진동수를 훑기 위해 일부는 더 강한 자석을 쓰는 공동 실험을 만들었습니다. 아직 액시온은 들리지 않았습니다(2025년 기준).
+    </Step>
+  </Scene>
+
+  <Scene id="dm.indirect">
+    <Step state="annihilation">
+      간접 탐색은 암흑물질이 빽빽한 곳을 봅니다. 두 입자가 쌍소멸할 수 있다면 우리 은하의 중심, 왜소 은하, 은하단이 감마선으로 빛나고 여분의 양전자와 반양성자를 만들 것입니다. Fermi-LAT 같은 위성과 우주정거장의 AMS-02 검출기가 그런 초과를 찾습니다.
+    </Step>
+    <Step state="sky">
+      은하 중심의 감마선 빛이나 우주 양전자의 초과처럼 흥미로운 초과가 나타났습니다. 그러나 펄서 같은 보통의 천체 물리로도 설명할 수 있습니다. 지금까지 결정적인 것은 없습니다.
+    </Step>
+  </Scene>
+
+  40년에 걸친 직접 탐색에도 암흑물질 입자는 아직 보이지 않았습니다(2025년 기준). 이것도 정보입니다. 가장 단순한 윔프는 거의 배제되었고, 이 분야는 더 가벼운 입자, 액시온, 다른 아이디어로 넓어지고 있습니다. 차세대 액체 제논 검출기(XLZD, 설계상 약 60~100톤이며 XENON, LZ, DARWIN 그룹을 합친 것)는 중성미자 안개에 닿는 것을 목표로 합니다. 암흑물질은 입자 하나일 수도, 여럿일 수도, 우리가 상상하지 못한 무언가일 수도 있습니다. 중력은 그것이 있다고 말합니다. 우리는 아직 그것이 문을 두드리기를 기다립니다.
+
+  이 페이지는 단순화한 그림을 쓰며 실제 자료는 쓰지 않았습니다. 자세한 내용은 아래 참고 문헌의 입자물리 리뷰(PDG)와 베르토네와 후퍼의 역사 논문에서 시작하세요.
+</Layer>

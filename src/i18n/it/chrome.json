@@ -1,0 +1,35 @@
+{
+  "chrome.logoLabel": "{title} — home",
+  "chrome.topicsMenu": "Argomenti",
+  "chrome.comingSoonShort": "Presto",
+  "chrome.footer.explore": "Esplora",
+  "chrome.footer.languages": "Lingue",
+  "chrome.footer.draftNote": "Bozza — i contenuti sono in fase di stesura e revisione.",
+
+  "chrome.hub.mapIntro": "Ogni argomento è una domanda diversa. Passa il mouse o il focus su una linea per vedere perché due argomenti sono collegati.",
+  "chrome.hub.mapLabel": "Mappa degli argomenti, disposti per scala di lunghezza, con i collegamenti tra loro",
+  "chrome.hub.connectionHint": "Seleziona un collegamento per leggere perché gli argomenti sono legati.",
+  "chrome.hub.connections": "Collegato a",
+  "chrome.hub.toolNote": "Fuori scala — usato da tutti",
+  "chrome.hub.heroLabel": "Una singola traccia luminosa di particella che attraversa il buio",
+
+  "chrome.glossary.empty": "Il glossario è in preparazione. Torna a trovarci presto.",
+  "chrome.glossary.count": "{n} termini",
+  "chrome.glossary.draft": "Non ancora revisionato",
+  "chrome.glossary.otherLangs": "In altre lingue",
+
+  "chrome.about.purposeTitle": "Scopo",
+  "chrome.about.purpose": "Questo sito è un'introduzione interattiva, guidata dallo scorrimento, ad alcune idee della fisica sperimentale, scritta per lettori curiosi senza una formazione di base. Ogni argomento si regge da solo e può essere approfondito quanto si desidera.",
+  "chrome.about.creditsTitle": "Crediti",
+  "chrome.about.credits": "Autori, revisori e traduttori saranno elencati qui.",
+  "chrome.about.licenseTitle": "Licenze",
+  "chrome.about.license": "I testi sono rilasciati con licenza CC BY 4.0 e il codice con licenza MIT. I dettagli sulle licenze e le attribuzioni di terze parti saranno elencati qui.",
+  "chrome.about.draftTitle": "Stato della bozza",
+  "chrome.about.draft": "I contenuti sono una bozza. Numeri, figure e traduzioni possono cambiare e alcuni argomenti non sono ancora pubblicati.",
+
+  "chrome.notFound.title": "Pagina non trovata",
+  "chrome.notFound.body": "Questa pagina non esiste o non è ancora stata pubblicata.",
+  "chrome.notFound.back": "Torna all'inizio",
+
+  "chrome.root.noscript": "JavaScript è disattivato. Scegli una lingua:"
+}

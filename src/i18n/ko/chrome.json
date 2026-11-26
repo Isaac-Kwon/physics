@@ -1,0 +1,35 @@
+{
+  "chrome.logoLabel": "{title} — 홈",
+  "chrome.topicsMenu": "주제",
+  "chrome.comingSoonShort": "준비 중",
+  "chrome.footer.explore": "둘러보기",
+  "chrome.footer.languages": "언어",
+  "chrome.footer.draftNote": "초안입니다. 내용을 작성하고 검토하고 있습니다.",
+
+  "chrome.hub.mapIntro": "각 주제는 서로 다른 질문입니다. 선에 마우스를 올리거나 포커스하면 두 주제가 왜 연결되는지 볼 수 있습니다.",
+  "chrome.hub.mapLabel": "길이 척도에 따라 배치되고 서로 연결된 주제 지도",
+  "chrome.hub.connectionHint": "연결을 선택하면 두 주제가 왜 이어져 있는지 읽을 수 있습니다.",
+  "chrome.hub.connections": "연결된 주제",
+  "chrome.hub.toolNote": "스케일 축 밖 — 모든 주제가 쓰는 도구",
+  "chrome.hub.heroLabel": "어둠을 가로지르는 하나의 빛나는 입자 궤적",
+
+  "chrome.glossary.empty": "용어집을 작성하고 있습니다. 곧 다시 확인해 주세요.",
+  "chrome.glossary.count": "{n}개 용어",
+  "chrome.glossary.draft": "아직 검토되지 않음",
+  "chrome.glossary.otherLangs": "다른 언어",
+
+  "chrome.about.purposeTitle": "목적",
+  "chrome.about.purpose": "이 사이트는 실험물리의 몇 가지 아이디어를 스크롤에 따라 전개되는 인터랙티브 방식으로 소개합니다. 사전 지식이 없는 호기심 많은 독자를 위해 썼습니다. 각 주제는 독립적으로 읽을 수 있으며, 원하는 만큼 깊이 들어갈 수 있습니다.",
+  "chrome.about.creditsTitle": "크레딧",
+  "chrome.about.credits": "저자, 검토자, 번역자 명단이 여기에 실릴 예정입니다.",
+  "chrome.about.licenseTitle": "라이선스",
+  "chrome.about.license": "본문은 CC BY 4.0, 코드는 MIT 라이선스로 공개됩니다. 라이선스 세부 사항과 제3자 저작물 표기는 여기에 실릴 예정입니다.",
+  "chrome.about.draftTitle": "초안 상태",
+  "chrome.about.draft": "내용은 초안입니다. 수치, 그림, 번역은 바뀔 수 있으며, 일부 주제는 아직 공개되지 않았습니다.",
+
+  "chrome.notFound.title": "페이지를 찾을 수 없습니다",
+  "chrome.notFound.body": "이 페이지는 존재하지 않거나 아직 공개되지 않았습니다.",
+  "chrome.notFound.back": "처음으로 돌아가기",
+
+  "chrome.root.noscript": "자바스크립트가 꺼져 있습니다. 언어를 선택해 주세요."
+}

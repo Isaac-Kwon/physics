@@ -1,6 +1,6 @@
 ---
 import { relatedTopics } from '../../lib/connections';
-import { TOPICS, type TopicId } from '../../data/topics';
+import { TOPICS, accentCss, type TopicId } from '../../data/topics';
 import { getLangFromUrl, localizePath, useT } from '../../i18n';
 
 interface Props {
@@ -24,7 +24,7 @@ const items = relatedTopics(Astro.props.topic).map((r) => ({
           const Tag = r.href ? 'a' : 'div';
           return (
             <li>
-              <Tag class:list={['card', { soon: !r.href }]} href={r.href} style={`--card-accent:${r.def.accent}`}>
+              <Tag class:list={['card', { soon: !r.href }]} href={r.href} style={`--card-accent:${accentCss(r.def.id)}`}>
                 <span class="card__title">{t(`topic.${r.topic}.title`)}</span>
                 <span class="card__reason">{r.link.reason[lang]}</span>
                 {!r.href && <span class="card__soon">{t('card.comingSoon')}</span>}

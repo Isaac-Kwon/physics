@@ -30,9 +30,12 @@ export interface TopicDef {
   kind: 'subject' | 'tool';
   /** log10 of the characteristic length in metres, for the hub scale axis. null for tools. */
   scaleLog10: number | null;
-  /** Primary / secondary accent colours (PLAN §3.2, draft until docs/design/ is finalised). */
+  /** Primary / secondary accent colours on DARK backgrounds (PLAN §3.2, draft until docs/design/ is finalised). */
   accent: string;
   accent2: string;
+  /** Same accents darkened for the light theme (text/border contrast on white). */
+  accentLight: string;
+  accent2Light: string;
   /** Released topics are linked; unreleased ones show "coming soon" and dashed connections. */
   released: boolean;
   readingMinutes: number;
@@ -47,6 +50,8 @@ export const TOPICS: Record<TopicId, TopicDef> = {
     scaleLog10: -15,
     accent: '#ffb547',
     accent2: '#fff3dc',
+    accentLight: '#b85c00',
+    accent2Light: '#7a3a00',
     released: false,
     readingMinutes: 25,
     heroScene: 'hi.hook',
@@ -66,6 +71,8 @@ export const TOPICS: Record<TopicId, TopicDef> = {
     scaleLog10: 26,
     accent: '#9b8cff',
     accent2: '#4b3fd1',
+    accentLight: '#5a44d4',
+    accent2Light: '#33268f',
     released: false,
     readingMinutes: 20,
     heroScene: 'dm.hook',
@@ -84,6 +91,8 @@ export const TOPICS: Record<TopicId, TopicDef> = {
     scaleLog10: 11,
     accent: '#3d7bff',
     accent2: '#9fc0ff',
+    accentLight: '#1f5fe0',
+    accent2Light: '#0d3a96',
     released: false,
     readingMinutes: 20,
     heroScene: 'nu.hook',
@@ -101,6 +110,8 @@ export const TOPICS: Record<TopicId, TopicDef> = {
     scaleLog10: -5,
     accent: '#2fd3b5',
     accent2: '#d08a55',
+    accentLight: '#0c8a73',
+    accent2Light: '#9a5a2c',
     released: false,
     readingMinutes: 20,
     heroScene: 'sc.hook',
@@ -119,6 +130,8 @@ export const TOPICS: Record<TopicId, TopicDef> = {
     scaleLog10: null,
     accent: '#5fe1ff',
     accent2: '#ffffff',
+    accentLight: '#087ea3',
+    accent2Light: '#1f2d36',
     released: false,
     readingMinutes: 18,
     heroScene: 'det.hook',
@@ -149,6 +162,16 @@ export const PRIMER_IDS = [
   'standard-model',
 ] as const;
 export type PrimerId = (typeof PRIMER_IDS)[number];
+
+/** Theme-aware CSS colour for a topic accent: resolves per element via color-scheme (see tokens.css). */
+export function accentCss(id: TopicId): string {
+  const t = TOPICS[id];
+  return `light-dark(${t.accentLight}, ${t.accent})`;
+}
+export function accent2Css(id: TopicId): string {
+  const t = TOPICS[id];
+  return `light-dark(${t.accent2Light}, ${t.accent2})`;
+}
 
 export function isLang(x: string | undefined): x is Lang {
   return !!x && (LANGS as readonly string[]).includes(x);

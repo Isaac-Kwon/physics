@@ -18,10 +18,24 @@ export interface SceneController {
 const controllers = new WeakMap<HTMLElement, SceneController>();
 export const getController = (root: HTMLElement) => controllers.get(root);
 
-function readTheme(): SceneContext['theme'] {
-  const cs = getComputedStyle(document.documentElement);
-  const v = (n: string, d: string) => cs.getPropertyValue(n).trim() || d;
-  return { accent: v('--accent', '#5fe1ff'), accent2: v('--accent-2', '#fff'), bg: v('--bg', '#05060a'), fg: v('--fg', '#e8e9ee'), grid: v('--grid', '#1a1e29') };
+/**
+ * Resolve theme tokens to concrete colours *inside the scene's container*.
+ * Tokens are `light-dark(…)` expressions (tokens.css), so reading the raw custom property would return
+ * the unresolved expression; a probe element resolves them for the container's color-scheme
+ * (scene stages are `.theme-dark`, so scenes get dark-ground colours).
+ */
+function readTheme(el: HTMLElement): SceneContext['theme'] {
+  const probe = document.createElement('span');
+  probe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none';
+  el.appendChild(probe);
+  const v = (name: string, fallback: string) => {
+    probe.style.color = fallback;
+    probe.style.color = `var(${name})`;
+    return getComputedStyle(probe).color || fallback;
+  };
+  const theme = { accent: v('--accent', '#5fe1ff'), accent2: v('--accent-2', '#fff'), bg: v('--bg', '#05060a'), fg: v('--fg', '#e8e9ee'), grid: v('--grid', '#1a1e29') };
+  probe.remove();
+  return theme;
 }
 
 function createController(root: HTMLElement): SceneController {
@@ -60,7 +74,7 @@ function createController(root: HTMLElement): SceneController {
       const ctx: SceneContext = {
         container,
         getRenderer: getSharedRenderer,
-        theme: readTheme(),
+        theme: readTheme(container),
         lang,
         label: (key) => t(`scene.${id}.${key}`) === `scene.${id}.${key}` ? key : t(`scene.${id}.${key}`),
         formatNumber: (n, o) => new Intl.NumberFormat(NUMBER_LOCALE[lang], o).format(n),

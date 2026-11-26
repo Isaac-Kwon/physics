@@ -1,6 +1,6 @@
 ---
 import { LANGS, LANG_LABEL, LANG_SHORT, localizePath, stripLang, useT, type Lang } from '../../i18n';
-import { TOPICS, TOPIC_ORDER, type TopicId } from '../../data/topics';
+import { TOPICS, TOPIC_ORDER, accentCss, type TopicId } from '../../data/topics';
 interface Props {
   lang: Lang;
   topic?: TopicId;
@@ -25,7 +25,7 @@ const path = stripLang(Astro.url);
             TOPIC_ORDER.map((id) => {
               const def = TOPICS[id];
               return (
-                <li style={`--dot:${def.accent}`}>
+                <li style={`--dot:${accentCss(def.id)}`}>
                   {def.released ? (
                     <a href={localizePath(lang, `/${id}/`)} aria-current={id === topic ? 'page' : undefined}>
                       <i aria-hidden="true" />
@@ -64,11 +64,54 @@ const path = stripLang(Astro.url);
           ))
         }
       </ul>
+
+      <button
+        class="theme-toggle"
+        type="button"
+        data-theme-toggle
+        aria-pressed="false"
+        aria-label={t('theme.toggle')}
+        title={t('theme.toggle')}
+        data-label-light={t('theme.light')}
+        data-label-dark={t('theme.dark')}
+      >
+        <svg class="icon icon--moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+          <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path>
+        </svg>
+        <svg class="icon icon--sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+          <path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+        </svg>
+      </button>
     </nav>
   </div>
 </header>
 
 <script>
+  // Light (default) ↔ dark. The saved choice is applied before first paint by BaseLayout's inline script.
+  const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  if (toggle) {
+    const root = document.documentElement;
+    const sync = () => {
+      const dark = root.dataset.theme === 'dark';
+      toggle.setAttribute('aria-pressed', String(dark));
+      toggle.title = (dark ? toggle.dataset.labelLight : toggle.dataset.labelDark) ?? '';
+      document.querySelector('[data-theme-color]')?.setAttribute('content', dark ? '#05060a' : '#ffffff');
+    };
+    sync();
+    toggle.addEventListener('click', () => {
+      const dark = root.dataset.theme !== 'dark';
+      if (dark) root.dataset.theme = 'dark';
+      else delete root.dataset.theme;
+      try {
+        localStorage.setItem('physics.theme', dark ? 'dark' : 'light');
+      } catch {
+        /* storage unavailable: choice lasts for this page only */
+      }
+      sync();
+    });
+  }
+
   // Enhancement: close the topic menu on outside click / Escape.
   const d = document.querySelector<HTMLDetailsElement>('.site-header details.topics');
   if (d) {
@@ -85,6 +128,37 @@ const path = stripLang(Astro.url);
 </script>
 
 <style>
+  .theme-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    margin-left: var(--space-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition:
+      color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out);
+  }
+  .theme-toggle:hover {
+    color: var(--fg);
+    border-color: var(--fg-faint);
+  }
+  .theme-toggle .icon {
+    grid-area: 1 / 1;
+  }
+  /* Show the icon of the theme you would switch TO. */
+  .theme-toggle .icon--sun,
+  :global(html[data-theme='dark']) .theme-toggle .icon--moon {
+    display: none;
+  }
+  :global(html[data-theme='dark']) .theme-toggle .icon--sun {
+    display: block;
+  }
+
   .site-header {
     position: sticky;
     top: 0;
@@ -179,7 +253,7 @@ const path = stripLang(Astro.url);
     background: var(--bg-raised);
     border: 1px solid var(--grid-strong);
     border-radius: var(--radius);
-    box-shadow: 0 20px 50px rgb(0 0 0 / 0.6);
+    box-shadow: 0 20px 50px var(--shadow);
   }
   .topics li a,
   .topics li .off {

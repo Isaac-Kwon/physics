@@ -1,6 +1,6 @@
 ---
 import { getLink } from '../../lib/connections';
-import { TOPICS } from '../../data/topics';
+import { TOPICS, accentCss } from '../../data/topics';
 import { getLangFromUrl, localizePath, useT } from '../../i18n';
 
 interface Props {
@@ -16,7 +16,7 @@ const Tag = href ? 'a' : 'div';
 ---
 
 <aside class="bridge-wrap" data-bridge={link.id}>
-  <Tag class:list={['bridge', { 'bridge--soon': !href }]} href={href} style={`--bridge-accent:${dest.accent}`}>
+  <Tag class:list={['bridge', { 'bridge--soon': !href }]} href={href} style={`--bridge-accent:${accentCss(link.to.topic)}`}>
     <span class="bridge__label">{href ? t('bridge.label') : t('connections.bridge.soon')}</span>
     <span class="bridge__title">{title}</span>
     <span class="bridge__reason">{link.reason[lang]}</span>

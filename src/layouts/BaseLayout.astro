@@ -10,7 +10,7 @@ import '../styles/global.css';
 import SiteHeader from '../components/ui/SiteHeader.astro';
 import SiteFooter from '../components/ui/SiteFooter.astro';
 import { HTML_LANG, LANGS, localizePath, stripLang, useT, type Lang } from '../i18n';
-import { TOPICS, type TopicId } from '../data/topics';
+import { accentCss, accent2Css, type TopicId } from '../data/topics';
 
 interface Props {
   lang: Lang;
@@ -32,7 +32,7 @@ const desc = description ?? t('site.description');
 const path = stripLang(Astro.url);
 const site = Astro.site!;
 const canonical = new URL(localizePath(lang, path), site).href;
-const accentStyle = topic ? `--accent:${TOPICS[topic].accent};--accent-2:${TOPICS[topic].accent2};` : undefined;
+const accentStyle = topic ? `--accent:${accentCss(topic)};--accent-2:${accent2Css(topic)};` : undefined;
 ---
 
 <!doctype html>
@@ -50,7 +50,16 @@ const accentStyle = topic ? `--accent:${TOPICS[topic].accent};--accent-2:${TOPIC
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     {ogImage && <meta property="og:image" content={new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}${ogImage}`, site).href} />}
-    <meta name="theme-color" content="#05060a" />
+    <meta name="theme-color" content="#ffffff" data-theme-color />
+    <script is:inline>
+      // Before first paint: apply the reader's saved theme (default light). See SiteHeader theme toggle.
+      try {
+        if (localStorage.getItem('physics.theme') === 'dark') {
+          document.documentElement.dataset.theme = 'dark';
+          document.querySelector('[data-theme-color]')?.setAttribute('content', '#05060a');
+        }
+      } catch {}
+    </script>
     <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} type="image/svg+xml" />
     <slot name="head" />
   </head>

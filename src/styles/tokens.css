@@ -1,21 +1,29 @@
-/* Design tokens (PLAN §3). Draft values — to be finalised in docs/design/. */
+/* Design tokens (PLAN §3). Draft values — to be finalised in docs/design/.
+ *
+ * Theming: every colour is light-dark(LIGHT, DARK) and resolves by the element's `color-scheme`.
+ *   - Site default: light (neutral white).            html                    → color-scheme: light
+ *   - Reader's choice: dark (header toggle).        html[data-theme="dark"] → color-scheme: dark
+ *   - Scene/figure panels are always dark (glowing tracks need a dark ground): add class `theme-dark`.
+ * Never hard-code colours in components; use these tokens (or accentCss() from src/data/topics.ts).
+ */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
   /* Neutrals */
-  --bg: #05060a;
-  --bg-raised: #0c0e15;
-  --bg-sunken: #020306;
-  --fg: #e8e9ee;
-  --fg-muted: #9aa0ad;
-  --fg-faint: #5c6270;
-  --grid: #1a1e29;
-  --grid-strong: #2a3040;
-  --line: #262b38;
+  --bg: light-dark(#ffffff, #05060a);
+  --bg-raised: light-dark(#f6f7f8, #0c0e15);
+  --bg-sunken: light-dark(#eef0f2, #020306);
+  --fg: light-dark(#111318, #e8e9ee);
+  --fg-muted: light-dark(#4f5562, #9aa0ad);
+  --fg-faint: light-dark(#8b909b, #5c6270);
+  --grid: light-dark(#eceef1, #1a1e29);
+  --grid-strong: light-dark(#dde0e5, #2a3040);
+  --line: light-dark(#e2e5e9, #262b38);
+  --shadow: light-dark(rgb(17 19 24 / 0.1), rgb(0 0 0 / 0.55));
 
-  /* Topic accent — overridden per page via style="--accent:…; --accent-2:…" from src/data/topics.ts */
-  --accent: #5fe1ff;
-  --accent-2: #ffffff;
+  /* Topic accent — set per page on <html> from src/data/topics.ts (accentCss). Site default: */
+  --accent: light-dark(#087ea3, #5fe1ff);
+  --accent-2: light-dark(#1f2d36, #ffffff);
   --accent-soft: color-mix(in oklab, var(--accent) 18%, transparent);
 
   /* Tier intensity (Depth Gauge): T0 lightest → T4 densest */
@@ -80,6 +88,17 @@
 
 :lang(ko) {
   --tracking-label: 0;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+/* Always-dark panel (scene stages, figures). Re-applies bg/fg so the panel itself renders dark. */
+.theme-dark {
+  color-scheme: dark;
+  background-color: var(--bg-sunken);
+  color: var(--fg);
 }
 
 @media (prefers-reduced-motion: reduce) {

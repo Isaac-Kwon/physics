@@ -1,5 +1,5 @@
 ---
-import { TOPICS, TOPIC_ORDER, type TopicId } from '../../data/topics';
+import { TOPICS, TOPIC_ORDER, accentCss, type TopicId } from '../../data/topics';
 import { topicEdges } from '../../lib/connections';
 import { superscript } from '../../lib/format';
 import { localizePath, useT, type Lang } from '../../i18n';
@@ -111,7 +111,7 @@ const connected = (id: TopicId) => edges.filter((e) => e.a === id || e.b === id)
           <g
             class:list={['card', { off: !def.released, tool: def.kind === 'tool' }]}
             data-card={id}
-            style={`--c:${def.accent}`}
+            style={`--c:${accentCss(def.id)}`}
             transform={`translate(${b.x} ${b.y - CARD_H / 2})`}
           >
             <rect width={b.w} height={CARD_H} rx="10" class="box" />
@@ -246,7 +246,7 @@ const connected = (id: TopicId) => edges.filter((e) => e.a === id || e.b === id)
   }
   .edge.off .line {
     stroke-dasharray: 5 6;
-    opacity: 0.4;
+    opacity: 0.6;
   }
   .edge .hit {
     fill: none;
@@ -295,7 +295,7 @@ const connected = (id: TopicId) => edges.filter((e) => e.a === id || e.b === id)
     stroke-dasharray: 2 4;
   }
   .card.off {
-    opacity: 0.5;
+    opacity: 0.8;
   }
   .card.off .box {
     stroke-opacity: 0.3;

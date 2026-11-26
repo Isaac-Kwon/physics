@@ -1,5 +1,5 @@
 ---
-import { TOPICS, TOPIC_ORDER } from '../../data/topics';
+import { TOPICS, TOPIC_ORDER, accentCss } from '../../data/topics';
 import { topicEdges } from '../../lib/connections';
 import { localizePath, useT, type Lang } from '../../i18n';
 interface Props {
@@ -20,7 +20,7 @@ const items = TOPIC_ORDER.map((id) => {
 <ul class="list">
   {
     items.map(({ id, def, conn }) => (
-      <li class:list={['card', { off: !def.released }]} style={`--c:${def.accent}`}>
+      <li class:list={['card', { off: !def.released }]} style={`--c:${accentCss(def.id)}`}>
         <h3>
           {def.released ? <a href={localizePath(lang, `/${id}/`)}>{t(`topic.${id}.title`)}</a> : <span>{t(`topic.${id}.title`)}</span>}
         </h3>
@@ -63,7 +63,7 @@ const items = TOPIC_ORDER.map((id) => {
     border-radius: var(--radius-lg);
   }
   .card.off {
-    opacity: 0.6;
+    opacity: 0.85;
     border-style: dashed;
   }
   h3 {

@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run check:content && astro build",
+    "build": "npm run check:content && node scripts/build.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",

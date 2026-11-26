@@ -8,8 +8,8 @@ Astro **7** (static, `base: '/physics'`, `trailingSlash: 'always'`) · MDX · Sv
 Lenis · Three r187 · D3 7 · KaTeX via remark-math/rehype-katex (`@astrojs/markdown-remark` processor) · yaml · Playwright · Prettier · ESLint 10 flat config.
 Fonts are npm packages already imported in `BaseLayout.astro` (Pretendard dynamic subset, Inter Variable, JetBrains Mono Variable).
 
-Commands: `npx astro build` (must pass before you report done) · `npx astro check` · `npx astro dev`.
-Windows + Dropbox: a transient `EBUSY … dist` error on build is a file lock — just rerun.
+Commands: `npm run build` (content check + Windows-safe build wrapper `scripts/build.mjs`; `node scripts/build.mjs .build-x` for a private outDir) · `npx astro build` (must pass before you report done) · `npx astro check` · `npx astro dev`.
+Windows: freshly written files get briefly locked (antivirus); plain `astro build` can fail with EBUSY — use `scripts/build.mjs`, which retries.
 
 ## Foundation (lead-owned — read, don't edit; ask if a change is needed)
 | File | What |

@@ -200,7 +200,7 @@ export const NU = {
 
   /** Optics / timing */
   CHERENKOV_ANGLE_WATER_DEG: {
-    value: 42,
+    value: 41,
     unit: 'deg',
     note: 'arccos(1/n) with n ≈ 1.33 for β → 1.',
     source: 'Any particle-detector text',

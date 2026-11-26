@@ -1,0 +1,23 @@
+{
+  "scrolly.scene.missing": "Scena non ancora realizzata.",
+  "scrolly.scene.missingHint": "Il testo accanto è completo.",
+  "scrolly.scene.error": "Non è stato possibile avviare questa animazione su questo dispositivo.",
+  "scrolly.scene.label": "Figura interattiva: {id}",
+  "scrolly.widget.missing": "L'interattivo «{name}» non è ancora realizzato.",
+  "scrolly.widget.loading": "Caricamento dell'interattivo…",
+  "scrolly.widget.error": "Non è stato possibile caricare l'interattivo.",
+  "scrolly.kind.goal": "Obiettivo",
+  "scrolly.kind.signal": "Segnale",
+  "scrolly.kind.readout": "Lettura",
+  "scrolly.kind.trick": "Il trucco",
+  "scrolly.walkthrough.experiment": "Esperimento rappresentativo",
+  "scrolly.walkthrough.also": "Stesso principio",
+  "scrolly.portal.continue": "Prosegui al livello successivo",
+  "scrolly.gallery.label": "Galleria orizzontale: scorrere di lato o usare le frecce",
+  "scrolly.gauge.current": "livello corrente",
+  "scrolly.layer.tier": "Profondità: {tier}",
+  "scrolly.hero.draft": "bozza",
+  "scrolly.figure.label": "Figura",
+  "scrolly.figure.schematic": "Schema, non dati reali.",
+  "scrolly.figure.simulated": "Esempio simulato."
+}

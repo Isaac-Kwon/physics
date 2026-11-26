@@ -1,0 +1,523 @@
+---
+topic: heavy-ion
+lang: it
+title: Fisica degli ioni pesanti
+subtitle: Rifare i primi microsecondi dell'universo
+description: Facendo scontrare nuclei atomici pesanti si produce il plasma di quark e gluoni, la materia dell'universo primordiale, e si mappa il punto in cui la materia nucleare si trasforma in esso.
+tagline: Scontriamo nuclei, ricreiamo l'universo primordiale.
+layers:
+  - { id: hook, title: La materia più calda mai prodotta }
+  - { id: why, title: Perché scontrare i nuclei? }
+  - { id: collision, title: Che cosa accade in una collisione? }
+  - { id: fireball, title: Dentro la palla di fuoco }
+  - { id: phase-diagram, title: Tra il plasma e i nuclei }
+  - { id: detection, title: Come la catturiamo? }
+  - { id: frontier, title: La frontiera }
+references:
+  - title: "Heavy Ion Collisions: The Big Picture and the Big Questions"
+    author: "W. Busza, K. Rajagopal, W. van der Schee — Annu. Rev. Nucl. Part. Sci. 68 (2018) 339"
+    url: "https://arxiv.org/abs/1802.04801"
+    note: "Review. The first sections are readable for undergraduates."
+  - title: "The ALICE experiment: a journey through QCD"
+    author: "ALICE Collaboration — Eur. Phys. J. C 84 (2024) 813"
+    url: "https://arxiv.org/abs/2211.04384"
+    note: "Long overview of the physics and the detector. Skim the introductions."
+  - title: "Mapping the phases of quantum chromodynamics with beam energy scan"
+    author: "A. Bzdak, S. Esumi, V. Koch, J. Liao, M. Stephanov, N. Xu — Phys. Rep. 853 (2020) 1"
+    url: "https://arxiv.org/abs/1906.00936"
+    note: "Advanced review of the beam energy scan programme."
+  - title: "Challenges in QCD matter physics — The scientific programme of the Compressed Baryonic Matter experiment at FAIR"
+    author: "CBM Collaboration — Eur. Phys. J. A 53 (2017) 60"
+    url: "https://arxiv.org/abs/1607.01487"
+  - title: "Modern Particle Physics"
+    author: "Mark Thomson — Cambridge University Press (2013)"
+    note: "Textbook. See the chapters on QCD and on the strong interaction."
+asOf: "2025"
+draft: true
+---
+
+<Layer id="hook">
+  <Scene id="hi.hook" mode="scrub">
+    <Step state="dark">Due nuclei di piombo, lanciati nel buio a una velocità prossima a quella della luce.</Step>
+    <Step state="approach">Corrono l'uno verso l'altro.</Step>
+    <Step state="impact">Collisione.</Step>
+    <Step state="fireball">Per un istante, una palla di fuoco più calda di qualsiasi altra cosa che sappiamo produrre.</Step>
+    <Step state="tracks">Migliaia di particelle schizzano fuori. I nostri rivelatori le catturano.</Step>
+  </Scene>
+  <BigNumber value={1e12} unit="K" approx caption="Più caldo di qualunque cosa mai prodotta dall'uomo: circa 100.000 volte la temperatura del centro del Sole." />
+</Layer>
+
+<Layer id="why">
+  <Primer id="standard-model" />
+
+  <Scene id="hi.confinement">
+    <Step state="string">
+      Protoni e neutroni sono fatti di quark, incollati dai gluoni. La teoria di questa colla è la <Term id="qcd">cromodinamica quantistica</Term> (QCD).
+    </Step>
+    <Step state="stretch">
+      Proviamo a strappare via un quark. Il campo di gluoni tra i due si allunga come una corda, e l'energia accumulata cresce con la distanza.
+    </Step>
+    <Step state="break">
+      A un certo punto conviene trasformare quell'energia in un nuovo quark e un antiquark. La corda si spezza. Non si riesce mai a tenere in mano un quark isolato. È il <Term id="confinement">confinamento</Term>.
+    </Step>
+    <Step state="deconfined">
+      Ma se la materia diventa caldissima o densissima, quark e gluoni non sono più rinchiusi in singoli protoni o neutroni. Si muovono liberi in una regione più grande: il <Term id="qgp">plasma di quark e gluoni</Term>.
+    </Step>
+  </Scene>
+
+  <Deeper title="Il potenziale della QCD e i limiti dell'immagine dell'elastico">
+    A breve distanza la forza tra un quark pesante e il suo antiquark ha un andamento di tipo coulombiano, mentre a grande distanza cresce in un potenziale lineare:
+
+    $$V(r) \approx -\frac{4}{3}\frac{\alpha_s \hbar c}{r} + \kappa r, \qquad \kappa \approx 1\ \text{GeV/fm}.$$
+
+    La corda si spezza quando $\kappa r$ supera all'incirca l'energia di una coppia quark-antiquark leggera: bastano quindi uno stiramento di qualche decimo di fm fino a circa 1 fm.
+
+    Un elastico è sempre più difficile da tendere man mano che lo si tira. La corda della QCD è diversa: la sua tensione $\kappa$ resta costante, quindi la forza non cresce con la distanza. «Corda» è l'immagine di un sottile tubo di campo di gluoni, non di un materiale.
+  </Deeper>
+
+  <Scene id="hi.cosmic-timeline">
+    <Step state="qgp">
+      L'universo primordiale era proprio quel plasma. Fino a circa dieci microsecondi dopo il Big Bang, lo spazio era pieno di quark e gluoni liberi.
+    </Step>
+    <Step state="hadrons">
+      Quando l'universo si raffreddò sotto circa 2 × 10¹² K, i quark vennero confinati in protoni e neutroni.
+    </Step>
+    <Step state="nuclei">
+      In pochi minuti, protoni e neutroni si fusero nei primi nuclei leggeri.
+    </Step>
+    <Step state="atoms">
+      Quasi quattrocentomila anni dopo, i nuclei catturarono gli elettroni e comparvero i primi atomi.
+    </Step>
+  </Scene>
+
+  <Bridge id="hi-universe-to-dm-evidence" />
+
+  <Scene id="hi.phase-diagram">
+    <Step state="axes">
+      Ghiaccio, acqua, vapore: la materia ha le sue fasi, e così la materia nucleare. La sua mappa ha due assi: la temperatura e la densità barionica, cioè il numero di protoni e neutroni per unità di volume. Gran parte della mappa è bianca. Ci torneremo.
+    </Step>
+  </Scene>
+
+  **La QCD è l'unica teoria della forza forte che conosciamo, e le collisioni di ioni pesanti sono l'unico laboratorio in cui possiamo vederla all'opera su un numero enorme di particelle contemporaneamente.**
+</Layer>
+
+<Layer id="collision">
+  <Scene id="hi.collision">
+    <Step state="approach">
+      Due nuclei, larghi circa 14 fm ciascuno nel caso del piombo (1 fm = 10⁻¹⁵ m), si precipitano l'uno verso l'altro nel tubo del fascio. Ci serve un sistema di riferimento in cui la collisione sia simmetrica: il sistema del centro di massa.
+    </Step>
+    <Step state="lorentz">
+      A velocità prossime a quella della luce, la relatività ristretta appiattisce ogni nucleo lungo la direzione del moto. A LHC, con un fattore di Lorentz di alcune migliaia, un nucleo di piombo diventa un disco sottilissimo, spesso meno di 0,01 fm.
+    </Step>
+  </Scene>
+
+  <Deeper title="Energia di collisione e fattore di Lorentz">
+    Per due nuclei uguali che si scontrano frontalmente, l'energia per coppia di nucleoni nel centro di massa è $\sqrt{s_{NN}} = 2E_{\text{beam}}$ per nucleone. Ogni nucleo ha allora
+
+    $$\gamma = \frac{\sqrt{s_{NN}}}{2 m_N c^2}, \qquad L = \frac{L_0}{\gamma}.$$
+
+    Con $\sqrt{s_{NN}} = 5{,}02$ TeV si ottiene $\gamma \approx 2700$ e $L \approx 14\ \text{fm}/2700 \approx 0{,}005$ fm. A 200 GeV, $\gamma \approx 100$. Per un bersaglio fisso, $s = 2m_N^2 + 2m_N E_{\text{lab}}$, per cui $\sqrt{s_{NN}}$ cresce solo come $\sqrt{E_{\text{lab}}}$.
+  </Deeper>
+
+  <Scene id="hi.stopping">
+    <Step state="transparent">
+      A energia altissima, i due dischi si attraversano. I loro protoni e neutroni proseguono la corsa. Al centro, quasi privo di barioni, l'energia della collisione diventa una palla di fuoco bollente di nuove particelle.
+    </Step>
+    <Step state="stopped">
+      A energia più bassa i nuclei sono più spessi e si frenano a vicenda. È l'<Term id="baryon-stopping">arresto barionico</Term>. La palla di fuoco è più fredda, ma stipata di barioni. Teniamolo a mente: è così che si raggiunge la materia densa.
+    </Step>
+  </Scene>
+
+  <Widget name="CollisionEnergy" />
+
+  <Scene id="hi.collision">
+    <Step state="impact">
+      Raramente i nuclei si scontrano in pieno centro. Lo scarto tra i loro centri è il <Term id="impact-parameter">parametro d'impatto</Term> $b$. I nucleoni nella zona di sovrapposizione sono partecipanti. Gli altri sono spettatori e proseguono quasi indisturbati. Un $b$ piccolo dà una collisione <Term id="centrality">centrale</Term>.
+    </Step>
+  </Scene>
+
+  <Widget name="ImpactParameter" />
+
+  <Deeper title="Il modello di Glauber">
+    Il parametro $b$ non si può misurare direttamente. Il modello di Glauber tratta invece ogni nucleo come una nuvola casuale di nucleoni, estratti da un profilo di densità come quello di Woods-Saxon
+
+    $$\rho(r) = \frac{\rho_0}{1 + e^{(r-R)/a}},$$
+
+    e conta quanti nucleoni si sovrappongono ($N_{\text{part}}$) e quante collisioni nucleone-nucleone avvengono ($N_{\text{coll}}$). Gli eventi vengono ordinati in base alla molteplicità di particelle misurata, e ogni classe di molteplicità è associata a un intervallo di $N_{\text{part}}$ e quindi a un percentile di centralità.
+  </Deeper>
+
+  <Scene id="hi.collision" mode="scrub">
+    <Step state="initial">
+      L'orologio parte da t = 0 e si misura in fm/c, il tempo che la luce impiega ad attraversare un femtometro (1 fm/c ≈ 3 × 10⁻²⁴ s). I due dischi si sovrappongono e la loro energia si deposita in uno strato sottile e densissimo.
+    </Step>
+    <Step state="preeq">
+      Da 0 a circa 1 fm/c l'energia depositata è lontanissima dall'equilibrio. Rapidamente, le particelle si urtano e si spartiscono l'energia, finché il sistema ha una temperatura ben definita (equilibrio termico).
+    </Step>
+    <Step state="qgp">
+      Da circa 1 a 10 fm/c, il plasma di quark e gluoni si espande e si raffredda come un fluido. Parte da una temperatura di diverse volte superiore a quella di transizione.
+    </Step>
+    <Step state="hadronization">
+      Intorno a 10 fm/c, la temperatura scende al valore di transizione, circa 2 × 10¹² K. Quark e gluoni tornano confinati negli adroni. È l'<Term id="hadronization">adronizzazione</Term>, che fissa i numeri relativi di ciascun tipo di particella.
+    </Step>
+    <Step state="freezeout">
+      Gli adroni continuano a urtarsi per altri 5-10 fm/c. Poi sono troppo lontani per interagire: è il <Term id="freeze-out">freeze-out</Term>. I loro impulsi non cambiano più.
+    </Step>
+    <Step state="free-stream">
+      Le particelle volano libere. Circa 10¹⁶ fm/c più tardi (circa 30 nanosecondi), raggiungono un rivelatore a dieci metri di distanza.
+    </Step>
+  </Scene>
+
+  <Deeper title="Una stima della densità di energia (Bjorken)">
+    L'immagine di Bjorken tratta lo strato come un cilindro invariante per boost, di sezione $\pi R^2$. La densità di energia al tempo proprio $\tau_0$ è
+
+    $$\varepsilon_{\text{Bj}} = \frac{1}{\pi R^2\,\tau_0}\,\frac{dE_T}{dy},$$
+
+    dove $dE_T/dy$ è l'energia trasversa emessa per unità di rapidità. Con $\tau_0$ di circa 1 fm/c, le collisioni centrali a RHIC e a LHC danno da alcuni a decine di GeV/fm³, molto più della materia nucleare ordinaria ($\approx 0{,}15$ GeV/fm³) e della regione di transizione (da qualche decimo di GeV/fm³ fino a circa 1).
+  </Deeper>
+
+  La palla di fuoco non la vediamo mai. Dura circa 10⁻²³ secondi ed è larga solo qualche diametro nucleare. **Ci arrivano soltanto le particelle che raggiungono il rivelatore, e da quelle dobbiamo ricostruire che cosa è successo.** È il tema del prossimo strato.
+</Layer>
+
+<Layer id="fireball">
+  Ogni indizio che segue è un'impronta diversa del plasma. Insieme compongono un unico quadro.
+
+  <Scene id="hi.flow">
+    <Step state="almond">
+      Indizio 1: scorre. In una collisione fuori centro, la zona di sovrapposizione ha la forma di una mandorla.
+    </Step>
+    <Step state="pressure">
+      Il gradiente di pressione è più ripido lungo l'asse corto della mandorla che lungo quello lungo. La palla di fuoco viene spinta fuori con più forza nella direzione corta.
+    </Step>
+    <Step state="momentum-anisotropy">
+      L'anisotropia spaziale iniziale si converte in un'anisotropia dell'impulso: più particelle escono lungo l'asse corto. È il <Term id="elliptic-flow">flusso ellittico</Term>, quantificato da un coefficiente $v_2$. Richiede interazioni ripetute molto forti. Un gas di particelle non interagenti si limiterebbe a disperdersi, senza serbare memoria della forma.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schema: flusso ellittico v₂ in funzione dell'impulso trasverso. Cresce, poi si stabilizza, e le particelle più pesanti hanno un v₂ minore allo stesso pT.">
+    <Scene id="hi.flow">
+      <Step state="v2-plot">
+        Il $v_2$ misurato è grande. Confrontandolo con i calcoli di fluidodinamica si scopre che il plasma è un liquido con una viscosità estremamente piccola rispetto alla sua densità di entropia, $\eta/s$, vicina a un limite inferiore congetturato pari a $1/4\pi$. È tutt'altro che un gas debolmente interagente.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Widget name="FlowDemo" />
+
+  <Deeper title="Definizione di v₂ e significato del limite 1/4π">
+    Gli angoli $\phi$ delle particelle rispetto al piano di simmetria $\Psi_2$ seguono
+
+    $$\frac{dN}{d\phi} \propto 1 + 2v_2\cos\!\big[2(\phi-\Psi_2)\big] + \cdots,$$
+
+    e al primo ordine $v_2 \propto \varepsilon_2$, l'eccentricità iniziale della zona di sovrapposizione. Il limite congetturato $\eta/s \ge \hbar/4\pi k_B$ deriva da calcoli in una teoria modello a forte accoppiamento dotata di un duale gravitazionale. Non è un teorema dimostrato per la QCD. «Quasi perfetto» significa viscosità bassa rispetto all'entropia, non viscosità nulla.
+  </Deeper>
+
+  <Scene id="hi.jet">
+    <Step state="dijet">
+      Indizio 2: frena i quark veloci. Raramente, due quark o gluoni dei nucleoni in collisione si urtano violentemente e schizzano via in direzioni opposte. Ciascuno si trasforma in un sottile getto di particelle, un jet.
+    </Step>
+    <Step state="quenched">
+      Se l'urto duro avviene in profondità nel plasma, uno dei partoni deve attraversare molta materia colorata e perde energia. Vediamo un jet, e l'altro molto più debole o assorbito: è la <Term id="jet-quenching">soppressione dei jet</Term> (jet quenching).
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schema: fattore di modificazione nucleare R_AA. Gli adroni (interazione forte) sono soppressi ben al di sotto di 1. Fotoni e bosoni Z restano vicini a 1, come controllo.">
+    <Scene id="hi.jet">
+      <Step state="raa-plot">
+        Quantifichiamo la perdita con $R_{AA}$: la resa nelle collisioni nucleo-nucleo divisa per la resa nelle collisioni protone-protone, riscalata per il numero di collisioni binarie. Senza un mezzo varrebbe 1. Per quark e gluoni è molto minore di 1. Per fotoni e bosoni Z, che non hanno carica di colore, resta vicino a 1. È il controllo.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="R_AA e da che cosa dipende la perdita di energia">
+    $$R_{AA}(p_T) = \frac{1}{\langle N_{\text{coll}}\rangle}\,\frac{dN^{AA}/dp_T}{dN^{pp}/dp_T}.$$
+
+    Nei semplici modelli di perdita radiativa, l'energia media persa cresce con la lunghezza del cammino $L$ all'incirca come $L^2$ e con il «coefficiente di trasporto» del mezzo $\hat q$, che misura quanto fortemente il mezzo devia lateralmente i partoni che lo attraversano. Sono entrambe proprietà che vogliamo estrarre dai dati.
+  </Deeper>
+
+  <Scene id="hi.quarkonium">
+    <Step state="bound">
+      Indizio 3: gli stati legati si dissolvono. La J/ψ è un quark charm legato al proprio antiquark. L'Υ (upsilon) è lo stesso per i quark bottom. Questi stati di «quarkonio» sono piccoli e fortemente legati.
+    </Step>
+    <Step state="screening">
+      In un plasma, le cariche di colore libere attorno a una coppia schermano la forza tra le due, come cariche libere schermano un campo coulombiano. Quando la lunghezza di schermo scende sotto le dimensioni della coppia, questa non può più restare legata.
+    </Step>
+    <Step state="melt-sequence">
+      Gli stati più grandi e meno legati fondono a temperature più basse, perciò una sequenza di stati fa da termometro. A LHC sono presenti così tanti quark charm che alcune J/ψ si riformano da quark e antiquark charm non correlati nel plasma.
+    </Step>
+  </Scene>
+
+  <Deeper title="Schermo di Debye">
+    In un mezzo con lunghezza di schermo di Debye $\lambda_D \sim 1/(gT)$, il potenziale tra una coppia pesante quark-antiquark diventa all'incirca di tipo Yukawa,
+
+    $$V(r) \sim -\frac{\alpha}{r}\,e^{-r/\lambda_D}.$$
+
+    Quando $\lambda_D$ scende sotto le dimensioni dello stato legato, lo stato legato non esiste più. La materia reale della QCD è più complicata: gli stati possono anche essere distrutti dalle collisioni con i costituenti del mezzo. L'immagine semplice spiega l'ordine in cui avviene la fusione, non i valori numerici.
+  </Deeper>
+
+  <Scene id="hi.thermometers">
+    <Step state="strangeness">
+      Indizio 4: i quark strani abbondano. I quark strani hanno una massa paragonabile alla temperatura della palla di fuoco, perciò un plasma li produce con facilità. Un gas freddo di adroni produce adroni strani molto più di rado. Nelle collisioni di ioni pesanti le particelle strane sono prodotte in numero maggiore, rispetto ai pioni, che nelle collisioni protone-protone.
+    </Step>
+    <Step state="photons">
+      Indizio 5: la luce dall'interno. Fotoni e coppie di leptoni interagiscono solo elettromagneticamente, perciò escono dalla palla di fuoco senza essere assorbiti. Il loro spettro riferisce le condizioni lungo tutta la storia del sistema: un termometro mediato su raffreddamento ed espansione.
+    </Step>
+    <Step state="hadron-ratios">
+      Le rese degli adroni sono descritte da un modello statistico termico: una sola temperatura (circa 156 MeV a LHC) e un solo potenziale chimico barionico fissano i rapporti di centinaia di specie. La palla di fuoco all'adronizzazione si comporta come un gas in equilibrio termico e chimico.
+    </Step>
+  </Scene>
+
+  <Deeper title="Adronizzazione statistica">
+    Nel modello statistico grancanonico, la densità della specie $i$ è
+
+    $$n_i \propto g_i \int d^3p\; \exp\!\left[-\frac{E_i - \mu_B B_i - \mu_S S_i}{T}\right],$$
+
+    con degenerazione di spin $g_i$, numero barionico $B_i$ e stranezza $S_i$. Adattando le rese misurate si ottengono la temperatura di freeze-out chimico $T_{\text{ch}}$ e $\mu_B$. Questi due numeri collocano ogni energia di collisione come un punto sul diagramma di fase. Lo useremo nel prossimo strato.
+  </Deeper>
+</Layer>
+
+<Layer id="phase-diagram">
+  <Scene id="hi.phase-diagram" mode="scrub">
+    <Step state="axes">
+      Ecco la mappa. In verticale: la temperatura. In orizzontale: la densità barionica, ovvero il <Term id="baryon-chemical-potential">potenziale chimico barionico</Term> $\mu_B$. È il <Term id="phase-diagram">diagramma di fase</Term> della QCD.
+    </Step>
+    <Step state="early-universe">
+      In alto a sinistra: caldo e quasi privo di barioni. Qui si trovava l'universo primordiale, e qui si trova la palla di fuoco di LHC.
+    </Step>
+    <Step state="crossover">
+      I calcoli di QCD su reticolo (lattice QCD) ci dicono che qui il plasma si trasforma in adroni con un <Term id="crossover">crossover</Term> graduale, intorno a 155-160 MeV (circa 2 × 10¹² K), e non con una transizione netta. Non c'è alcun salto improvviso.
+    </Step>
+    <Step state="nuclear-matter">
+      In basso a destra: la normale <Term id="nuclear-matter">materia nucleare</Term>. I nuclei del nostro corpo stanno a temperatura zero e a una densità di circa 0,16 nucleoni per fm³.
+    </Step>
+    <Step state="liquid-gas">
+      Appena sopra, la materia nucleare riscaldata si comporta come un liquido che può bollire in un gas di nucleoni. Ha un punto critico a una temperatura dell'ordine di 10-20 MeV.
+    </Step>
+    <Step state="neutron-star">
+      Più a destra, freddo e densissimo: l'interno delle stelle di neutroni. Le loro fusioni creano per un attimo materia insieme densa e calda.
+    </Step>
+    <Step state="unknown-region">
+      Il centro vuoto: denso e caldo. La transizione tra plasma e adroni è ancora un crossover graduale, qui? La lattice QCD fatica con la materia densa, perciò la sola teoria non può dircelo.
+    </Step>
+    <Step state="first-order">
+      Ci si aspetta, come ipotesi, che il crossover diventi una transizione netta, del primo ordine, come l'ebollizione dell'acqua, con un calore latente. È soltanto un'ipotesi.
+    </Step>
+    <Step state="critical-point">
+      In tal caso, la linea graduale e quella netta si incontrano in un <Term id="critical-point">punto critico</Term>, come il punto finale della linea liquido-vapore dell'acqua. Esiste? Dove? Non lo sappiamo. Bisogna andare a cercarlo.
+    </Step>
+    <Step state="energy-scan">
+      Come? Abbassando l'energia di collisione. Abbiamo visto che i nuclei più lenti si frenano a vicenda: la palla di fuoco è più fredda ma più densa. Ogni energia di collisione porta in un punto diverso della mappa. È la <Term id="beam-energy-scan">scansione in energia del fascio</Term>.
+    </Step>
+    <Step state="freezeout-curve">
+      Individuiamo il freeze-out chimico di ciascuna energia con il modello statistico, e i punti si allineano in una curva: da LHC in alto a sinistra fino alle energie più basse a destra.
+    </Step>
+  </Scene>
+
+  <Deeper title="L'acqua e i limiti dell'analogia">
+    Nell'acqua, una linea del primo ordine separa il liquido dal vapore e termina in un punto critico; oltre di esso, liquido e vapore diventano lo stesso fluido supercritico. Il crossover della QCD somiglia a un percorso che aggira quel punto. L'analogia è imperfetta: l'acqua ha un parametro d'ordine ben definito, mentre il crossover della QCD non ha una definizione univoca, per cui la temperatura di transizione citata dipende dall'osservabile usata. Inoltre, il plasma di quark e gluoni non è un gas di particelle ordinarie.
+  </Deeper>
+
+  <Widget name="EnergyScan" />
+
+  <Scene id="hi.bes-signals">
+    <Step state="fluctuations">
+      Come ci accorgiamo di un punto critico? Contando, evento per evento, il numero netto di protoni (protoni meno antiprotoni). Vicino a un punto critico, le fluttuazioni di questo numero netto dovrebbero crescere, e la loro entità dovrebbe variare con l'energia di collisione in modo non monotono. Questa variazione è il segnale cercato. Misurarla richiede una buona identificazione delle particelle.
+    </Step>
+    <Step state="directed-flow">
+      Una seconda sonda: il <Term id="directed-flow">flusso diretto</Term>, la spinta laterale della palla di fuoco lungo l'asse del fascio. Un ammorbidimento dell'equazione di stato, come in una transizione del primo ordine, può cambiare il modo in cui la sua pendenza dipende dall'energia, e persino invertirne il segno.
+    </Step>
+    <Step state="turn-off">
+      Terzo: dove scompare il plasma? Abbassando l'energia, segnali come la forte soppressione dei jet e la scala del flusso con il numero di quark dovrebbero spegnersi. Quell'energia segna il punto in cui non si produce più plasma.
+    </Step>
+    <Step state="dileptons">
+      Quarto: i dileptoni. Le coppie di elettroni o muoni escono senza diffondersi anche dalla materia densa, e rivelano la sua temperatura e come cambiano gli adroni al suo interno. HADES e CBM sono progettati per questo.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schema: come potrebbe apparire un punto critico nelle fluttuazioni del numero netto di protoni in funzione dell'energia di collisione. Una guida all'idea, non una misura.">
+    <Scene id="hi.bes-signals">
+      <Step state="fluctuations-plot">
+        Un andamento non monotono in funzione di $\sqrt{s_{NN}}$ sarebbe l'indizio. Le misure sono in corso, come vedremo più avanti.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="Cumulanti e lunghezza di correlazione">
+    Le fluttuazioni si esprimono con i cumulanti $C_n$ del numero netto di protoni evento per evento. Rapporti come $C_4/C_2 = \kappa\sigma^2$ eliminano la dipendenza banale dal volume. Vicino a un punto critico la lunghezza di correlazione $\xi$ cresce, e con essa crescono i cumulanti:
+
+    $$C_2 \sim \xi^{2},\quad C_3 \sim \xi^{4{,}5},\quad C_4 \sim \xi^{7}$$
+
+    (qualitativamente, nella teoria più semplice). I cumulanti di ordine più alto reagiscono quindi più intensamente alla stessa crescita critica. Due avvertenze: la palla di fuoco vive per poco tempo, perciò $\xi$ non può crescere senza limite, e il protone è solo un sostituto del numero barionico conservato.
+  </Deeper>
+
+  <Scene id="hi.phase-diagram">
+    <Step state="experiments">
+      Chi esplora quale parte della mappa? Molti impianti, molte tecniche. Solo pochi collidono alle energie più alte, e diversi programmi a bersaglio fisso raggiungono la regione più densa.
+    </Step>
+  </Scene>
+
+  | Impianto · esperimento | Modalità | Dove guarda, all'incirca |
+  |---|---|---|
+  | LHC · ALICE | collisore | energia massima, densità barionica vicina a zero |
+  | RHIC · STAR (BES-I/II) | collisore e bersaglio fisso | da pochi GeV a 200 GeV, esplorando ampiamente la mappa |
+  | SPS · NA61/SHINE | bersaglio fisso | energia intermedia, variando anche la taglia del nucleo |
+  | GSI · HADES | bersaglio fisso | bassa energia, alta densità |
+  | FAIR · CBM | bersaglio fisso, frequenza altissima | pochi GeV, regione più densa, con statistica enorme |
+  | NICA · MPD, BM@N | collisore e bersaglio fisso | pochi GeV |
+  | J-PARC-HI | bersaglio fisso (pianificato) | alta densità |
+
+  **A che punto siamo (al 2025)?** Sono state riportate tendenze interessanti, ma l'esistenza di un punto critico è **ancora aperta**. I risultati di precisione della seconda scansione in energia di STAR (BES-II) e i dati futuri di FAIR sono i prossimi passi.
+</Layer>
+
+<Layer id="detection">
+  <Scene id="hi.geometry">
+    <Step state="collider">
+      Due modi di collidere. In un collisore, due fasci si incontrano frontalmente e le particelle volano in tutte le direzioni, perciò il rivelatore è un barile attorno al punto di collisione. ALICE, STAR, sPHENIX e MPD sono di questo tipo.
+    </Step>
+    <Step state="fixed-target">
+      In un esperimento a <Term id="fixed-target">bersaglio fisso</Term>, un fascio colpisce un bersaglio sottile. Tutto il sistema si muove in avanti nel laboratorio, perciò le particelle volano in un cono in avanti e i rivelatori sono disposti in fila lungo il fascio. CBM, HADES e NA61/SHINE sono di questo tipo.
+    </Step>
+  </Scene>
+
+  Quattro idee di fisica dei rivelatori fanno gran parte del lavoro. Apriamo le schede se sono nuove.
+
+  <Primer id="silicon-sensor" />
+  <Primer id="magnetic-tracking" />
+  <Primer id="ionization" />
+  <Primer id="tpc" />
+
+  <Walkthrough scene="hi.walkthrough-collider" experiment="ALICE" also="Stesso principio: STAR (con una camera a proiezione temporale e un solenoide), sPHENIX, MPD.">
+    <Step state="birth" kind="goal">
+      Obiettivo: prendere una particella carica della palla di fuoco e scoprire dove è nata, quanto impulso porta e di che tipo di particella si tratta.
+    </Step>
+    <Step state="pixels" kind="signal">
+      Per prima cosa, sottili strati di pixel di silicio appena fuori dal tubo del fascio registrano alcuni punti della traccia. Prolungandoli all'indietro si ottiene il vertice di nascita. Una particella nata un poco lontano da esso proviene dal decadimento di una particella più pesante e di breve vita.
+    </Step>
+    <Step state="curvature" kind="signal">
+      Un magnete solenoidale curva la traccia in un arco. Il raggio fornisce l'impulso; il verso della curvatura dà il segno della carica.
+    </Step>
+    <Step state="tpc-drift" kind="signal">
+      La traccia attraversa il grande volume di gas di una camera a proiezione temporale. Ionizza il gas, e gli elettroni liberati derivano verso le piastre terminali. La posizione di arrivo dà due coordinate, il tempo di arrivo la terza. La quantità di carica dà la perdita di energia dE/dx.
+    </Step>
+    <Step state="tof" kind="signal">
+      All'esterno della camera, uno strato di tempo di volo registra l'istante di arrivo della particella con precisione di decine di picosecondi. Il tempo di volo sulla lunghezza di percorso nota ne fornisce la velocità.
+    </Step>
+    <Step state="identity" kind="readout">
+      L'impulso insieme alla velocità (da dE/dx o dal tempo di volo) dà la massa, e quindi la particella è identificata: pione, kaone, protone e così via. Lo si ripete per migliaia di tracce in ogni evento.
+    </Step>
+    <Step state="pid-trick" kind="trick">
+      Il trucco: a pari impulso, una particella più pesante è più lenta e ionizza di più. Quindi, a impulso fissato, ogni tipo di particella lascia un segnale diverso. Proviamo.
+    </Step>
+  </Walkthrough>
+
+  <Widget name="BetheBloch" mode="pid" />
+
+  <Deeper title="Le formule dietro la sequenza">
+    Impulso trasverso al campo: $p_T\,[\text{GeV}/c] \approx 0.3\,B\,[\text{T}]\,R\,[\text{m}]$.
+
+    Massa dal tempo di volo su un percorso di lunghezza $L$: $m c= p\sqrt{\dfrac{c^2t^2}{L^2}-1}$.
+
+    Perdita di energia media in un gas (Bethe-Bloch, semplificata):
+
+    $$\left\langle\frac{dE}{dx}\right\rangle \approx K z^2\frac{Z}{A}\frac{1}{\beta^2}\left[\frac{1}{2}\ln\frac{2m_ec^2\beta^2\gamma^2 T_{\max}}{I^2}-\beta^2-\frac{\delta}{2}\right].$$
+
+    Dipende dalla velocità $\beta$, non dalla sola massa. Per questo, riportando dE/dx in funzione dell'impulso, le specie si separano.
+  </Deeper>
+
+  <Bridge id="hi-its-to-sc-its3" />
+
+  Le stesse domande, con una geometria diversa: come funziona un esperimento a bersaglio fisso?
+
+  <Walkthrough scene="hi.walkthrough-fixed-target" experiment="CBM" also="Stesso principio: HADES, NA61/SHINE e STAR nella sua modalità a bersaglio fisso.">
+    <Step state="cone" kind="goal">
+      Obiettivo: misurare sonde rare, come coppie di elettroni e particelle con quark strani o charm, in collisioni oro-bersaglio a pochi GeV per nucleone, fino a dieci milioni di collisioni al secondo. Le particelle escono in un cono in avanti.
+    </Step>
+    <Step state="silicon-stations" kind="signal">
+      Il tracciamento è affidato a stazioni di rivelatori al silicio, impilate lungo il fascio nel cono in avanti. Gli strati di pixel (MAPS) stanno più vicini al bersaglio, gli strati a strisce più lontano.
+    </Step>
+    <Step state="bend" kind="signal">
+      Le stazioni stanno dentro un magnete dipolare. Le tracce si curvano nel piano orizzontale, e la loro curvatura dà impulso e carica, proprio come nel caso a barile.
+    </Step>
+    <Step state="time-stamp" kind="signal">
+      I rivelatori esterni identificano le particelle: pareti di tempo di volo misurano la velocità, e un rivelatore Čerenkov separa gli elettroni più veloci dai pioni. Ogni segnale porta con sé una marca temporale.
+    </Step>
+    <Step state="reconstruct" kind="readout">
+      Il software raccoglie i segnali e li assegna alle tracce. Le tracce vengono raggruppate in eventi, e negli eventi si cercano segnali rari come le coppie di elettroni.
+    </Step>
+    <Step state="free-streaming" kind="trick">
+      Il trucco: le collisioni arrivano troppo in fretta per selezionarne una alla volta. Così ogni rivelatore trasmette tutti i segnali, ciascuno con la sua marca temporale, senza trigger. Un calcolatore li ordina poi in collisioni, usando tempo e posizione.
+    </Step>
+  </Walkthrough>
+
+  <Primer id="cherenkov" />
+
+  <Figure kind="simulated" caption="Esempio simulato, non dati reali. A sinistra: una collisione centrale ad alta energia, con migliaia di tracce cariche che si avvolgono in un rivelatore a barile. A destra: una collisione a bersaglio fisso a energia più bassa, con centinaia di tracce in un cono in avanti.">
+    <Scene id="hi.event-replay">
+      <Step state="collider-high">
+        Una collisione centrale ad alta energia produce migliaia di particelle cariche in ogni direzione.
+      </Step>
+      <Step state="fixed-target-low">
+        A energia più bassa, centinaia di tracce procedono in avanti in un cono.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Primer id="particle-id" />
+
+  <Figure kind="schematic" caption="Schema: perdita di energia dE/dx in funzione dell'impulso, da una formula di Bethe-Bloch semplificata. Ogni tipo di particella ha la sua banda.">
+    <Scene id="hi.pid">
+      <Step state="momentum-axis">
+        Riportiamo dE/dx di molte tracce in funzione del loro impulso.
+      </Step>
+      <Step state="bands">
+        Le tracce si dispongono su bande, una per tipo di particella: elettroni, pioni, kaoni, protoni. A basso impulso, le particelle più pesanti perdono più energia.
+      </Step>
+      <Step state="overlap">
+        Le bande si incrociano ad alcuni impulsi, dove questo metodo non sa decidere. Allora subentra un'altra misura, come il tempo di volo. Le misure di fluttuazioni dei protoni dipendono dal fatto che questa identificazione sia corretta.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Bridge id="hi-pid-to-det-interactions" />
+
+  **Dai dati alla fisica.** La ricetta è la stessa in ogni esperimento. Si dividono gli eventi per centralità. Si misurano osservabili come rese, $v_2$ e $R_{AA}$. Le si confronta con modelli, come l'idrodinamica relativistica. Poi si deducono le proprietà della palla di fuoco: la sua viscosità, la sua temperatura e la sua densità barionica. Ragioniamo a ritroso, dall'effetto alla causa.
+</Layer>
+
+<Layer id="frontier">
+  <Scene id="hi.frontier">
+    <Step state="bes-next">
+      **La ricerca del punto critico.** BES-II di STAR è in fase di analisi (al 2025), inclusa un'estensione a bersaglio fisso fino alle densità barioniche più alte. L'esperimento CBM all'acceleratore SIS100 di FAIR, una volta avviato (atteso verso la fine del decennio), prenderà dati a frequenze più alte di qualsiasi esperimento precedente. NICA a JINR aggiunge un altro approccio. Se un punto critico esista, o se l'intera linea resti un crossover graduale, sarà stabilito da queste misure di precisione.
+    </Step>
+    <Step state="small-systems">
+      **Quanto può essere piccolo un fluido?** Segnali di tipo flusso compaiono perfino nelle collisioni protone-protone e protone-piombo che producono molte particelle. È lo stesso comportamento idrodinamico in una minuscola goccia, o un meccanismo diverso, come le correlazioni nello stato iniziale? Dove il plasma smette di essere plasma? Se ne discute ancora.
+    </Step>
+    <Step state="shapes">
+      **Forme nucleari.** Nel luglio 2025 LHC ha fatto collidere per la prima volta ossigeno-ossigeno e neon-neon. L'idea: il neon-20 dovrebbe essere allungato, e l'ossigeno-16 quasi sferico, forse con ammassi di particelle alfa. Il flusso in queste piccole collisioni è sensibile alla forma del nucleo, il che offre un modo per verificarla. Al 2025 l'analisi era in corso.
+    </Step>
+    <Step state="future">
+      **Le prossime macchine.** ALICE 3, un successore interamente al silicio proposto per gli anni 2030, estenderebbe la precisione al sapore pesante e ai dileptoni. L'Electron-Ion Collider (EIC) a Brookhaven, pianificato per gli anni 2030, userà gli elettroni per mappare i gluoni dentro i nuclei.
+    </Step>
+    <Step state="astro">
+      **Gli ioni pesanti incontrano l'astrofisica.** Le onde gravitazionali dalle fusioni di stelle di neutroni vincolano le proprietà della materia fredda a densità di diverse volte quella nucleare. Le collisioni di ioni pesanti sondano la materia calda a densità simili. Insieme vincolano la stessa equazione di stato.
+    </Step>
+  </Scene>
+
+  <Gallery>
+    <GalleryItem title="CERN — LHC, ALICE">
+      Le energie di collisione più alte (diversi TeV per coppia di nucleoni). Ospita anche NA61/SHINE a bersaglio fisso all'SPS.
+    </GalleryItem>
+    <GalleryItem title="BNL — RHIC, STAR, sPHENIX">
+      Il primo collisore di ioni pesanti, dal 2000 in poi. Le ultime prese dati sono del 2025, prima che l'anello sia ricostruito come EIC. La scansione in energia è stata fatta qui.
+    </GalleryItem>
+    <GalleryItem title="GSI / FAIR — HADES, CBM">
+      Materia densa a pochi GeV, con SIS100 in costruzione.
+    </GalleryItem>
+    <GalleryItem title="JINR — NICA">
+      Un collisore per pochi GeV per nucleone, a Dubna.
+    </GalleryItem>
+    <GalleryItem title="J-PARC">
+      Un programma di ioni pesanti proposto ad alta densità barionica.
+    </GalleryItem>
+  </Gallery>
+
+  Questa pagina usa immagini semplificate e nessun dato reale. Per approfondire, si parta dalla rassegna di Busza, Rajagopal e van der Schee nei riferimenti qui sotto.
+</Layer>

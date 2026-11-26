@@ -110,6 +110,7 @@ export const DET = {
   TOF_RESOLUTION_PS: { value: [30, 100], unit: 'ps', note: 'Time-of-flight and timing-layer resolution: tens of picoseconds.', source: KW },
   LIGHT_CM_PER_NS: { value: 30, unit: 'cm/ns', note: 'Light travels 30 cm in a nanosecond, 3 mm in 10 ps (for the clock analogy).', source: PDG },
   DRIFT_VELOCITY_GAS_CM_US: { value: 5, unit: 'cm/µs', note: 'Electron drift speed in typical drift-chamber gases: a few cm per microsecond.', source: GS },
+  DRIFT_VELOCITY_MDT_CM_US: { value: 2, unit: 'cm/µs', note: 'ATLAS-type MDT tubes (Ar/CO2, 3 bar): ~700 ns maximum drift over 14.6 mm.', source: 'ATLAS Muon Spectrometer TDR (1997)' },
   SPATIAL_RES_SILICON_UM: { value: [5, 15], unit: 'µm', note: 'Position resolution of silicon pixel and strip detectors.', source: KW },
   SPATIAL_RES_DRIFT_TUBE_UM: { value: 100, unit: 'µm', note: 'Single-tube resolution of drift tubes, order of 100 µm.', source: GS },
 

@@ -1,0 +1,42 @@
+/* Shared plain styling for P5 widgets: light page, native controls, tokens only. */
+.w { font-family: var(--font-sans); color: var(--fg); font-size: var(--fs-sm); line-height: 1.5; display: grid; gap: var(--space-4); }
+.w-title { margin: 0; font-size: var(--fs-base); font-weight: 650; }
+.w-ctl { display: grid; gap: var(--space-1); }
+.w-ctl > label, .w-ctl > .w-lab { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4); font-weight: 600; }
+.w-val { font-family: var(--font-mono); font-weight: 500; color: var(--fg); white-space: nowrap; }
+.w-unit { color: var(--fg-muted); font-family: var(--font-sans); }
+.w input[type='range'] { width: 100%; accent-color: var(--accent); margin: 0; min-height: 1.5rem; }
+.w input[type='range']:focus-visible, .w button:focus-visible, .w input[type='radio']:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.w-marks { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+.w-marks button { font: inherit; font-size: var(--fs-xs); color: var(--fg); background: none; border: 0; border-bottom: 1px solid var(--fg-faint); padding: 0 0 1px; cursor: pointer; border-radius: 0; }
+.w-marks button:hover { border-bottom-color: var(--accent); }
+.w-body { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(12rem, 1fr); gap: var(--space-6); align-items: start; }
+.w-body--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 44rem) { .w-body, .w-body--3 { grid-template-columns: minmax(0, 1fr); } }
+.w-fig { margin: 0; display: grid; gap: var(--space-1); }
+.w-fig figcaption { font-size: var(--fs-xs); color: var(--fg-muted); }
+.w-svg { width: 100%; height: auto; display: block; overflow: visible; }
+.w-svg text { font-family: var(--font-sans); font-size: 12px; fill: var(--fg-muted); }
+.w-svg .n { font-family: var(--font-mono); font-size: 11px; }
+.w-svg .strong { fill: var(--fg); }
+.w-svg .halo { paint-order: stroke; stroke: var(--bg); stroke-width: 3px; stroke-linejoin: round; }
+.w-svg .axis { stroke: var(--fg-faint); stroke-width: 1; fill: none; }
+.w-svg .guide { stroke: var(--line); stroke-width: 1; fill: none; }
+.w-svg .ink { stroke: var(--fg); stroke-width: 1.5; fill: none; }
+.w-svg .acc { stroke: var(--accent); stroke-width: 1.5; fill: none; }
+.w-svg .accfill { fill: var(--accent); }
+.w-svg .band { fill: var(--accent); opacity: 0.18; }
+.w-read { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: var(--space-1) var(--space-4); }
+.w-read dt { color: var(--fg-muted); }
+.w-read dd { margin: 0; font-family: var(--font-mono); text-align: right; }
+.w-read dd .w-unit { margin-left: 0.25em; }
+.w-note { margin: 0; font-size: var(--fs-xs); color: var(--fg-muted); max-width: var(--measure); }
+.w-bar { height: 6px; background: var(--bg-sunken); border: 1px solid var(--line); position: relative; }
+.w-bar > span { position: absolute; inset: 0 auto 0 0; background: var(--accent); }
+.w table { border-collapse: collapse; width: 100%; }
+.w th, .w td { text-align: left; padding: 2px var(--space-2) 2px 0; border-bottom: 1px solid var(--line); font-weight: 400; }
+.w td.num { font-family: var(--font-mono); text-align: right; }
+.w fieldset { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); }
+.w fieldset legend { padding: 0; font-weight: 600; margin-bottom: var(--space-1); }
+.w fieldset label { display: inline-flex; align-items: center; gap: var(--space-1); cursor: pointer; }
+.w input[type='radio'] { accent-color: var(--accent); }

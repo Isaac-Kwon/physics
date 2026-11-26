@@ -1,0 +1,471 @@
+---
+topic: detectors
+lang: ko
+title: 입자 검출기
+subtitle: 보이지 않는 것을 그것이 남긴 흔적으로 봅니다
+description: "입자는 눈으로 보기에는 너무 작습니다. 검출기가 물질에 남은 흔적, 곧 이온화, 샤워, 빛, 휘어진 궤적을 어떻게 읽어 내는지 알아봅니다."
+tagline: 우리는 입자를 본 적이 없습니다. 입자가 남긴 것을 읽을 뿐입니다.
+layers:
+  - { id: hook, title: 우리가 보는 것은 흔적뿐 }
+  - { id: history, title: 흔적을 쫓은 짧은 역사 }
+  - { id: interactions, title: 입자는 물질에 무슨 일을 할까? }
+  - { id: measurement, title: 흔적에서 측정으로 }
+  - { id: design, title: 실제 검출기를 설계하기 }
+references:
+  - title: "Review of Particle Physics: Passage of particles through matter"
+    author: "Particle Data Group"
+    url: "https://pdg.lbl.gov/"
+    note: "Reference. Short and dense; the source of many numbers on this page."
+  - title: "Review of Particle Physics: Particle detectors (accelerator and non-accelerator)"
+    author: "Particle Data Group"
+    url: "https://pdg.lbl.gov/"
+    note: "Reference. Chapters on tracking, calorimetry, particle identification and detector systems."
+  - title: "Particle Detectors"
+    author: "Claus Grupen, Boris Shwartz — Cambridge University Press (2nd edition, 2008)"
+    note: "Textbook. Readable for undergraduates; covers every detector type on this page."
+  - title: "Particle Detectors: Fundamentals and Applications"
+    author: "Hermann Kolanoski, Norbert Wermes — Oxford University Press (2020)"
+    note: "Textbook. More modern and more detailed, with a long chapter on signal formation."
+  - title: "Radiation Detection and Measurement"
+    author: "Glenn F. Knoll — Wiley (4th edition, 2010)"
+    note: "Classic textbook. Strong on scintillators, photosensors and gas detectors."
+asOf: "2025"
+draft: true
+---
+
+<Layer id="hook">
+  <Scene id="det.hook" mode="scrub">
+    <Step state="dark">입자는 눈으로 보기에는 너무 작습니다.</Step>
+    <Step state="burst">그래서 입자가 남긴 흔적을 봅니다.</Step>
+    <Step state="detector">흔적 둘레에는 건물만 한 기계가 서 있습니다.</Step>
+  </Scene>
+  <BigNumber value={1e8} unit="채널" approx caption="LHC의 큰 검출기 하나는 약 1억 개의 채널을 읽습니다. 아무도 직접 본 적 없는 입자의 흔적을 되살리기 위해서입니다." />
+</Layer>
+
+<Layer id="history">
+  <Scene id="det.history">
+    <Step state="scintillation-screen">
+      1909년. 가이거와 마스든은 어두운 방에 앉아 황화 아연 스크린에 번쩍이는 희미한 빛을 셉니다. 섬광 하나가 알파 입자 하나입니다. 검출기는 사람의 눈입니다.
+    </Step>
+    <Step state="cloud-chamber">
+      1911년. 찰스 윌슨이 안개 상자를 만듭니다. 수증기로 과포화된 공기 속에서 입자의 경로를 따라 물방울이 맺힙니다. 이 궤적을 찍은 사진이 1932년에는 양전자를, 1936년에는 뮤온을 드러냈습니다.
+    </Step>
+    <Step state="emulsion">
+      사진 감광 유제는 궤적을 은 알갱이의 사슬로 기록합니다. 1947년에는 산꼭대기에 노출한 유제가 파이온을 보여 주었습니다.
+    </Step>
+    <Step state="bubble-chamber">
+      1952년. 도널드 글레이저가 거품 상자를 발명합니다. 끓는점 바로 위에서 유지한 액체에 입자가 지나간 길을 따라 거품이 생깁니다. 밀도가 높아서 입자가 상호작용했습니다. 많은 새 공명 상태가 발견되었고, 1973년에는 CERN의 가르가멜 상자가 중성 흐름을 보았습니다.
+    </Step>
+    <Step state="wire-chamber">
+      1968년. 조르주 샤르파크가 가는 철사로 이루어진 상자를 만들어, 입자가 지날 때마다 전기 펄스를 얻습니다. 사진은 물러나고 컴퓨터가 읽을 수 있는 데이터가 들어서며, 측정 속도가 몇 자릿수 올랐습니다.
+    </Step>
+    <Step state="electronic">
+      1980년대부터 실리콘 스트립과 픽셀이 마이크로미터 정밀도를 가져오고, 밀도 높은 결정 열량계가 정밀한 에너지 측정을 가져옵니다. 오늘날 이들은 한데 모여 건물만 한 검출기가 됩니다.
+    </Step>
+  </Scene>
+
+  <Scene id="det.cloud-chamber">
+    <Step state="vapour">
+      안개 상자는 집에서도 만들 수 있습니다. 바닥이 차가운 밀폐 상자에 알코올 증기를 채웁니다. 증기가 과포화되어 곧 응결할 준비가 됩니다.
+    </Step>
+    <Step state="track">
+      빠른 하전 입자가 지나가며 증기를 이온화합니다. 이온이 물방울의 씨앗이 됩니다. 안개의 가는 흰 선이 나타났다가 1초쯤 뒤에 사라집니다.
+    </Step>
+    <Step state="muons">
+      보이는 곧은 선의 대부분은 우주선 뮤온으로, 손바닥만 한 면적을 1분에 하나쯤 지나갑니다. 짧고 굵은 궤적은 알파 입자입니다.
+    </Step>
+  </Scene>
+
+  같은 요령, 곧 이온화가 눈에 보이는 변화의 씨앗이 된다는 것이 아래의 모든 검출기에 흐르고 있습니다. 바뀐 것은 읽는 방법뿐입니다. 눈에서 필름으로, 다시 전자회로로 왔습니다.
+</Layer>
+
+<Layer id="interactions">
+  <Scene id="det.matter-block">
+    <Step state="ionization">
+      모든 검출은 상호작용에서 시작합니다. 물질을 지나는 빠른 하전 입자는 길목 원자의 전자를 밀어내고 가끔 하나를 떼어 냅니다. 이것이 <Term id="ionization">이온화</Term>(ionization)입니다. 한 번에 입자가 잃는 에너지는 아주 작지만, 1 센티미터를 가는 동안 기체에서는 백 번, 고체에서는 수천 번 일어납니다.
+    </Step>
+  </Scene>
+
+  단위 길이당 잃는 평균 에너지 dE/dx는 속도에 따라 특징적인 곡선을 그립니다. 입자가 빨라지면 가파르게 줄다가 넓은 최솟값에 이르고, 그 뒤로는 천천히 늘어납니다. 최솟값에 있는 입자가 **최소 이온화 입자**(minimum-ionizing particle, MIP)입니다. 지나는 물질 1 g/cm²당 1에서 2 MeV를 잃으며(플라스틱이나 물 같은 가벼운 물질에서는 약 2, 납에서는 약 1.1), 질량당 손실은 물질이 달라져도 놀랄 만큼 조금만 변합니다. 직접 해 보세요. 운동량을 고르면 입자마다 곡선 위 어디에 있는지 보입니다.
+
+  <Widget name="BetheBloch" />
+
+  <Deeper title="베테–블로흐 식과 란다우 꼬리">
+    전하 $z$, 속도 $\beta$인 입자가 원자 번호 $Z$, 질량수 $A$인 물질을 지날 때 평균 손실은 다음과 같습니다.
+
+    $$\left\langle -\frac{dE}{dx}\right\rangle = K z^2\frac{Z}{A}\frac{1}{\beta^2}\left[\frac{1}{2}\ln\frac{2m_ec^2\beta^2\gamma^2 T_{\max}}{I^2}-\beta^2-\frac{\delta(\beta\gamma)}{2}\right],$$
+
+    $K = 0.307\ \text{MeV cm}^2/\text{mol}$, $I$는 평균 들뜸 에너지(약 $10\,Z$ eV), $T_{\max}$는 전자 하나에 전달할 수 있는 최대 에너지입니다. $1/\beta^2$이 감소를, 로그가 느린 증가를 주고, 밀도 보정 $\delta$가 높은 에너지에서 증가를 평평하게 만듭니다. 이 식은 무거운 입자에서 대략 $\beta\gamma = 0.1$에서 1000까지 성립합니다.
+
+    얇은 층에서는 실제 손실이 크게 요동합니다. 드문 몇 번의 충돌이 큰 에너지로 전자를 떼어 내기 때문입니다. 분포는 한쪽으로 치우쳐서 높은 쪽에 긴 꼬리가 있는 **란다우 분포**입니다. 최빈값이 평균보다 낮으므로, 얇은 검출기는 평균이 아니라 최빈 손실을 알려 줍니다.
+  </Deeper>
+
+  <Scene id="det.matter-block">
+    <Step state="brems">
+      전자는 특별합니다. 너무 가벼워서 원자핵에 휘면 광자를 방출합니다. **제동 복사**(bremsstrahlung), 곧 브레이크를 밟을 때 나오는 복사입니다. 높은 에너지에서는 이온화보다 이것이 우세합니다. 전자는 <Term id="radiation-length">복사 길이</Term> $X_0$라 부르는 거리 안에 에너지 대부분을 잃습니다. 납에서 약 0.5 cm, 실리콘에서 10 cm, 물에서 36 cm입니다. 뮤온은 200배 무거워서 복사가 약 4만 배 적습니다. 그래서 물질을 뚫고 지나갑니다.
+    </Step>
+    <Step state="photon-pe">
+      광자는 전하가 없으므로 스스로 자취를 남기지 않습니다. 한 번, 그것도 완전히, 무슨 일이 일어난 뒤에야 검출됩니다. 낮은 에너지(납에서 수백 keV까지)에서는 광자가 원자에 흡수되어 전자 하나를 떼어 냅니다. 광전 효과입니다.
+    </Step>
+    <Step state="photon-compton">
+      중간 에너지, 곧 1 MeV 근처에서는 광자가 전자에 산란하며 에너지 일부를 잃습니다. 콤프턴 산란입니다. 광자는 새 방향으로 계속 나아가고, 빠른 전자가 튕겨 나옵니다.
+    </Step>
+    <Step state="photon-pair">
+      전자 질량의 두 배인 1.022 MeV 위에서는 광자가 원자핵의 장 안에서 전자와 양전자로 바뀔 수 있습니다. 쌍생성입니다. 높은 에너지에서는 이것이 완전히 우세해집니다. 어느 과정이 이기는지는 에너지와 물질에 달려 있습니다.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="개념도: 광자 에너지와 물질의 원자 번호 Z에 따라 어떤 광자 과정이 우세한지. 영역의 경계는 대략적입니다.">
+    <Scene id="det.photon-regions">
+      <Step state="regions">
+        낮은 에너지와 높은 Z: 광전 효과. 중간 에너지와 낮은 Z: 콤프턴. 높은 에너지: 쌍생성. 납에서는 콤프턴 영역과 쌍생성 영역이 수 MeV에서 만나고, 실리콘에서는 수십 MeV가 되어야 만납니다.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Scene id="det.matter-block">
+    <Step state="em-shower">
+      조각들을 맞춰 봅시다. 높은 에너지의 전자가 광자를 방출합니다. 광자가 전자–양전자 쌍을 만듭니다. 이들 각각이 다시 복사합니다. 입자 수는 복사 길이마다 대략 두 배가 되고 입자당 에너지는 절반이 됩니다. 이 연쇄가 <Term id="shower">전자기 샤워</Term>(electromagnetic shower)입니다.
+    </Step>
+    <Step state="had-shower">
+      파이온이나 양성자 같은 강입자는 강한 상호작용을 느낍니다. 원자핵과 충돌해 쪼개고 새 입자를 만듭니다. 이렇게 <Term id="shower">강입자 샤워</Term>(hadronic shower)가 자랍니다. 전자기 샤워보다 넓고 길고 불규칙한데, 도중에 만들어지는 파이온의 3분의 1이 중성이기 때문입니다. 중성 파이온은 곧바로 광자 둘로 붕괴하고, 각각이 그 안에서 작은 전자기 샤워를 시작합니다.
+    </Step>
+  </Scene>
+
+  <Primer id="quarks-gluons" />
+
+  <Deeper title="전자기 샤워의 장난감 모형 (하이틀러)">
+    복사 길이 $t$만큼 지나면 입자는 $N = 2^t$개이고 각각의 에너지는 $E_0/2^t$입니다. 입자당 에너지가 임계 에너지 $E_c$(납에서 약 7 MeV)까지 떨어지면 증식이 멈춥니다. 그 아래에서는 복사보다 이온화가 우세하기 때문입니다. 이는 다음에서 일어납니다.
+
+    $$t_{\max} = \frac{\ln(E_0/E_c)}{\ln 2}.$$
+
+    그러므로 샤워의 깊이는 에너지에 따라 로그로만 늘고, 최대일 때의 입자 수 $E_0/E_c$는 에너지에 비례해 늡니다. 이 비례 관계 덕분에 열량계는 입자를 세어서 에너지를 잴 수 있습니다. 장난감 모형은 비례 관계는 맞지만 수치는 대략만 맞습니다. 강입자 샤워는 $X_0$ 대신 핵 상호작용 길이 $\lambda_I$(철에서 약 17 cm로, $X_0$의 대략 10배)에 비례합니다.
+  </Deeper>
+
+  <Scene id="det.matter-block">
+    <Step state="neutral">
+      중성 입자는 스스로 이온화를 남기지 않습니다. 중성자는 원자핵에 부딪혀야 하고, 그때 튕겨 나온 하전 파편이 검출됩니다. 중성미자는 거의 상호작용하지 않습니다. 태양에서 온 중성미자의 절반을 멈추려면 납이 대략 1광년 두께는 필요합니다. 그래서 빠진 것으로 검출하거나, 아주 큰 표적 속의 드문 상호작용으로 검출합니다.
+    </Step>
+    <Step state="cherenkov">
+      하전 입자는 빛을 내기도 합니다. 굴절률 $n$인 매질에서 빛의 속도는 $c/n$입니다. 입자가 그보다 빠르면 열린각이 $\cos\theta_c = 1/(n\beta)$인 원뿔 모양으로 <Term id="cherenkov-radiation">체렌코프 복사</Term>(Cherenkov radiation)를 냅니다. 물에서 문턱은 $\beta = 0.75$이고, 빛의 속도에 가까운 입자가 내는 빛은 41°로 나옵니다. 아주 빠른 입자가 두 물질의 경계를 지날 때 나오는 더 약한 X선 섬광인 전이 복사는 전자에서 비슷한 역할을 합니다.
+    </Step>
+    <Step state="scintillation">
+      마지막으로, 어떤 물질은 쌓인 에너지에 비례하는 가시광선으로 에너지를 돌려줍니다. 이것이 섬광입니다. 좋은 섬광체에서는 1 MeV당 광자 1만 개쯤이 나오고, 물에서는 체렌코프 광자가 센티미터당 수백 개이며, 상호작용하지 않는 중성 입자에서는 하나도 나오지 않습니다.
+    </Step>
+  </Scene>
+
+  <Deeper title="체렌코프 각도와 광자 수율">
+    경로의 각 지점에서 나온 파면이 겹쳐 원뿔이 됩니다. 시간 $t$ 동안 입자는 $\beta c t$를, 빛은 $ct/n$을 움직이므로
+
+    $$\cos\theta_c = \frac{ct/n}{\beta c t} = \frac{1}{n\beta}.$$
+
+    단위 경로 길이, 단위 파장당 광자 수는 다음과 같습니다.
+
+    $$\frac{d^2N}{dx\,d\lambda} = \frac{2\pi\alpha z^2}{\lambda^2}\left(1-\frac{1}{\beta^2n^2}\right) = \frac{2\pi\alpha z^2}{\lambda^2}\sin^2\theta_c,$$
+
+    물에서 $z = 1$이면 가시광선 영역에서 cm당 수백 개의 광자입니다. 체렌코프 빛이 가져가는 에너지는 이온화에 비해 입자 에너지의 아주 작은 일부에 불과합니다.
+  </Deeper>
+
+  이것이 전체 목록입니다. 검출기가 하는 모든 일은 이 가운데 하나입니다. 이온화, 복사, 핵 충돌, 빛. 다음 층에서는 이 각각을 어떻게 숫자로 바꾸는지 묻습니다.
+</Layer>
+
+<Layer id="measurement">
+  모든 검출기는 두 가지 일을 해야 합니다. 흔적을 전기 신호로 바꾸는 것, 그리고 그 신호가 무엇을 뜻하는지 판단하는 것입니다. 변환부터 시작합니다.
+
+  <Scene id="det.signal-chain">
+    <Step state="charge">
+      **전하를 모으기.** 이온화는 전자를 떼어 냅니다. 전기장이 전자를 전극으로 끌어당겨 작은 전류를 만듭니다. 기체에서는 가는 철사 근처에서 전자를 증폭할 수 있습니다. 거기서는 전기장이 눈사태를 일으킬 만큼 셉니다. 전하 쌍 하나를 떼어 내는 데 3.6 eV면 되는 실리콘에서는 얇은 웨이퍼가 수천 개의 쌍을 주므로, 매질 안에서 펄스를 증폭할 필요가 없습니다.
+    </Step>
+  </Scene>
+
+  <Primer id="silicon-sensor" />
+
+  <Bridge id="det-measurement-to-sc-mechanism" />
+
+  <Scene id="det.signal-chain">
+    <Step state="scintillation">
+      **빛을 모으기.** 섬광체는 에너지를 광자로 바꿉니다. 이 광자를 다시 전자로 바꿔야 합니다. 광전자 증배관은 광전자 하나를 100만 배로 증폭하고, 실리콘 광전자 증배관은 작고 자기장에 강한 꾸러미로 같은 일을 합니다. 플라스틱 섬광체는 빠르고 쌉니다. 밀도 높은 결정은 높은 에너지의 광자를 멈춥니다.
+    </Step>
+    <Step state="cherenkov">
+      **체렌코프 빛을 모으기.** 같은 광센서가 빛의 원뿔을 잡습니다. 그 각도나 모양이 입자의 속도를 알려 주고, 아주 큰 물이나 얼음 탱크에서는 중성미자 하나의 방향까지 알려 줍니다.
+    </Step>
+  </Scene>
+
+  <Bridge id="det-measurement-to-nu-detection" />
+
+  이제 신호를 읽을 수 있다고 합시다. 재 볼 만한 양은 네 가지입니다. 위치와 운동량, 에너지, 정체, 시간입니다. 필요한 도구가 서로 다르므로 실제 검출기는 이들을 차례로 겹쳐 쌓습니다.
+
+  <Scene id="shared.magnetic-track">
+    <Step state="tracks">
+      **운동량은 휘어짐으로.** 자기장 속을 움직이는 하전 입자는 호를 그립니다. 반지름이 운동량을, 휘는 방향이 전하의 부호를 줍니다. 궤적 검출기는 경로를 따라 점들을 기록하고, 휘어짐은 이 점들을 맞춰서 얻습니다.
+    </Step>
+    <Step state="fit">
+      어림 규칙은 이렇습니다. $p\,[\text{GeV}/c] \approx 0.3\,B\,[\text{T}]\,R\,[\text{m}]$. 4 T 솔레노이드에서 10 GeV/c 궤적은 반지름 8 m의 원을 그리며 휩니다. 1 TeV/c 궤적은 800 m로, 거의 직선입니다. 높은 운동량이 어려운 까닭입니다.
+    </Step>
+  </Scene>
+
+  <Widget name="TrackCurvature" />
+
+  <Deeper title="p = 0.3 B R은 어디에서 나왔을까">
+    자기력이 구심력을 줍니다. $qvB = mv^2/R$이므로 $p = qBR$입니다. 전하 $q = e$이고 GeV/c, 테슬라, 미터 단위로 쓰면
+
+    $$p\,[\text{GeV}/c] = c\times 10^{-9}\,B\,[\text{T}]\,R\,[\text{m}] \approx 0.2998\,B\,R.$$
+
+    여기서 $p$는 자기장에 수직인 성분입니다. 자기장 방향의 운동량이 있는 입자는 나선을 그립니다. 궤적 길이 $L$에 대해 측정되는 사지타(sagitta)는 $s = L^2/8R = 0.3\,B L^2/8p$로, $1/p$로 줄어듭니다. 마지막 층에서 다룰 분해능의 거동이 여기서 나옵니다.
+  </Deeper>
+
+  <Primer id="tpc" />
+
+  <Scene id="shared.tpc">
+    <Step state="drift">
+      **궤적 전체를 한 번에.** 시간 투영 상자에서는 이온화로 생긴 전자가 전기장을 따라 일정한 속도로 끝면까지 표류하고, 끝면이 각 전자가 도착한 위치를 기록합니다. 이것이 좌표 두 개를 줍니다. 도착 시각이 세 번째 좌표를 줍니다.
+    </Step>
+    <Step state="readout">
+      궤적을 따라 모인 전하량이 dE/dx를 줍니다. 대가는 시간입니다. 표류에는 마이크로초에서 밀리초가 걸리며, 충돌 사이 간격에 비하면 깁니다.
+    </Step>
+  </Scene>
+
+  <Bridge id="det-measurement-to-dm-direct" />
+  <Bridge id="det-measurement-to-hi-detection" />
+
+  <Walkthrough scene="det.walkthrough-calorimeter" experiment="the CMS electromagnetic calorimeter" also="ATLAS(납판 사이의 액체 아르곤), ALICE PHOS, 그리고 모든 충돌기와 고정 표적 실험의 열량계.">
+    <Step state="goal" kind="goal">
+      목표: 밀도 높은 섬광 결정 덩어리 안에서 전자 하나나 광자 하나를 완전히 멈춰 세워 그 에너지를 재기.
+    </Step>
+    <Step state="shower" kind="signal">
+      입자는 복사 길이가 1 센티미터도 안 되는 텅스텐산 납 결정으로 들어갑니다. 몇 센티미터 안에 샤워가 시작되고, 샤워는 복사 길이 약 25개, 곧 깊이 약 23 cm의 결정을 채웁니다. 뒤로 빠져나가는 에너지는 없습니다.
+    </Step>
+    <Step state="light" kind="signal">
+      샤워의 하전 입자들이 결정을 들뜨게 하고, 결정은 섬광을 냅니다. 빛의 양은 쌓인 에너지에 비례하므로, 전체 빛은 들어온 입자의 에너지에 비례합니다.
+    </Step>
+    <Step state="photosensor" kind="signal">
+      결정 뒷면에 붙인 광센서가 빛을 전하로 바꿉니다. 결정의 폭은 몇 센티미터이므로 결정 하나는 샤워의 가로 방향 분포 가운데 작은 부분을 읽으며, 그 약 90 %가 반지름 2 cm의 몰리에르 반지름 안에 들어옵니다.
+    </Step>
+    <Step state="sum" kind="readout">
+      샤워 둘레 결정들의 신호를 더합니다. 합이 에너지를 주고, 분포의 무게 중심이 결정 하나보다 정밀하게 위치를 줍니다.
+    </Step>
+    <Step state="containment" kind="trick">
+      요령은 이렇습니다. 샤워가 통째로 흡수되므로 에너지가 클수록 입자가 많습니다. 그래서 통계적 요동이 더 많은 입자 수에 대해 상대적으로 작아지므로 에너지가 클수록 상대 정밀도가 좋아집니다.
+    </Step>
+  </Walkthrough>
+
+  <Figure kind="schematic" caption="개념도: 에너지에 따른 열량계의 상대 에너지 분해능. 에너지 의존성이 서로 다른 세 항과 그 제곱합.">
+    <Scene id="det.energy-resolution">
+      <Step state="stochastic">
+        첫째 항은 통계적 항입니다. 샤워 속 입자 수가 $\sqrt{N}$처럼 요동하므로 $\sigma/E \propto 1/\sqrt{E}$입니다. 낮은 에너지에서 우세합니다.
+      </Step>
+      <Step state="noise">
+        둘째 항은 전자회로 잡음으로, 어떤 경우에나 고정된 에너지입니다. 신호에 대한 비율로는 $1/E$로 줄며 아주 낮은 에너지에서 중요합니다.
+      </Step>
+      <Step state="constant">
+        셋째 항은 일정한 비율입니다. 보정 오차와 불균일성은 신호 자체에 비례합니다. 높은 에너지에서의 한계를 정합니다.
+      </Step>
+      <Step state="sum">
+        이들은 제곱해서 더합니다. $\sigma/E = a/\sqrt{E} \oplus b \oplus c/E$. 어느 항이 우세한지는 에너지와 검출기에 달려 있습니다.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="분해능을 수치로">
+    $$\frac{\sigma_E}{E} = \frac{a}{\sqrt{E}} \oplus b \oplus \frac{c}{E}, \qquad x\oplus y = \sqrt{x^2+y^2},$$
+
+    $E$의 단위는 GeV입니다. 통계항 $a$의 전형적인 값은 결정 열량계에서 약 2에서 3 %, 납 흡수체를 쓴 샘플링 열량계에서 10 %, 강입자 열량계에서 약 50 %입니다. 상수항 $b$는 좋은 경우에 약 1 %입니다. 결정 열량계에서 100 GeV 전자는 대략 $0.03/10 \oplus 0.005 \approx 0.6\,\%$이지만, 강입자 열량계의 값은 한 자릿수 나쁩니다. 전자기 열량계와 강입자 열량계가 별개의 층으로 나뉜 까닭입니다.
+  </Deeper>
+
+  <Scene id="det.signal-chain">
+    <Step state="timing">
+      **시간.** 빛은 1 나노초에 30 cm를 갑니다. 빠른 실리콘이나 섬광체로 만든 타이밍 층은 입자가 지나간 시각을 수십 피코초, 곧 빛이 몇 밀리미터를 가는 시간의 정밀도로 기록합니다. 이렇게 정밀한 시계는 겹치는 충돌을 가려낼 수 있고, 알려진 거리에 대해 입자의 속도를 잴 수 있습니다.
+    </Step>
+  </Scene>
+
+  <Primer id="particle-id" />
+
+  <Walkthrough scene="det.walkthrough-rich" experiment="LHCb's ring-imaging Cherenkov detector" also="Belle II(ARICH와 TOP 계수기), ALICE HMPID, 그리고 물에서 고리를 영상화하는 중성미자 실험.">
+    <Step state="goal" kind="goal">
+      목표: 같은 운동량의 카온과 파이온을 구별하기. 운동량은 수십 GeV/c로 측정되어 있습니다.
+    </Step>
+    <Step state="cone" kind="signal">
+      입자는 굴절률이 1보다 아주 조금 큰 기체나 에어로젤 덩어리, 곧 방사체를 지납니다. 그 물질 속에서 빛보다 빠르게 움직이므로 체렌코프 빛의 원뿔을 냅니다.
+    </Step>
+    <Step state="ring" kind="signal">
+      구면 거울이 원뿔을 광검출기 평면 위에 모읍니다. 경로의 어느 지점에서 광자가 나왔든 원 위에 떨어집니다. 광자들이 고리를 이룹니다.
+    </Step>
+    <Step state="radius" kind="readout">
+      고리의 반지름이 열린각 $\theta_c$를 주고, 열린각이 $\cos\theta_c = 1/(n\beta)$를 통해 속도를 줍니다. 궤적 검출기가 준 운동량과 합치면 질량이 나옵니다. 같은 운동량이면 파이온이 카온보다 큰 고리를 만듭니다.
+    </Step>
+    <Step state="focus" kind="trick">
+      요령은 이렇습니다. 거울이 각도를 반지름으로 바꾸므로, 방출 지점이 궤적을 따라 움직여도 고리가 흐려지지 않습니다. 굴절률이 다른 두 방사체는 넓은 운동량 범위를 덮습니다. 각각이 자기 문턱 아래에서는 보지 못하기 때문입니다.
+    </Step>
+  </Walkthrough>
+
+  <Widget name="BetheBloch" mode="pid" />
+
+  <Scene id="det.onion">
+    <Step state="assembled">
+      **한데 모으기.** 실제 검출기는 양파처럼 만듭니다. 각 층이 서로 다른 것을 재고, 각 층은 다음 층을 가능한 한 덜 방해하도록 고릅니다.
+    </Step>
+    <Step state="vertex">
+      가장 안쪽 층은 빔 파이프에서 몇 센티미터 떨어진 실리콘 픽셀입니다. 정밀한 점 몇 개를 기록해, 입자가 어디서 출발했는지, 몇 밀리미터 떨어진 곳의 붕괴에서 왔는지를 알아낼 수 있게 합니다.
+    </Step>
+    <Step state="tracker">
+      그다음이 강한 자기장 속의 궤적 검출기입니다. 가볍게 만듭니다. 물질이 조금만 있어도 재려는 입자를 산란시키기 때문입니다. 전하와 운동량을 줍니다.
+    </Step>
+    <Step state="ecal">
+      다음은 전자기 열량계입니다. 전자와 광자를 수십 센티미터 안에 멈추도록 밀도가 높습니다. 일부러 입자를 파괴합니다.
+    </Step>
+    <Step state="hcal">
+      그다음 강입자 열량계는 더 두껍고 철, 황동, 강철로 만들어 강입자를 멈춥니다. 뮤온이나 중성미자가 아닌 모든 것이 여기서 흡수됩니다.
+    </Step>
+    <Step state="magnet">
+      열량계 바깥에는 자석과 그 되돌림 요크가 있습니다. 어떤 검출기에서는 솔레노이드가 열량계 안쪽에 있고, 다른 검출기에서는 자기장이 바깥에 있습니다.
+    </Step>
+    <Step state="muon">
+      가장 바깥층이 뮤온 시스템입니다. 거의 복사하지 않고 강한 상호작용을 느끼지 않는 뮤온만이 여기까지 옵니다. 여기서 보이는 궤적은 뮤온입니다.
+    </Step>
+  </Scene>
+
+  <Primer id="standard-model" />
+
+  <Scene id="det.signatures">
+    <Step state="photon">
+      **광자.** 궤적 검출기에는 궤적이 없습니다. 전자기 열량계에 샤워가 생깁니다.
+    </Step>
+    <Step state="electron">
+      **전자.** 궤적 검출기에 궤적이 있고, 전자기 열량계의 샤워에서 끝나며, 에너지가 운동량과 맞습니다.
+    </Step>
+    <Step state="muon">
+      **뮤온.** 궤적 검출기에 궤적이 있고, 각 열량계에 희미한 흔적이 있으며, 뮤온 시스템에 궤적이 있습니다.
+    </Step>
+    <Step state="charged-hadron">
+      **하전 강입자.** 궤적 검출기에 궤적이 있고, 늦게 시작해서 강입자 열량계에서 끝나는 샤워가 있습니다.
+    </Step>
+    <Step state="neutral-hadron">
+      **중성 강입자.** 궤적이 없습니다. 강입자 열량계에 샤워가 생깁니다.
+    </Step>
+    <Step state="neutrino">
+      **중성미자.** 아무것도 없습니다. 유일한 흔적은 빠진 운동량입니다. 보이는 입자들의 운동량을 빔에 수직인 평면에서 더해도 0이 되지 않습니다.
+    </Step>
+  </Scene>
+
+  <Widget name="ParticleSignatures" />
+
+  <Walkthrough scene="det.walkthrough-muon" experiment="the ATLAS muon spectrometer" also="CMS(표류관과 저항판 상자), 그리고 우주선 뮤온 망원경.">
+    <Step state="goal" kind="goal">
+      목표: 검출기 전체, 곧 수 미터의 흡수체를 막 통과해 나온 뮤온의 경로와 운동량을 재기.
+    </Step>
+    <Step state="drift-tube" kind="signal">
+      뮤온은 축을 따라 가는 철사가 달린, 기체로 채운 긴 관을 지납니다. 기체를 이온화하고, 떨어져 나온 전자는 철사 쪽으로 표류합니다.
+    </Step>
+    <Step state="circles" kind="signal">
+      전자가 철사에 닿는 데 걸린 시간은 궤적이 그 철사에서 얼마나 떨어져 있는지는 알려 주지만 방향은 알려 주지 않습니다. 철사 둘레의 원이 됩니다. 관을 여러 층으로 두면 원이 여럿 나옵니다.
+    </Step>
+    <Step state="fit" kind="readout">
+      궤적은 모든 원에 접하는 직선입니다. 큰 토로이드 자기장 속에서 휘어진 정도가 운동량을 주며, 수 미터에 걸쳐 관마다 100 마이크로미터보다 정밀하게 측정됩니다.
+    </Step>
+    <Step state="muon-trick" kind="trick">
+      요령은 이렇습니다. 뮤온 시스템은 모든 흡수체의 뒤에 있습니다. 강입자, 전자, 광자는 훨씬 앞에서 멈추므로, 여기에 궤적을 남긴 것은 모호함이 거의 없이 뮤온으로 식별할 수 있습니다.
+    </Step>
+  </Walkthrough>
+
+  이 페이지의 원리 목록은 어느 실험에서나 같습니다. 마지막 층에서는 이들을 어떻게 조립해 작동하는 장치로 만드는지 묻습니다.
+</Layer>
+
+<Layer id="design">
+  <Scene id="det.trigger">
+    <Step state="rate">
+      **무엇을 남길까.** LHC에서는 양성자 덩어리가 매초 4천만 번 교차하고, 교차마다 사건이 일어날 수 있습니다. 모두 기록하는 것은 불가능합니다. 데이터가 큰 디스크 저장소를 몇 초 만에 채울 것입니다. 영구히 저장할 수 있는 것은 매초 약 천 개의 사건뿐입니다. 검출기는 어느 것을 남길 만한지 실시간으로 결정해야 합니다.
+    </Step>
+    <Step state="levels">
+      이것이 <Term id="trigger">트리거</Term>(trigger)의 일입니다. 빠른 맞춤 전자회로로 만든 첫 단계는 열량계와 뮤온 시스템을 대략 훑어 수 마이크로초 안에 결정하며, 반응률을 매초 약 10만 건으로 낮춥니다. 둘째 단계는 컴퓨터 농장에서 소프트웨어를 돌려 사건을 더 완전히 재구성하고 약 100개 중 하나를 남깁니다. 버려진 것은 영영 사라지므로, 트리거에는 그 실험이 무엇을 찾는지가 담겨 있습니다.
+    </Step>
+    <Step state="streaming">
+      요즘의 추세는 트리거를 줄이는 것입니다. 질문이 드문 사건이 아니라 흔한 사건 여러 개에 관한 것이면, 검출기는 모든 신호에 타임스탬프를 찍어 연속으로 전부 읽고 나중에 가릴 수 있습니다. ALICE는 Run 3부터(2025년 기준) 이렇게 해 왔고, LHCb는 완전한 소프트웨어 트리거로 옮겨 갔습니다. 대가는 훨씬 많은 데이터를 훨씬 빠르게 옮기는 것입니다.
+    </Step>
+  </Scene>
+
+  <Deeper title="데이터 양을 수치로">
+    사건 하나가 1 MB라고 합시다. 40 MHz에서는 흐름이 초당 40 TB입니다. 반응률 약 100 kHz의 첫 단계를 거치면 초당 100 GB이고, 소프트웨어 단계에서 수 kHz로 내보내면 초당 수 GB입니다. 마지막 값도 1년에 페타바이트 단위입니다. 실제 사건은 크기가 다르고 검출기는 데이터를 압축하지만, 자릿수를 보면 트리거가 왜 있는지 알 수 있습니다.
+  </Deeper>
+
+  <Figure kind="schematic" caption="개념도: 운동량에 따른 궤적 검출기의 상대 운동량 분해능. 낮은 운동량에서는 다중 산란이 우세합니다. 높은 운동량에서는 휘어짐 측정이 우세하며, 이 항은 p에 비례해 커집니다.">
+    <Scene id="det.momentum-resolution">
+      <Step state="terms">
+        최고의 검출기란 없고 절충만 있습니다. 운동량을 봅시다. 길고 크게 휘는 궤적을 여러 정확한 점으로 재는 것이 좋습니다. 그러나 높은 운동량에서는 궤적이 거의 직선이므로 오차가 $p$에 따라 커집니다. 낮은 운동량에서는 입자가 지나는 모든 원자에 의해 휘어져, 오차를 센서가 아니라 물질이 정합니다.
+      </Step>
+      <Step state="lever-arm">
+        설계자에게는 어떤 지렛대가 있을까요? 더 긴 궤적, 더 센 자기장, 더 많고 더 정확한 점입니다. 분해능은 $1/(BL^2)$으로 좋아지므로, 궤적 검출기의 반지름을 두 배로 하면 분해능은 네 배 좋아집니다. 하지만 실리콘 면적과 자석, 비용은 그보다 훨씬 빨리 늘어납니다.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="운동량 분해능을 정량적으로">
+    자기장 $B$ 속에서 길이 $L$에 걸쳐 같은 간격으로 놓인, 분해능 $\sigma_x$인 점 $N$개에 대해서는 (글럭스턴 식)
+
+    $$\frac{\sigma_{p_T}}{p_T} = \frac{\sigma_x\,p_T}{0.3\,B\,L^2}\sqrt{\frac{720}{N+4}},$$
+
+    단위는 GeV, 테슬라, 미터입니다. 다중 산란은 상대 분해능에 $p_T$와 무관한 항을 더합니다.
+
+    $$\left(\frac{\sigma_{p_T}}{p_T}\right)_{\text{MS}} \approx \frac{0.0136}{0.3\,B\,L\,\beta}\sqrt{\frac{L}{X_0}}\times\text{(a factor of order 1)},$$
+
+    $L/X_0$는 복사 길이 단위로 잰 전체 물질량입니다. 첫째 항은 $p_T$에 따라 커지고 둘째 항은 의존하지 않습니다. 합은 어떤 중간 운동량에서 가장 작습니다.
+  </Deeper>
+
+  <Scene id="det.tradeoffs">
+    <Step state="material">
+      **물질.** 센서, 철사, 케이블, 냉각관은 모두 입자를 산란시키는 물질이고, 광자가 열량계에 닿기 전에 쌍으로 바뀌게 만드는 물질입니다. 실리콘 궤적 검출기는 층당 복사 길이의 몇 퍼센트를 목표로 합니다. 얇을수록 측정에는 좋지만, 얇으면 신호가 줄어듭니다.
+    </Step>
+    <Step state="readout">
+      **속도, 전력, 냉각.** 읽기가 빠르려면 전력이 더 들고, 전력은 열이 되어 더 많은 물질을 거쳐 빼내야 합니다. 설계자는 읽기 시간을 전력과 냉각 질량에 맞바꿉니다. 이 셋이 픽셀을 얼마나 빨리 읽을 수 있는지를 제한합니다.
+    </Step>
+    <Step state="radiation">
+      **방사선과 비용.** 빔 근처에서는 방사선량이 실리콘을 손상시키고 광센서를 멀게 할 만큼 큽니다. 부품은 버티거나, 업그레이드로 교체해야 합니다. 그리고 모든 것을 예산 안에서, 정해진 시간에, 수백 개 연구소가 함께 만들어야 합니다.
+    </Step>
+  </Scene>
+
+  <Scene id="det.simulation">
+    <Step state="generate">
+      **먼저 컴퓨터로 만들기.** 강철을 자르기 전에 검출기는 시뮬레이션으로 존재합니다. 생성기가 충돌에서 나오는 입자를 만듭니다.
+    </Step>
+    <Step state="transport">
+      그다음 **Geant4** 같은 프로그램이 검출기의 완전한 3차원 모형 속에서 각 입자를 한 걸음씩 따라가며, 이 페이지에서 설명한 모든 상호작용을 표본으로 뽑습니다. 이온화, 복사, 산란, 샤워, 빛입니다.
+    </Step>
+    <Step state="digitize">
+      전자회로의 모형이 에너지 축적을 실제 센서가 줄 신호로 바꿉니다. 잡음, 문턱, 죽은 채널을 포함해서입니다.
+    </Step>
+    <Step state="compare">
+      같은 재구성 소프트웨어를 시뮬레이션 사건과 실제 사건에 돌립니다. 설계를 고르기 전에 수십억 개의 가상 입자가 만들어지고, 데이터와의 일치는 계속 시험됩니다. 둘이 다르면 물리나 모형이 틀린 것입니다.
+    </Step>
+  </Scene>
+
+  <Scene id="det.frontier">
+    <Step state="timing4d">
+      **4차원 검출기.** 수십 피코초 분해능의 타이밍 층이 2030년경으로 계획된 고광도 업그레이드를 위해 LHC의 큰 검출기에 더해지고 있습니다. 위치와 시간을 함께 쓰면 같은 덩어리 교차 안에서 겹치는 충돌을 가려낼 수 있습니다.
+    </Step>
+    <Step state="ml">
+      **기계 학습.** 신경망은 이미 트리거, 궤적 찾기, 제트 식별에 쓰입니다. 첫 트리거 단계에 쓸 만큼 빠르게 맞춤 전자회로 안에서 돌릴 수도 있습니다. 열린 질문은 통제입니다. 알고리즘이 물리가 아니라 시뮬레이션의 결함을 배우지 않았다는 것을 어떻게 알까요?
+    </Step>
+    <Step state="next">
+      **다음 기계들.** ALICE 3나 미래 충돌기용 검출기 같은 2030년대 이후의 제안 실험은 더 얇은 실리콘, 더 정밀한 시간 측정, 더 작은 열량계를 목표로 합니다. 2025년 기준으로 이들은 아직 연구 중인 설계입니다.
+    </Step>
+  </Scene>
+
+  <Gallery>
+    <GalleryItem title="궤적 검출기">
+      실리콘 픽셀과 스트립, 경우에 따라 기체 상자. 가능한 한 덜 방해하면서 전하와 운동량을 잽니다.
+    </GalleryItem>
+    <GalleryItem title="열량계">
+      입자 전체를 흡수하는 밀도 높은 물질. 에너지와 샤워의 위치를 잽니다.
+    </GalleryItem>
+    <GalleryItem title="입자 식별">
+      비행시간, 체렌코프 고리, 전이 복사. 속도를 재고, 운동량과 합쳐 질량을 구합니다.
+    </GalleryItem>
+    <GalleryItem title="뮤온 시스템">
+      모든 흡수체 뒤의 기체 상자. 통과해 나온 유일한 입자를 잽니다.
+    </GalleryItem>
+    <GalleryItem title="트리거와 데이터 수집">
+      빠른 전자회로와 컴퓨터. 무엇을 남길지 결정합니다.
+    </GalleryItem>
+  </Gallery>
+
+  이 페이지는 단순화한 그림을 쓰며 실제 데이터는 담지 않았습니다. 자세한 내용은 아래 참고문헌의 입자 데이터 그룹(Particle Data Group) 리뷰와 두 교재부터 읽어 보세요.
+</Layer>

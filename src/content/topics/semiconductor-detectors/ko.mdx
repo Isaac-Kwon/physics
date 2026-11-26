@@ -1,0 +1,510 @@
+---
+topic: semiconductor-detectors
+lang: ko
+title: 반도체 검출기
+subtitle: 휴대폰 카메라의 실리콘이 어떻게 입자물리의 가장 날카로운 눈이 되었나
+description: 실리콘 웨이퍼는 지나가는 입자 하나를 전기 펄스로 바꿉니다. 센서가 어떻게 작동하고 어떻게 시험되는지, 그리고 ALICE가 왜 실리콘을 원통형으로 휘는지 살펴봅니다.
+tagline: 휴대폰 카메라 칩에서 입자물리의 가장 날카로운 눈까지.
+layers:
+  - { id: hook, title: 100억 개의 픽셀 }
+  - { id: intuition, title: 입자를 전기로 바꾸기 }
+  - { id: mechanism, title: 실리콘 속으로 }
+  - { id: zoo, title: 반도체 검출기 동물원 }
+  - { id: research, title: 센서는 어떻게 만들고 시험할까? }
+  - { id: case-its3, title: 휘어진 실리콘, 그리고 그다음 }
+references:
+  - title: "Semiconductor Detector Systems"
+    author: "Helmuth Spieler — Oxford University Press (2005)"
+    note: "Textbook. The first chapters on signal formation and noise are written for physics students."
+  - title: "Semiconductor Radiation Detectors: Device Physics"
+    author: "Gerhard Lutz — Springer (1999, revised 2007)"
+    note: "Textbook. Band structure, junctions and depletion, from the basics."
+  - title: "Radiation Detection and Measurement"
+    author: "Glenn F. Knoll — Wiley (4th edition, 2010)"
+    note: "Classic textbook. The chapters on semiconductor diode detectors and on germanium detectors."
+  - title: "Particle Detectors: Fundamentals and Applications"
+    author: "Hermann Kolanoski, Norbert Wermes — Oxford University Press (2020)"
+    note: "Textbook with a long chapter on solid-state detectors."
+  - title: "Evolution of Silicon Sensor Technology in Particle Physics"
+    author: "Frank Hartmann — Springer Tracts in Modern Physics (2nd edition, 2017)"
+    note: "From strips to pixels, radiation damage and the road to the HL-LHC."
+  - title: "Review of Particle Physics: Particle detectors (chapters on passage of particles through matter and on detectors)"
+    author: "Particle Data Group"
+    url: "https://pdg.lbl.gov/"
+    note: "Reference. Short, dense, and the source of many numbers on this page."
+asOf: "2025"
+draft: true
+---
+
+<Layer id="hook">
+  <Scene id="sc.hook" mode="scrub">
+    <Step state="wafer">실리콘 웨이퍼. 휴대폰 카메라와 같은 재료입니다.</Step>
+    <Step state="chips">우표만 한 칩 수천 개로 잘라 냅니다.</Step>
+    <Step state="staves">칩들을 길고 가느다란 사다리 모양으로 붙입니다.</Step>
+    <Step state="barrel">사다리들이 충돌 지점에서 불과 수 센티미터 떨어진 빔 파이프를 감쌉니다.</Step>
+  </Scene>
+  <BigNumber value={1e10} unit="픽셀" approx caption="ALICE의 안쪽 궤적 검출기 하나만 해도, 약 10 제곱미터의 실리콘에 100억 개가 넘는 픽셀이 들어 있습니다. 픽셀 하나의 폭은 수십 마이크로미터로, 머리카락 굵기의 절반도 안 됩니다." />
+</Layer>
+
+<Layer id="intuition">
+  <Primer id="ionization" />
+
+  <Scene id="sc.charge-ladder">
+    <Step state="ladder">
+      실리콘을 1층은 꽉 차 있고 2층은 텅 빈 건물이라고 생각해 보세요. 전자는 아래층에 묶여 있습니다. 층 사이의 틈을 뛰어넘으려면 전자에게 정해진 작은 에너지가 필요합니다.
+    </Step>
+    <Step state="kick">
+      실리콘을 질주하는 입자는 전자들에게 그 에너지를 줍니다. 일부는 위층으로 뛰어올라 자유롭게 움직입니다.
+    </Step>
+    <Step state="hole">
+      전자가 뛰어오를 때마다 아래층에 빈자리, 곧 "정공"이 하나 남습니다. 이 빈자리는 양전하처럼 행동하며 마찬가지로 움직일 수 있습니다. <Term id="electron-hole-pair">전자–정공 쌍</Term>(electron–hole pair) 하나가 신호의 단위입니다.
+    </Step>
+  </Scene>
+
+  <Scene id="sc.camera-vs-particle">
+    <Step state="camera">
+      휴대폰 카메라는 빛으로 같은 일을 합니다. 픽셀마다 짧은 순간 동안 수천 개의 광자가 만든 쌍을 모으고, 사진은 그 합입니다.
+    </Step>
+    <Step state="particle">
+      입자 검출기는 다른 문제에 부딪힙니다. 입자 하나가 몇 피코초 만에 지나가는 동안, 한 곳에 한 순간의 뚜렷한 자국을 남겨야 합니다. 실제로 그렇습니다. 빠른 입자 하나는 수만 개의 쌍을 남깁니다.
+    </Step>
+  </Scene>
+
+  <Scene id="sc.mip-charge">
+    <Step state="crossing">
+      어떤 입자보다도 작은 최소한의 에너지만 잃는 빠른 하전 입자, 곧 "최소 이온화 입자"(minimum-ionizing particle, MIP)를 생각해 봅시다. 이것을 두께 300 마이크로미터(종이 한 장의 약 세 배)의 실리콘 센서에 통과시킵니다.
+    </Step>
+    <Step state="pairs">
+      입자가 1 마이크로미터를 갈 때마다 전자–정공 쌍 약 80개가 생깁니다. 300 마이크로미터를 지나면 2만 개가 넘습니다. 전자회로로 충분히 잴 수 있는 양입니다.
+    </Step>
+  </Scene>
+
+  <Widget name="MipCharge" />
+
+  <Bridge id="sc-mip-to-det-interactions" />
+
+  **실리콘은 입자의 통과를 셀 수 있는 전하 덩어리로 바꿉니다. 이 페이지의 나머지는 그 전하를 어떻게 모으는지, 그리고 그것으로 무엇을 만드는지에 관한 이야기입니다.**
+
+  <Deeper title="왜 1 마이크로미터당 80쌍일까?">
+    실리콘에서 최소 이온화 입자의 평균 에너지 손실은 약 $3.9\ \text{MeV/cm}$, 곧 $0.39\ \text{keV}/\mu\text{m}$입니다. 이것을 쌍 하나를 만드는 데 드는 에너지 $w \approx 3.6\ \text{eV}$로 나누면 평균 약 108쌍/마이크로미터가 나옵니다. 그러나 *가장 확률이 높은* 값은 그보다 낮은 75에서 80쌍 정도입니다. 에너지 손실 분포(란다우 분포)에는 드물지만 큰 손실이 이루는 긴 꼬리가 있어 평균을 끌어올리기 때문입니다. 검출기는 최빈값에 반응하므로 약 80이라고 말합니다.
+
+    $$N_{\text{pairs}} \approx \frac{\Delta E}{w}, \qquad N_{\text{pairs}}(300\,\mu\text{m}) \approx 80 \times 300 = 2.4\times 10^4 .$$
+  </Deeper>
+</Layer>
+
+<Layer id="mechanism">
+  <Scene id="sc.band-gap">
+    <Step state="bands">
+      결정 안에서 전자가 가질 수 있는 에너지는 띠를 이룹니다. 실리콘에서는 꽉 찬 가전자띠와 빈 전도띠가 1.12 eV의 <Term id="band-gap">띠틈</Term>(band gap)으로 갈라져 있습니다. <Term id="semiconductor">반도체</Term>(semiconductor)는 이 틈이 적당한 에너지로 넘을 수 있을 만큼 작으면서도, 실온에서 저절로 넘는 전자는 거의 없을 만큼 큽니다.
+    </Step>
+    <Step state="pair-energy">
+      입자가 쌍 하나를 만드는 데는 평균 3.6 eV가 듭니다. 띠틈의 약 세 배입니다. 나머지는 결정 격자의 진동이 됩니다. 기체에서는 약 30 eV가 들므로, 같은 에너지를 쌓았을 때 실리콘은 약 열 배 많은 전하를 줍니다.
+    </Step>
+    <Step state="n-type">
+      순수한 실리콘에는 자유 운반자가 거의 없습니다. 이것을 일부러 넣어 줍니다. 실리콘 원자 100만 개 중 하나를 전자가 하나 더 많은 인으로 바꾸면, 자유 전자를 가진 n형 실리콘이 됩니다.
+    </Step>
+    <Step state="p-type">
+      실리콘 대신 전자가 하나 모자란 붕소를 넣으면 움직이는 정공을 가진 p형이 됩니다. 이것이 도핑입니다.
+    </Step>
+  </Scene>
+
+  <Deeper title="진성 운반자와 띠틈이 중요한 이유">
+    순수한 실리콘에서 온도 $T$일 때 열로 들뜬 운반자의 밀도는 다음과 같습니다.
+
+    $$n_i = \sqrt{N_c N_v}\;e^{-E_g/2k_BT} \approx 10^{10}\ \text{cm}^{-3} \quad (300\ \text{K}),$$
+
+    원자 밀도는 cm³당 $5\times 10^{22}$개입니다. 300 µm 센서에서는 50 µm 픽셀 하나 아래에 열 운반자가 수천 개 있는 셈이고, 이는 MIP의 신호와 비슷한 크기입니다. 그래서 이들을 쓸어 내야 합니다(다음 단계). 게르마늄은 $E_g = 0.67$ eV이고 열 운반자가 너무 많아 액체 질소로 식혀야 합니다. 경험적으로 쌍 생성 에너지는 $w \approx 2.8\,E_g + 0.6\ \text{eV}$를 따르며, 실리콘에서는 3.6 eV에 가깝습니다.
+  </Deeper>
+
+  <Scene id="sc.junction">
+    <Step state="contact">
+      이제 p형과 n형 실리콘을 나란히 붙여 봅시다. n쪽의 전자가 p쪽으로 건너가 정공을 메웁니다. 경계 근처에서는 서로 상쇄됩니다.
+    </Step>
+    <Step state="depletion">
+      남는 것은 자유 전하가 없고 고정된 대전 원자만 있는 얇은 층, 곧 <Term id="depletion-region">공핍층</Term>(depletion region)입니다. 이 층에는 전기장이 걸려 있습니다. 이 안에서 만들어진 쌍은 재결합하기 전에 곧바로 갈라집니다. 이 층이 검출기의 유효 부피입니다.
+    </Step>
+    <Step state="reverse-bias">
+      n쪽이 양(+)이 되도록 전지를 연결합니다. 이것이 <Term id="reverse-bias">역방향 바이어스</Term>(reverse bias)입니다. 자유 운반자를 경계에서 더 멀리 끌어당기므로 공핍층이 두꺼워집니다.
+    </Step>
+    <Step state="full-depletion">
+      전압이 충분히 높으면 공핍층이 센서 전체에 걸칩니다. 이 "완전 공핍 전압" 위에서는 전기장이 계속 세져 전하가 더 빨리 모입니다. 직접 해 보세요.
+    </Step>
+  </Scene>
+
+  <Widget name="BiasDepletion" />
+
+  <Deeper title="공핍층의 폭">
+    한쪽 도핑이 다른 쪽보다 훨씬 낮은 급경사 접합(전형적인 검출기에서는 도핑이 낮은 몸체이고, 유효 도핑은 $N_{\text{eff}}$)에 푸아송 방정식을 풀면 공핍층의 폭은 다음과 같습니다.
+
+    $$W = \sqrt{\frac{2\varepsilon\,(V_{bi}+V)}{q\,N_{\text{eff}}}}, \qquad V_{bi} = \frac{k_BT}{q}\ln\frac{N_A N_D}{n_i^2}\approx 0.6\ \text{V},$$
+
+    실리콘에서는 $\varepsilon = 11.9\,\varepsilon_0$입니다. $N_{\text{eff}} = 10^{12}\ \text{cm}^{-3}$, $V = 100$ V이면 $W \approx 360\ \mu\text{m}$입니다. $W$를 두께 $d$와 같게 놓으면 완전 공핍 전압이 나옵니다.
+
+    $$V_{fd} \approx \frac{q\,N_{\text{eff}}\,d^2}{2\varepsilon} \;(\approx 70\ \text{V for } d = 300\,\mu\text{m}).$$
+
+    비저항으로 쓰면 $W \propto \sqrt{\rho V}$입니다. 고저항 실리콘(낮은 도핑)은 같은 전압에서 더 깊이 공핍됩니다. 공핍된 센서는 평행판 축전기 $C = \varepsilon A / W$처럼 행동하며, $C$–$V$ 측정으로 $V_{fd}$를 찾는 것도 이 때문입니다(연구 층을 보세요).
+  </Deeper>
+
+  <Scene id="sc.drift">
+    <Step state="mip-crossing">
+      입자가 공핍된 센서를 지나며 경로를 따라 쌍의 가는 선을 남깁니다.
+    </Step>
+    <Step state="drift">
+      전기장은 전자를 양극 쪽으로, 정공을 음극 쪽으로 밉니다. 이들은 결정 격자와 끊임없이 부딪히면서 전기장에 비례하는 속도로 결정 속을 움직입니다. 이것이 표류입니다.
+    </Step>
+    <Step state="speed">
+      전자는 정공보다 이동도가 약 세 배 큽니다. 300 마이크로미터 센서를 가로지르는 데 전자는 수 나노초, 정공은 수십 나노초가 걸립니다. 초당 수천만 개의 입자를 세는 검출기에 충분히 빠릅니다.
+    </Step>
+  </Scene>
+
+  <Scene id="sc.signal-induction">
+    <Step state="weighting-field">
+      신호는 언제 나타날까요? 전하가 전극에 닿는 순간이 아닙니다. 움직이는 전하는 움직이자마자 전극에 전류를 유도하며, 그 크기는 그 위치에서 전극이 전하를 얼마나 강하게 "보는가"에 비례합니다.
+    </Step>
+    <Step state="moving-charge">
+      작은 픽셀 전극 근처에서는 이 민감도가 가장 가파릅니다. 픽셀 가까이 있는 전하는 크게 기여하고, 멀리 있는 전하는 거의 기여하지 않습니다. 그래서 신호의 대부분은 픽셀에 닿기 직전 마지막 구간에서 만들어집니다.
+    </Step>
+    <Step state="pulse">
+      전자와 정공의 기여를 더하면 수 나노초 동안 이어지는 짧은 전류 펄스가 됩니다. 펄스 아래 면적이 전체 전하이고, 모양에는 전하가 어떻게 움직였는지가 담겨 있습니다.
+    </Step>
+  </Scene>
+
+  <Deeper title="쇼클리–라모 정리">
+    $\mathbf{E}_w(\mathbf{x})$를 *가중 전기장*이라 합시다. 읽기 전극에 단위 전위를 주고 나머지 전극은 모두 0으로 두었을 때 생기는 전기장입니다. 속도 $\mathbf{v}$로 움직이는 전하 $q$는 이 전극에 다음 전류를 유도합니다.
+
+    $$i(t) = -\,q\,\mathbf{v}\cdot\mathbf{E}_w(\mathbf{x}(t)).$$
+
+    유도된 전하는 $Q=-q\,[\phi_w(\mathbf{x}_f)-\phi_w(\mathbf{x}_i)]$, 곧 경로를 따른 가중 퍼텐셜의 변화입니다. 평행판에서는 $E_w = 1/d$가 균일하므로 전류는 $v$에 비례하고, 두 운반자가 표류하는 내내 신호에 기여합니다. 작은 픽셀에서는 $E_w$가 전극 근처에 몰려 있어("작은 픽셀 효과") 신호는 표류의 마지막 구간이 좌우합니다.
+
+    표류 속도는 약한 전기장에서 $v = \mu E$이며, 실리콘에서 $\mu_e \approx 1400$, $\mu_h \approx 450\ \text{cm}^2/\text{Vs}$입니다. 강한 전기장에서는 약 $10^7$ cm/s(1 ns에 100 µm)에서 포화합니다. 자기장 안에서는 운반자가 전기장에 대해 로런츠 각 $\tan\theta_L\approx \mu_H B$로 표류하여 측정 위치가 옮겨집니다.
+  </Deeper>
+
+  <Scene id="sc.charge-sharing">
+    <Step state="cloud">
+      전하는 표류하는 동안 확산으로 퍼져 구름이 됩니다. 수백 마이크로미터를 지나면 구름의 폭은 보통 10 마이크로미터 정도입니다.
+    </Step>
+    <Step state="pixels">
+      입자가 픽셀 사이의 경계 가까이를 지나면 구름이 이웃 픽셀에 나뉩니다. 두 픽셀이 각각 전하의 일부를 받아 반응합니다.
+    </Step>
+    <Step state="centroid">
+      각 픽셀의 위치에 전하로 가중치를 주면 구름의 무게 중심이 나옵니다. 이렇게 하면 픽셀 크기보다 정밀하게 입자의 위치를 구할 수 있습니다. 좋은 아날로그 읽기 회로는 수 마이크로미터에 이릅니다.
+    </Step>
+    <Step state="binary">
+      전자회로가 "신호 있음/없음"만 알려 주면 전하 정보를 잃습니다. 그러면 입자는 픽셀 안 어딘가에 있다는 것만 알 수 있고, 오차는 픽셀 간격을 12의 제곱근으로 나눈 값입니다.
+    </Step>
+  </Scene>
+
+  <Widget name="ChargeSharing" />
+
+  <Deeper title="확산과 이진 분해능">
+    구름의 폭은 $\sigma = \sqrt{2Dt}$로 커집니다. $D = \mu k_BT/q$(아인슈타인 관계)입니다. 전자의 경우 $D\approx 36\ \text{cm}^2/\text{s}$이므로 $t = 10$ ns 뒤에 $\sigma \approx 8\ \mu\text{m}$입니다.
+
+    폭이 $p$인 픽셀 안 어디든 같은 확률로 입자가 지나고, 이를 "픽셀 중심에서 맞았다"고 읽는다면 오차의 분산은 $\int_{-p/2}^{p/2} x^2\,dx/p = p^2/12$이므로 $\sigma_x = p/\sqrt{12}\approx 0.29\,p$입니다. 간격이 50 µm이면 14 µm입니다. 구름이 나뉘고 전하를 측정한다면 보간으로 이를 몇 배 개선할 수 있습니다.
+  </Deeper>
+
+  **요약. 실리콘에 도핑해 접합을 만들고, 역방향 바이어스로 층을 비우고, 입자가 그 층을 쌍으로 채우게 한 다음, 쌍의 움직임이 유도하는 펄스를 읽습니다.**
+
+  <Primer id="silicon-sensor" />
+</Layer>
+
+<Layer id="zoo">
+  이 동물원의 검출기는 모두 같은 방식을 따릅니다. 공핍된 부피가 입자를 쌍으로 바꾸고, 전극이 전하를 읽습니다. 다른 점은 저마다의 영리한 비결 하나입니다. 이 가운데 셋은 입자 하나를 따라가며 살펴보고, 나머지는 빠르게 훑어봅니다.
+
+  <Scene id="sc.strip">
+    <Step state="strips">
+      **스트립.** 전극을 폭 수십 마이크로미터, 길이 수 센티미터의 긴 평행 띠로 자릅니다. 띠 하나가 좌표 하나를 줍니다. 센서 하나가 읽기 채널 수백 개만으로 넓은 면적을 덮으므로 값이 쌉니다. 바깥쪽의 큰 궤적 검출기에 쓰입니다.
+    </Step>
+    <Step state="stereo">
+      두 번째 좌표를 얻으려면 스트립이 작은 각도로 기울어진 두 층을 붙입니다. 입자는 각 층에서 스트립 하나씩을 반응시키고, 두 스트립이 만나는 곳이 위치입니다. 대가는 입자가 여럿 한꺼번에 올 때 생기는 "유령" 교차입니다.
+    </Step>
+  </Scene>
+
+  <Walkthrough scene="sc.walkthrough-hybrid" experiment="ATLAS pixel detector" also="같은 원리: CMS 픽셀, LHCb VELO, 의료와 우주에서 쓰는 Timepix 칩.">
+    <Step state="goal" kind="goal">
+      목표: 매초 수백만 개의 다른 입자가 들어오는 중에도, 입자 하나가 지나간 위치를 2차원으로 정확히 찍기.
+    </Step>
+    <Step state="drift" kind="signal">
+      입자가 완전히 공핍된 고저항 실리콘 센서에서 쌍을 만듭니다. 전하는 폭 약 50 마이크로미터의 작은 픽셀 전극 격자로 표류합니다.
+    </Step>
+    <Step state="bump" kind="signal">
+      모든 픽셀 아래에는 "범프"라 부르는 작은 땜납 알갱이가 있습니다. 이것이 픽셀을 센서 아래에 마주 보게 놓인 별도의 읽기 칩 속 자기 전용 증폭기에 연결합니다.
+    </Step>
+    <Step state="amplify" kind="signal">
+      증폭기가 전자 수천 개를 전압 펄스로 바꿉니다. 이어서 판별기가 펄스를 문턱값과 비교합니다. 문턱을 넘으면 이 픽셀이 반응한 것입니다.
+    </Step>
+    <Step state="readout" kind="readout">
+      칩은 어느 픽셀이 반응했는지, 종종 펄스 높이까지 기록합니다. 반응한 픽셀의 무리가 입자 하나의 통과이고, 그 무게 중심이 위치입니다.
+    </Step>
+    <Step state="trick" kind="trick">
+      요령은 이렇습니다. 센서와 전자회로를 따로 만들되, 각각에 가장 알맞은 공정으로 만듭니다. 센서는 방사선에 잘 견디도록, 칩은 속도가 빠르도록 최적화합니다. 둘을 픽셀 하나하나 이어 주는 것이 범프입니다.
+    </Step>
+  </Walkthrough>
+
+  <Walkthrough scene="sc.walkthrough-maps" experiment="ALICE ITS2 (ALPIDE chip)" also="같은 원리: STAR의 MAPS 꼭짓점 검출기, CBM 마이크로 꼭짓점 검출기, ALICE의 차세대 ITS3.">
+    <Step state="goal" kind="goal">
+      목표: 아주 얇고 아주 가벼운 궤적 검출기를 만들어, 입자가 나갈 때 거의 방해받지 않게 하면서도 수 제곱미터를 싼값에 덮기.
+    </Step>
+    <Step state="epi-layer" kind="signal">
+      센서는 실리콘 칩 위에 키운 얇고 도핑이 낮은 층으로, 두께가 약 25 마이크로미터입니다. 입자는 이 층 안에서 쌍을 만듭니다.
+    </Step>
+    <Step state="collect" kind="signal">
+      층의 일부에는 약한 전기장만 있습니다. 쌍은 작은 수집 전극에 닿을 때까지 확산으로 퍼진 뒤 모입니다. 표류보다 느리지만 이 용도에는 충분히 빠릅니다.
+    </Step>
+    <Step state="in-pixel" kind="signal">
+      같은 칩의 같은 픽셀 안에 증폭기, 판별기, 기억 소자가 함께 있습니다. 회로는 깊은 우물로 전하로부터 보호되므로 전하를 빼앗지 않습니다.
+    </Step>
+    <Step state="readout" kind="readout">
+      반응한 픽셀의 주소만 칩을 떠납니다. 그 밖에는 아무것도 보내지 않으므로, 면적당 전력이 낮아 공기나 약간의 물로 식힐 수 있습니다.
+    </Step>
+    <Step state="trick" kind="trick">
+      요령은 이렇습니다. 센서와 전자회로가 같은 실리콘 한 조각이며 표준 칩 공장에서 만들어집니다. 범프 접합이 없으므로 칩을 약 50 마이크로미터까지 얇게 깎을 수 있고, 검출기 전체의 값이 훨씬 내려갑니다.
+    </Step>
+  </Walkthrough>
+
+  <Walkthrough scene="sc.walkthrough-lgad" experiment="ATLAS High-Granularity Timing Detector (HGTD)" also="같은 원리: CMS 끝뚜껑 타이밍 층(ETL). 타이밍 층은 궤적 측정에 시계를 더합니다.">
+    <Step state="goal" kind="goal">
+      목표: 입자의 도착 시각을 수십 피코초 정밀도로 찍어, 공간에서는 겹치지만 시간에서는 겹치지 않는 충돌들의 입자를 가려내기.
+    </Step>
+    <Step state="drift" kind="signal">
+      두께가 약 50 마이크로미터에 불과한 얇은 실리콘 센서가 평소처럼 쌍을 만듭니다. 얇으면 표류 거리가 짧고 펄스도 짧습니다.
+    </Step>
+    <Step state="gain-layer" kind="signal">
+      전극 근처에는 전기장이 센, 특별히 도핑한 추가 층이 있습니다. 이 층을 지나는 전자는 더 많은 쌍을 떼어 낼 만큼 에너지를 얻습니다. 눈사태입니다. 신호는 약 10배에서 30배로 증폭됩니다.
+    </Step>
+    <Step state="fast-edge" kind="signal">
+      펄스가 클수록 상승 모서리가 가팔라지고, 가파른 모서리는 펄스 폭의 작은 일부 정밀도로 시각을 잴 수 있습니다. 얇은 센서는 모서리를 날카롭게 유지합니다.
+    </Step>
+    <Step state="timestamp" kind="readout">
+      전자회로는 모서리가 문턱을 넘는 순간을 기록합니다. 대략 30에서 50 피코초 정밀도의 도착 시각이 신호와 함께 저장됩니다. 이것이 타임스탬프입니다.
+    </Step>
+    <Step state="trick" kind="trick">
+      요령은 이렇습니다. 이득을 낮게, 약 20으로 둡니다. 가이거 계수관의 수천 배가 아닙니다. 모서리를 잡음 위로 띄우기에 딱 충분한 정도이고, 펄스는 원래 전하에 비례한 채로 남습니다.
+    </Step>
+  </Walkthrough>
+
+  <Deeper title="시간 분해능이 이득, 잡음, 두께에 따라 달라지는 이유">
+    문턱 통과 시각의 떨림(지터)은 잡음을 신호의 기울기로 나눈 값입니다. $\sigma_t \approx \sigma_n / (dV/dt)$. 이득은 전자회로 잡음을 높이지 않고 $dV/dt$만 올리므로 $\sigma_t$가 줄어듭니다. 얇은 센서는 펄스를 짧고 가파르게 만들지만 전하도 줄이므로, 이득을 씁니다. 두 번째 항은 궤적을 따라 전하가 어디에 얼마나 쌓이는지의 요동(란다우 요동)에서 오며, 두께가 약 50 µm보다 두꺼운 센서에서는 수십 피코초의 하한을 정합니다.
+
+    LGAD에서 이득층의 증폭률은 $M = \exp\!\big(\int \alpha(E)\,dx\big)$이며, 충돌 이온화 계수 $\alpha(E)$는 $3\times 10^{5}$ V/cm 근처의 전기장에서 가파르게 오릅니다. 따라서 이득은 바이어스 전압과 온도에 매우 민감합니다.
+  </Deeper>
+
+  동물원의 나머지는 재료를 바꾸거나, 읽는 대상을 바꿉니다.
+
+  <Scene id="sc.zoo-more">
+    <Step state="hpge">
+      **고순도 게르마늄**(high-purity germanium, HPGe). 두께가 수 센티미터인, 아주 순수한 게르마늄의 크고 차가운 결정을 거대한 다이오드 하나로 씁니다. 띠틈이 작아서(0.67 eV) keV당 쌍이 실리콘보다 많이 생기므로 전하의 요동이 작습니다. 감마선에 대해 흔한 검출기 가운데 에너지 분해능이 가장 좋아서 1 MeV에서 약 0.2 %입니다. 열 운반자를 억제하려고 약 77 K로 식힙니다. 게르마늄은 핵 분광학과 무중성미자 이중베타붕괴 탐색에 쓰입니다.
+    </Step>
+    <Step state="ccd">
+      **전하 결합 소자**(charge-coupled device, CCD). 전극이 양동이 역할을 하는 실리콘 칩입니다. 픽셀의 전하를 양동이에서 양동이로 넘겨 하나뿐인 출력 증폭기까지 보냅니다. 카메라와 망원경에 들어 있는 것이 이것입니다. 과학용 실리콘 CCD는 잡음이 매우 낮아 가시광 광자 하나도 기록할 수 있습니다.
+    </Step>
+    <Step state="skipper">
+      **스키퍼 CCD.** 출력단이 같은 전하 덩어리를 파괴하지 않고 몇 번이고 다시 잴 수 있게 고친 CCD입니다. N번 잰 값을 평균하면 잡음이 $1/\sqrt{N}$로 줄어, 전자 하나도 두드러져 보입니다. 실리콘에서는 전자 하나를 떼어 내는 데 약 1 eV면 되므로, 이런 칩은 아주 작은 에너지 축적도 알아챌 수 있습니다. SENSEI, DAMIC-M 같은 암흑물질 탐색에 쓰입니다.
+    </Step>
+    <Step state="sipm">
+      **실리콘 광전자증배관**(silicon photomultiplier, SiPM). 항복 전압 바로 위(가이거 모드)로 바이어스한 작은 다이오드의 격자입니다. 광자 하나가 한 셀에서 전자 약 100만 개의 눈사태를 일으킵니다. 셀 하나는 켜짐/꺼짐 스위치이고, 그 합이 광자 수를 셉니다. SiPM은 PET 스캐너와 입자물리에서 섬광체를 읽는 데 쓰입니다.
+    </Step>
+    <Step state="3d">
+      **3D 센서.** 표면에 평평한 전극을 두는 대신, 가는 기둥을 실리콘을 완전히 관통하도록 파냅니다. 그러면 전하가 기둥 사이의 짧은 거리를 옆으로 표류하므로 빨리 모이고, 강한 조사 뒤의 포획도 덜 문제가 됩니다. ATLAS의 가장 안쪽 픽셀 층 일부가 3D 센서를 씁니다.
+    </Step>
+    <Step state="wide-gap">
+      **넓은 띠틈 재료.** 다이아몬드(5.5 eV), 탄화규소, 질화갈륨은 손상이 잘 되지 않고 뜨거운 곳에서도 작동하지만, MeV당 쌍이 적다는 대가를 치릅니다. 주로 강한 빔을 감시하는 데 씁니다.
+    </Step>
+  </Scene>
+
+  <Bridge id="sc-hpge-to-nu-frontier" />
+  <Bridge id="sc-ccd-to-dm-direct" />
+
+  <Deeper title="에너지 분해능과 파노 인자">
+    독립적인 사건으로 만들어진 쌍이 $N = E/w$개라면, 계수 통계는 $\sigma_N = \sqrt{N}$을 줍니다. 그러나 쌍을 만드는 단계들은 총 에너지가 정해져 있으므로 독립적이지 않고, 분산은 $\sigma_N^2 = F N$으로 줄어듭니다. 파노 인자 $F$는 실리콘과 게르마늄에서 약 0.1입니다. 그러면 고유 에너지 분해능은 다음과 같습니다.
+
+    $$\frac{\sigma_E}{E} = \sqrt{\frac{F\,w}{E}}, \qquad \text{FWHM}=2.355\,\sigma_E .$$
+
+    게르마늄($w=2.96$ eV)의 1.33 MeV에서는 통계만으로 $\sigma_E\approx 0.6$ keV(FWHM $\approx 1.5$ keV)이고, 전자회로 잡음과 불완전한 수집까지 넣으면 실제 검출기는 FWHM 약 2 keV에 이릅니다. 광전자증배관을 붙인 섬광체는 대략 열 배 나쁩니다. 실리콘 검출기도 같은 방식으로 작동하며, 보통은 전자회로 잡음(수십에서 수백 개의 전자)이 한계가 됩니다.
+  </Deeper>
+</Layer>
+
+<Layer id="research">
+  검출기 물리학자가 한 해의 대부분을 쓰는 일은 실험에서 나온 데이터를 보는 것이 아닙니다. 센서가 실험 근처에도 가기 전에 센서를 다듬는 일입니다. 아이디어에서 검출기까지, 센서 하나의 여정은 이렇습니다. 이를 파이프라인이라 부르겠습니다.
+
+  <Scene id="sc.lab-pipeline">
+    <Step state="tcad">
+      **1. 설계와 시뮬레이션.** 무엇이든 만들기 전에, 소자 시뮬레이션(TCAD)으로 실리콘 안의 전기장, 공핍, 전하 수집을 방사선 손상 모형까지 넣어 풉니다. 입자 시뮬레이션(Geant4와 Allpix² 프레임워크)은 센서와 전자회로를 지나는 입자를 따라가며 읽기 회로에 무엇이 보일지 예측합니다.
+    </Step>
+    <Step state="asic">
+      **1b. 읽기 회로 설계.** 작은 신호를 증폭하고, 모양을 다듬고, 문턱값과 비교해야 합니다. 더 증폭하면 잡음이 커지고, 문턱을 낮추면 잡음이 픽셀을 저절로 반응시키고, 전력을 더 쓰면 검출기가 뜨거워집니다. 이 타협점을 고르는 것이 회로 설계자의 일입니다.
+    </Step>
+    <Step state="probe">
+      **2. 웨이퍼 제작과 점검.** 제작이 끝나면 탐침대가 센서마다 패드에 접촉합니다. 표준 측정은 두 가지입니다. 전압에 따른 전류(I–V)와 전압에 따른 전기용량(C–V)입니다. 둘을 합치면 항복 전압과 센서를 완전히 공핍시키는 전압을 알 수 있습니다.
+    </Step>
+    <Step state="source">
+      **3. 방사성 선원.** ⁹⁰Sr 선원은 거의 MIP처럼 행동하는 전자를 내보냅니다. ⁵⁵Fe 선원은 5.9 keV X선을 내며, 하나마다 약 1,600쌍을 떼어 냅니다. 칩의 이득을 보정하기에 알맞은, 알려진 전하량입니다.
+    </Step>
+    <Step state="tct">
+      **3b. 레이저 스캔.** 초점을 맞춘 적외선 레이저가 원하는 지점에 전하를 만듭니다. 이것을 센서 위에서 훑거나, 이광자 흡수(TPA-TCT)로 여러 깊이에 초점을 맞추면, 깊이와 위치에 따라 전하가 얼마나 잘 모이는지 지도를 얻을 수 있습니다.
+    </Step>
+    <Step state="testbeam">
+      **4. 테스트빔(test beam).** 센서를 가속기(DESY나 CERN의 SPS 등)로 가져가 기준 평면 사이에 놓고 실제로 빠른 입자의 빔을 쬡니다. 이것이 진짜 시험이며, 다음 절이 이 이야기를 다룹니다.
+    </Step>
+    <Step state="irradiation">
+      **5. 조사.** 센서에 중성자나 양성자를 쏘아, 몇 해 동안 가동한 것처럼 낡게 만듭니다. 그런 다음 다시 시험합니다.
+    </Step>
+    <Step state="integration">
+      **6. 검출기 조립.** 많은 센서를 가벼운 지지대에 얹고, 와이어 본딩하고, 냉각하고, 읽기 시스템에 연결합니다. 물리만큼이나 기계·열 공학의 일입니다.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="개념도: 바이어스 전압에 따른 센서 전류. 약한 누설 전류가 이어지다가 항복에서 급격히 커집니다. 실제 데이터가 아닙니다.">
+    <Scene id="sc.iv-curve">
+      <Step state="iv">
+        좋은 센서의 I–V 곡선은 항복 전까지 평평하고 작아서, cm²당 수십 나노암페어입니다. 항복하면 전류가 치솟습니다. 센서는 이 전압보다 훨씬 낮게 써야 합니다.
+      </Step>
+      <Step state="cv">
+        C–V에서는 공핍층이 자라면서 전기용량이 줄다가, 센서가 완전히 공핍되면 평평해집니다. 꺾이는 점이 완전 공핍 전압을 줍니다.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="C–V와 잡음을 기본 원리로 읽기">
+    면적이 $A$인 공핍된 다이오드에서 $C = \varepsilon A/W$입니다. 완전 공핍 아래에서는 $W\propto\sqrt{V}$이므로 $1/C^2 \propto V$이고 기울기가 $2/(q\varepsilon A^2 N_{\text{eff}})$이어서 $N_{\text{eff}}$를 구할 수 있습니다. $V_{fd}$ 위에서는 $C = \varepsilon A/d$가 일정합니다.
+
+    읽기 회로 잡음은 등가 잡음 전하(ENC)로 나타냅니다. 신호와 잡음이 같아지게 하는 신호 전하입니다. 전하 증폭기에서는 센서 전기용량, 누설 전류 $I_L$, 성형 시간 $\tau$에 대략 다음처럼 의존합니다.
+    $$\text{ENC}^2 \approx a\,\frac{C^2}{\tau} + b\,I_L\,\tau + c .$$
+    성형 시간이 짧으면 속도에 유리하지만 첫째(직렬) 항이 커지고, 길면 첫째 항은 줄지만 둘째(병렬) 항이 커지므로 최적값이 있습니다. 문턱을 ENC의 약 다섯 배로 두면 잡음 반응이 드물어집니다. 문턱을 훑으며 반응 수를 세면 S자 모양의 오차 함수, 곧 "S-곡선"이 그려지고, 그 폭이 잡음입니다.
+  </Deeper>
+
+  <Primer id="magnetic-tracking" />
+
+  <Scene id="sc.testbeam">
+    <Step state="telescope">
+      "빔 망원경"은 정밀한 픽셀 평면을 한 줄로 세우고 가운데에 시험 대상 소자(device under test, DUT)를 놓은 것입니다. 입자 빔이 모두를 지나갑니다. 평면마다 점 하나씩을 주고, 기준 평면을 지나는 직선이 입자가 DUT 어디를 맞혀야 하는지 예측합니다.
+    </Step>
+    <Step state="track">
+      소프트웨어가 반응을 이어 궤적을 만들고, DUT까지 연장해 DUT도 반응했는지 묻습니다. 반응한 비율이 효율입니다. 무리 크기는 전하 나눔을 알려 줍니다.
+    </Step>
+    <Step state="residual">
+      예측한 점과 측정한 점의 거리가 잔차입니다. 많이 모으면 잔차는 종 모양 히스토그램을 이룹니다. 망원경 자체의 불확도를 빼고 나면, 그 폭이 위치 분해능을 줍니다.
+    </Step>
+  </Scene>
+
+  <Widget name="TestbeamResiduals" />
+
+  <Deeper title="잔차의 폭에서 분해능으로">
+    잔차는 DUT 자체의 오차와 궤적 예측의 불확도가 합쳐진 것입니다.
+    $$\sigma_{\text{res}}^2 = \sigma_{\text{DUT}}^2 + \sigma_{\text{pred}}^2 .$$
+    망원경의 예측 오차는 평면의 분해능, 평면 사이의 간격, 그리고 층마다 궤적을 조금씩 휘게 하는 다중 산란에 달려 있습니다. 운동량 $p$인 입자가 두께 $x$, 복사 길이 $X_0$(실리콘에서 9.4 cm)인 물질을 지날 때 산란각은 대략 다음과 같습니다.
+    $$\theta_0 \approx \frac{13.6\ \text{MeV}}{\beta c\,p}\sqrt{\frac{x}{X_0}}.$$
+    빔 운동량이 클수록 산란이 적습니다. 수 GeV 에너지의 테스트빔을 찾는 까닭입니다. 소프트웨어 프레임워크(데이터 수집의 EUDAQ, 분석의 Corryvreckan 같은 것)가 작업의 큰 부분을 차지합니다.
+  </Deeper>
+
+  <Scene id="sc.radiation-damage">
+    <Step state="defects">
+      빠른 입자가 가끔 실리콘 원자핵을 세게 때려 원자를 제자리에서 쳐낼 때가 있습니다. 결정에 결함이 남습니다. 충돌기 검출기의 중심부에서는 이런 일이 수십억 번 일어납니다. 손상은 표준 선속인 cm²당 "1 MeV 중성자 등가"로 나타냅니다.
+    </Step>
+    <Step state="leakage">
+      결함은 띠틈 안에 에너지 준위를 만듭니다. 전자가 더 쉽게 뛰어올라 선속에 비례해 누설 전류가 늘어납니다.
+    </Step>
+    <Step state="doping">
+      어떤 결함은 전하를 띤 도펀트처럼도 작용하므로, 몸체의 유효 도핑이 바뀌고 완전 공핍 전압도 바뀝니다. 선속이 높으면 센서를 공핍시키는 데 훨씬 높은 전압이 필요합니다.
+    </Step>
+    <Step state="trapping">
+      다른 결함은 표류하는 전자와 정공을 붙잡습니다. 붙잡힌 전하는 전극에 닿지 못하므로 신호가 줄어듭니다.
+    </Step>
+    <Step state="anneal">
+      결함은 시간이 지나며 변하고, 열은 그 속도를 높입니다. 어떤 것은 낫고 어떤 것은 나빠집니다. 그래서 센서는 차갑게 두며, 이는 누설도 줄여 줍니다. 계획에는 따뜻하게 데우는 기간도 들어갑니다.
+    </Step>
+  </Scene>
+
+  <Deeper title="손상 비례 법칙을 수치로">
+    비이온화 에너지 손실(NIEL) 가설에서는 손상이 입자 종류가 아니라 변위 에너지에 비례하므로, 선속은 1 MeV 중성자 등가 $\Phi_{eq}$로 나타냅니다. 누설 전류의 증가는 다음과 같습니다.
+    $$\Delta I = \alpha\,\Phi_{eq}\,V_{\text{act}}, \qquad \alpha\approx 4\times10^{-17}\ \text{A/cm}\ \text{(after annealing, 20 °C)},$$
+    이는 약 7 K 식힐 때마다 절반으로 줄어듭니다. 포획은 운반자 수명을 $1/\tau_{\text{eff}} = \beta\,\Phi_{eq}$로 줄이며 $\beta\sim 5\times10^{-16}\ \text{cm}^2/\text{ns}$입니다. 따라서 $\Phi_{eq} = 10^{15}\ \text{cm}^{-2}$에서는 포획 시간이 약 2 ns로, 두꺼운 센서의 수집 시간보다 짧습니다. HL-LHC 궤적 검출기의 안쪽 층은 약 $10^{16}$에 맞춰 설계됩니다. 빔에서 먼 검출기는 $10^{13}$ 이하를 받습니다.
+  </Deeper>
+
+  **테스트빔에서 쓰는 며칠의 빔 시간은 작업의 작은 부분입니다. 그것을 가능하게 하는 것은 그 전의 몇 달에 걸친 시뮬레이션과 실험대 측정, 그리고 그 뒤의 냉각과 기계 작업입니다.**
+</Layer>
+
+<Layer id="case-its3">
+  <Scene id="sc.its3" mode="scrub">
+    <Step state="its2">
+      ALICE의 현재 안쪽 궤적 검출기(2021년부터 가동 중인 ITS2)는 빔 파이프를 감싸는 MAPS 원통형 층 일곱 겹으로 이루어져 있습니다. 가장 안쪽 층은 충돌 지점에서 약 2.2 센티미터 떨어져 있고, 층 하나의 두께는 복사 길이의 약 0.35 %입니다.
+    </Step>
+    <Step state="limits">
+      이제 두 가지가 한계를 정합니다. 안쪽 층은 지지대 위에 놓인 많은 평평한 칩으로 만들어져 있고, 지지대, 냉각관, 케이블이 실리콘 자체보다 훨씬 많은 물질을 더합니다. 그리고 빔 파이프가 얼마나 가까이 갈 수 있는지를 정합니다.
+    </Step>
+    <Step state="flat-wafer">
+      ITS3의 발상은 웨이퍼 전체를 칩 하나로 쓰는 것입니다. 큰 칩을 만드는 공정과 같은 스티칭으로 똑같은 블록을 나란히 놓으면 길이 약 26 센티미터의 센서가 됩니다. 그런 다음 수십 마이크로미터까지 얇게 깎습니다.
+    </Step>
+    <Step state="bending">
+      이렇게 얇은 실리콘은 종이처럼 휘어집니다. 그러니 구부립니다.
+    </Step>
+    <Step state="cylinder">
+      반원통 두 개가 층 하나를 이룹니다. 센서가 곧 구조물입니다. 가벼운 발포체로만 받치고 공기 흐름으로 식히므로, 실리콘 외에는 물질이 거의 없습니다. 가장 안쪽 층은 약 2 센티미터까지 들어옵니다.
+    </Step>
+    <Step state="material">
+      층당 물질은 복사 길이의 약 0.07 %로, 이전보다 몇 배 줄어듭니다. 입자가 덜 산란하며, 궤적이 충돌점을 비껴가는 거리인 충돌 매개변수는 약 두 배 정밀하게 측정됩니다.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="개념도: 평평한 웨이퍼 크기의 센서가 반원통으로 휘어집니다. 축척은 맞지 않습니다.">
+    <Scene id="sc.its3-bending">
+      <Step state="wafer">얇게 깎은 평평한 웨이퍼 크기의 센서. 자보다 조금 깁니다.</Step>
+      <Step state="half-cylinder">층의 반지름에 맞게 구부리면 그 모양을 유지합니다.</Step>
+    </Scene>
+  </Figure>
+
+  <Walkthrough scene="sc.walkthrough-its3-heavyflavour" experiment="ALICE ITS3" also="같은 원리: 모든 꼭짓점 검출기. 첫 층이 가깝고 얇을수록 꼭짓점 분해능이 좋아집니다.">
+    <Step state="goal" kind="goal">
+      목표: 1 밀리미터의 몇 분의 일을 가서 붕괴하는 c 쿼크 입자(맵시 입자)를, 충돌점에서 바로 만들어진 수많은 입자와 가려내기.
+    </Step>
+    <Step state="vertex" kind="signal">
+      첫째 층은 충돌에 아주 가까운 한 점을 재고, 둘째 층은 또 다른 점을 잽니다. 두 점이 꼭짓점으로 거슬러 가는 직선을 정합니다.
+    </Step>
+    <Step state="extrapolate" kind="signal">
+      직선을 충돌점까지 연장합니다. 첫째 점이 가까우므로 위치 오차와, 빔 파이프와 첫째 층에서의 산란이 조금만 영향을 줍니다.
+    </Step>
+    <Step state="displaced" kind="readout">
+      1차 꼭짓점을 수십 마이크로미터 비껴가는 궤적은 아래쪽에서 일어난 붕괴에서 온 것입니다. 수명이 약 1 피코초인 c 쿼크와 b 쿼크 강입자가 바로 그런 궤적을 만듭니다.
+    </Step>
+    <Step state="trick" kind="trick">
+      요령은 이렇습니다. 비껴간 거리의 분해능은 센서 오차와 산란 오차의 합을 첫 층이 얼마나 가까운지로 환산한 값입니다. 물질이 적고 반지름이 작을수록 둘 다 좋아집니다.
+    </Step>
+  </Walkthrough>
+
+  <Deeper title="충돌 매개변수 분해능">
+    반지름 $r_1 < r_2$인 두 층의 위치 분해능이 $\sigma_1,\sigma_2$이고 산란을 무시하면, 꼭짓점에서의 외삽 오차는 다음과 같습니다.
+    $$\sigma_{d_0}^2 = \frac{r_2^2\,\sigma_1^2 + r_1^2\,\sigma_2^2}{(r_2-r_1)^2}.$$
+    두께 $x$인 첫 층에서의 다중 산란은 다음을 더합니다.
+    $$\sigma_{\text{ms}} \approx r_1\,\theta_0\propto \frac{r_1}{p}\sqrt{x/X_0},$$
+    그러므로 $r_1$이 작을수록(첫째 항), $x/X_0$가 낮을수록(둘째 항) 분해능이 좋아집니다. $r_1\approx 2.2$ cm에서 약 1.9 cm로, 0.35 %에서 0.07 % $X_0$로 가면 위에서 말한 개선이 나오며, 산란이 중요한 낮은 운동량에서 특히 그렇습니다. 숫자는 참고용으로만 보세요. 최종 설계에 따라 달라집니다.
+  </Deeper>
+
+  **현재 상황은 어떨까요(2025년 기준)?** ITS3는 공학 설계와 시제품 제작 단계에 있습니다. 첫 웨이퍼 크기 센서와 휘어진 시제품이 빔 시험을 포함해 시험되었습니다. 설치는 이번 10년 말의 LHC Run 4에 앞선 장기 가동 중단 기간에 하기로 되어 있습니다. 일정은 바뀌므로 ALICE 페이지를 확인하세요.
+
+  <Bridge id="sc-its3-to-hi-detection" />
+
+  <Scene id="sc.cbm-silicon">
+    <Step state="mvd">
+      다른 실험에서도 같은 발상을 씁니다. FAIR의 CBM은 가장 높은 바리온 밀도의 물질을 연구합니다. 마이크로 꼭짓점 검출기는 표적 바로 뒤 진공 속에 MAPS 스테이션을 두어, s 쿼크나 c 쿼크가 든 수명이 짧은 입자를 찾습니다.
+    </Step>
+    <Step state="sts">
+      그 뒤에는 쌍극 자석 안에 양면 실리콘 스트립 스테이션이 있습니다. 궤적마다 휘어짐을, 곧 운동량을 매초 수백만 번의 충돌에 대해 잽니다. 검출기는 연속으로 읽으며, 모든 신호에 타임스탬프를 붙입니다. 2025년 기준으로 이번 10년 말에 데이터 수집을 시작할 계획입니다.
+    </Step>
+  </Scene>
+
+  <Scene id="sc.future">
+    <Step state="timing-4d">
+      **4차원.** 오늘날의 궤적 검출기는 신호마다 공간 좌표 세 개를 줍니다. LGAD나 빠른 MAPS처럼 수십 피코초 정밀도의 시각도 주는 센서는 네 번째 좌표를 더할 것입니다. 가장 높은 반응률에서는 겹치는 충돌을 가려내는 방법이 시간입니다.
+    </Step>
+    <Step state="alice3">
+      **ALICE 3.** 2030년대를 위해 제안된 차세대 중이온 실험으로, 거의 전부 실리콘으로 만듭니다. 가장 안쪽 층은 빔 파이프의 진공 안, 빔에서 겨우 수 밀리미터 떨어진 곳에 놓이고, 빔을 주입하는 동안에는 뒤로 물러납니다. 2025년 기준으로 설계 단계입니다.
+    </Step>
+    <Step state="fcc">
+      **미래의 충돌기.** FCC-ee 전자–양전자 충돌기 같은 제안은 물질이 더 적고 분해능이 수 마이크로미터인 꼭짓점 검출기를 요구하며, 모놀리식 센서가 이를 충족할 유력한 후보입니다.
+    </Step>
+    <Step state="beyond">
+      **충돌기 너머.** 실리콘 궤적 검출기는 우주 망원경과 우주선 실험에서도 날고 있고, 하이브리드 픽셀 칩은 병원의 영상 촬영과 방사선 감시에 쓰입니다. 이 페이지의 물리는 어디서나 같습니다.
+    </Step>
+  </Scene>
+
+  이 페이지는 단순화한 그림을 쓰며 실제 데이터는 담지 않았습니다. 더 깊이 알고 싶다면 Spieler와 Lutz의 교재, 그리고 아래 참고문헌의 실리콘 검출기 리뷰 장부터 읽어 보세요.
+</Layer>

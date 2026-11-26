@@ -1,0 +1,523 @@
+---
+topic: heavy-ion
+lang: en
+title: Heavy-Ion Physics
+subtitle: Recreating the first microseconds of the universe
+description: Smash heavy atomic nuclei together to make quark–gluon plasma, the matter of the early universe, and map where nuclear matter turns into it.
+tagline: Smash nuclei, rebuild the early universe.
+layers:
+  - { id: hook, title: The hottest matter ever made }
+  - { id: why, title: Why smash nuclei? }
+  - { id: collision, title: What happens in a collision? }
+  - { id: fireball, title: Inside the fireball }
+  - { id: phase-diagram, title: Between plasma and nuclei }
+  - { id: detection, title: How do we catch it? }
+  - { id: frontier, title: The frontier }
+references:
+  - title: "Heavy Ion Collisions: The Big Picture and the Big Questions"
+    author: "W. Busza, K. Rajagopal, W. van der Schee — Annu. Rev. Nucl. Part. Sci. 68 (2018) 339"
+    url: "https://arxiv.org/abs/1802.04801"
+    note: "Review. The first sections are readable for undergraduates."
+  - title: "The ALICE experiment: a journey through QCD"
+    author: "ALICE Collaboration — Eur. Phys. J. C 84 (2024) 813"
+    url: "https://arxiv.org/abs/2211.04384"
+    note: "Long overview of the physics and the detector. Skim the introductions."
+  - title: "Mapping the phases of quantum chromodynamics with beam energy scan"
+    author: "A. Bzdak, S. Esumi, V. Koch, J. Liao, M. Stephanov, N. Xu — Phys. Rep. 853 (2020) 1"
+    url: "https://arxiv.org/abs/1906.00936"
+    note: "Advanced review of the beam energy scan programme."
+  - title: "Challenges in QCD matter physics — The scientific programme of the Compressed Baryonic Matter experiment at FAIR"
+    author: "CBM Collaboration — Eur. Phys. J. A 53 (2017) 60"
+    url: "https://arxiv.org/abs/1607.01487"
+  - title: "Modern Particle Physics"
+    author: "Mark Thomson — Cambridge University Press (2013)"
+    note: "Textbook. See the chapters on QCD and on the strong interaction."
+asOf: "2025"
+draft: true
+---
+
+<Layer id="hook">
+  <Scene id="hi.hook" mode="scrub">
+    <Step state="dark">Two lead nuclei, racing in the dark at almost light speed.</Step>
+    <Step state="approach">They race toward each other.</Step>
+    <Step state="impact">Collision.</Step>
+    <Step state="fireball">For a moment, a fireball hotter than anything else we can make.</Step>
+    <Step state="tracks">Thousands of particles fly out. Our detectors catch them.</Step>
+  </Scene>
+  <BigNumber value={1e12} unit="K" approx caption="Hotter than anything else humans have made — about 100,000 times hotter than the centre of the Sun." />
+</Layer>
+
+<Layer id="why">
+  <Primer id="standard-model" />
+
+  <Scene id="hi.confinement">
+    <Step state="string">
+      Protons and neutrons are built from quarks, glued by gluons. The theory of that glue is <Term id="qcd">quantum chromodynamics</Term> (QCD).
+    </Step>
+    <Step state="stretch">
+      Try to pull one quark out. The gluon field between the two stretches like a string, and the energy stored in it grows with the distance.
+    </Step>
+    <Step state="break">
+      Eventually it is cheaper to turn that energy into a new quark and antiquark. The string snaps. You never hold a single quark. This is <Term id="confinement">confinement</Term>.
+    </Step>
+    <Step state="deconfined">
+      But make matter extremely hot or extremely dense, and quarks and gluons are no longer locked into single protons or neutrons. They roam freely through a larger region: the <Term id="qgp">quark–gluon plasma</Term>.
+    </Step>
+  </Scene>
+
+  <Deeper title="The QCD potential, and the limits of the rubber-band picture">
+    At short distance the force between a heavy quark and antiquark looks Coulomb-like, and at large distance it grows into a linear potential:
+
+    $$V(r) \approx -\frac{4}{3}\frac{\alpha_s \hbar c}{r} + \kappa r, \qquad \kappa \approx 1\ \text{GeV/fm}.$$
+
+    The string breaks when $\kappa r$ exceeds roughly the energy of a light quark–antiquark pair, so a few tenths of a fm to about 1 fm of stretching is enough.
+
+    A rubber band gets harder to stretch the further you pull. The QCD string is different: its tension $\kappa$ stays constant, so the force does not grow with distance. "String" is a picture of a narrow tube of gluon field, not a material.
+  </Deeper>
+
+  <Scene id="hi.cosmic-timeline">
+    <Step state="qgp">
+      The early universe was that plasma. Until about ten microseconds after the Big Bang, space was filled with free quarks and gluons.
+    </Step>
+    <Step state="hadrons">
+      As the universe cooled below about 2 × 10¹² K, quarks became confined into protons and neutrons.
+    </Step>
+    <Step state="nuclei">
+      Within minutes, protons and neutrons fused into the first light nuclei.
+    </Step>
+    <Step state="atoms">
+      Nearly four hundred thousand years later, nuclei captured electrons and the first atoms appeared.
+    </Step>
+  </Scene>
+
+  <Bridge id="hi-universe-to-dm-evidence" />
+
+  <Scene id="hi.phase-diagram">
+    <Step state="axes">
+      Ice, water, steam: matter has phases, and so does nuclear matter. Its map has two axes: temperature, and baryon density, the number of protons and neutrons per volume. Most of the map is blank. We return to it later.
+    </Step>
+  </Scene>
+
+  **QCD is the only strong-force theory we know, and heavy-ion collisions are the one laboratory where we can watch it act on a huge number of particles at once.**
+</Layer>
+
+<Layer id="collision">
+  <Scene id="hi.collision">
+    <Step state="approach">
+      Two nuclei, each about 14 fm across for lead (1 fm = 10⁻¹⁵ m), speed toward each other in the beam pipe. We want a frame in which the collision is symmetric: the centre-of-mass frame.
+    </Step>
+    <Step state="lorentz">
+      Nearly at the speed of light, special relativity flattens each nucleus along its direction of motion. At the LHC, with a Lorentz factor of several thousand, a lead nucleus is a pancake less than 0.01 fm thick.
+    </Step>
+  </Scene>
+
+  <Deeper title="Collision energy and the Lorentz factor">
+    For two equal nuclei colliding head-on, the energy per nucleon pair in the centre-of-mass frame is $\sqrt{s_{NN}} = 2E_{\text{beam}}$ per nucleon. Each nucleus then has
+
+    $$\gamma = \frac{\sqrt{s_{NN}}}{2 m_N c^2}, \qquad L = \frac{L_0}{\gamma}.$$
+
+    With $\sqrt{s_{NN}} = 5.02$ TeV this gives $\gamma \approx 2700$ and $L \approx 14\ \text{fm}/2700 \approx 0.005$ fm. At 200 GeV, $\gamma \approx 100$. For a fixed target, $s = 2m_N^2 + 2m_N E_{\text{lab}}$, so $\sqrt{s_{NN}}$ grows only as $\sqrt{E_{\text{lab}}}$.
+  </Deeper>
+
+  <Scene id="hi.stopping">
+    <Step state="transparent">
+      At very high energy, the two pancakes pass through each other. Their protons and neutrons keep going. In the middle, nearly empty of baryons, the collision energy becomes a hot fireball of new particles.
+    </Step>
+    <Step state="stopped">
+      At lower energy, the nuclei are thicker and slow each other down. This is <Term id="baryon-stopping">baryon stopping</Term>. The fireball is cooler, but packed with baryons. Remember this: it is how we reach dense matter.
+    </Step>
+  </Scene>
+
+  <Widget name="CollisionEnergy" />
+
+  <Scene id="hi.collision">
+    <Step state="impact">
+      Nuclei rarely hit dead centre. The offset between their centres is the <Term id="impact-parameter">impact parameter</Term> $b$. Nucleons in the overlap are participants. The rest are spectators and fly on, almost undisturbed. A small $b$ is a <Term id="centrality">central</Term> collision.
+    </Step>
+  </Scene>
+
+  <Widget name="ImpactParameter" />
+
+  <Deeper title="The Glauber model">
+    We cannot measure $b$ directly. Instead, the Glauber model treats each nucleus as a random cloud of nucleons, drawn from a density profile such as the Woods–Saxon shape
+
+    $$\rho(r) = \frac{\rho_0}{1 + e^{(r-R)/a}},$$
+
+    and counts how many nucleons overlap ($N_{\text{part}}$) and how many nucleon–nucleon collisions occur ($N_{\text{coll}}$). Events are sorted by measured particle multiplicity, and each multiplicity class is matched to a range of $N_{\text{part}}$ and thus to a centrality percentile.
+  </Deeper>
+
+  <Scene id="hi.collision" mode="scrub">
+    <Step state="initial">
+      The clock starts at t = 0 and is measured in fm/c, the time light takes to cross one femtometre (1 fm/c ≈ 3 × 10⁻²⁴ s). The pancakes overlap, and their energy is deposited in a thin, extremely dense slab.
+    </Step>
+    <Step state="preeq">
+      From 0 to about 1 fm/c, the deposited energy is far from equilibrium. Quickly, particles collide and share their energy until the system has a well-defined temperature (thermal equilibrium).
+    </Step>
+    <Step state="qgp">
+      From about 1 to 10 fm/c, the quark–gluon plasma expands and cools like a fluid. It starts at a temperature several times above the transition temperature.
+    </Step>
+    <Step state="hadronization">
+      At around 10 fm/c, the temperature falls to the transition value, roughly 2 × 10¹² K. Quarks and gluons are again confined into hadrons. This is <Term id="hadronization">hadronization</Term>, and it fixes the relative numbers of each type of particle.
+    </Step>
+    <Step state="freezeout">
+      The hadrons still collide for another 5 to 10 fm/c. Then they are too far apart to interact: <Term id="freeze-out">freeze-out</Term>. Their momenta no longer change.
+    </Step>
+    <Step state="free-stream">
+      The particles fly free. About 10¹⁶ fm/c later (about 30 nanoseconds), they reach a detector ten metres away.
+    </Step>
+  </Scene>
+
+  <Deeper title="An energy-density estimate (Bjorken)">
+    Bjorken's picture treats the slab as a boost-invariant cylinder of cross-section $\pi R^2$. The energy density at proper time $\tau_0$ is
+
+    $$\varepsilon_{\text{Bj}} = \frac{1}{\pi R^2\,\tau_0}\,\frac{dE_T}{dy},$$
+
+    where $dE_T/dy$ is the transverse energy emitted per unit rapidity. With a $\tau_0$ of about 1 fm/c, central collisions at RHIC and the LHC give several to tens of GeV/fm³, far above ordinary nuclear matter ($\approx 0.15$ GeV/fm³) and above the transition region (a few tenths of a GeV/fm³ up to about 1).
+  </Deeper>
+
+  We never see the fireball. It lasts about 10⁻²³ seconds and is only a few nuclear diameters across. **All we get are the particles that reach the detector, and from them we must reconstruct what happened.** That is the next layer.
+</Layer>
+
+<Layer id="fireball">
+  Each clue below is a different fingerprint of the plasma. Together they build one picture.
+
+  <Scene id="hi.flow">
+    <Step state="almond">
+      Clue 1: it flows. In an off-centre collision, the overlap region is shaped like an almond.
+    </Step>
+    <Step state="pressure">
+      The pressure gradient is steeper along the short axis of the almond than along the long one. The fireball is pushed out harder in the short direction.
+    </Step>
+    <Step state="momentum-anisotropy">
+      The initial spatial anisotropy is converted into a momentum anisotropy: more particles leave along the short axis. This is <Term id="elliptic-flow">elliptic flow</Term>, quantified by a coefficient $v_2$. It needs strong re-scattering. A gas of non-interacting particles would simply stream out and keep no memory of the shape.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schematic: elliptic flow v₂ versus transverse momentum. It rises, then levels off, and heavier particles have smaller v₂ at the same pT.">
+    <Scene id="hi.flow">
+      <Step state="v2-plot">
+        Measured $v_2$ is large. Comparing it with fluid-dynamics calculations shows that the plasma is a liquid with an extremely small viscosity relative to its entropy density, $\eta/s$, close to a conjectured lower limit of $1/4\pi$. It is far from a weakly interacting gas.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Widget name="FlowDemo" />
+
+  <Deeper title="Defining v₂, and what the 1/4π limit means">
+    Particle angles $\phi$ relative to the symmetry plane $\Psi_2$ follow
+
+    $$\frac{dN}{d\phi} \propto 1 + 2v_2\cos\!\big[2(\phi-\Psi_2)\big] + \cdots,$$
+
+    and to first order $v_2 \propto \varepsilon_2$, the initial eccentricity of the overlap. The conjectured bound $\eta/s \ge \hbar/4\pi k_B$ comes from calculations in a strongly coupled model theory with a gravity dual. It is not a proven theorem for QCD. "Nearly perfect" means low viscosity relative to entropy, not zero viscosity.
+  </Deeper>
+
+  <Scene id="hi.jet">
+    <Step state="dijet">
+      Clue 2: it stops fast quarks. Rarely, two quarks or gluons from the colliding nucleons scatter hard and fly out back-to-back. Each turns into a narrow spray of particles, a jet.
+    </Step>
+    <Step state="quenched">
+      If the hard scattering happens deep inside the plasma, one parton must cross a lot of coloured matter and loses energy. We see one jet, and the other one much weaker or absorbed: <Term id="jet-quenching">jet quenching</Term>.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schematic: nuclear modification factor R_AA. Hadrons (strong interaction) are suppressed far below 1. Photons and Z bosons stay near 1, as a control.">
+    <Scene id="hi.jet">
+      <Step state="raa-plot">
+        We quantify the loss with $R_{AA}$: the yield in nucleus–nucleus collisions divided by the proton–proton yield scaled by the number of binary collisions. Without a medium, it would be 1. For quarks and gluons it is far below 1. For photons and Z bosons, which carry no colour charge, it stays near 1. That is the control.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="R_AA, and what energy loss depends on">
+    $$R_{AA}(p_T) = \frac{1}{\langle N_{\text{coll}}\rangle}\,\frac{dN^{AA}/dp_T}{dN^{pp}/dp_T}.$$
+
+    In simple radiative-loss models the average energy lost grows with the path length $L$ roughly as $L^2$ and with the medium's "transport coefficient" $\hat q$, which measures how strongly the medium kicks passing partons sideways. Both are properties we want to extract from data.
+  </Deeper>
+
+  <Scene id="hi.quarkonium">
+    <Step state="bound">
+      Clue 3: bound states dissolve. The J/ψ is a charm quark and its antiquark held together. The Υ (upsilon) is the same for bottom quarks. Such "quarkonium" states are small and tightly bound.
+    </Step>
+    <Step state="screening">
+      In a plasma, the free colour charges around a pair screen the force between them, like free charges screening a Coulomb field. When the screening length falls below the size of the pair, the pair can no longer stay bound.
+    </Step>
+    <Step state="melt-sequence">
+      Larger, more loosely bound states melt at lower temperature, so a sequence of states acts as a thermometer. At the LHC, so many charm quarks are present that some J/ψ are re-formed from unrelated charm quarks and antiquarks in the plasma.
+    </Step>
+  </Scene>
+
+  <Deeper title="Debye screening">
+    In a medium with Debye screening length $\lambda_D \sim 1/(gT)$, the potential between a heavy quark–antiquark pair becomes roughly Yukawa-like,
+
+    $$V(r) \sim -\frac{\alpha}{r}\,e^{-r/\lambda_D}.$$
+
+    Once $\lambda_D$ drops below the size of the bound state, no bound state exists. Real QCD matter is more complicated: states can also be broken up by collisions with the medium's constituents. The simple picture explains the ordering of the melting, not the numbers.
+  </Deeper>
+
+  <Scene id="hi.thermometers">
+    <Step state="strangeness">
+      Clue 4: strange quarks are common. Strange quarks have a mass comparable to the temperature of the fireball, so a plasma makes them easily. A cold hadron gas makes strange hadrons much less often. Strange particles are produced in larger numbers relative to pions in heavy-ion collisions than in proton–proton collisions.
+    </Step>
+    <Step state="photons">
+      Clue 5: light from inside. Photons and lepton pairs interact only electromagnetically, so they leave the fireball without being absorbed. Their spectrum reports on conditions throughout the whole history, a thermometer averaged over cooling and expansion.
+    </Step>
+    <Step state="hadron-ratios">
+      Hadron yields are described by a thermal statistical model: one temperature (about 156 MeV at the LHC) and one baryon chemical potential fix the ratios of hundreds of species. The fireball at hadronization behaves like a gas in thermal and chemical equilibrium.
+    </Step>
+  </Scene>
+
+  <Deeper title="Statistical hadronization">
+    In the grand-canonical statistical model, the density of species $i$ is
+
+    $$n_i \propto g_i \int d^3p\; \exp\!\left[-\frac{E_i - \mu_B B_i - \mu_S S_i}{T}\right],$$
+
+    with spin degeneracy $g_i$, baryon number $B_i$ and strangeness $S_i$. Fitting measured yields gives the chemical freeze-out temperature $T_{\text{ch}}$ and $\mu_B$. These two numbers place each collision energy as a point on the phase diagram. We use this in the next layer.
+  </Deeper>
+</Layer>
+
+<Layer id="phase-diagram">
+  <Scene id="hi.phase-diagram" mode="scrub">
+    <Step state="axes">
+      Here is the map. Vertical: temperature. Horizontal: baryon density, or the <Term id="baryon-chemical-potential">baryon chemical potential</Term> $\mu_B$. It is the QCD <Term id="phase-diagram">phase diagram</Term>.
+    </Step>
+    <Step state="early-universe">
+      Top left: hot and nearly baryon-free. The early universe was here, and so is the LHC fireball.
+    </Step>
+    <Step state="crossover">
+      Calculations of QCD on a lattice (lattice QCD) tell us that here plasma turns into hadrons through a smooth <Term id="crossover">crossover</Term> at around 155 to 160 MeV (about 2 × 10¹² K), not a sharp transition. There is no sudden jump.
+    </Step>
+    <Step state="nuclear-matter">
+      Bottom right: ordinary <Term id="nuclear-matter">nuclear matter</Term>. The nuclei in your body sit at zero temperature and a density of about 0.16 nucleons per fm³.
+    </Step>
+    <Step state="liquid-gas">
+      Just above it, heated nuclear matter behaves like a liquid that can boil into a gas of nucleons. It has a critical point at a temperature of order 10 to 20 MeV.
+    </Step>
+    <Step state="neutron-star">
+      Farther right, cold and extremely dense: the interior of neutron stars. Their mergers briefly create matter that is both dense and hot.
+    </Step>
+    <Step state="unknown-region">
+      The empty middle: dense and hot. Is the transition between plasma and hadrons still a smooth crossover here? Lattice QCD struggles with dense matter, so theory alone cannot tell us.
+    </Step>
+    <Step state="first-order">
+      One expectation is that the crossover turns into a sharp, first-order transition, like boiling water, with a latent heat. This is only a hypothesis.
+    </Step>
+    <Step state="critical-point">
+      If so, the smooth and the sharp lines meet at a <Term id="critical-point">critical point</Term>, like the endpoint of the liquid–gas line of water. Does it exist? Where? We do not know. We must go and look.
+    </Step>
+    <Step state="energy-scan">
+      How? Lower the collision energy. We saw that slower nuclei stop each other: the fireball is cooler but denser. Each collision energy leads to a different point on the map. This is the <Term id="beam-energy-scan">beam energy scan</Term>.
+    </Step>
+    <Step state="freezeout-curve">
+      We locate the chemical freeze-out of each energy with the statistical model, and the points line up into a curve: from the LHC at the top left to the lowest energies on the right.
+    </Step>
+  </Scene>
+
+  <Deeper title="Water, and the limits of the analogy">
+    In water, a first-order line separates liquid from vapour and ends at a critical point; beyond it, liquid and vapour become the same supercritical fluid. The QCD crossover resembles going around that point. The analogy is imperfect: water has a well-defined order parameter, whereas QCD's crossover has no unique definition, so the quoted transition temperature depends on the observable used. Also, the quark–gluon plasma is not a gas of ordinary particles.
+  </Deeper>
+
+  <Widget name="EnergyScan" />
+
+  <Scene id="hi.bes-signals">
+    <Step state="fluctuations">
+      How do we notice a critical point? Count the net number of protons (protons minus antiprotons) event by event. Near a critical point, fluctuations of this net number should grow, and their size should vary with collision energy in a non-monotonic way. This variation is the signal being sought. Measuring it requires good particle identification.
+    </Step>
+    <Step state="directed-flow">
+      A second probe: <Term id="directed-flow">directed flow</Term>, the sideways push of the fireball along the beam axis. A softening of the equation of state, as in a first-order transition, can change how its slope depends on energy, and even change its sign.
+    </Step>
+    <Step state="turn-off">
+      Third: where does the plasma disappear? As we lower the energy, signals such as strong jet suppression and the scaling of flow with quark number should switch off. That energy marks where plasma is no longer made.
+    </Step>
+    <Step state="dileptons">
+      Fourth: dileptons. Electron or muon pairs escape even dense matter without scattering, and reveal its temperature and how hadrons change inside it. HADES and CBM are designed for this.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schematic: what a critical point might look like in net-proton fluctuations versus collision energy. A guide to the idea, not a measurement.">
+    <Scene id="hi.bes-signals">
+      <Step state="fluctuations-plot">
+        A non-monotonic dependence on $\sqrt{s_{NN}}$ would be the hint. Measurements are in progress, as we discuss below.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="Cumulants and the correlation length">
+    The fluctuations are expressed as cumulants $C_n$ of the event-by-event net-proton number. Ratios such as $C_4/C_2 = \kappa\sigma^2$ remove trivial volume dependence. Near a critical point the correlation length $\xi$ grows, and the cumulants grow with it as
+
+    $$C_2 \sim \xi^{2},\quad C_3 \sim \xi^{4.5},\quad C_4 \sim \xi^{7}$$
+
+    (qualitatively, in the simplest theory). Higher cumulants therefore react more strongly to the same critical growth. Two caveats: the fireball lives only briefly, so $\xi$ cannot grow without limit, and the proton is only a proxy for the conserved baryon number.
+  </Deeper>
+
+  <Scene id="hi.phase-diagram">
+    <Step state="experiments">
+      Who explores which part of the map? Many facilities, many techniques. Only a few collide at the very highest energies, and several fixed-target programmes reach the densest region.
+    </Step>
+  </Scene>
+
+  | Facility · experiment | Mode | Roughly where it looks |
+  |---|---|---|
+  | LHC · ALICE | collider | highest energy, baryon density near zero |
+  | RHIC · STAR (BES-I/II) | collider and fixed target | a few GeV to 200 GeV, sweeping the map widely |
+  | SPS · NA61/SHINE | fixed target | intermediate energy, varying nucleus size too |
+  | GSI · HADES | fixed target | low energy, high density |
+  | FAIR · CBM | fixed target, very high rate | a few GeV, densest region, with enormous statistics |
+  | NICA · MPD, BM@N | collider and fixed target | a few GeV |
+  | J-PARC-HI | fixed target (planned) | high density |
+
+  **Where do we stand (as of 2025)?** Interesting trends have been reported, but the existence of a critical point is **still open**. Precision results from STAR's second beam energy scan (BES-II) and future data from FAIR are the next steps.
+</Layer>
+
+<Layer id="detection">
+  <Scene id="hi.geometry">
+    <Step state="collider">
+      Two ways to collide. In a collider, two beams meet head-on and particles fly in all directions, so the detector is a barrel around the collision point. ALICE, STAR, sPHENIX and MPD are of this type.
+    </Step>
+    <Step state="fixed-target">
+      In a <Term id="fixed-target">fixed-target</Term> experiment, one beam hits a thin target. The whole system is moving forward in the lab, so particles fly into a forward cone, and detectors are placed in a line along the beam. CBM, HADES and NA61/SHINE are of this type.
+    </Step>
+  </Scene>
+
+  Four ideas from detector physics do most of the work. Open the boxes if they are new to you.
+
+  <Primer id="silicon-sensor" />
+  <Primer id="magnetic-tracking" />
+  <Primer id="ionization" />
+  <Primer id="tpc" />
+
+  <Walkthrough scene="hi.walkthrough-collider" experiment="ALICE" also="Same principle: STAR (with a time projection chamber and solenoid), sPHENIX, MPD.">
+    <Step state="birth" kind="goal">
+      Goal: take one charged particle from the fireball and find out where it was born, how much momentum it carries and what kind of particle it is.
+    </Step>
+    <Step state="pixels" kind="signal">
+      First, thin layers of silicon pixels just outside the beam pipe record a few points on the track. Extending these points back gives the birth vertex. A particle born slightly away from it comes from the decay of a heavier, short-lived particle.
+    </Step>
+    <Step state="curvature" kind="signal">
+      A solenoid magnet bends the track into an arc. The radius gives the momentum; the direction of the bend gives the sign of the charge.
+    </Step>
+    <Step state="tpc-drift" kind="signal">
+      The track passes through the large gas volume of a time projection chamber. It ionizes the gas, and the freed electrons drift to the end plates. Arrival position gives two coordinates, arrival time the third. The amount of charge gives the energy loss dE/dx.
+    </Step>
+    <Step state="tof" kind="signal">
+      Outside the chamber, a time-of-flight layer records the particle's arrival time to tens of picoseconds. Flight time over the known path length gives its speed.
+    </Step>
+    <Step state="identity" kind="readout">
+      Momentum together with speed (from dE/dx or time of flight) gives the mass, so the particle is identified: pion, kaon, proton, and so on. Do this for thousands of tracks per event.
+    </Step>
+    <Step state="pid-trick" kind="trick">
+      The trick: at the same momentum, a heavier particle is slower and ionizes more. So at fixed momentum, each type of particle leaves a different signal. Try it.
+    </Step>
+  </Walkthrough>
+
+  <Widget name="BetheBloch" mode="pid" />
+
+  <Deeper title="The formulas behind the walkthrough">
+    Momentum transverse to the field: $p_T\,[\text{GeV}/c] \approx 0.3\,B\,[\text{T}]\,R\,[\text{m}]$.
+
+    Mass from time of flight over path length $L$: $m c= p\sqrt{\dfrac{c^2t^2}{L^2}-1}$.
+
+    Mean energy loss in a gas (Bethe–Bloch, simplified):
+
+    $$\left\langle\frac{dE}{dx}\right\rangle \approx K z^2\frac{Z}{A}\frac{1}{\beta^2}\left[\frac{1}{2}\ln\frac{2m_ec^2\beta^2\gamma^2 T_{\max}}{I^2}-\beta^2-\frac{\delta}{2}\right].$$
+
+    It depends on the speed $\beta$, not on the mass alone. That is why dE/dx plotted against momentum separates species.
+  </Deeper>
+
+  <Bridge id="hi-its-to-sc-its3" />
+
+  The same questions, a different geometry: how does a fixed-target experiment work?
+
+  <Walkthrough scene="hi.walkthrough-fixed-target" experiment="CBM" also="Same principle: HADES, NA61/SHINE, and STAR in its fixed-target mode.">
+    <Step state="cone" kind="goal">
+      Goal: measure rare probes, such as electron pairs and particles with strange or charm quarks, in gold-on-target collisions at a few GeV per nucleon, up to ten million collisions every second. Particles come out in a forward cone.
+    </Step>
+    <Step state="silicon-stations" kind="signal">
+      The tracking is done by stations of silicon detectors, stacked along the beam in the forward cone. Pixel layers (MAPS) sit closest to the target, strip layers further out.
+    </Step>
+    <Step state="bend" kind="signal">
+      The stations sit inside a dipole magnet. The tracks curve in the horizontal plane, and their curvature gives momentum and charge, just as in the barrel case.
+    </Step>
+    <Step state="time-stamp" kind="signal">
+      Outer detectors identify the particles: time-of-flight walls measure speed, and a Cherenkov detector separates the fastest electrons from pions. Every hit comes with a time stamp.
+    </Step>
+    <Step state="reconstruct" kind="readout">
+      Software collects hits and assigns them to tracks. Tracks are grouped into events, and events are searched for rare signals such as electron pairs.
+    </Step>
+    <Step state="free-streaming" kind="trick">
+      The trick: the collisions come too fast to select one at a time. So every detector streams all hits, each with a time stamp, without a trigger. A computer sorts them into collisions afterwards, using time and position.
+    </Step>
+  </Walkthrough>
+
+  <Primer id="cherenkov" />
+
+  <Figure kind="simulated" caption="Simulated example, not real data. Left: a central high-energy collision, with thousands of charged tracks curling in a barrel detector. Right: a lower-energy fixed-target collision, with hundreds of tracks in a forward cone.">
+    <Scene id="hi.event-replay">
+      <Step state="collider-high">
+        A high-energy central collision produces thousands of charged particles in every direction.
+      </Step>
+      <Step state="fixed-target-low">
+        At lower energy, hundreds of tracks go forward in a cone.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Primer id="particle-id" />
+
+  <Figure kind="schematic" caption="Schematic: energy loss dE/dx versus momentum, from a simplified Bethe–Bloch formula. Each particle type has its own band.">
+    <Scene id="hi.pid">
+      <Step state="momentum-axis">
+        Plot dE/dx for many tracks against their momentum.
+      </Step>
+      <Step state="bands">
+        The tracks fall on bands, one per particle type: electrons, pions, kaons, protons. At low momentum, heavier particles lose more energy.
+      </Step>
+      <Step state="overlap">
+        The bands cross at some momenta, where this method cannot decide. Then another measurement, such as time of flight, takes over. Proton fluctuation measurements depend on getting this identification right.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Bridge id="hi-pid-to-det-interactions" />
+
+  **From data to physics.** The recipe is the same in every experiment. Divide events by centrality. Measure observables such as yields, $v_2$ and $R_{AA}$. Compare them with models, such as relativistic hydrodynamics. Then infer the properties of the fireball: its viscosity, its temperature and its baryon density. We reason backward, from effect to cause.
+</Layer>
+
+<Layer id="frontier">
+  <Scene id="hi.frontier">
+    <Step state="bes-next">
+      **Critical-point search.** STAR's BES-II is being analysed (as of 2025), including a fixed-target extension to the highest baryon densities. The CBM experiment at FAIR's SIS100 accelerator will take data at higher rates than any previous experiment once it starts, expected late in the decade. NICA at JINR adds another approach. Whether a critical point exists, or the whole line stays a smooth crossover, will be settled by these precision measurements.
+    </Step>
+    <Step state="small-systems">
+      **How small can a fluid be?** Flow-like signals appear even in proton–proton and proton–lead collisions that produce many particles. Is that the same hydrodynamic behaviour in a tiny droplet, or a different mechanism, such as initial-state correlations? Where does plasma stop being plasma? This is still debated.
+    </Step>
+    <Step state="shapes">
+      **Nuclear shapes.** In July 2025 the LHC collided oxygen–oxygen and neon–neon for the first time. The idea: neon-20 is expected to be elongated, and oxygen-16 close to round, perhaps with clusters of alpha particles. Flow in these small collisions is sensitive to the nuclear shape, which gives a way to test it. Analysis was ongoing as of 2025.
+    </Step>
+    <Step state="future">
+      **Next machines.** ALICE 3, a proposed all-silicon successor for the 2030s, would extend precision to heavy-flavour and dileptons. The Electron–Ion Collider (EIC) at Brookhaven, planned for the 2030s, will use electrons to map gluons inside nuclei.
+    </Step>
+    <Step state="astro">
+      **Heavy ions meet astrophysics.** Gravitational waves from neutron-star mergers constrain the properties of cold matter at several times nuclear density. Heavy-ion collisions probe hot matter at similar densities. Together they constrain the same equation of state.
+    </Step>
+  </Scene>
+
+  <Gallery>
+    <GalleryItem title="CERN — LHC, ALICE">
+      The highest collision energies (several TeV per nucleon pair). Also hosts the fixed-target NA61/SHINE at the SPS.
+    </GalleryItem>
+    <GalleryItem title="BNL — RHIC, STAR, sPHENIX">
+      The first heavy-ion collider, 2000 onward. Its final runs came in 2025, before the ring is rebuilt as the EIC. The beam energy scan was done here.
+    </GalleryItem>
+    <GalleryItem title="GSI / FAIR — HADES, CBM">
+      Dense matter at a few GeV, with SIS100 under construction.
+    </GalleryItem>
+    <GalleryItem title="JINR — NICA">
+      A collider for a few GeV per nucleon, in Dubna.
+    </GalleryItem>
+    <GalleryItem title="J-PARC">
+      A proposed heavy-ion programme at high baryon density.
+    </GalleryItem>
+  </Gallery>
+
+  This page uses simplified pictures and no real data. For detail, start with the review by Busza, Rajagopal and van der Schee in the references below.
+</Layer>

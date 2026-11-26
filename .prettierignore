@@ -1,0 +1,6 @@
+dist
+.build-*
+node_modules
+.astro
+package-lock.json
+docs/**/*.md

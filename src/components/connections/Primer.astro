@@ -1,0 +1,134 @@
+---
+import { getEntry, render } from 'astro:content';
+import { primerUsage } from '../../lib/connections';
+import { TOPICS, type Lang } from '../../data/topics';
+import { getLangFromUrl, localizePath, useT } from '../../i18n';
+
+interface Props {
+  id: string;
+  open?: boolean;
+  lang?: Lang;
+  /** MDX component map for the primer body; defaults to scrolly/mdx-components.ts when it exists. */
+  components?: Record<string, any>;
+}
+const { id, open = false, components } = Astro.props;
+const lang: Lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
+const t = useT(lang);
+
+let entry = await getEntry('primers', `${id}/${lang}` as any);
+let shownLang: Lang = lang;
+if (!entry && lang !== 'en') {
+  entry = await getEntry('primers', `${id}/en` as any);
+  shownLang = 'en';
+}
+
+// Lazily resolve the shared MDX component map (circular import: Primer is itself in that map).
+let map: Record<string, any> = components ?? {};
+if (entry && !components) {
+  const mods = import.meta.glob('../scrolly/mdx-components.ts');
+  const loader = Object.values(mods)[0];
+  if (loader) {
+    const m: any = await loader();
+    map = m.default ?? m.mdxComponents ?? m.components ?? {};
+  }
+}
+
+const Body = entry ? (await render(entry)).Content : null;
+const usage = primerUsage.find((p) => p.id === id);
+const origin = usage?.origin ?? null;
+const originDef = origin ? TOPICS[origin.topic] : null;
+const originTitle = origin ? t(`topic.${origin.topic}.title`) : '';
+---
+
+{
+  !entry ? (
+    <aside class="primer primer--missing" data-primer={id}>
+      {t('connections.primer.missing', { id })}
+    </aside>
+  ) : (
+    <details class="primer" data-primer={id} open={open} lang={shownLang !== lang ? shownLang : undefined}>
+      <summary>
+        <span class="primer__label">{t('primer.label')}</span>
+        <span class="primer__title">{entry.data.title}</span>
+      </summary>
+      <div class="primer__body">
+        {Body && <Body components={map} />}
+        {origin && originDef && (
+          <p class="primer__from">
+            {originDef.released ? (
+              <a href={localizePath(lang, `/${origin.topic}/#${origin.layer}`)}>{t('primer.from', { topic: originTitle })}</a>
+            ) : (
+              <span>{t('connections.primer.fromSoon', { topic: originTitle })}</span>
+            )}
+          </p>
+        )}
+      </div>
+    </details>
+  )
+}
+
+<style>
+  .primer {
+    margin: var(--space-6) 0;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    background: var(--bg-raised);
+    font-size: var(--fs-sm);
+  }
+  .primer summary {
+    display: flex;
+    gap: var(--space-3);
+    align-items: baseline;
+    padding: var(--space-3) var(--space-4);
+    cursor: pointer;
+    list-style: none;
+  }
+  .primer summary::-webkit-details-marker {
+    display: none;
+  }
+  .primer summary::before {
+    content: '▸';
+    color: var(--accent);
+    transition: transform var(--dur-fast);
+  }
+  .primer[open] summary::before {
+    transform: rotate(90deg);
+  }
+  .primer summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .primer__label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+  .primer__title {
+    color: var(--fg);
+    font-weight: 600;
+  }
+  .primer__body {
+    padding: 0 var(--space-4) var(--space-4);
+    color: var(--fg-muted);
+  }
+  .primer__from {
+    margin: var(--space-3) 0 0;
+    font-size: var(--fs-xs);
+    color: var(--fg-faint);
+  }
+  .primer__from a {
+    color: var(--accent);
+  }
+  .primer--missing {
+    margin: var(--space-4) 0;
+    padding: var(--space-2) var(--space-3);
+    border: 1px dashed var(--grid-strong);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--fg-faint);
+  }
+</style>

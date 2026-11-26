@@ -1,0 +1,8 @@
+{
+  "connections.primer.missing": "Primer {id} — not written yet",
+  "connections.primer.fromSoon": "From {topic} (coming soon)",
+  "connections.primer.fallback": "Shown in English",
+  "connections.bridge.soon": "Coming soon",
+  "connections.related.go": "Read",
+  "connections.term.alsoKnownAs": "Other languages"
+}

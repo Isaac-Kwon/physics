@@ -52,7 +52,7 @@ export const TOPICS: Record<TopicId, TopicDef> = {
     accent2: '#fff3dc',
     accentLight: '#b85c00',
     accent2Light: '#7a3a00',
-    released: false,
+    released: true,
     readingMinutes: 25,
     heroScene: 'hi.hook',
     layers: [
@@ -73,7 +73,7 @@ export const TOPICS: Record<TopicId, TopicDef> = {
     accent2: '#4b3fd1',
     accentLight: '#5a44d4',
     accent2Light: '#33268f',
-    released: false,
+    released: true,
     readingMinutes: 20,
     heroScene: 'dm.hook',
     layers: [
@@ -93,7 +93,7 @@ export const TOPICS: Record<TopicId, TopicDef> = {
     accent2: '#9fc0ff',
     accentLight: '#1f5fe0',
     accent2Light: '#0d3a96',
-    released: false,
+    released: true,
     readingMinutes: 20,
     heroScene: 'nu.hook',
     layers: [
@@ -112,7 +112,7 @@ export const TOPICS: Record<TopicId, TopicDef> = {
     accent2: '#d08a55',
     accentLight: '#0c8a73',
     accent2Light: '#9a5a2c',
-    released: false,
+    released: true,
     readingMinutes: 20,
     heroScene: 'sc.hook',
     layers: [
@@ -132,7 +132,7 @@ export const TOPICS: Record<TopicId, TopicDef> = {
     accent2: '#ffffff',
     accentLight: '#087ea3',
     accent2Light: '#1f2d36',
-    released: false,
+    released: true,
     readingMinutes: 18,
     heroScene: 'det.hook',
     layers: [

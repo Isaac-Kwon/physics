@@ -1,0 +1,306 @@
+---
+topic: dark-matter
+lang: it
+title: Materia oscura
+subtitle: Che cosa tiene insieme l'universo, e come proviamo a catturarla
+description: "La maggior parte della materia nell'universo è invisibile. Scopriamo le prove della materia oscura, i candidati e come un rivelatore a xeno aspetta il rinculo di un solo nucleo."
+tagline: La maggior parte della materia non si vede. Aspettiamo che dia una spinta a un solo nucleo.
+layers:
+  - { id: hook, title: La maggior parte della materia è invisibile }
+  - { id: evidence, title: Perché pensiamo che ci sia? }
+  - { id: candidates, title: Che cosa potrebbe essere? }
+  - { id: search, title: Tre modi di cercarla }
+  - { id: direct-detection, title: Aspettando il rinculo di un nucleo }
+  - { id: frontier, title: La frontiera }
+references:
+  - title: "Review of Particle Physics: Dark Matter"
+    author: "Particle Data Group"
+    url: "https://pdg.lbl.gov/"
+    note: "Reference review. The overview and the sections on evidence and direct detection are readable for undergraduates."
+  - title: "A History of Dark Matter"
+    author: "G. Bertone, D. Hooper — Rev. Mod. Phys. 90 (2018) 045002"
+    url: "https://arxiv.org/abs/1605.04909"
+    note: "Historical review, from Zwicky to WIMPs. Very readable."
+  - title: "Introduction to Cosmology"
+    author: "Barbara Ryden — Cambridge University Press (2nd edition, 2016)"
+    note: "Textbook. The chapters on dark matter and on the cosmic microwave background."
+  - title: "A direct empirical proof of the existence of dark matter"
+    author: "D. Clowe et al. — Astrophys. J. 648 (2006) L109"
+    url: "https://arxiv.org/abs/astro-ph/0608407"
+    note: "The Bullet Cluster paper. Short."
+  - title: "Rotation curves of spiral galaxies"
+    author: "V. Rubin, W. K. Ford, N. Thonnard — Astrophys. J. 238 (1980) 471"
+    note: "The classic measurement of flat rotation curves."
+  - title: "Planck 2018 results. VI. Cosmological parameters"
+    author: "Planck Collaboration — Astron. Astrophys. 641 (2020) A6"
+    url: "https://arxiv.org/abs/1807.06209"
+    note: "Source of the composition of the universe. The introduction is accessible."
+asOf: "2025"
+draft: true
+---
+
+<Layer id="hook">
+  <Scene id="dm.hook" mode="scrub">
+    <Step state="galaxy-visible">Una galassia a spirale: miliardi di stelle, gas incandescente, polvere.</Step>
+    <Step state="halo-reveal">Pesiamola con la sua gravità e compare un vasto alone invisibile, molte volte più grande e più pesante di tutto ciò che vediamo.</Step>
+    <Step state="rotation-curve">Le stelle ai suoi margini girano troppo velocemente per la sola materia visibile.</Step>
+  </Scene>
+  <BigNumber value={85} unit="%" approx caption="di tutta la materia dell'universo è oscura: non emette alcuna luce che possiamo vedere. Nel bilancio totale di energia, la materia ordinaria è solo circa il 5 %, la materia oscura circa il 27 % e l'energia oscura il resto (secondo Planck)." />
+</Layer>
+
+<Layer id="evidence">
+  <Scene id="dm.evidence">
+    <Step state="coma">
+      1933: Fritz Zwicky pesa l'ammasso di galassie della Chioma dalla velocità con cui si muovono le sue galassie. Vanno molto troppo veloci per la luce che vediamo. L'ammasso dovrebbe essersi disperso. Qualcosa di invisibile aggiunge gravità.
+    </Step>
+    <Step state="rotation">
+      Anni Settanta: Vera Rubin e Kent Ford misurano la <Term id="rotation-curve">curva di rotazione</Term>, la velocità delle stelle in funzione della distanza. Lontano dal centro le stelle dovrebbero rallentare, come i pianeti esterni. Non lo fanno. La velocità resta costante: la massa continua dove la luce finisce.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schema: velocità orbitale in funzione della distanza dal centro galattico, da semplici funzioni modello. Il solo disco visibile dà una curva decrescente. Aggiungendo un alone oscuro la curva resta piatta. Non sono dati reali.">
+    <Scene id="dm.rotation">
+      <Step state="disc-only">
+        Con il solo disco visibile, la velocità sale e poi scende con la distanza, circa come l'inverso della radice quadrata del raggio.
+      </Step>
+      <Step state="with-halo">
+        Aggiungiamo un alone la cui massa continua a crescere con il raggio, e la curva resta piatta. È ciò che si osserva.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Widget name="RotationCurve" />
+
+  <Deeper title="Curve di rotazione e forma degli aloni">
+    Per un'orbita circolare, la gravità fornisce la forza centripeta:
+
+    $$\frac{v^2}{r} = \frac{G\,M(r)}{r^2} \quad\Rightarrow\quad v(r) = \sqrt{\frac{G\,M(r)}{r}}.$$
+
+    Fuori dal disco visibile, $M(r)$ smette di crescere, quindi $v \propto r^{-1/2}$ (una discesa kepleriana). Una curva piatta, $v$ = costante, richiede $M(r) \propto r$. Per una sfera isoterma, la densità scende come $\rho \propto r^{-2}$, il che dà esattamente $M \propto r$.
+
+    Le simulazioni di materia oscura fredda suggeriscono un profilo dell'alone di tipo Navarro–Frenk–White (NFW),
+
+    $$\rho(r) = \frac{\rho_s}{(r/r_s)\,(1 + r/r_s)^2},$$
+
+    che scende come $r^{-1}$ vicino al centro e come $r^{-3}$ lontano, mentre la velocità resta più o meno piatta nell'intervallo osservato. Il widget usa un alone più semplice, con nucleo e plateau. I dischi reali non sono sfere, quindi la formula per $M(r)$ è un'approssimazione.
+  </Deeper>
+
+  <Scene id="dm.evidence">
+    <Step state="lensing">
+      La massa curva la luce (<Term id="gravitational-lensing">lente gravitazionale</Term>). Un ammasso davanti a una galassia lontana fa da lente e la stira in archi. La deviazione pesa l'ammasso, qualunque sia la sua composizione: parecchie volte più delle sue stelle e del suo gas.
+    </Step>
+    <Step state="bullet">
+      Due ammassi si sono scontrati. Il loro gas caldo, che brilla nei raggi X, si è scontrato frontalmente ed è rimasto vicino al centro. Ma la lente gravitazionale mostra che la maggior parte della massa è passata oltre, insieme alle galassie. La massa non si trova dove c'è la materia visibile.
+    </Step>
+    <Step state="cmb">
+      Nell'universo neonato la materia ordinaria era legata alla luce e non poteva aggregarsi. Le increspature della radiazione cosmica di fondo si spiegano solo se una materia aggiuntiva, cieca alla luce, si stava già raccogliendo. Senza di essa le galassie non avrebbero fatto in tempo a crescere.
+    </Step>
+  </Scene>
+
+  <Deeper title="A che cosa portano le misure">
+    La lente gravitazionale debole devia la luce di un angolo $\alpha \approx 4GM/(c^2 b)$ per un raggio di luce che passa a distanza $b$ da una massa $M$. Mappando molte galassie di sfondo distorte si ottiene una mappa della massa.
+
+    Il disegno della radiazione cosmica di fondo è un'onda sonora nel fluido fotoni–barioni. Una materia aggiuntiva che non si accoppia alla luce cambia le altezze relative dei picchi acustici. I fit danno le densità rispetto alla densità critica $\Omega_b \approx 0{,}05$, $\Omega_c \approx 0{,}27$, $\Omega_\Lambda \approx 0{,}68$. Il rapporto tra materia oscura e materia totale è allora $0{,}27 / (0{,}27 + 0{,}05) \approx 85\,\%$.
+
+    Metodi indipendenti (ammassi, lenti gravitazionali, radiazione cosmica di fondo, rotazione delle galassie) danno risposte coerenti. Questo accordo è l'argomento più forte.
+  </Deeper>
+
+  <Bridge id="hi-universe-to-dm-evidence" />
+</Layer>
+
+<Layer id="candidates">
+  <Primer id="standard-model" />
+
+  <Scene id="dm.candidates">
+    <Step state="axis">
+      Qualunque cosa sia la <Term id="dark-matter">materia oscura</Term>, non è fatta di alcuna particella del Modello Standard che conosciamo. Allora che cos'è? I candidati coprono un intervallo di masse sbalorditivo, da molto più leggeri di un elettrone a molte volte più pesanti del Sole: circa 90 potenze di dieci.
+    </Step>
+    <Step state="axion">
+      Gli <Term id="axion">assioni</Term> sono estremamente leggeri, dell'ordine da un milionesimo a un millesimo di elettronvolt. Furono proposti per risolvere un problema indipendente della forza forte, e riempirebbero lo spazio come un'onda e non come particelle separate. Ancora più leggera è la materia oscura «fuzzy».
+    </Step>
+    <Step state="wimp">
+      I <Term id="wimp">WIMP</Term>: particelle massicce debolmente interagenti, con masse da circa 1 GeV a 10 TeV. Una particella che sente solo la gravità e la forza debole, e che fu prodotta nell'universo primordiale caldo, sarebbe rimasta oggi in una quantità più o meno giusta. Questo «miracolo dei WIMP» li ha resi i favoriti per decenni.
+    </Step>
+    <Step state="sterile">
+      Neutrini sterili: cugini più pesanti dei neutrini che non sentono nemmeno la forza debole, con masse intorno al kiloelettronvolt. Decadrebbero lentissimamente in un fotone X e un neutrino, che i telescopi potrebbero vedere.
+    </Step>
+    <Step state="pbh">
+      Buchi neri primordiali: buchi neri formati nel primo secondo dell'universo, non da stelle morenti. Non sono affatto nuove particelle. Le osservazioni escludono la maggior parte delle masse, ma alcune finestre restano aperte.
+    </Step>
+  </Scene>
+
+  <Primer id="weak-interaction" />
+
+  <Deeper title="Che cosa vuol dire fredda, e perché una particella?">
+    «Fredda» significa che si muove lentamente rispetto alla luce quando cominciò a formarsi la struttura. Particelle veloci, «calde», come i neutrini ordinari cancellerebbero i piccoli addensamenti, ma noi vediamo piccole galassie nane. Perciò la maggior parte della materia oscura è fredda, o quasi.
+
+    Il miracolo dei WIMP è un breve calcolo. Una particella in equilibrio termico che smette di annichilarsi (si disaccoppia, o «freeze-out») con l'espansione dell'universo finisce con una densità relitta
+    $$\Omega_\chi h^2 \approx \frac{3\times 10^{-27}\ \text{cm}^3\,\text{s}^{-1}}{\langle\sigma v\rangle}.$$
+    Il valore misurato, circa 0,12, richiede $\langle\sigma v\rangle \approx 3 \times 10^{-26}\ \text{cm}^3\,\text{s}^{-1}$, che è ciò che dà una sezione d'urto sulla scala debole. È un indizio, non una prova.
+
+    La gravità modificata (MOND, Milgrom 1983) cambia la legge di forza alle accelerazioni bassissime invece di aggiungere massa. Descrive sorprendentemente bene le curve di rotazione delle galassie. Ma fatica con gli ammassi di galassie, con l'ammasso Proiettile (Bullet Cluster) e con la radiazione cosmica di fondo, dove sembra ancora servire massa invisibile. Per questo la maggior parte dei fisici preferisce la materia oscura fatta di particelle. La questione è ancora sotto verifica, non chiusa.
+  </Deeper>
+
+  **Sappiamo che la materia oscura c'è grazie alla gravità. Nessun'altra forza ci ha ancora mostrato nulla.**
+</Layer>
+
+<Layer id="search">
+  <Scene id="dm.channels">
+    <Step state="direct">
+      Disegniamo una sola interazione: una particella di materia oscura χ incontra una particella ordinaria. Leggiamola dall'alto in basso. Una particella di materia oscura colpisce un nucleo atomico e rimbalza. Costruiamo un rivelatore per vedere quel singolo rinculo: la ricerca diretta.
+    </Step>
+    <Step state="indirect">
+      Leggiamo lo stesso diagramma da sinistra a destra. Due particelle di materia oscura si incontrano e annichilano in particelle ordinarie. Dove la materia oscura è densa, come al centro della nostra galassia, i telescopi possono cercare raggi gamma, antimateria o neutrini: la ricerca indiretta.
+    </Step>
+    <Step state="collider">
+      Leggiamolo al contrario. Se facciamo urtare particelle ordinarie con energia sufficiente, la materia oscura potrebbe essere prodotta. Uscirebbe dal rivelatore senza essere vista, lasciando energia mancante: le ricerche ai collisori, a LHC.
+    </Step>
+  </Scene>
+
+  Ciascun modo ha il suo punto di forza. La ricerca diretta è la più sensibile per le particelle pesanti. La ricerca indiretta sonda il cosmo. I collisori raggiungono quelle leggere e non dipendono dal fatto che la materia oscura sia presente intorno a noi. Una vera scoperta ne richiederebbe più di uno.
+</Layer>
+
+<Layer id="direct-detection">
+  <Primer id="scintillation" />
+  <Primer id="tpc" />
+
+  La Terra non è ferma. Il Sole ci trasporta attorno alla galassia a circa 230 km/s, attraverso un alone di materia oscura con una densità locale di circa 0,3 GeV per centimetro cubo. Per una particella da 100 GeV sono solo circa tre particelle ogni mille centimetri cubi. Eppure circa 70.000 di esse attraversano ogni centimetro quadrato ogni secondo. Quasi tutte passano dritte. Speriamo in una che non lo faccia.
+
+  <Walkthrough scene="dm.xenon-tpc" experiment="XENONnT" also="LZ e PandaX-4T (tutti TPC a xeno liquido a doppia fase).">
+    <Step state="cutaway" kind="goal">
+      Obiettivo: cogliere il momento in cui una particella di materia oscura dà un minuscolo calcio a un nucleo di xeno. Il rivelatore è un alto cilindro con diverse tonnellate di xeno liquido, in profondità sottoterra, con un sottile strato di xeno gassoso sopra e matrici di sensori di luce sopra e sotto.
+    </Step>
+    <Step state="recoil" kind="signal">
+      Una particella di materia oscura colpisce un nucleo di xeno, che rincula con un'energia da pochi a decine di keV. È un <Term id="nuclear-recoil">rinculo nucleare</Term>: un nucleo che si muove nel liquido per decine di nanometri prima di fermarsi.
+    </Step>
+    <Step state="s1" kind="signal">
+      Il nucleo in rinculo eccita e ionizza atomi di xeno lungo il suo minuscolo percorso. Gli atomi eccitati emettono luce di scintillazione ultravioletta entro nanosecondi. I sensori vedono un breve lampo di alcune dozzine di fotoni. È il primo segnale, chiamato S1.
+    </Step>
+    <Step state="drift" kind="signal">
+      Intanto alcuni degli elettroni liberati sfuggono alla ricombinazione. Un campo elettrico di alcune centinaia di volt per centimetro li trascina verso l'alto attraverso il liquido a pochi millimetri per microsecondo. Impiegano fino a circa un millisecondo per arrivare in cima.
+    </Step>
+    <Step state="s2" kind="signal">
+      In superficie vengono estratti nel gas, dove un campo molto più intenso li accelera in modo che eccitino gli atomi del gas. Questo produce un lampo brillante e più lungo, S2, centinaia di volte più forte per elettrone. Basta un elettrone per vederlo.
+    </Step>
+    <Step state="reconstruct" kind="readout">
+      I sensori in alto vedono dove si accende S2: la posizione orizzontale. Il ritardo tra S1 e S2 dà la profondità. Insieme danno una posizione 3D entro circa un centimetro. Gli eventi vicino alle pareti vengono scartati: lo xeno scherma il proprio centro. La dimensione di S1 e S2 dà l'energia.
+    </Step>
+    <Step state="s2-s1-ratio" kind="trick">
+      Il trucco è il rapporto S2/S1. Un rinculo nucleare (il segnale) concentra la sua energia in una traccia minuscola, dove molti elettroni si ricombinano e danno più luce e meno carica. Un rinculo elettronico (dalla radioattività, il fondo principale) dà relativamente più carica. I due cadono in bande diverse. Prova a classificare gli eventi da solo.
+    </Step>
+  </Walkthrough>
+
+  <Widget name="ErNrClassifier" />
+
+  <Deeper title="Cinematica del rinculo per una particella pesante">
+    Una particella di materia oscura di massa $m_\chi$ e velocità $v$ si diffonde elasticamente su un nucleo di massa $m_N$. Nel sistema del centro di massa trasferisce un impulso $q = 2\mu v \sin(\theta/2)$, con la massa ridotta $\mu = m_\chi m_N/(m_\chi + m_N)$. Il nucleo rincula con
+
+    $$E_R = \frac{q^2}{2 m_N} = \frac{\mu^2 v^2}{m_N}\,(1 - \cos\theta).$$
+
+    Prendiamo $m_\chi = 100$ GeV, lo xeno con $m_N \approx 122$ GeV e $v = 220$ km/s $\approx 7 \times 10^{-4}\,c$. Allora $\mu \approx 55$ GeV e il massimo rinculo (frontale, $\theta = \pi$) è $2\mu^2 v^2/m_N \approx 25$ keV. Un urto tipico dà circa la metà, quindi circa 10 keV: molto al di sotto dell'energia di qualunque decadimento radioattivo.
+
+    Lo spettro di rinculo è decrescente e quasi esponenziale, quindi una soglia bassa del rivelatore è importante. Il tasso di eventi cresce anche con il nucleo bersaglio circa come $A^2$ per un'interazione indipendente dallo spin (i nucleoni agiscono in modo coerente), una ragione per cui lo xeno ($A \approx 131$) è un buon bersaglio.
+  </Deeper>
+
+  <Bridge id="dm-tpc-to-det-measurement" />
+
+  Lo xeno non è l'unica strada. Ciascuna tecnica qui sotto scambia qualcosa con qualcos'altro.
+
+  <Scene id="dm.technique-cards">
+    <Step state="bolometer">
+      Bolometri criogenici (CRESST, SuperCDMS): un cristallo raffreddato a pochi millesimi di grado sopra lo zero assoluto. Un rinculo lo riscalda di circa un milionesimo di grado, e un termometro sensibile lo rivela. Luce o carica lette in parallelo separano i rinculi nucleari da quelli elettronici. Poiché l'energia è misurata così bene, le soglie possono essere bassissime, ideali per la materia oscura leggera.
+    </Step>
+    <Step state="ccd">
+      CCD skipper (SENSEI, DAMIC-M): sensori al silicio che possono misurare più volte la carica di ciascun pixel e quindi contare i singoli elettroni. Una particella di materia oscura molto leggera può liberare un elettrone o due, troppo poco perché lo xeno se ne accorga. Cercano materia oscura molto più leggera di un protone.
+    </Step>
+    <Step state="bubble">
+      Camere a bolle (PICO): un liquido tenuto appena sotto il punto di ebollizione. Un rinculo nucleare deposita in un punto minuscolo energia sufficiente a far partire una bolla, che viene fotografata. I rinculi elettronici dovuti alla radioattività sono troppo radi per produrre bolle, quindi la camera è cieca alla maggior parte del fondo. È un buon modo per cercare interazioni dipendenti dallo spin.
+    </Step>
+    <Step state="nai-modulation">
+      Modulazione annuale: la Terra orbita attorno al Sole e a giugno il moto orbitale si somma al moto del Sole attraverso l'alone, mentre a dicembre si sottrae. Un segnale di materia oscura dovrebbe salire e scendere una volta all'anno. DAMA/LIBRA, un insieme di cristalli di ioduro di sodio, riporta proprio una modulazione di questo tipo. Altri esperimenti con lo stesso materiale (COSINE-100, ANAIS-112) non l'hanno confermata, e la tensione è cresciuta. Il problema è irrisolto (al 2025).
+    </Step>
+    <Step state="argon-psd">
+      Argon liquido (DarkSide-20k): la luce di scintillazione dell'argon decade con due costanti di tempo. I rinculi nucleari producono soprattutto la parte veloce; i rinculi elettronici producono più parte lenta. La sola forma dell'impulso respinge la maggior parte del fondo.
+    </Step>
+  </Scene>
+
+  <Bridge id="dm-ccd-to-sc-zoo" />
+
+  <Primer id="silicon-sensor" />
+</Layer>
+
+<Layer id="frontier">
+  <Scene id="dm.backgrounds">
+    <Step state="muons">
+      I raggi cosmici colpiscono l'atmosfera e producono muoni che piovono a circa uno per centimetro quadrato al minuto e attraversano qualunque cosa. Un rivelatore di eventi rari deve andare in un <Term id="underground-laboratory">laboratorio sotterraneo</Term>: con uno o due chilometri di roccia sopra, il flusso di muoni si riduce di un fattore un milione o più. I muoni che restano vengono marcati da una cisterna d'acqua circostante che si illumina (luce Čerenkov).
+    </Step>
+    <Step state="radioactivity">
+      Poi c'è la radioattività del rivelatore stesso: tracce di uranio, torio e potassio nell'acciaio e nel vetro, il gas radon nell'aria e il kripton radioattivo nello xeno stesso. Tutto ciò che sta vicino al rivelatore è scelto per radiopurezza, in parte fatto di rame elettroformato sottoterra. La schermatura viene dall'acqua e dallo xeno liquido stesso: il volume fiduciale.
+    </Step>
+  </Scene>
+
+  <Gallery>
+    <GalleryItem title="Italia: LNGS, Gran Sasso">
+      Sotto una montagna dell'Appennino, circa 1,4 km di roccia. Ospita XENONnT, DarkSide e molti altri esperimenti a basso fondo.
+    </GalleryItem>
+    <GalleryItem title="Corea: Yemilab, Jeongseon">
+      Costruito in una miniera della provincia di Gangwon e aperto nel 2022, con circa 1 km di roccia. Ospita un programma di materia oscura basato su cristalli di ioduro di sodio ed è una base per ricerche di neutrini e di doppio decadimento beta senza neutrini.
+    </GalleryItem>
+    <GalleryItem title="USA: SURF, Sanford Underground Research Facility">
+      Un'ex miniera d'oro nel Sud Dakota, a circa 1,5 km di profondità. Ospita LZ.
+    </GalleryItem>
+    <GalleryItem title="Canada: SNOLAB">
+      In una miniera di nichel in attività vicino a Sudbury, a circa 2 km di profondità. Ospita PICO e SuperCDMS.
+    </GalleryItem>
+    <GalleryItem title="Cina: CJPL, Jinping">
+      Sotto una montagna, con circa 2,4 km di roccia. Ospita PandaX.
+    </GalleryItem>
+  </Gallery>
+
+  <Scene id="dm.exclusion">
+    <Step state="axes">
+      Gli esperimenti non riportano scoperte ma limiti. Il grafico ha la massa della particella su un asse e l'intensità della sua interazione con i nuclei (una sezione d'urto) sull'altro. Una curva mostra l'interazione più debole che un esperimento avrebbe potuto vedere. Tutto ciò che sta sopra è escluso, nelle ipotesi dell'analisi.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schema: curve di esclusione per l'intensità dell'interazione in funzione della massa della materia oscura. Ogni generazione di esperimenti traccia una curva più bassa ed esclude di più. La banda ombreggiata in basso è la nebbia di neutrini. Non sono dati reali.">
+    <Scene id="dm.exclusion">
+      <Step state="early">
+        I primi esperimenti escludono solo interazioni forti. La migliore sensibilità è vicino a una massa di decine di GeV, dove il rinculo della materia oscura è meglio adattato al nucleo bersaglio. Per masse più leggere o più pesanti, la curva sale.
+      </Step>
+      <Step state="improving">
+        In decenni, rivelatori più grandi e più puliti spingono la curva in basso di molti ordini di grandezza, e il segnale non si vede. I modelli di WIMP più semplici, e molti altri, sono ora esclusi. È un vero progresso anche senza una scoperta.
+      </Step>
+      <Step state="neutrino-fog">
+        In fondo la curva incontra un pavimento. I neutrini del Sole e dell'atmosfera rimbalzano sui nuclei in modo simile: diffusione coerente elastica neutrino-nucleo. Sotto questa «nebbia di neutrini» un rinculo potrebbe essere un neutrino. Attraversarla richiede un rivelatore direzionale o un'idea molto diversa. Gli esperimenti a xeno hanno riportato nel 2024 i primi indizi di neutrini solari.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Bridge id="dm-fog-to-nu-cevns" />
+
+  <Scene id="dm.axion-cavity">
+    <Step state="magnet">
+      Gli assioni richiedono una trappola diversa. Un forte magnete circonda una cavità metallica, un cilindro cavo raffreddato quasi allo zero assoluto. Gli assioni sono così leggeri che la materia oscura si comporterebbe come un'onda che oscilla a una sola frequenza, fissata dalla massa dell'assione.
+    </Step>
+    <Step state="conversion">
+      In un forte campo magnetico un assione può convertirsi in un fotone a microonde, con la stessa frequenza. La conversione è incredibilmente debole: un segnale di circa 10⁻²³ watt. Se la cavità risuona a quella frequenza, il segnale si accumula nella cavità e viene amplificato da un amplificatore estremamente silenzioso.
+    </Step>
+    <Step state="tuning">
+      Non conosciamo la massa dell'assione, quindi non conosciamo la frequenza. Spostando un'asta dentro la cavità, la risonanza cambia. Come girando la manopola di una radio, si scandaglia lentamente e si ascolta un debole ronzio a ogni posizione. ADMX, negli USA, fa questo. In Corea, il Center for Axion and Precision Physics Research (CAPP) dell'IBS ha costruito esperimenti a cavità, alcuni con magneti più forti, per esplorare frequenze più alte. Nessun assione è stato ancora ascoltato (al 2025).
+    </Step>
+  </Scene>
+
+  <Scene id="dm.indirect">
+    <Step state="annihilation">
+      La ricerca indiretta guarda dove la materia oscura è densa. Se due particelle possono annichilare, il centro della nostra galassia, le galassie nane e gli ammassi brillerebbero nei raggi gamma e produrrebbero positroni e antiprotoni in eccesso. Satelliti come Fermi-LAT e il rivelatore AMS-02 sulla stazione spaziale cercano un eccesso del genere.
+    </Step>
+    <Step state="sky">
+      Sono comparsi eccessi interessanti, come un bagliore di raggi gamma al centro galattico e un eccesso di positroni cosmici. Ma anche l'astrofisica ordinaria, per esempio le pulsar, può spiegarli. Finora nessuno è conclusivo.
+    </Step>
+  </Scene>
+
+  Dopo quattro decenni di ricerche dirette, nessuna particella di materia oscura è stata vista (al 2025). Anche questa è informazione: i WIMP più semplici sono quasi esclusi e il campo si allarga a particelle più leggere, assioni e altre idee. La prossima generazione di rivelatori a xeno liquido (XLZD, con un progetto di circa 60–100 tonnellate, che riunisce i gruppi XENON, LZ e DARWIN) punta a raggiungere la nebbia di neutrini. La materia oscura può essere una sola particella, molte, o qualcosa che non abbiamo immaginato. La gravità dice che c'è. Stiamo ancora aspettando che bussi.
+
+  Questa pagina usa immagini semplificate e nessun dato reale. Per approfondire, si parta dalla rassegna del Particle Data Group e dalla storia di Bertone e Hooper elencate nei riferimenti qui sotto.
+</Layer>

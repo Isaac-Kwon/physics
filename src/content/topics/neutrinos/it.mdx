@@ -1,0 +1,379 @@
+---
+topic: neutrinos
+lang: it
+title: Neutrini
+subtitle: Come i rivelatori catturano le particelle fantasma
+description: "I neutrini attraversano i pianeti quasi indisturbati. Scopriamo come sei diversi rivelatori, dalla chimica al ghiaccio antartico, riescono comunque a catturarli."
+tagline: Catturare la particella che attraversa tutto.
+layers:
+  - { id: hook, title: Le particelle fantasma }
+  - { id: ghost, title: Che cos'è un neutrino? }
+  - { id: sources, title: Da dove vengono, come interagiscono }
+  - { id: detection, title: Come se ne cattura uno? }
+  - { id: frontier, title: La frontiera }
+references:
+  - title: "Review of Particle Physics: Neutrino Masses, Mixing, and Oscillations"
+    author: "Particle Data Group — pdg.lbl.gov"
+    url: "https://pdg.lbl.gov/"
+    note: "The standard reference for the oscillation parameters. The reviews are technical."
+  - title: "Fundamentals of Neutrino Physics and Astrophysics"
+    author: "Carlo Giunti and Chung W. Kim — Oxford University Press (2007)"
+    note: "Graduate textbook. The first chapters on oscillations are readable for advanced undergraduates."
+  - title: "Neutrino Physics"
+    author: "Kai Zuber — CRC Press (2nd edition, 2011)"
+    note: "Textbook with a good chapter on detection methods."
+  - title: "Modern Particle Physics"
+    author: "Mark Thomson — Cambridge University Press (2013)"
+    note: "Undergraduate textbook. See the chapters on the weak interaction and on neutrino oscillations."
+  - title: "The Nobel Prize in Physics 2015: popular information"
+    author: "The Nobel Committee for Physics"
+    url: "https://www.nobelprize.org/prizes/physics/2015/popular-information/"
+    note: "Plain-language account of the discovery of neutrino oscillations."
+  - title: "Observation of an ultra-high-energy cosmic neutrino with KM3NeT"
+    author: "KM3NeT Collaboration — Nature 638 (2025) 376"
+    note: "The event KM3-230213A. Technical, but the abstract and introduction are readable."
+asOf: "2025"
+draft: true
+---
+
+<Layer id="hook">
+  <Scene id="nu.hook" mode="scrub">
+    <Step state="dark">Sessanta miliardi di fantasmi stanno attraversando la tua unghia.</Step>
+    <Step state="sun">Hanno lasciato il Sole otto minuti fa.</Step>
+    <Step state="through-earth">La notte non li ferma. Per loro l'intera Terra è trasparente.</Step>
+    <Step state="thumbnail">E nel corso della tua vita, forse uno ti colpirà davvero.</Step>
+  </Scene>
+  <BigNumber value={6e10} unit="neutrini per cm² al secondo" approx caption="Neutrini solari che attraversano ogni secondo una superficie grande quanto la tua unghia." />
+</Layer>
+
+<Layer id="ghost">
+  <Primer id="standard-model" />
+
+  <Scene id="nu.beta-decay">
+    <Step state="missing-energy">
+      Nel 1930 il decadimento beta sembrava sbagliato. Un nucleo emette un elettrone, ma gli elettroni escono con un'intera gamma di energie, come se parte dell'energia sparisse.
+    </Step>
+    <Step state="neutrino">
+      Wolfgang Pauli lo chiamò un «rimedio disperato»: una seconda particella, invisibile, porta via l'energia mancante. Fu catturata solo nel 1956, accanto a un reattore nucleare. Noi la chiamiamo <Term id="neutrino">neutrino</Term>.
+    </Step>
+  </Scene>
+
+  <Scene id="nu.flavours">
+    <Step state="three">
+      I neutrini esistono in tre sapori: elettronico, muonico e tauonico, ciascuno partner del leptone carico con lo stesso nome. Un neutrino nato insieme a un elettrone è un neutrino elettronico.
+    </Step>
+    <Step state="neutral">
+      Un neutrino non ha carica elettrica né carica di colore. Soltanto la forza debole, e la gravità, possono toccarlo. La sua massa non è nulla, ma è inferiore a un milionesimo di quella dell'elettrone.
+    </Step>
+  </Scene>
+
+  <Primer id="weak-interaction" />
+
+  <Scene id="nu.oscillation">
+    <Step state="produce">
+      Un neutrino nasce con un sapore ben definito. Per esempio, un neutrino elettronico prodotto nel Sole.
+    </Step>
+    <Step state="fly">
+      Lungo il percorso, il sapore cambia. Elettronico, poi muonico, poi di nuovo elettronico, come se la particella non riuscisse a decidersi. È l'<Term id="neutrino-oscillation">oscillazione dei neutrini</Term>, ed è possibile solo se i neutrini hanno massa.
+    </Step>
+    <Step state="detect">
+      Al rivelatore, la probabilità di trovare ciascun sapore dipende da due cose: la distanza percorsa dal neutrino e la sua energia.
+    </Step>
+  </Scene>
+
+  <Widget name="Oscillation" />
+
+  <Figure kind="schematic" caption="Schema: la probabilità che un neutrino muonico sia ancora muonico, in funzione della distanza divisa per l'energia, dalla formula a due sapori con parametri arrotondati.">
+    <Scene id="nu.oscillation">
+      <Step state="probability-plot">
+        La probabilità oscilla ripetutamente tra 1 e un valore più basso. Per una data energia, il primo minimo si trova a una distanza ben precisa.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="La formula di oscillazione a due sapori">
+    Per due sapori mescolati da un angolo $\theta$, con differenza dei quadrati delle masse $\Delta m^2$, la probabilità che un neutrino di sapore $\alpha$ venga trovato con sapore $\beta$ dopo una distanza $L$ è
+
+    $$P(\nu_\alpha \to \nu_\beta) = \sin^2 2\theta \,\sin^2\!\left(1{,}27\,\frac{\Delta m^2\,L}{E}\right),$$
+
+    con $\Delta m^2$ in eV², $L$ in km ed $E$ in GeV. Per i neutrini atmosferici, $\Delta m^2 \approx 2{,}5\times10^{-3}$ eV² e il mescolamento è quasi massimo, quindi la prima conversione completa avviene a $L/E \approx 500$ km/GeV. Per esempio, neutrini da 1 GeV richiedono circa 500 km. I neutrini reali hanno tre sapori e tre masse, il che aggiunge un terzo angolo di mescolamento e una fase. L'immagine a due sapori è una buona approssimazione vicino a ciascun massimo di oscillazione.
+  </Deeper>
+
+  <Scene id="nu.oscillation">
+    <Step state="solar-deficit">
+      Negli anni Sessanta Raymond Davis Jr. contò solo circa un terzo dei neutrini elettronici che il Sole avrebbe dovuto inviare. Avevano cambiato sapore lungo il cammino. Super-Kamiokande (1998) e SNO (2001–02) lo confermarono. Il premio Nobel 2015 ha onorato la scoperta.
+    </Step>
+  </Scene>
+</Layer>
+
+<Layer id="sources">
+  <Scene id="nu.sources">
+    <Step state="cosmic-background">
+      I più deboli sono i neutrini relitti del Big Bang, circa 100 per centimetro cubo per ciascun sapore. La loro energia è una frazione di millielettronvolt. Nessuno li ha ancora rivelati.
+    </Step>
+    <Step state="geo-reactor">
+      Poi, alla scala del MeV: gli antineutrini dai decadimenti radioattivi di uranio e torio all'interno della Terra e dai reattori nucleari. Un reattore ne produce circa 2 × 10²⁰ al secondo per ogni gigawatt di potenza termica. Sono i più facili da catturare con una sorgente nota.
+    </Step>
+    <Step state="sun">
+      Il Sole brucia idrogeno in elio e rilascia neutrini elettronici. La reazione principale, la fusione protone-protone, ne dà di più ma alle energie più basse (sotto 0,5 MeV). Un ramo raro che coinvolge il boro-8 ne dà pochi, ma fino a 15 MeV.
+    </Step>
+    <Step state="supernova">
+      Una stella che collassa libera circa il 99% della sua energia sotto forma di neutrini, ciascuno di alcune decine di MeV. Nel 1987 ne furono catturati una ventina dalla supernova SN1987A, in un lampo di 10 secondi, ore prima dell'arrivo della luce.
+    </Step>
+    <Step state="atmosphere">
+      I raggi cosmici colpiscono l'aria e producono pioni e muoni, i cui decadimenti danno neutrini da circa 0,1 GeV in su. Arrivano da ogni direzione: dall'alto dopo 20 km di aria, dal basso dopo aver attraversato fino a 13.000 km di Terra.
+    </Step>
+    <Step state="accelerator">
+      Gli acceleratori producono fasci: si fanno urtare protoni contro un bersaglio, si raccolgono i pioni e li si lascia decadere. Il fascio può essere puntato verso un rivelatore a centinaia di chilometri di distanza, con energie di alcuni GeV.
+    </Step>
+    <Step state="astro">
+      I più energetici, da acceleratori cosmici molto al di fuori della nostra Galassia, raggiungono da TeV a PeV, un milione di volte oltre i fasci. Sono rari e conservano la direzione della loro sorgente.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schema: dove si colloca ciascuna sorgente di neutrini su un asse di energia (logaritmico). Le posizioni sono approssimate; le altezze verticali non hanno alcun significato.">
+    <Scene id="nu.sources">
+      <Step state="overview">
+        Venti ordini di grandezza in energia, dai neutrini relitti agli acceleratori cosmici. Nessun rivelatore, da solo, ne copre più di pochi.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Scene id="nu.interactions">
+    <Step state="cc">
+      Un neutrino può interagire in due modi. In un'interazione a <strong>corrente carica</strong> cede una carica elettrica e si trasforma nel suo partner carico: un neutrino elettronico in un elettrone, un neutrino muonico in un muone. La particella carica è ciò che vediamo, e ci dice il sapore.
+    </Step>
+    <Step state="nc">
+      In un'interazione a <strong>corrente neutra</strong> il neutrino rimbalza, lascia un po' di energia e se ne va ancora neutrino. Funziona per tutti i sapori, quindi non permette di distinguerli. È più difficile da vedere.
+    </Step>
+    <Step state="targets">
+      Tre bersagli importanti. Un <strong>elettrone</strong>: diffusione elastica. Un <strong>protone</strong>: decadimento beta inverso, per antineutrini di alcuni MeV. Un intero <strong>nucleo</strong>: a bassa energia il nucleo rincula come un tutt'uno, un processo detto CEvNS. Ciascuno sarà un rivelatore più avanti.
+    </Step>
+    <Step state="cross-section">
+      Quanto è raro? Per un neutrino da GeV, la probabilità di colpire un nucleone è dell'ordine di $10^{-38}$ cm². Un anno luce di piombo ferma solo circa la metà dei neutrini da pochi MeV. Per questo servono rivelatori con kilotonnellate di bersaglio, fino a un chilometro cubo, e molta pazienza.
+    </Step>
+  </Scene>
+</Layer>
+
+<Layer id="detection">
+  <Scene id="nu.site">
+    <Step state="surface-background">
+      In superficie i raggi cosmici producono una pioggia continua di muoni e altre particelle. Seppellirebbero i pochi eventi di neutrino. Per questo la maggior parte dei rivelatori di neutrini va in profondità sottoterra, o sott'acqua o sotto il ghiaccio.
+    </Step>
+  </Scene>
+
+  <Primer id="underground-lab" />
+
+  Seguono sei modi per catturare i neutrini. Ciascuno è una risposta diversa a una sola domanda: qual è l'unico segnale che solo un neutrino può produrre?
+
+  <Walkthrough scene="nu.radiochem" experiment="Homestake" also="GALLEX/GNO (Gran Sasso) e SAGE (Baksan), che usano il gallio al posto del cloro.">
+    <Step state="tank" kind="goal">
+      Obiettivo: contare i neutrini solari, un atomo alla volta. Negli anni Sessanta Raymond Davis Jr. collocò una cisterna di circa 600 tonnellate di liquido per la pulizia, il percloroetilene, a 1,5 km di profondità nella miniera d'oro di Homestake, nel Sud Dakota.
+    </Step>
+    <Step state="capture" kind="signal">
+      Di tanto in tanto un neutrino colpisce un nucleo di cloro-37 e lo trasforma in argon-37 radioattivo: $\nu_e + {}^{37}\mathrm{Cl} \to {}^{37}\mathrm{Ar} + e^-$. Succede circa una volta ogni un paio di giorni nell'intera cisterna.
+    </Step>
+    <Step state="extract" kind="signal">
+      Ogni poche settimane si fa gorgogliare elio attraverso la cisterna. L'argon, un gas nobile, non si attacca a nulla e viene portato via. Alcune decine di atomi si raccolgono in una piccola trappola.
+    </Step>
+    <Step state="count" kind="signal">
+      L'argon-37 è radioattivo, con un tempo di dimezzamento di 35 giorni. La trappola viene collocata in un piccolo contatore, e ogni atomo viene contato quando decade ed emette un minuscolo sbuffo di elettroni.
+    </Step>
+    <Step state="rate" kind="readout">
+      Lettura: quanti neutrini sono arrivati, mediati su settimane. Niente sulla direzione, sul tempo di arrivo o sul sapore. La risposta, circa un terzo della previsione, diede inizio al problema dei neutrini solari.
+    </Step>
+    <Step state="needle" kind="trick">
+      Il trucco: è la chimica a fare la selezione. Trovare alcune decine di atomi di argon tra circa $10^{30}$ atomi di cloro sembra impossibile, ma un gas nobile può essere spazzato via quasi completamente, e nient'altro nella cisterna si trasforma in argon.
+    </Step>
+  </Walkthrough>
+
+  <Primer id="cherenkov" />
+
+  <Walkthrough scene="nu.water-cherenkov" experiment="Super-Kamiokande" also="Hyper-Kamiokande (in costruzione) e il precedente Kamiokande.">
+    <Step state="tank" kind="goal">
+      Obiettivo: catturare singoli neutrini in tempo reale e ricavarne direzione, energia e sapore. Super-Kamiokande è una cisterna di 50.000 tonnellate di acqua ultrapura, 1 km sotto il monte Ikeno in Giappone, rivestita da circa 11.000 grandi sensori di luce.
+    </Step>
+    <Step state="interaction" kind="signal">
+      Raramente un neutrino colpisce un atomo dell'acqua. Un neutrino muonico produce un muone, un neutrino elettronico un elettrone. Questa particella carica porta con sé la maggior parte dell'energia e si muove quasi alla velocità della luce.
+    </Step>
+    <Step state="cone" kind="signal">
+      Nell'acqua la luce viaggia ad appena il 75% della sua velocità nel vuoto, quindi la particella la supera. Lascia un cono di <Term id="cherenkov-radiation">luce Čerenkov</Term>, con apertura di circa 42° rispetto alla sua traiettoria.
+    </Step>
+    <Step state="ring" kind="signal">
+      Il cono raggiunge la parete della cisterna come un anello di <Term id="photomultiplier">fotomoltiplicatori</Term> accesi. Il centro dell'anello indica la direzione della traiettoria della particella, e la luce totale cresce con la sua energia.
+    </Step>
+    <Step state="reconstruct" kind="readout">
+      Lettura: la direzione e l'energia della particella, e un primo indizio sulla sua identità, tutto dal disegno dei sensori accesi, evento per evento. La direzione del neutrino si ricava da quella della particella carica.
+    </Step>
+    <Step state="ring-sharpness" kind="trick">
+      Il trucco: un muone vola in linea retta, quindi il suo anello è nitido. Un elettrone produce un piccolo <Term id="shower">sciame</Term> di elettroni e fotoni, ciascuno con il proprio cono, quindi l'anello è sfocato. Un anello nitido indica un neutrino muonico, uno sfocato un neutrino elettronico. Provaci.
+    </Step>
+  </Walkthrough>
+
+  <Widget name="RingClassifier" />
+
+  <Deeper title="L'angolo Čerenkov e la soglia">
+    $$\cos\theta_c = \frac{1}{n\beta}.$$
+
+    Per l'acqua, $n \approx 1{,}33$, e una particella con $\beta \to 1$ dà $\theta_c = \arccos(0{,}75) \approx 41^\circ$. La luce compare solo sopra la soglia $\beta > 1/n \approx 0{,}75$. Ciò corrisponde a un'energia cinetica di circa 0,26 MeV per un elettrone e di circa 54 MeV per un muone. Sotto questi valori la particella è invisibile al rivelatore.
+  </Deeper>
+
+  <Primer id="scintillation" />
+
+  <Walkthrough scene="nu.ibd" experiment="JUNO" also="RENO (Corea), Daya Bay e Double Chooz, che usano allo stesso modo gli antineutrini da reattore; KamLAND in Giappone.">
+    <Step state="reactor" kind="goal">
+      Obiettivo: catturare gli antineutrini elettronici dei reattori nucleari a circa 50 km di distanza e misurarne con precisione l'energia. JUNO, nella Cina meridionale, contiene 20.000 tonnellate di <Term id="scintillator">scintillatore</Term> liquido in una sfera trasparente, osservata da decine di migliaia di sensori di luce. Ha iniziato a prendere dati nel 2025.
+    </Step>
+    <Step state="inverse-beta" kind="signal">
+      Un antineutrino colpisce un protone, un nucleo di idrogeno del liquido. È il <Term id="inverse-beta-decay">decadimento beta inverso</Term>: $\bar\nu_e + p \to e^+ + n$. Richiede almeno 1,8 MeV, e i reattori ne producono in abbondanza sopra questa soglia.
+    </Step>
+    <Step state="prompt" kind="signal">
+      Il positrone si ferma entro pochi centimetri e annichila con un elettrone. Il liquido lampeggia: un primo impulso di luce. La sua intensità corrisponde all'energia dell'antineutrino, meno circa 0,8 MeV.
+    </Step>
+    <Step state="delayed" kind="signal">
+      Nel frattempo il neutrone vaga e rallenta. Dopo decine o centinaia di microsecondi viene catturato da un nucleo di idrogeno, che emette un raggio gamma da 2,2 MeV: un secondo lampo, più debole, nello stesso punto.
+    </Step>
+    <Step state="energy" kind="readout">
+      Lettura: il primo lampo dà l'energia dell'antineutrino con una precisione di pochi per cento. Se ne raccolgono molti e lo spettro mostra quanti ne mancano a ciascuna energia. Quelli mancanti hanno oscillato.
+    </Step>
+    <Step state="coincidence" kind="trick">
+      Il trucco: la coincidenza ritardata. Contano solo due lampi quasi nello stesso punto e a breve distanza di tempo, con le energie giuste. La radioattività naturale lampeggia ovunque, ma raramente in coppie simili. Si restringe la finestra temporale e il fondo scompare.
+    </Step>
+  </Walkthrough>
+
+  <Widget name="IbdCoincidence" />
+
+  <Bridge id="nu-detection-to-det-interactions" />
+
+  <Primer id="tpc" />
+
+  <Walkthrough scene="nu.lartpc" experiment="DUNE" also="ICARUS (l'idea di Carlo Rubbia, al Gran Sasso), MicroBooNE e SBND al Fermilab.">
+    <Step state="argon" kind="goal">
+      Obiettivo: una fotografia completa di una singola interazione di neutrino. DUNE invierà un fascio dal Fermilab, vicino a Chicago, attraverso 1.300 km di Terra, fino a cisterne con decine di migliaia di tonnellate di argon liquido, a 1,5 km di profondità nel Sud Dakota.
+    </Step>
+    <Step state="ionize" kind="signal">
+      Un neutrino da GeV colpisce un nucleo di argon. Le particelle cariche che ne escono, un muone, protoni, pioni, ionizzano l'argon lungo i loro percorsi e lasciano scie di elettroni liberi.
+    </Step>
+    <Step state="drift" kind="signal">
+      Un campo elettrico attira gli elettroni verso la parete del rivelatore, per alcuni metri di deriva attraverso il liquido. È una <Term id="tpc">camera a proiezione temporale</Term> (TPC) su grande scala.
+    </Step>
+    <Step state="wires" kind="signal">
+      Piani di fili registrano quando, e su quali fili, arriva la carica. Due o tre piani con i fili orientati ad angoli diversi danno due coordinate. Il tempo di arrivo dà la terza.
+    </Step>
+    <Step state="event" kind="readout">
+      Lettura: un'immagine tridimensionale dell'intera interazione, con dettaglio millimetrico. Si leggono le tracce, le loro direzioni, le loro energie e il tipo di ciascuna particella (dalla densità di ionizzazione).
+    </Step>
+    <Step state="purity" kind="trick">
+      Il trucco: la purezza. Gli elettroni che derivano per metri si perdono se è presente un po' di ossigeno o di acqua, che li cattura. Per questo l'argon viene purificato ben al di sotto di una parte per miliardo. Un argon più puro consente una deriva più lunga, e un rivelatore più grande.
+    </Step>
+  </Walkthrough>
+
+  <Walkthrough scene="nu.neutrino-telescope" experiment="IceCube" also="KM3NeT (mar Mediterraneo) e Baikal-GVD (lago Bajkal), che usano acqua invece del ghiaccio.">
+    <Step state="lattice" kind="goal">
+      Obiettivo: catturare i neutrini rari e di altissima energia, quindi il rivelatore deve essere enorme. IceCube è un chilometro cubo di ghiaccio limpido al Polo Sud, con 86 cavi che portano ciascuno 60 sensori di luce, appesi tra 1,5 e 2,5 km di profondità.
+    </Step>
+    <Step state="muon" kind="signal">
+      Un neutrino muonico colpisce un nucleo nel ghiaccio o nella roccia sottostante e produce un muone. Ad alta energia il muone prosegue per chilometri, emettendo luce Čerenkov lungo tutto il suo percorso.
+    </Step>
+    <Step state="timing" kind="signal">
+      Ogni sensore registra quando la luce lo raggiunge. Il cono di luce attraversa i sensori uno dopo l'altro, come un'ola in uno stadio.
+    </Step>
+    <Step state="direction" kind="readout">
+      Lettura: l'ordine dei tempi di arrivo dà la direzione del muone, con una precisione di circa un grado o meglio alle energie più alte. La quantità totale di luce ne dà l'energia.
+    </Step>
+    <Step state="earth-shield" kind="trick">
+      Il trucco: guardare in basso. I muoni prodotti dai raggi cosmici nell'atmosfera inondano il rivelatore dall'alto. La Terra li ferma. Un muone che sale attraverso il pianeta può essere stato prodotto soltanto da un neutrino.
+    </Step>
+  </Walkthrough>
+
+  <Walkthrough scene="nu.cevns" experiment="COHERENT" also="CONUS+ e altri esperimenti ai reattori con rivelatori a soglia bassissima.">
+    <Step state="goal" kind="goal">
+      Obiettivo: vedere un neutrino diffondersi su un nucleo intero in un colpo solo. Il processo, la diffusione coerente elastica neutrino-nucleo (CEvNS), fu previsto nel 1974 e osservato per la prima volta nel 2017 da COHERENT, alla Spallation Neutron Source di Oak Ridge, in Tennessee.
+    </Step>
+    <Step state="target" kind="signal">
+      Neutrini di alcune decine di MeV arrivano in brevi impulsi dalla sorgente di neutroni e attraversano un cristallo di ioduro di cesio di circa 15 kg, a circa 20 m di distanza.
+    </Step>
+    <Step state="coherent" kind="signal">
+      A questa energia la lunghezza d'onda del neutrino è maggiore del nucleo, quindi non vede i singoli protoni e neutroni. Spinge il nucleo intero. I contributi di tutti i neutroni si sommano, e la probabilità cresce circa come il quadrato del loro numero.
+    </Step>
+    <Step state="recoil" kind="signal">
+      Il nucleo rincula con un'energia minuscola, pochi keV: una spintarella. Nel cristallo produce una manciata di fotoni, raccolti da un fotomoltiplicatore.
+    </Step>
+    <Step state="rate" kind="readout">
+      Lettura: il tasso e l'energia dei rinculi, confrontati con la previsione del Modello Standard. Il segnale è solo di pochi fotoni, quindi la soglia del rivelatore deve essere bassissima e il suo rumore piccolissimo.
+    </Step>
+    <Step state="fog" kind="trick">
+      Il trucco: la coerenza rende l'interazione così probabile che basta un rivelatore da circa 15 kg. Ma il rinculo nucleare assomiglia anche al segnale di una particella di materia oscura. I grandi rivelatori di materia oscura a xeno hanno riportato nel 2024 i primi indizi di neutrini solari visti in questo modo, e la prossima generazione ne vedrà molti: la «nebbia di neutrini».
+    </Step>
+  </Walkthrough>
+
+  <Bridge id="nu-cevns-to-dm-frontier" />
+
+  Sei rivelatori molto diversi, un solo tema. Un neutrino non si mostra mai. Vediamo ciò che lascia dietro di sé: un atomo chimico, un anello di luce, due lampi, una scia di elettroni, un'onda di luce nel ghiaccio, la spinta a un nucleo. Da lì ragioniamo all'indietro.
+</Layer>
+
+<Layer id="frontier">
+  <Scene id="nu.frontier">
+    <Step state="mass-ordering">
+      **Ordinamento delle masse.** Le oscillazioni ci dicono le differenze tra i quadrati delle masse, non quale neutrino sia il più pesante. Due possibilità: tre masse con ordinamento «normale» (la terza è la più pesante) oppure «invertito» (la terza è la più leggera). Al 2025 i fit globali propendono per il normale, ma senza certezza. JUNO, che sfrutta l'interferenza di due oscillazioni a 50 km, punta a una prima risposta forte nel giro di pochi anni. DUNE, Hyper-Kamiokande e i telescopi atmosferici aggiungono evidenze indipendenti.
+    </Step>
+    <Step state="cp">
+      **Violazione di CP.** Neutrini e antineutrini oscillano esattamente allo stesso modo? In caso contrario, la differenza potrebbe essere un ingrediente del motivo per cui l'universo contiene materia e quasi niente antimateria. T2K e NOvA, al 2025, vedono indizi di una differenza ma nessuna scoperta. DUNE e Hyper-Kamiokande, che dovrebbero iniziare la fisica nei prossimi anni, sono progettati per risolvere la questione. Il legame con l'eccesso di materia è un'ipotesi, non un risultato.
+    </Step>
+    <Step state="absolute-mass">
+      **Massa assoluta.** L'esperimento KATRIN misura lo spettro di energia degli elettroni nel decadimento beta del trizio vicino al suo estremo, dove una massa del neutrino ne toglierebbe un poco. Il suo risultato del 2025: la massa del neutrino elettronico è inferiore a circa 0,45 eV (al 90% di livello di confidenza). Le oscillazioni richiedono una somma delle masse di almeno circa 0,06 eV. La cosmologia dà limiti dipendenti dal modello intorno a 0,1 eV. Il valore vero si trova in una finestra di un ordine di grandezza.
+    </Step>
+    <Step state="majorana">
+      **Il neutrino è la propria antiparticella?** Ogni altro fermione che conosciamo ha un'antiparticella distinta. Un neutrino, privo di carica, potrebbe non averla. Una particella di questo tipo si chiama particella di Majorana. Il test è un decadimento molto raro: il doppio decadimento beta senza neutrini.
+    </Step>
+  </Scene>
+
+  <Walkthrough scene="nu.dbd-spectrum" experiment="LEGEND" also="CUORE e CUPID (cristalli di tellurio letti come minuscoli termometri), AMoRE (molibdeno, a Yemilab in Corea), KamLAND-Zen (xeno in scintillatore liquido).">
+    <Step state="decay" kind="goal">
+      Obiettivo: trovare un decadimento di un nucleo in un altro in cui vengono emessi due elettroni e nessun neutrino. Nel doppio decadimento beta ordinario sfuggono anche due neutrini. Se il neutrino è la propria antiparticella, il decadimento senza neutrini può avvenire, molto raramente.
+    </Step>
+    <Step state="source-detector" kind="signal">
+      Il progetto insolito: il nucleo che decade <em>è</em> il rivelatore. LEGEND usa cristalli di germanio arricchiti in germanio-76. Gli elettroni si fermano dentro il cristallo e liberano lì la carica. Niente va perso.
+    </Step>
+    <Step state="sum-energy" kind="signal">
+      Il rivelatore misura l'energia totale dei due elettroni. Il decadimento ordinario condivide l'energia con due neutrini, quindi il totale è distribuito su un continuo. Il decadimento senza neutrini non ha nient'altro che porti via energia, quindi il totale è sempre lo stesso: l'energia del decadimento.
+    </Step>
+    <Step state="spectrum" kind="readout">
+      Lettura: un istogramma di energia di molti decadimenti. Una gobba continua dal decadimento ordinario e, se il processo esiste, un picco stretto proprio al suo estremo.
+    </Step>
+    <Step state="resolution" kind="trick">
+      Il trucco: risoluzione e silenzio. Il picco è visibile solo se la risoluzione in energia del rivelatore è molto più stretta del bordo della gobba, e se la radioattività di fondo è quasi nulla. Per questo questi esperimenti stanno in profondità sottoterra, nei materiali più puliti. Prova a peggiorare la risoluzione.
+    </Step>
+  </Walkthrough>
+
+  <Widget name="DbdSpectrum" />
+
+  <Deeper title="Che cosa significa un limite sul tempo di dimezzamento">
+    Se il processo è mediato dallo scambio di un neutrino di Majorana leggero, il tasso di decadimento è
+
+    $$\frac{1}{T_{1/2}^{0\nu}} = G^{0\nu}\,\left|M^{0\nu}\right|^2\,\frac{\langle m_{\beta\beta}\rangle^2}{m_e^2},$$
+
+    dove $G^{0\nu}$ è un fattore di spazio delle fasi, $M^{0\nu}$ un elemento di matrice nucleare e $\langle m_{\beta\beta}\rangle$ la massa efficace di Majorana. I limiti attuali sul tempo di dimezzamento superano i $10^{26}$ anni per il germanio-76 e lo xeno-136, milioni di miliardi di volte l'età dell'universo. Si traducono in limiti da diverse decine a un centinaio circa di meV, con un'incertezza dovuta soprattutto agli elementi di matrice nucleare. È un limite specifico a una data ipotesi: altri meccanismi darebbero numeri diversi.
+  </Deeper>
+
+  <Bridge id="nu-0vbb-to-sc-zoo" />
+
+  <Scene id="nu.frontier">
+    <Step state="cosmic">
+      **Neutrini cosmici.** Nel 2013 IceCube vide neutrini da fuori del Sistema Solare. Nel 2018 uno fu ricondotto a un blazar, TXS 0506+056, e altri in seguito alla galassia NGC 1068 e al piano della Via Lattea. Nel 2025 il telescopio KM3NeT ha riportato KM3-230213A, un singolo muone con un'energia stimata del neutrino di circa 220 PeV, la più alta mai vista. La sua origine è ignota. I neutrini indicano i luoghi in cui nascono i raggi cosmici.
+    </Step>
+    <Step state="snews">
+      **La prossima supernova.** I neutrini lasciano una stella che collassa ore prima della sua luce. Diversi rivelatori condividono ora una rete di allerta, SNEWS, che avverte gli astronomi nel giro di minuti. Una supernova nella nostra Galassia, attesa circa una o due volte per secolo, darebbe migliaia di eventi in Super-Kamiokande, JUNO, IceCube e DUNE, contro la ventina di SN1987A.
+    </Step>
+  </Scene>
+
+  | Domanda aperta | Esperimenti (al 2025) | Principio usato |
+  |---|---|---|
+  | Ordinamento delle masse | JUNO, DUNE, Hyper-Kamiokande, KM3NeT/ORCA | scintillatore liquido, argon liquido, Čerenkov ad acqua |
+  | Violazione di CP | T2K, NOvA, DUNE, Hyper-Kamiokande | fasci e rivelatori lontani |
+  | Massa assoluta | KATRIN, survey cosmologiche | decadimento beta del trizio, struttura su grande scala |
+  | Natura di Majorana | LEGEND, CUORE/CUPID, KamLAND-Zen, AMoRE | germanio, bolometri, scintillatore a xeno |
+  | Sorgenti ad alta energia | IceCube, KM3NeT, Baikal-GVD | telescopi a ghiaccio e ad acqua |
+
+  Questa pagina usa immagini semplificate e nessun dato reale. Per approfondire, si parta dalla rassegna del PDG e dai manuali elencati nei riferimenti qui sotto.
+</Layer>

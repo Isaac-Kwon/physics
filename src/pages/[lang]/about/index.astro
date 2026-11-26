@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { LANGS, useT, type Lang } from '../../../i18n';
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const sections = ['purpose', 'credits', 'license', 'draft'] as const;
+---
+
+<BaseLayout lang={lang} title={t('about.title')}>
+  <div class="wrap">
+    <p class="label">{t('site.tagline')}</p>
+    <h1>{t('about.title')}</h1>
+    {
+      sections.map((s) => (
+        <section>
+          <h2>{t(`chrome.about.${s}Title`)}</h2>
+          <p>{t(`chrome.about.${s}`)}</p>
+        </section>
+      ))
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .wrap {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: var(--space-16) var(--space-4) 0;
+  }
+  h1 {
+    font-size: var(--fs-display);
+  }
+  section {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line);
+  }
+  h2 {
+    font-size: var(--fs-xl);
+  }
+  p {
+    color: var(--fg-muted);
+  }
+</style>

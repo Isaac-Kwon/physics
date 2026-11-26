@@ -1,9 +1,255 @@
 ---
-// STUB — owned by Track B (site chrome). Replace with real header: logo, topic dropdown, language switch.
-import { localizePath, useT, type Lang } from '../../i18n';
-import type { TopicId } from '../../data/topics';
-interface Props { lang: Lang; topic?: TopicId }
-const { lang } = Astro.props;
+import { LANGS, LANG_LABEL, LANG_SHORT, localizePath, stripLang, useT, type Lang } from '../../i18n';
+import { TOPICS, TOPIC_ORDER, type TopicId } from '../../data/topics';
+interface Props {
+  lang: Lang;
+  topic?: TopicId;
+}
+const { lang, topic } = Astro.props;
 const t = useT(lang);
+const path = stripLang(Astro.url);
 ---
-<header><a href={localizePath(lang, '/')}>{t('site.title')}</a></header>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="logo" href={localizePath(lang, '/')} aria-label={t('chrome.logoLabel', { title: t('site.title') })}>
+      <span class="mark" aria-hidden="true"></span>
+      <span class="name">{t('site.title')}</span>
+    </a>
+
+    <nav class="nav" aria-label={t('nav.menu')}>
+      <details class="topics">
+        <summary>{t('chrome.topicsMenu')}</summary>
+        <ul>
+          {
+            TOPIC_ORDER.map((id) => {
+              const def = TOPICS[id];
+              return (
+                <li style={`--dot:${def.accent}`}>
+                  {def.released ? (
+                    <a href={localizePath(lang, `/${id}/`)} aria-current={id === topic ? 'page' : undefined}>
+                      <i aria-hidden="true" />
+                      {t(`topic.${id}.title`)}
+                    </a>
+                  ) : (
+                    <span class="off" aria-disabled="true">
+                      <i aria-hidden="true" />
+                      {t(`topic.${id}.title`)}
+                      <small>{t('chrome.comingSoonShort')}</small>
+                    </span>
+                  )}
+                </li>
+              );
+            })
+          }
+          <li class="sep"><a class="plain" href={localizePath(lang, '/glossary/')}>{t('nav.glossary')}</a></li>
+          <li><a class="plain" href={localizePath(lang, '/about/')}>{t('nav.about')}</a></li>
+        </ul>
+      </details>
+
+      <ul class="langs" aria-label={t('nav.language')}>
+        {
+          LANGS.map((l) => (
+            <li>
+              <a
+                href={localizePath(l, path)}
+                lang={l}
+                hreflang={l}
+                title={LANG_LABEL[l]}
+                aria-current={l === lang ? 'true' : undefined}
+              >
+                {LANG_SHORT[l]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Enhancement: close the topic menu on outside click / Escape.
+  const d = document.querySelector<HTMLDetailsElement>('.site-header details.topics');
+  if (d) {
+    document.addEventListener('click', (e) => {
+      if (d.open && !d.contains(e.target as Node)) d.open = false;
+    });
+    d.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && d.open) {
+        d.open = false;
+        d.querySelector('summary')?.focus();
+      }
+    });
+  }
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+    height: var(--header-h);
+    background: color-mix(in oklab, var(--bg) 82%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar {
+    height: 100%;
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    min-width: 0;
+  }
+  .mark {
+    flex: none;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow:
+      0 0 10px 2px var(--accent-soft),
+      0 0 2px var(--accent);
+  }
+  .name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: var(--fs-sm);
+  }
+  @media (min-width: 40rem) {
+    .name {
+      font-size: var(--fs-base);
+    }
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    flex: none;
+  }
+  .topics {
+    position: relative;
+  }
+  summary {
+    list-style: none;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    user-select: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::after {
+    content: ' ▾';
+  }
+  summary:hover,
+  details[open] > summary {
+    color: var(--fg);
+    border-color: var(--grid-strong);
+  }
+  .topics ul {
+    position: absolute;
+    right: 0;
+    top: calc(100% + var(--space-2));
+    width: min(19rem, calc(100vw - 2rem));
+    margin: 0;
+    padding: var(--space-2);
+    list-style: none;
+    background: var(--bg-raised);
+    border: 1px solid var(--grid-strong);
+    border-radius: var(--radius);
+    box-shadow: 0 20px 50px rgb(0 0 0 / 0.6);
+  }
+  .topics li a,
+  .topics li .off {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    color: var(--fg);
+    text-decoration: none;
+    font-size: var(--fs-sm);
+  }
+  .topics li a:hover,
+  .topics li a[aria-current='page'] {
+    background: var(--accent-soft);
+  }
+  .topics li i {
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--dot);
+    box-shadow: 0 0 8px var(--dot);
+  }
+  .off {
+    color: var(--fg-faint) !important;
+    cursor: default;
+  }
+  .off i {
+    opacity: 0.4;
+  }
+  .off small {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .sep {
+    margin-top: var(--space-2);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--line);
+  }
+  .plain {
+    color: var(--fg-muted) !important;
+  }
+  .langs {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.06em;
+  }
+  .langs a {
+    display: block;
+    padding: var(--space-2);
+    color: var(--fg-faint);
+    text-decoration: none;
+  }
+  .langs li + li a::before {
+    content: '·';
+    margin-right: var(--space-2);
+    color: var(--fg-faint);
+  }
+  .langs a:hover {
+    color: var(--fg);
+  }
+  .langs a[aria-current] {
+    color: var(--accent);
+  }
+</style>

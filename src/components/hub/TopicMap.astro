@@ -1,0 +1,333 @@
+---
+import { TOPICS, TOPIC_ORDER, type TopicId } from '../../data/topics';
+import { topicEdges } from '../../lib/connections';
+import { superscript } from '../../lib/format';
+import { localizePath, useT, type Lang } from '../../i18n';
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useT(lang);
+
+// Geometry (viewBox units)
+const W = 1000;
+const TOP = 80;
+const SPAN = 440;
+const CARD_W = 330;
+const CARD_H = 84;
+const CARD_X = 190;
+const AXIS_X = 110;
+const TOOL_X = 690;
+const TOOL_W = 250;
+
+const subjects = TOPIC_ORDER.filter((id) => TOPICS[id].kind === 'subject');
+const tools = TOPIC_ORDER.filter((id) => TOPICS[id].kind === 'tool');
+const scales = subjects.map((id) => TOPICS[id].scaleLog10 as number);
+const sMax = Math.max(...scales);
+const sMin = Math.min(...scales);
+const yOf = (s: number) => TOP + ((sMax - s) / (sMax - sMin)) * SPAN;
+const H = TOP + SPAN + 70;
+
+interface Box {
+  x: number;
+  y: number; // centre
+  w: number;
+}
+const box: Partial<Record<TopicId, Box>> = {};
+for (const id of subjects) box[id] = { x: CARD_X, y: yOf(TOPICS[id].scaleLog10 as number), w: CARD_W };
+for (const id of tools) box[id] = { x: TOOL_X, y: TOP + SPAN / 2, w: TOOL_W };
+
+const ticks = subjects.map((id) => ({ y: yOf(TOPICS[id].scaleLog10 as number), label: `10${superscript(TOPICS[id].scaleLog10 as number)} m` }));
+
+const edges = topicEdges().map((e) => {
+  const A = box[e.a]!;
+  const B = box[e.b]!;
+  const sx = A.x + A.w;
+  const sy = A.y;
+  let d: string;
+  let ex: number;
+  if (e.a !== e.b && TOPICS[e.b].kind === 'tool' && TOPICS[e.a].kind !== 'tool') {
+    ex = B.x;
+    const mx = (sx + ex) / 2;
+    d = `M${sx} ${sy} C${mx} ${sy} ${mx} ${B.y} ${ex} ${B.y}`;
+  } else if (TOPICS[e.a].kind === 'tool' && TOPICS[e.b].kind !== 'tool') {
+    const sx2 = B.x + B.w;
+    const mx = (sx2 + A.x) / 2;
+    d = `M${sx2} ${B.y} C${mx} ${B.y} ${mx} ${A.y} ${A.x} ${A.y}`;
+  } else {
+    const bulge = 50 + Math.abs(A.y - B.y) * 0.22;
+    d = `M${sx} ${sy} C${sx + bulge} ${sy} ${sx + bulge} ${B.y} ${B.x + B.w} ${B.y}`;
+  }
+  const live = TOPICS[e.a].released && TOPICS[e.b].released;
+  return { ...e, d, live, reasons: e.links.map((l) => l.reason[lang]) };
+});
+
+const title = (id: TopicId) => t(`topic.${id}.title`);
+const connected = (id: TopicId) => edges.filter((e) => e.a === id || e.b === id).map((e) => (e.a === id ? e.b : e.a));
+---
+
+<div class="map-wrap" data-topic-map>
+  <p class="intro">{t('chrome.hub.mapIntro')}</p>
+  <svg viewBox={`0 0 ${W} ${H}`} role="group" aria-label={t('chrome.hub.mapLabel')} class="map">
+    <!-- axis -->
+    <text x={AXIS_X - 40} y={TOP - 40} class="axis-title">{t('hub.map.axis')}</text>
+    <line x1={AXIS_X} y1={TOP - 24} x2={AXIS_X} y2={TOP + SPAN + 24} class="axis" />
+    {
+      ticks.map((k) => (
+        <g>
+          <line x1={AXIS_X - 6} y1={k.y} x2={CARD_X} y2={k.y} class="tick" />
+          <text x={AXIS_X - 14} y={k.y + 4} text-anchor="end" class="tick-label">
+            {k.label}
+          </text>
+        </g>
+      ))
+    }
+    <text x={TOOL_X} y={TOP - 40} class="axis-title">{t('hub.map.tool')}</text>
+
+    <!-- edges (under cards) -->
+    {
+      edges.map((e) => (
+        <g class:list={['edge', { off: !e.live }]} data-a={e.a} data-b={e.b} data-edge>
+          <path d={e.d} class="line" />
+          <path
+            d={e.d}
+            class="hit"
+            tabindex="0"
+            role="img"
+            aria-label={`${title(e.a)} — ${title(e.b)}: ${e.reasons.join(' ')}`}
+          >
+            <title>{e.reasons.join('\n')}</title>
+          </path>
+        </g>
+      ))
+    }
+
+    <!-- cards -->
+    {
+      TOPIC_ORDER.map((id) => {
+        const def = TOPICS[id];
+        const b = box[id]!;
+        const card = (
+          <g
+            class:list={['card', { off: !def.released, tool: def.kind === 'tool' }]}
+            data-card={id}
+            style={`--c:${def.accent}`}
+            transform={`translate(${b.x} ${b.y - CARD_H / 2})`}
+          >
+            <rect width={b.w} height={CARD_H} rx="10" class="box" />
+            <circle cx="22" cy={CARD_H / 2} r="5" class="dot" />
+            <text x="42" y="36" class="card-title">
+              {title(id)}
+            </text>
+            <text x="42" y="60" class="card-meta">
+              {def.released
+                ? t('card.readingTime', { min: def.readingMinutes })
+                : t('card.comingSoon')}
+            </text>
+          </g>
+        );
+        return def.released ? (
+          <a href={localizePath(lang, `/${id}/`)} data-card-link={id} aria-label={title(id)}>
+            {card}
+          </a>
+        ) : (
+          card
+        );
+      })
+    }
+    {
+      tools.map((id) => (
+        <text x={TOOL_X} y={box[id]!.y + CARD_H / 2 + 24} class="tick-label">
+          {t('chrome.hub.toolNote')}
+        </text>
+      ))
+    }
+  </svg>
+  <p class="reason" data-reason aria-live="polite">{t('chrome.hub.connectionHint')}</p>
+  <div hidden data-default>{t('chrome.hub.connectionHint')}</div>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-topic-map]');
+  if (root) {
+    const edges = [...root.querySelectorAll<SVGGElement>('[data-edge]')];
+    const cards = [...root.querySelectorAll<SVGGElement>('[data-card]')];
+    const reason = root.querySelector<HTMLElement>('[data-reason]')!;
+    const dflt = root.querySelector<HTMLElement>('[data-default]')!.textContent ?? '';
+    const svg = root.querySelector('svg')!;
+
+    const clear = () => {
+      svg.classList.remove('focus-mode');
+      edges.forEach((e) => e.classList.remove('on'));
+      cards.forEach((c) => c.classList.remove('on'));
+      reason.textContent = dflt;
+    };
+    const showEdge = (e: SVGGElement) => {
+      clear();
+      svg.classList.add('focus-mode');
+      e.classList.add('on');
+      cards.filter((c) => c.dataset.card === e.dataset.a || c.dataset.card === e.dataset.b).forEach((c) => c.classList.add('on'));
+      reason.textContent = e.querySelector('title')?.textContent?.replace(/\n/g, ' ') ?? '';
+    };
+    const showCard = (id: string) => {
+      clear();
+      svg.classList.add('focus-mode');
+      cards.filter((c) => c.dataset.card === id).forEach((c) => c.classList.add('on'));
+      edges.filter((e) => e.dataset.a === id || e.dataset.b === id).forEach((e) => {
+        e.classList.add('on');
+        cards.filter((c) => c.dataset.card === (e.dataset.a === id ? e.dataset.b : e.dataset.a)).forEach((c) => c.classList.add('on'));
+      });
+    };
+
+    edges.forEach((e) => {
+      const hit = e.querySelector('.hit')!;
+      hit.addEventListener('mouseenter', () => showEdge(e));
+      hit.addEventListener('focus', () => showEdge(e));
+      hit.addEventListener('click', () => showEdge(e));
+      hit.addEventListener('mouseleave', clear);
+      hit.addEventListener('blur', clear);
+    });
+    cards.forEach((c) => {
+      const target = c.closest('a') ?? c;
+      const id = c.dataset.card!;
+      target.addEventListener('mouseenter', () => showCard(id));
+      target.addEventListener('focus', () => showCard(id));
+      target.addEventListener('mouseleave', clear);
+      target.addEventListener('blur', clear);
+    });
+  }
+</script>
+
+<style>
+  .map-wrap {
+    display: none;
+  }
+  @media (min-width: 48rem) {
+    .map-wrap {
+      display: block;
+    }
+  }
+  .intro {
+    color: var(--fg-muted);
+    max-width: var(--measure);
+  }
+  .map {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    font-family: var(--font-mono);
+  }
+  .axis {
+    stroke: var(--grid-strong);
+    stroke-width: 1;
+  }
+  .tick {
+    stroke: var(--grid-strong);
+    stroke-dasharray: 2 4;
+  }
+  .tick-label,
+  .axis-title {
+    fill: var(--fg-muted);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+  }
+  .axis-title {
+    text-transform: uppercase;
+    fill: var(--fg-faint);
+  }
+  .edge .line {
+    fill: none;
+    stroke: var(--fg-faint);
+    stroke-width: 1.2;
+    opacity: 0.7;
+    transition:
+      opacity var(--dur) var(--ease-out),
+      stroke var(--dur) var(--ease-out);
+  }
+  .edge.off .line {
+    stroke-dasharray: 5 6;
+    opacity: 0.4;
+  }
+  .edge .hit {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 18;
+    cursor: help;
+  }
+  .edge .hit:focus-visible {
+    outline: none;
+  }
+  .edge.on .line {
+    stroke: var(--fg);
+    stroke-width: 2;
+    opacity: 1;
+    filter: drop-shadow(0 0 4px var(--fg));
+  }
+  .focus-mode .edge:not(.on) .line {
+    opacity: 0.12;
+  }
+  .card .box {
+    fill: var(--bg-raised);
+    stroke: var(--c);
+    stroke-opacity: 0.55;
+    stroke-width: 1;
+    transition:
+      stroke-opacity var(--dur) var(--ease-out),
+      filter var(--dur) var(--ease-out);
+  }
+  .card .dot {
+    fill: var(--c);
+    filter: drop-shadow(0 0 5px var(--c));
+  }
+  .card-title {
+    fill: var(--fg);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 19px;
+  }
+  .card-meta {
+    fill: var(--fg-muted);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .card.tool .box {
+    stroke-dasharray: 2 4;
+  }
+  .card.off {
+    opacity: 0.5;
+  }
+  .card.off .box {
+    stroke-opacity: 0.3;
+  }
+  .card.on .box {
+    stroke-opacity: 1;
+    filter: drop-shadow(0 0 8px var(--c));
+  }
+  .focus-mode .card:not(.on) {
+    opacity: 0.35;
+  }
+  [data-card-link] {
+    cursor: pointer;
+  }
+  [data-card-link]:focus-visible {
+    outline: none;
+  }
+  [data-card-link]:focus-visible .box {
+    stroke-opacity: 1;
+    stroke-width: 2;
+  }
+  .edge:has(.hit:focus-visible) .line {
+    stroke: var(--fg);
+    stroke-width: 2;
+  }
+  .reason {
+    min-height: 3em;
+    margin-top: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+    color: var(--fg-muted);
+    border-left: 2px solid var(--grid-strong);
+    padding-left: var(--space-4);
+  }
+</style>

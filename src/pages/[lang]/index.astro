@@ -1,6 +1,8 @@
 ---
-// STUB hub — owned by Track B. Replace with hero + topic map + topic list (docs/storyboards/hub.md).
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroTrack from '../../components/hub/HeroTrack.astro';
+import TopicMap from '../../components/hub/TopicMap.astro';
+import TopicList from '../../components/hub/TopicList.astro';
 import { LANGS, useT, type Lang } from '../../i18n';
 export function getStaticPaths() {
   return LANGS.map((lang) => ({ params: { lang } }));
@@ -8,6 +10,27 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const t = useT(lang);
 ---
+
 <BaseLayout lang={lang}>
-  <h1>{t('hub.hero.title')}</h1>
+  <HeroTrack lang={lang} />
+  <section class="wrap" aria-labelledby="map-title">
+    <p class="label">{t('hub.map.axis')}</p>
+    <h2 id="map-title">{t('hub.map.title')}</h2>
+    <TopicMap lang={lang} />
+  </section>
+  <section class="wrap" aria-labelledby="list-title">
+    <h2 id="list-title">{t('hub.list.title')}</h2>
+    <TopicList lang={lang} />
+  </section>
 </BaseLayout>
+
+<style>
+  .wrap {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: var(--space-24) var(--space-4) 0;
+  }
+  h2 {
+    font-size: var(--fs-2xl);
+  }
+</style>

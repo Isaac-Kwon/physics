@@ -1,0 +1,114 @@
+---
+import { TOPICS, TOPIC_ORDER } from '../../data/topics';
+import { topicEdges } from '../../lib/connections';
+import { localizePath, useT, type Lang } from '../../i18n';
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useT(lang);
+const edges = topicEdges();
+const items = TOPIC_ORDER.map((id) => {
+  const def = TOPICS[id];
+  const conn = edges
+    .filter((e) => e.a === id || e.b === id)
+    .map((e) => ({ other: e.a === id ? e.b : e.a, reason: e.links[0].reason[lang] }));
+  return { id, def, conn };
+});
+---
+
+<ul class="list">
+  {
+    items.map(({ id, def, conn }) => (
+      <li class:list={['card', { off: !def.released }]} style={`--c:${def.accent}`}>
+        <h3>
+          {def.released ? <a href={localizePath(lang, `/${id}/`)}>{t(`topic.${id}.title`)}</a> : <span>{t(`topic.${id}.title`)}</span>}
+        </h3>
+        <p class="tagline">{t(`topic.${id}.tagline`)}</p>
+        <p class="meta label">
+          {def.released ? t('card.readingTime', { min: def.readingMinutes }) : t('card.comingSoon')}
+        </p>
+        {conn.length > 0 && (
+          <details>
+            <summary>{t('chrome.hub.connections')} ({conn.length})</summary>
+            <ul>
+              {conn.map((c) => (
+                <li>
+                  <strong>{t(`topic.${c.other}.title`)}</strong> — {c.reason}
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  }
+  .card {
+    position: relative;
+    padding: var(--space-6);
+    background: var(--bg-raised);
+    border: 1px solid color-mix(in oklab, var(--c) 45%, var(--line));
+    border-top: 2px solid var(--c);
+    border-radius: var(--radius-lg);
+  }
+  .card.off {
+    opacity: 0.6;
+    border-style: dashed;
+  }
+  h3 {
+    font-size: var(--fs-xl);
+    margin-bottom: var(--space-2);
+  }
+  h3 a {
+    color: var(--fg);
+    text-decoration: none;
+  }
+  h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  h3 a:hover {
+    color: var(--c);
+  }
+  .tagline {
+    color: var(--fg-muted);
+  }
+  .meta {
+    margin: 0;
+    color: var(--c);
+  }
+  details {
+    position: relative;
+    z-index: 1;
+    margin-top: var(--space-4);
+    font-size: var(--fs-sm);
+    color: var(--fg-muted);
+  }
+  summary {
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  details ul {
+    margin: var(--space-2) 0 0;
+    padding-left: var(--space-4);
+  }
+  details strong {
+    color: var(--fg);
+    font-weight: 600;
+  }
+</style>

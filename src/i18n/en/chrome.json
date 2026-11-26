@@ -1,0 +1,35 @@
+{
+  "chrome.logoLabel": "{title} — home",
+  "chrome.topicsMenu": "Topics",
+  "chrome.comingSoonShort": "soon",
+  "chrome.footer.explore": "Explore",
+  "chrome.footer.languages": "Languages",
+  "chrome.footer.draftNote": "Draft — content is being written and reviewed.",
+
+  "chrome.hub.mapIntro": "Each topic is a different question. Hover or focus a line to see why two topics are connected.",
+  "chrome.hub.mapLabel": "Map of topics, arranged by length scale, with connections between them",
+  "chrome.hub.connectionHint": "Select a connection to read why the topics are linked.",
+  "chrome.hub.connections": "Connected to",
+  "chrome.hub.toolNote": "Not on the scale — used by all",
+  "chrome.hub.heroLabel": "A single glowing particle track crossing the dark",
+
+  "chrome.glossary.empty": "The glossary is being written. Check back soon.",
+  "chrome.glossary.count": "{n} terms",
+  "chrome.glossary.draft": "Not yet reviewed",
+  "chrome.glossary.otherLangs": "In other languages",
+
+  "chrome.about.purposeTitle": "Purpose",
+  "chrome.about.purpose": "This site is an interactive, scroll-driven introduction to a few ideas in experimental physics, written for curious readers with no prior background. Each topic stands on its own and goes as deep as you wish.",
+  "chrome.about.creditsTitle": "Credits",
+  "chrome.about.credits": "Authors, reviewers and translators will be listed here.",
+  "chrome.about.licenseTitle": "Licensing",
+  "chrome.about.license": "Text is released under CC BY 4.0 and code under the MIT licence. Licence details and third-party attributions will be listed here.",
+  "chrome.about.draftTitle": "Draft status",
+  "chrome.about.draft": "Content is a draft. Numbers, figures and translations may change, and some topics are not yet published.",
+
+  "chrome.notFound.title": "Page not found",
+  "chrome.notFound.body": "This page does not exist, or has not been published yet.",
+  "chrome.notFound.back": "Back to the start",
+
+  "chrome.root.noscript": "JavaScript is off. Please choose a language:"
+}

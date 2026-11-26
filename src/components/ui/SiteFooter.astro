@@ -1,7 +1,87 @@
 ---
-// STUB — owned by Track B (site chrome).
-import { useT, type Lang } from '../../i18n';
-interface Props { lang: Lang }
-const t = useT(Astro.props.lang);
+import { LANGS, LANG_LABEL, localizePath, stripLang, useT, type Lang } from '../../i18n';
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useT(lang);
+const path = stripLang(Astro.url);
 ---
-<footer><small>{t('footer.license')}</small></footer>
+
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <p class="label">{t('chrome.footer.explore')}</p>
+      <ul>
+        <li><a href={localizePath(lang, '/')}>{t('nav.home')}</a></li>
+        <li><a href={localizePath(lang, '/glossary/')}>{t('nav.glossary')}</a></li>
+        <li><a href={localizePath(lang, '/about/')}>{t('nav.about')}</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="label">{t('chrome.footer.languages')}</p>
+      <ul>
+        {
+          LANGS.map((l) => (
+            <li>
+              <a href={localizePath(l, path)} lang={l} hreflang={l} aria-current={l === lang ? 'true' : undefined}>
+                {LANG_LABEL[l]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div>
+      <p class="label">{t('site.tagline')}</p>
+      <p><small>{t('footer.license')}</small></p>
+      <p><small>{t('chrome.footer.draftNote')}</small></p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-32);
+    border-top: 1px solid var(--line);
+    background: var(--bg-sunken);
+    position: relative;
+    z-index: var(--z-content);
+  }
+  .inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: var(--space-12) var(--space-4);
+    display: grid;
+    gap: var(--space-8);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 40rem) {
+    .inner {
+      grid-template-columns: 1fr 1fr 2fr;
+    }
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    margin: var(--space-2) 0;
+  }
+  a {
+    color: var(--fg-muted);
+    text-decoration: none;
+    font-size: var(--fs-sm);
+  }
+  a:hover,
+  a[aria-current] {
+    color: var(--fg);
+  }
+  .label {
+    margin-bottom: var(--space-3);
+  }
+  small {
+    color: var(--fg-faint);
+  }
+</style>

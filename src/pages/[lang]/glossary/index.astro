@@ -1,0 +1,149 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { LANGS, LANG_SHORT, NUMBER_LOCALE, useT, type Lang } from '../../../i18n';
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const entries = (await getCollection('glossary')).map((e) => e.data);
+entries.sort((a, b) => a[lang].term.localeCompare(b[lang].term, NUMBER_LOCALE[lang]));
+const others = LANGS.filter((l) => l !== lang);
+---
+
+<BaseLayout lang={lang} title={t('glossary.title')}>
+  <div class="wrap">
+    <p class="label">{entries.length > 0 ? t('chrome.glossary.count', { n: entries.length }) : ''}</p>
+    <h1>{t('glossary.title')}</h1>
+    <p class="intro">{t('glossary.intro')}</p>
+
+    {entries.length === 0 && <p class="empty">{t('chrome.glossary.empty')}</p>}
+
+    <dl>
+      {
+        entries.map((e) => (
+          <div class="term" id={e.id}>
+            <dt>
+              <a class="anchor" href={`#${e.id}`} aria-label={e[lang].term}>
+                <span lang={lang}>{e[lang].term}</span>
+              </a>
+              {e.abbr && <span class="abbr mono">{e.abbr}</span>}
+              {e[lang].alt && <span class="alt">({e[lang].alt})</span>}
+            </dt>
+            <dd>
+              <p lang={lang}>{e[lang].definition}</p>
+              <p class="others label">
+                {others.map((l) => (
+                  <span lang={l}>
+                    <b>{LANG_SHORT[l]}</b> {e[l].term}
+                  </span>
+                ))}
+              </p>
+              {e.topics.length > 0 && (
+                <p class="chips">
+                  <span class="label">{t('glossary.relatedTopics')}</span>
+                  {e.topics.map((id) => (
+                    <span class="chip">{t(`topic.${id}.title`)}</span>
+                  ))}
+                </p>
+              )}
+              {!e.reviewed && <p class="draft label">{t('chrome.glossary.draft')}</p>}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</BaseLayout>
+
+<style>
+  .wrap {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: var(--space-16) var(--space-4) 0;
+  }
+  h1 {
+    font-size: var(--fs-display);
+  }
+  .intro {
+    color: var(--fg-muted);
+    font-size: var(--fs-lg);
+  }
+  .empty {
+    margin-top: var(--space-12);
+    padding: var(--space-6);
+    border: 1px dashed var(--grid-strong);
+    border-radius: var(--radius);
+    color: var(--fg-muted);
+  }
+  dl {
+    margin: var(--space-12) 0 0;
+  }
+  .term {
+    padding: var(--space-6) 0;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  }
+  .term:target dt {
+    color: var(--accent);
+  }
+  dt {
+    font-size: var(--fs-xl);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+  .anchor {
+    color: inherit;
+    text-decoration: none;
+  }
+  .anchor:hover {
+    text-decoration: underline;
+  }
+  .abbr {
+    font-size: var(--fs-sm);
+    color: var(--accent);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 0 var(--space-2);
+  }
+  .alt {
+    font-size: var(--fs-sm);
+    font-weight: 400;
+    color: var(--fg-muted);
+  }
+  dd {
+    margin: var(--space-3) 0 0;
+    max-width: var(--measure);
+  }
+  .others {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+    text-transform: none;
+  }
+  .others b {
+    color: var(--fg-faint);
+    margin-right: var(--space-1);
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .chip {
+    font-size: var(--fs-xs);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0 var(--space-3);
+    color: var(--fg-muted);
+  }
+  .draft {
+    color: var(--fg-faint);
+  }
+</style>

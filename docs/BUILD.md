@@ -101,3 +101,33 @@ Scene module = `export default { states: [...], mount(ctx) → { setState, setPr
 registered in `src/scenes/registry.ts` as `'hi.collision': () => import('./heavy-ion/collision')`.
 One shared WebGL renderer per page via `ctx.getRenderer()`; 2D scenes use Canvas2D/SVG in `ctx.container`.
 Reduced motion → `setState(…, { immediate: true })` and no continuous loops.
+
+---
+
+# Wave 2 — Heavy-Ion scenes, widgets, translations
+
+Read first: [design/DIRECTION.md](design/DIRECTION.md) (especially **Figures**), [scenes/heavy-ion.md](scenes/heavy-ion.md) (scene/widget spec),
+`src/content/topics/heavy-ion/en.mdx` (how each scene is used — the `<Step state>` names there are the contract).
+
+## Scene authoring
+- One file per scene: `src/scenes/heavy-ion/<name>.ts` → id `hi.<name>` (auto-registered; `_*.ts` = private helper, not registered).
+  Cross-topic scenes go in `src/scenes/common/<name>.ts` → id `shared.<name>`.
+- `export default { states: [...], mount(ctx) {...} } satisfies SceneModule`. `states` must contain **every** state used by any
+  `<Step state>` / `state=` for that scene in the MDX (check with grep). Don't touch window/document at module top level
+  (the gallery page imports scene modules at build time to read `states`).
+- 2D: `createCanvas2D` + `approach`/`mulberry32`/`smooth` from `src/scenes/shared/canvas2d.ts`; plots: `plot()` from
+  `src/scenes/shared/plot.ts`. 3D: `createThreeView` from `src/scenes/shared/three-view.ts` (shared renderer). Prefer 2D unless
+  depth is the point.
+- Labels: `ctx.label('key')` → `scene.<id>.<key>` in your own strings file `src/i18n/en/scenes-<bundle>.json` (English only).
+- `setProgress(p)` (scrub scenes) maps p∈[0,1] to physical time within the current state. `setState(s, {immediate})`.
+- Reduced motion (`ctx.reducedMotion`): no loops, draw the end frame of each state.
+- Performance: ≤ 1 rAF loop per scene, paused by `setActive(false)`; particle counts × `ctx.quality`.
+
+## Check your work (required)
+1. `node scripts/build.mjs .build-<you>` (must pass; rerun on a transient EBUSY).
+2. `node scripts/serve-static.mjs .build-<you> <your-port> &` — never `astro preview --force`, never port 4321.
+3. Every scene: `node scripts/dev/shoot.mjs http://localhost:<port>/physics <outDir> en/lab/scenes/<id>/ --full`
+   (gallery of all states; exits 1 on console errors). Also check it in context: `en/heavy-ion/` with `--scroll=0.x`.
+   Read the PNGs and iterate. Check `--dark` and `--mobile` once.
+4. `node scripts/check-content.mjs` must report 0 errors.
+5. Kill your server (only the node process whose command line has your port). Delete `.build-<you>`. Don't git commit.

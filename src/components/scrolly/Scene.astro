@@ -210,11 +210,12 @@ const kind = mode === 'portal' ? 'portal' : hasSteps ? mode : 'inline';
     color: var(--accent);
     margin-bottom: var(--space-2);
   }
-  .scrolly-on .scene .step__card {
+  /* Fade only the text of inactive steps — the card's backdrop must stay opaque so text over a scene stays legible. */
+  .scrolly-on .scene .step__card > * {
     opacity: 0.4;
     transition: opacity var(--dur) var(--ease-out);
   }
-  .scrolly-on .scene .step.is-active .step__card {
+  .scrolly-on .scene .step.is-active .step__card > * {
     opacity: 1;
   }
 

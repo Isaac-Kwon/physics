@@ -28,7 +28,8 @@
   /* Type */
   --font-sans: 'Pretendard Variable', 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-latin: 'Inter Variable', 'Pretendard Variable', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  /* Pretendard after the mono face: Hangul glyphs in labels fall back to it instead of a system font. */
+  --font-mono: 'JetBrains Mono Variable', 'Pretendard Variable', ui-monospace, 'SFMono-Regular', Consolas, monospace;
 
   --fs-xs: 0.75rem;
   --fs-sm: 0.875rem;
@@ -38,6 +39,9 @@
   --fs-2xl: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
   --fs-display: clamp(2.75rem, 1.5rem + 6vw, 6.5rem);
   --fs-number: clamp(4rem, 2rem + 10vw, 11rem);
+
+  /* Monospace instrument-label tracking; zero for Hangul (tracking breaks Korean words apart). */
+  --tracking-label: 0.06em;
 
   --lh-tight: 1.1;
   --lh-body: 1.65;
@@ -72,6 +76,10 @@
   --z-gauge: 40;
   --z-header: 50;
   --z-tooltip: 60;
+}
+
+:lang(ko) {
+  --tracking-label: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

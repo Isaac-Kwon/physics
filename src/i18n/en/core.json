@@ -1,0 +1,69 @@
+{
+  "site.title": "Physics, from the Outside In",
+  "site.tagline": "Ways of seeing the invisible",
+  "site.description": "An interactive, scroll-driven introduction to heavy-ion physics, dark matter, neutrinos and particle detectors.",
+
+  "nav.skip": "Skip to content",
+  "nav.topics": "Topics",
+  "nav.glossary": "Glossary",
+  "nav.about": "About",
+  "nav.home": "Home",
+  "nav.language": "Language",
+  "nav.menu": "Menu",
+
+  "topic.heavy-ion.title": "Heavy-Ion Physics",
+  "topic.heavy-ion.tagline": "Recreating the first microsecond of the universe.",
+  "topic.dark-matter.title": "Dark Matter",
+  "topic.dark-matter.tagline": "Most matter is invisible. How do we look for it?",
+  "topic.neutrinos.title": "Neutrinos",
+  "topic.neutrinos.tagline": "Catching ghost particles that pass through everything.",
+  "topic.semiconductor-detectors.title": "Semiconductor Detectors",
+  "topic.semiconductor-detectors.tagline": "How a sliver of silicon turns a particle into a signal.",
+  "topic.detectors.title": "Detectors",
+  "topic.detectors.tagline": "We never see particles — only the traces they leave.",
+
+  "hub.hero.title": "Ways of seeing the invisible",
+  "hub.hero.subtitle": "Different questions, connected by the same tools and the same physics.",
+  "hub.map.title": "Topic map",
+  "hub.map.axis": "Length scale",
+  "hub.map.tool": "Tool",
+  "hub.list.title": "All topics",
+
+  "card.comingSoon": "Coming soon",
+  "card.readingTime": "{min} min read",
+
+  "tier.T0": "Hook",
+  "tier.T1": "Intuition",
+  "tier.T2": "Mechanism",
+  "tier.T3": "Undergraduate",
+  "tier.T4": "Frontier",
+
+  "gauge.label": "Depth",
+  "gauge.jump": "Jump to {layer}",
+
+  "deeper.label": "Deeper",
+  "deeper.open": "Show the details",
+  "deeper.close": "Hide the details",
+
+  "primer.label": "Primer",
+  "primer.from": "From {topic}",
+  "bridge.label": "Go deeper in",
+  "related.title": "Related topics",
+  "references.title": "Further reading",
+
+  "figure.schematic": "Schematic — not real data",
+  "figure.simulated": "Simulated example",
+  "figure.asOf": "As of {date}",
+
+  "glossary.title": "Glossary",
+  "glossary.intro": "Every term in three languages.",
+  "glossary.relatedTopics": "Appears in",
+
+  "about.title": "About",
+
+  "langPicker.title": "Choose a language",
+  "langPicker.redirecting": "Redirecting to your language…",
+
+  "footer.license": "Text CC BY 4.0 · Code MIT",
+  "a11y.reducedMotion": "Animations are reduced to match your system setting."
+}

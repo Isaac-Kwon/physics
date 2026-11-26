@@ -1,0 +1,7 @@
+---
+// STUB — owned by Track B (site chrome).
+import { useT, type Lang } from '../../i18n';
+interface Props { lang: Lang }
+const t = useT(Astro.props.lang);
+---
+<footer><small>{t('footer.license')}</small></footer>

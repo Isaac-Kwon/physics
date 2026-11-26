@@ -1,0 +1,164 @@
+# Single source of truth for cross-topic connections (PLAN §2.5).
+# Hub map lines, Bridge cards and Related Topics are all generated from this file.
+# Anchors are "<topic>#<layer-id>" and must exist in src/data/topics.ts (checked by scripts/check-content.mjs).
+#
+# links[].id      stable kebab-case id, used by <Bridge id="..."/> in MDX
+# links[].from    where the Bridge card appears
+# links[].to      where it points
+# links[].reason  one line per language (ko/en/it); hub hover text + Bridge card text
+# links[].related if true, also listed in the source page's Related Topics block
+#
+# primers[].id     primer id (src/data/topics.ts PRIMER_IDS)
+# primers[].origin the topic layer that is the primer's "home"
+# primers[].usedBy topic layers that embed <Primer id="..."/>
+
+links:
+  - id: dm-ccd-to-sc-zoo
+    from: dark-matter#direct-detection
+    to: semiconductor-detectors#zoo
+    related: true
+    reason:
+      en: Silicon CCDs count single electrons to hunt for light dark matter.
+      ko: 실리콘 CCD 로 전자 하나를 세어 가벼운 암흑물질을 찾는다.
+      it: I CCD al silicio contano singoli elettroni per cercare la materia oscura leggera.
+  - id: dm-tpc-to-det-measurement
+    from: dark-matter#direct-detection
+    to: detectors#measurement
+    related: true
+    reason:
+      en: A xenon TPC is built from scintillation, drift and photosensors.
+      ko: 제논 TPC 는 섬광, 전자 표류, 광센서로 이루어진다.
+      it: Una TPC a xeno combina scintillazione, deriva e fotosensori.
+  - id: dm-fog-to-nu-cevns
+    from: dark-matter#frontier
+    to: neutrinos#detection
+    related: true
+    reason:
+      en: Neutrinos become the floor of dark-matter searches — the "neutrino fog".
+      ko: 중성미자가 암흑물질 탐색의 바닥이 된다 — "중성미자 안개".
+      it: I neutrini diventano il fondo delle ricerche di materia oscura — la "nebbia di neutrini".
+  - id: nu-detection-to-det-interactions
+    from: neutrinos#detection
+    to: detectors#interactions
+    related: true
+    reason:
+      en: How Cherenkov and scintillation light are produced in the first place.
+      ko: 체렌코프 빛과 섬광이 생기는 원리.
+      it: Come nascono la luce Cherenkov e la scintillazione.
+  - id: nu-cevns-to-dm-frontier
+    from: neutrinos#detection
+    to: dark-matter#frontier
+    related: true
+    reason:
+      en: The same nuclear recoil that dark-matter detectors look for.
+      ko: 암흑물질 검출기가 찾는 것과 같은 핵 되튐.
+      it: Lo stesso rinculo nucleare che cercano i rivelatori di materia oscura.
+  - id: nu-0vbb-to-sc-zoo
+    from: neutrinos#frontier
+    to: semiconductor-detectors#zoo
+    related: false
+    reason:
+      en: Germanium detectors search for neutrinoless double-beta decay.
+      ko: 게르마늄 검출기로 중성미자 없는 이중 베타 붕괴를 찾는다.
+      it: I rivelatori al germanio cercano il doppio decadimento beta senza neutrini.
+  - id: hi-its-to-sc-its3
+    from: heavy-ion#detection
+    to: semiconductor-detectors#case-its3
+    related: true
+    reason:
+      en: Silicon pixel trackers sit closest to the collision.
+      ko: 충돌 지점에 가장 가까이 있는 실리콘 픽셀 트래커.
+      it: I tracciatori a pixel di silicio sono i più vicini alla collisione.
+  - id: hi-pid-to-det-interactions
+    from: heavy-ion#detection
+    to: detectors#interactions
+    related: true
+    reason:
+      en: Identifying particles by their energy loss (Bethe–Bloch).
+      ko: 에너지 손실(Bethe–Bloch)로 입자를 식별한다.
+      it: Identificare le particelle dalla perdita di energia (Bethe–Bloch).
+  - id: hi-universe-to-dm-evidence
+    from: heavy-ion#why
+    to: dark-matter#evidence
+    related: true
+    reason:
+      en: The same cosmological story, told from the other end.
+      ko: 같은 우주론 이야기의 다른 끝.
+      it: La stessa storia cosmologica, vista dall'altro capo.
+  - id: sc-mip-to-det-interactions
+    from: semiconductor-detectors#intuition
+    to: detectors#interactions
+    related: true
+    reason:
+      en: Where the signal starts — ionization by a minimum-ionizing particle.
+      ko: 신호의 출발점 — 최소 이온화 입자의 이온화.
+      it: Dove nasce il segnale — la ionizzazione di una particella al minimo di ionizzazione.
+  - id: sc-hpge-to-nu-frontier
+    from: semiconductor-detectors#zoo
+    to: neutrinos#frontier
+    related: false
+    reason:
+      en: High-purity germanium in the hunt for neutrinoless double-beta decay.
+      ko: 고순도 게르마늄으로 중성미자 없는 이중 베타 붕괴를 찾는다.
+      it: Germanio iperpuro alla caccia del doppio decadimento beta senza neutrini.
+  - id: sc-ccd-to-dm-direct
+    from: semiconductor-detectors#zoo
+    to: dark-matter#direct-detection
+    related: true
+    reason:
+      en: Skipper CCDs as dark-matter detectors.
+      ko: 암흑물질 검출기로 쓰이는 Skipper CCD.
+      it: I CCD Skipper come rivelatori di materia oscura.
+  - id: sc-its3-to-hi-detection
+    from: semiconductor-detectors#case-its3
+    to: heavy-ion#detection
+    related: true
+    reason:
+      en: Where these sensors are used.
+      ko: 이 센서들이 쓰이는 곳.
+      it: Dove vengono usati questi sensori.
+  - id: det-measurement-to-sc-mechanism
+    from: detectors#measurement
+    to: semiconductor-detectors#mechanism
+    related: true
+    reason:
+      en: Solid-state detection in depth.
+      ko: 고체 검출기를 더 깊이.
+      it: La rivelazione a stato solido in profondità.
+  - id: det-measurement-to-nu-detection
+    from: detectors#measurement
+    to: neutrinos#detection
+    related: true
+    reason:
+      en: Light-based detectors at enormous scale.
+      ko: 거대한 규모의 빛 기반 검출기.
+      it: Rivelatori basati sulla luce su scala enorme.
+  - id: det-measurement-to-dm-direct
+    from: detectors#measurement
+    to: dark-matter#direct-detection
+    related: false
+    reason:
+      en: A TPC that waits years for a single recoil.
+      ko: 단 한 번의 되튐을 몇 년씩 기다리는 TPC.
+      it: Una TPC che aspetta anni un singolo rinculo.
+  - id: det-measurement-to-hi-detection
+    from: detectors#measurement
+    to: heavy-ion#detection
+    related: false
+    reason:
+      en: Thousands of tracks per collision, sorted by particle type.
+      ko: 충돌 한 번에 수천 개의 궤적을 입자 종류별로.
+      it: Migliaia di tracce per collisione, ordinate per tipo di particella.
+
+primers:
+  - { id: ionization, origin: detectors#interactions, usedBy: [semiconductor-detectors#intuition, heavy-ion#detection] }
+  - { id: scintillation, origin: detectors#interactions, usedBy: [dark-matter#direct-detection, neutrinos#detection] }
+  - { id: cherenkov, origin: detectors#interactions, usedBy: [neutrinos#detection, heavy-ion#detection] }
+  - { id: tpc, origin: detectors#measurement, usedBy: [dark-matter#direct-detection, neutrinos#detection, heavy-ion#detection] }
+  - { id: magnetic-tracking, origin: detectors#measurement, usedBy: [heavy-ion#detection, semiconductor-detectors#case-its3] }
+  - { id: particle-id, origin: detectors#measurement, usedBy: [heavy-ion#detection] }
+  - { id: silicon-sensor, origin: semiconductor-detectors#intuition, usedBy: [heavy-ion#detection, dark-matter#direct-detection, detectors#measurement] }
+  - { id: underground-lab, origin: dark-matter#frontier, usedBy: [neutrinos#detection] }
+  - { id: weak-interaction, origin: neutrinos#ghost, usedBy: [dark-matter#candidates] }
+  - { id: quarks-gluons, origin: heavy-ion#why, usedBy: [detectors#interactions] }
+  - { id: standard-model, origin: null, usedBy: [heavy-ion#why, neutrinos#ghost, dark-matter#candidates] }

@@ -1,0 +1,9 @@
+---
+// STUB — owned by Track B (site chrome). Replace with real header: logo, topic dropdown, language switch.
+import { localizePath, useT, type Lang } from '../../i18n';
+import type { TopicId } from '../../data/topics';
+interface Props { lang: Lang; topic?: TopicId }
+const { lang } = Astro.props;
+const t = useT(lang);
+---
+<header><a href={localizePath(lang, '/')}>{t('site.title')}</a></header>

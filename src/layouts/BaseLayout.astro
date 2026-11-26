@@ -1,0 +1,65 @@
+---
+/**
+ * Base HTML shell shared by every page (hub, topic, glossary, about).
+ * Owns: <head>, fonts, global CSS, hreflang, accent theming, header/footer slots.
+ */
+import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+import SiteHeader from '../components/ui/SiteHeader.astro';
+import SiteFooter from '../components/ui/SiteFooter.astro';
+import { HTML_LANG, LANGS, localizePath, stripLang, useT, type Lang } from '../i18n';
+import { TOPICS, type TopicId } from '../data/topics';
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+  /** Sets the accent colours for the page. */
+  topic?: TopicId;
+  /** Absolute URL path of the OG image (without base). */
+  ogImage?: string;
+  /** Hide header/footer (e.g. root language picker). */
+  bare?: boolean;
+}
+
+const { lang, title, description, topic, ogImage, bare = false } = Astro.props;
+const t = useT(lang);
+const siteTitle = t('site.title');
+const fullTitle = title ? `${title} — ${siteTitle}` : siteTitle;
+const desc = description ?? t('site.description');
+const path = stripLang(Astro.url);
+const site = Astro.site!;
+const canonical = new URL(localizePath(lang, path), site).href;
+const accentStyle = topic ? `--accent:${TOPICS[topic].accent};--accent-2:${TOPICS[topic].accent2};` : undefined;
+---
+
+<!doctype html>
+<html lang={HTML_LANG[lang]} style={accentStyle} data-topic={topic}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+    {LANGS.map((l) => <link rel="alternate" hreflang={HTML_LANG[l]} href={new URL(localizePath(l, path), site).href} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(localizePath('en', path), site).href} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}${ogImage}`, site).href} />}
+    <meta name="theme-color" content="#05060a" />
+    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} type="image/svg+xml" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t('nav.skip')}</a>
+    {!bare && <SiteHeader lang={lang} topic={topic} />}
+    <main id="main">
+      <slot />
+    </main>
+    {!bare && <SiteFooter lang={lang} />}
+  </body>
+</html>

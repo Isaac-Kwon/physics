@@ -1,0 +1,83 @@
+/* Design tokens (PLAN §3). Draft values — to be finalised in docs/design/. */
+:root {
+  color-scheme: dark;
+
+  /* Neutrals */
+  --bg: #05060a;
+  --bg-raised: #0c0e15;
+  --bg-sunken: #020306;
+  --fg: #e8e9ee;
+  --fg-muted: #9aa0ad;
+  --fg-faint: #5c6270;
+  --grid: #1a1e29;
+  --grid-strong: #2a3040;
+  --line: #262b38;
+
+  /* Topic accent — overridden per page via style="--accent:…; --accent-2:…" from src/data/topics.ts */
+  --accent: #5fe1ff;
+  --accent-2: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 18%, transparent);
+
+  /* Tier intensity (Depth Gauge): T0 lightest → T4 densest */
+  --tier-0: color-mix(in oklab, var(--accent) 20%, transparent);
+  --tier-1: color-mix(in oklab, var(--accent) 38%, transparent);
+  --tier-2: color-mix(in oklab, var(--accent) 56%, transparent);
+  --tier-3: color-mix(in oklab, var(--accent) 76%, transparent);
+  --tier-4: var(--accent);
+
+  /* Type */
+  --font-sans: 'Pretendard Variable', 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-latin: 'Inter Variable', 'Pretendard Variable', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1.0625rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --fs-2xl: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+  --fs-display: clamp(2.75rem, 1.5rem + 6vw, 6.5rem);
+  --fs-number: clamp(4rem, 2rem + 10vw, 11rem);
+
+  --lh-tight: 1.1;
+  --lh-body: 1.65;
+  --measure: 38rem;
+
+  /* Space */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 14px;
+
+  --header-h: 3.5rem;
+  --gauge-w: 2.75rem;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur: 300ms;
+  --dur-slow: 700ms;
+
+  --z-canvas: 0;
+  --z-content: 10;
+  --z-gauge: 40;
+  --z-header: 50;
+  --z-tooltip: 60;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur: 0ms;
+    --dur-slow: 0ms;
+  }
+}

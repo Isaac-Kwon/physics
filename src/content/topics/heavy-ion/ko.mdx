@@ -1,0 +1,523 @@
+---
+topic: heavy-ion
+lang: ko
+title: 중이온 물리
+subtitle: 우주 최초 몇 마이크로초를 실험실에서 다시 만들다
+description: 무거운 원자핵을 충돌시켜 초기 우주의 물질인 쿼크-글루온 플라스마를 만들고, 핵물질이 플라스마로 바뀌는 경계를 지도로 그립니다.
+tagline: 원자핵을 부수어 초기 우주를 되살립니다.
+layers:
+  - { id: hook, title: 인류가 만든 가장 뜨거운 물질 }
+  - { id: why, title: 왜 원자핵을 충돌시킬까? }
+  - { id: collision, title: 충돌하면 어떤 일이 일어날까? }
+  - { id: fireball, title: 불덩이 속으로 }
+  - { id: phase-diagram, title: 플라스마와 원자핵 사이 }
+  - { id: detection, title: 어떻게 포착할까? }
+  - { id: frontier, title: 최전선 }
+references:
+  - title: "Heavy Ion Collisions: The Big Picture and the Big Questions"
+    author: "W. Busza, K. Rajagopal, W. van der Schee — Annu. Rev. Nucl. Part. Sci. 68 (2018) 339"
+    url: "https://arxiv.org/abs/1802.04801"
+    note: "Review. The first sections are readable for undergraduates."
+  - title: "The ALICE experiment: a journey through QCD"
+    author: "ALICE Collaboration — Eur. Phys. J. C 84 (2024) 813"
+    url: "https://arxiv.org/abs/2211.04384"
+    note: "Long overview of the physics and the detector. Skim the introductions."
+  - title: "Mapping the phases of quantum chromodynamics with beam energy scan"
+    author: "A. Bzdak, S. Esumi, V. Koch, J. Liao, M. Stephanov, N. Xu — Phys. Rep. 853 (2020) 1"
+    url: "https://arxiv.org/abs/1906.00936"
+    note: "Advanced review of the beam energy scan programme."
+  - title: "Challenges in QCD matter physics — The scientific programme of the Compressed Baryonic Matter experiment at FAIR"
+    author: "CBM Collaboration — Eur. Phys. J. A 53 (2017) 60"
+    url: "https://arxiv.org/abs/1607.01487"
+  - title: "Modern Particle Physics"
+    author: "Mark Thomson — Cambridge University Press (2013)"
+    note: "Textbook. See the chapters on QCD and on the strong interaction."
+asOf: "2025"
+draft: true
+---
+
+<Layer id="hook">
+  <Scene id="hi.hook" mode="scrub">
+    <Step state="dark">어둠 속에서 거의 빛의 속도로 달리는 납 원자핵 두 개.</Step>
+    <Step state="approach">서로를 향해 달려옵니다.</Step>
+    <Step state="impact">충돌.</Step>
+    <Step state="fireball">찰나의 순간, 우리가 만들 수 있는 어떤 것보다 뜨거운 불덩이가 생깁니다.</Step>
+    <Step state="tracks">수천 개의 입자가 튀어나옵니다. 검출기가 그 입자를 잡아냅니다.</Step>
+  </Scene>
+  <BigNumber value={1e12} unit="K" approx caption="인류가 만든 어떤 것보다 뜨겁습니다. 태양 중심보다 약 10만 배 뜨겁습니다." />
+</Layer>
+
+<Layer id="why">
+  <Primer id="standard-model" />
+
+  <Scene id="hi.confinement">
+    <Step state="string">
+      양성자와 중성자는 쿼크로 이루어져 있고, 쿼크는 글루온으로 붙어 있습니다. 이 접착제를 다루는 이론이 <Term id="qcd">양자색역학</Term>(quantum chromodynamics, QCD)입니다.
+    </Step>
+    <Step state="stretch">
+      쿼크 하나를 끄집어내 보세요. 두 쿼크 사이의 글루온 장이 끈처럼 늘어나고, 거기에 쌓이는 에너지는 거리에 따라 커집니다.
+    </Step>
+    <Step state="break">
+      어느 순간부터는 그 에너지로 새로운 쿼크와 반쿼크를 만드는 편이 더 쌉니다. 끈이 끊어집니다. 쿼크 하나만 손에 쥘 수는 없습니다. 이것이 <Term id="confinement">가둠</Term>(confinement)입니다.
+    </Step>
+    <Step state="deconfined">
+      그러나 물질을 아주 뜨겁게, 또는 아주 빽빽하게 만들면 쿼크와 글루온은 더 이상 양성자나 중성자 하나에 갇혀 있지 않습니다. 훨씬 넓은 영역을 자유롭게 돌아다닙니다. 이것이 <Term id="qgp">쿼크-글루온 플라스마</Term>(quark–gluon plasma, QGP)입니다.
+    </Step>
+  </Scene>
+
+  <Deeper title="QCD 퍼텐셜과 고무줄 비유의 한계">
+    짧은 거리에서 무거운 쿼크와 반쿼크 사이의 힘은 쿨롱 힘과 비슷하고, 먼 거리에서는 선형 퍼텐셜로 커집니다.
+
+    $$V(r) \approx -\frac{4}{3}\frac{\alpha_s \hbar c}{r} + \kappa r, \qquad \kappa \approx 1\ \text{GeV/fm}.$$
+
+    $\kappa r$가 가벼운 쿼크–반쿼크 쌍의 에너지를 넘으면 끈이 끊어집니다. 그러니 0.1 fm 남짓에서 1 fm 정도만 늘어나도 충분합니다.
+
+    고무줄은 당길수록 더 뻑뻑해집니다. QCD의 끈은 다릅니다. 장력 $\kappa$가 일정해서 힘이 거리에 따라 커지지 않습니다. "끈"은 글루온 장이 좁은 관 모양으로 모인 모습을 그린 것일 뿐, 실제 재료가 아닙니다.
+  </Deeper>
+
+  <Scene id="hi.cosmic-timeline">
+    <Step state="qgp">
+      초기 우주가 바로 이 플라스마였습니다. 빅뱅 후 약 10 마이크로초까지, 우주 공간은 자유로운 쿼크와 글루온으로 가득했습니다.
+    </Step>
+    <Step state="hadrons">
+      우주가 약 2 × 10¹² K 아래로 식으면서 쿼크가 양성자와 중성자 안에 갇혔습니다.
+    </Step>
+    <Step state="nuclei">
+      몇 분 안에 양성자와 중성자가 합쳐져 첫 가벼운 원자핵이 만들어졌습니다.
+    </Step>
+    <Step state="atoms">
+      거의 40만 년이 지나 원자핵이 전자를 붙잡으면서 최초의 원자가 나타났습니다.
+    </Step>
+  </Scene>
+
+  <Bridge id="hi-universe-to-dm-evidence" />
+
+  <Scene id="hi.phase-diagram">
+    <Step state="axes">
+      얼음, 물, 수증기. 물질에는 상(phase)이 있고, 핵물질도 마찬가지입니다. 핵물질의 지도에는 두 축이 있습니다. 온도, 그리고 바리온 밀도(단위 부피당 양성자와 중성자의 수)입니다. 지도의 대부분은 비어 있습니다. 이 지도는 뒤에서 다시 다룹니다.
+    </Step>
+  </Scene>
+
+  **QCD는 우리가 아는 유일한 강한 힘의 이론이고, 중이온 충돌은 수많은 입자에 QCD가 작용하는 모습을 한꺼번에 볼 수 있는 유일한 실험실입니다.**
+</Layer>
+
+<Layer id="collision">
+  <Scene id="hi.collision">
+    <Step state="approach">
+      납의 경우 지름이 약 14 fm(1 fm = 10⁻¹⁵ m)인 원자핵 두 개가 빔 파이프 안에서 서로를 향해 달립니다. 충돌이 좌우 대칭으로 보이는 기준틀, 곧 질량 중심계에서 보겠습니다.
+    </Step>
+    <Step state="lorentz">
+      빛의 속도에 가까워지면 특수 상대성 이론에 따라 각 원자핵은 진행 방향으로 납작해집니다. 로런츠 인자가 수천인 LHC에서 납 원자핵은 두께 0.01 fm가 안 되는 팬케이크가 됩니다.
+    </Step>
+  </Scene>
+
+  <Deeper title="충돌 에너지와 로런츠 인자">
+    같은 원자핵 둘이 정면충돌할 때, 질량 중심계에서 핵자 쌍당 에너지는 $\sqrt{s_{NN}} = 2E_{\text{beam}}$(핵자당)입니다. 이때 각 원자핵의 값은 다음과 같습니다.
+
+    $$\gamma = \frac{\sqrt{s_{NN}}}{2 m_N c^2}, \qquad L = \frac{L_0}{\gamma}.$$
+
+    $\sqrt{s_{NN}} = 5.02$ TeV이면 $\gamma \approx 2700$, $L \approx 14\ \text{fm}/2700 \approx 0.005$ fm입니다. 200 GeV에서는 $\gamma \approx 100$입니다. 고정 표적에서는 $s = 2m_N^2 + 2m_N E_{\text{lab}}$이므로 $\sqrt{s_{NN}}$은 $\sqrt{E_{\text{lab}}}$에 비례해서만 커집니다.
+  </Deeper>
+
+  <Scene id="hi.stopping">
+    <Step state="transparent">
+      에너지가 아주 높으면 두 팬케이크는 서로를 그냥 통과합니다. 양성자와 중성자는 계속 날아갑니다. 바리온이 거의 없는 한가운데에서는 충돌 에너지가 새 입자들로 이루어진 뜨거운 불덩이가 됩니다.
+    </Step>
+    <Step state="stopped">
+      에너지가 낮으면 원자핵이 더 두꺼워서 서로의 속도를 늦춥니다. 이것이 <Term id="baryon-stopping">바리온 정지</Term>(baryon stopping)입니다. 불덩이는 덜 뜨겁지만 바리온으로 가득 찹니다. 이 점을 기억해 두세요. 빽빽한 물질에 도달하는 방법이 바로 이것입니다.
+    </Step>
+  </Scene>
+
+  <Widget name="CollisionEnergy" />
+
+  <Scene id="hi.collision">
+    <Step state="impact">
+      원자핵이 정확히 한가운데서 부딪히는 일은 드뭅니다. 두 중심 사이의 어긋남이 <Term id="impact-parameter">충돌 매개변수</Term>(impact parameter) $b$입니다. 겹치는 부분의 핵자는 참여자이고, 나머지는 방관자로서 거의 교란되지 않고 날아갑니다. $b$가 작은 충돌이 <Term id="centrality">중심 충돌</Term>(central collision)입니다.
+    </Step>
+  </Scene>
+
+  <Widget name="ImpactParameter" />
+
+  <Deeper title="글라우버 모형">
+    $b$는 직접 잴 수 없습니다. 대신 글라우버 모형은 각 원자핵을 무작위로 흩어진 핵자 구름으로 보고, 우즈–색슨 모양 같은 밀도 분포에서 핵자를 뽑습니다.
+
+    $$\rho(r) = \frac{\rho_0}{1 + e^{(r-R)/a}},$$
+
+    그리고 겹치는 핵자의 수($N_{\text{part}}$)와 핵자–핵자 충돌의 수($N_{\text{coll}}$)를 셉니다. 사건을 측정된 입자 다중도 순으로 나누고, 각 다중도 구간을 $N_{\text{part}}$ 범위에, 곧 중심도 백분위에 대응시킵니다.
+  </Deeper>
+
+  <Scene id="hi.collision" mode="scrub">
+    <Step state="initial">
+      시계는 t = 0에서 시작하며, 단위는 fm/c입니다. 빛이 1 펨토미터를 가는 데 걸리는 시간(1 fm/c ≈ 3 × 10⁻²⁴ s)입니다. 팬케이크가 겹치고, 그 에너지는 얇고 극도로 빽빽한 판 모양 영역에 쌓입니다.
+    </Step>
+    <Step state="preeq">
+      0에서 약 1 fm/c까지, 쌓인 에너지는 평형과 거리가 멉니다. 입자들이 빠르게 충돌하며 에너지를 나누어, 곧 뚜렷한 온도를 가진 상태(열평형)에 이릅니다.
+    </Step>
+    <Step state="qgp">
+      약 1에서 10 fm/c까지, 쿼크-글루온 플라스마는 유체처럼 팽창하며 식습니다. 처음 온도는 전이 온도의 몇 배입니다.
+    </Step>
+    <Step state="hadronization">
+      약 10 fm/c에 온도가 전이 온도, 곧 약 2 × 10¹² K까지 떨어집니다. 쿼크와 글루온은 다시 강입자 안에 갇힙니다. 이것이 <Term id="hadronization">강입자화</Term>(hadronization)이며, 입자 종류별 상대적인 개수를 결정합니다.
+    </Step>
+    <Step state="freezeout">
+      강입자들은 5에서 10 fm/c 동안 더 충돌합니다. 그러다 서로 너무 멀어져 상호작용하지 못하게 됩니다. <Term id="freeze-out">동결</Term>(freeze-out)입니다. 이후 입자의 운동량은 더 이상 변하지 않습니다.
+    </Step>
+    <Step state="free-stream">
+      입자들은 자유롭게 날아갑니다. 약 10¹⁶ fm/c 뒤(약 30 나노초)에 10 m 떨어진 검출기에 닿습니다.
+    </Step>
+  </Scene>
+
+  <Deeper title="에너지 밀도 어림값 (비요르켄)">
+    비요르켄의 그림에서는 이 판을 단면적이 $\pi R^2$인 부스트 불변 원기둥으로 봅니다. 고유 시간 $\tau_0$에서의 에너지 밀도는 다음과 같습니다.
+
+    $$\varepsilon_{\text{Bj}} = \frac{1}{\pi R^2\,\tau_0}\,\frac{dE_T}{dy},$$
+
+    여기서 $dE_T/dy$는 단위 래피디티당 방출되는 횡에너지입니다. $\tau_0$를 약 1 fm/c로 잡으면, RHIC와 LHC의 중심 충돌은 수에서 수십 GeV/fm³를 줍니다. 보통의 핵물질($\approx 0.15$ GeV/fm³)보다, 그리고 전이 영역(0.몇 GeV/fm³에서 약 1)보다 훨씬 큽니다.
+  </Deeper>
+
+  우리는 불덩이를 직접 볼 수 없습니다. 불덩이는 약 10⁻²³ 초 동안 존재하고 크기도 원자핵 몇 개 정도에 불과합니다. **우리가 얻는 것은 검출기에 도달한 입자뿐이며, 그것으로부터 무슨 일이 있었는지 재구성해야 합니다.** 그것이 다음 층의 이야기입니다.
+</Layer>
+
+<Layer id="fireball">
+  아래의 단서는 저마다 플라스마의 다른 지문입니다. 함께 모아야 하나의 그림이 됩니다.
+
+  <Scene id="hi.flow">
+    <Step state="almond">
+      단서 1: 흐릅니다. 중심에서 벗어난 충돌에서는 겹친 영역이 아몬드 모양입니다.
+    </Step>
+    <Step state="pressure">
+      압력 기울기는 아몬드의 긴 축보다 짧은 축 방향에서 더 가파릅니다. 불덩이는 짧은 방향으로 더 세게 밀려 나갑니다.
+    </Step>
+    <Step state="momentum-anisotropy">
+      처음의 공간적 비등방성이 운동량 비등방성으로 바뀝니다. 짧은 축 방향으로 더 많은 입자가 나옵니다. 이것이 <Term id="elliptic-flow">타원 흐름</Term>(elliptic flow)이며 계수 $v_2$로 나타냅니다. 이를 만들려면 강한 재산란이 필요합니다. 상호작용하지 않는 입자의 기체라면 그냥 흩어져 날아가서 모양의 기억을 간직하지 못합니다.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="개념도: 가로 운동량에 따른 타원 흐름 v₂. 증가하다가 평평해지며, 같은 pT에서는 무거운 입자일수록 v₂가 작습니다.">
+    <Scene id="hi.flow">
+      <Step state="v2-plot">
+        측정된 $v_2$는 큽니다. 유체역학 계산과 비교하면, 이 플라스마는 엔트로피 밀도에 비해 점성이 극단적으로 작은 액체임을 알 수 있습니다. 비율 $\eta/s$가 추측된 하한 $1/4\pi$에 가깝습니다. 약하게 상호작용하는 기체와는 전혀 다릅니다.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Widget name="FlowDemo" />
+
+  <Deeper title="v₂의 정의, 그리고 1/4π 한계의 뜻">
+    대칭면 $\Psi_2$에 대한 입자의 각도 $\phi$ 분포는 다음과 같고,
+
+    $$\frac{dN}{d\phi} \propto 1 + 2v_2\cos\!\big[2(\phi-\Psi_2)\big] + \cdots,$$
+
+    1차 근사에서 $v_2 \propto \varepsilon_2$, 곧 겹친 영역의 처음 이심률에 비례합니다. 추측된 한계 $\eta/s \ge \hbar/4\pi k_B$는 중력 쌍대성을 가진, 강하게 결합한 모형 이론의 계산에서 나왔습니다. QCD에서 증명된 정리는 아닙니다. "거의 완벽한" 유체란 엔트로피에 비해 점성이 낮다는 뜻이지, 점성이 0이라는 뜻이 아닙니다.
+  </Deeper>
+
+  <Scene id="hi.jet">
+    <Step state="dijet">
+      단서 2: 빠른 쿼크를 멈춰 세웁니다. 드물게, 충돌하는 핵자의 쿼크나 글루온 둘이 세게 산란해 서로 반대 방향으로 날아갑니다. 각각은 좁은 입자 다발, 곧 제트가 됩니다.
+    </Step>
+    <Step state="quenched">
+      센 산란이 플라스마 깊숙한 곳에서 일어나면, 파톤 하나는 색을 띤 물질을 한참 가로질러야 해서 에너지를 잃습니다. 제트 하나는 보이고 다른 하나는 훨씬 약해지거나 흡수됩니다. <Term id="jet-quenching">제트 소멸</Term>(jet quenching)입니다.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="개념도: 핵 수정 인자 R_AA. 강입자(강한 상호작용)는 1보다 훨씬 작게 억제됩니다. 광자와 Z 보손은 대조군으로서 1 근처에 머뭅니다.">
+    <Scene id="hi.jet">
+      <Step state="raa-plot">
+        손실은 $R_{AA}$로 정량화합니다. 핵–핵 충돌의 수율을, 양성자–양성자 수율에 이진 충돌 횟수를 곱한 값으로 나눈 것입니다. 매질이 없다면 1입니다. 쿼크와 글루온은 1보다 훨씬 작습니다. 색 전하가 없는 광자와 Z 보손은 1 근처에 머뭅니다. 이것이 대조군입니다.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="R_AA, 그리고 에너지 손실을 정하는 것">
+    $$R_{AA}(p_T) = \frac{1}{\langle N_{\text{coll}}\rangle}\,\frac{dN^{AA}/dp_T}{dN^{pp}/dp_T}.$$
+
+    단순한 복사 손실 모형에서 평균 에너지 손실은 경로 길이 $L$에 대략 $L^2$으로 늘고, 매질의 "수송 계수" $\hat q$에도 비례합니다. $\hat q$는 매질이 지나가는 파톤을 옆으로 얼마나 세게 차는지를 나타냅니다. 둘 다 데이터에서 뽑아내고 싶은 성질입니다.
+  </Deeper>
+
+  <Scene id="hi.quarkonium">
+    <Step state="bound">
+      단서 3: 속박 상태가 녹습니다. J/ψ는 c 쿼크와 그 반쿼크가 묶인 입자입니다. Υ(업실론)는 b 쿼크로 이루어진 같은 종류입니다. 이런 "쿼코니움" 상태는 작고 단단하게 묶여 있습니다.
+    </Step>
+    <Step state="screening">
+      플라스마 속에서는 한 쌍 주위의 자유로운 색 전하가 둘 사이의 힘을 가립니다. 자유 전하가 쿨롱 장을 가리는 것과 같습니다. 가림 길이가 쌍의 크기보다 짧아지면 그 쌍은 더 이상 묶여 있을 수 없습니다.
+    </Step>
+    <Step state="melt-sequence">
+      크고 느슨하게 묶인 상태일수록 더 낮은 온도에서 녹습니다. 그래서 상태들의 순서가 온도계 구실을 합니다. LHC에서는 c 쿼크가 워낙 많아서, 플라스마 속에서 서로 무관한 c 쿼크와 반쿼크가 짝지어 J/ψ가 다시 만들어지기도 합니다.
+    </Step>
+  </Scene>
+
+  <Deeper title="데바이 가림">
+    데바이 가림 길이 $\lambda_D \sim 1/(gT)$인 매질에서는 무거운 쿼크–반쿼크 쌍 사이의 퍼텐셜이 대략 유카와 꼴이 됩니다.
+
+    $$V(r) \sim -\frac{\alpha}{r}\,e^{-r/\lambda_D}.$$
+
+    $\lambda_D$가 속박 상태의 크기보다 짧아지면 속박 상태는 존재할 수 없습니다. 실제 QCD 물질은 더 복잡합니다. 매질 구성 입자와의 충돌로도 상태가 깨질 수 있습니다. 이 단순한 그림은 녹는 순서를 설명할 뿐, 수치까지 설명하지는 못합니다.
+  </Deeper>
+
+  <Scene id="hi.thermometers">
+    <Step state="strangeness">
+      단서 4: s 쿼크(기묘 쿼크)가 흔합니다. s 쿼크의 질량은 불덩이의 온도와 비슷해서 플라스마는 이를 쉽게 만듭니다. 차가운 강입자 기체는 야릇한 강입자를 훨씬 드물게 만듭니다. 중이온 충돌에서는 양성자–양성자 충돌보다 파이온에 비해 야릇한 입자가 더 많이 만들어집니다.
+    </Step>
+    <Step state="photons">
+      단서 5: 안쪽에서 온 빛. 광자와 렙톤 쌍은 전자기 상호작용만 하므로 흡수되지 않고 불덩이를 빠져나옵니다. 이들의 스펙트럼은 전체 역사의 조건을 알려 줍니다. 냉각과 팽창에 걸쳐 평균한 온도계입니다.
+    </Step>
+    <Step state="hadron-ratios">
+      강입자 수율은 열적 통계 모형으로 설명됩니다. 온도 하나(LHC에서 약 156 MeV)와 바리온 화학 퍼텐셜 하나가 수백 종 입자의 비율을 정합니다. 강입자화 시점의 불덩이는 열평형과 화학 평형을 이룬 기체처럼 행동합니다.
+    </Step>
+  </Scene>
+
+  <Deeper title="통계적 강입자화">
+    대정준 통계 모형에서 입자 종 $i$의 밀도는 다음과 같습니다.
+
+    $$n_i \propto g_i \int d^3p\; \exp\!\left[-\frac{E_i - \mu_B B_i - \mu_S S_i}{T}\right],$$
+
+    $g_i$는 스핀 겹침수, $B_i$는 바리온 수, $S_i$는 기묘도입니다. 측정된 수율을 맞추면 화학 동결 온도 $T_{\text{ch}}$와 $\mu_B$를 얻습니다. 이 두 수가 각 충돌 에너지를 상태도 위의 한 점으로 놓아 줍니다. 다음 층에서 이를 씁니다.
+  </Deeper>
+</Layer>
+
+<Layer id="phase-diagram">
+  <Scene id="hi.phase-diagram" mode="scrub">
+    <Step state="axes">
+      지도는 이렇게 생겼습니다. 세로축은 온도, 가로축은 바리온 밀도, 또는 <Term id="baryon-chemical-potential">바리온 화학 퍼텐셜</Term>(baryon chemical potential) $\mu_B$입니다. QCD <Term id="phase-diagram">상태도</Term>(phase diagram)입니다.
+    </Step>
+    <Step state="early-universe">
+      왼쪽 위: 뜨겁고 바리온이 거의 없는 곳. 초기 우주가 여기 있었고, LHC의 불덩이도 여기 있습니다.
+    </Step>
+    <Step state="crossover">
+      격자 QCD(lattice QCD) 계산에 따르면 이곳에서 플라스마는 날카로운 전이가 아니라 약 155에서 160 MeV(약 2 × 10¹² K)에서 매끄러운 <Term id="crossover">크로스오버</Term>(crossover)로 강입자가 됩니다. 갑작스러운 도약은 없습니다.
+    </Step>
+    <Step state="nuclear-matter">
+      오른쪽 아래: 보통의 <Term id="nuclear-matter">핵물질</Term>(nuclear matter). 여러분 몸속의 원자핵은 온도 0, 밀도 fm³당 핵자 약 0.16개 상태에 있습니다.
+    </Step>
+    <Step state="liquid-gas">
+      그 바로 위에서는 가열된 핵물질이 액체처럼 행동하다가 핵자 기체로 끓어오를 수 있습니다. 이 전이에는 10에서 20 MeV 정도의 온도에서 임계점이 있습니다.
+    </Step>
+    <Step state="neutron-star">
+      더 오른쪽, 차갑고 극도로 빽빽한 곳: 중성자별의 내부입니다. 중성자별이 합쳐질 때는 잠깐 동안 밀도가 높으면서 뜨거운 물질이 생깁니다.
+    </Step>
+    <Step state="unknown-region">
+      비어 있는 가운데: 빽빽하고 뜨거운 영역. 여기서도 플라스마와 강입자 사이의 전이는 여전히 매끄러운 크로스오버일까요? 격자 QCD는 빽빽한 물질에서 어려움을 겪으므로, 이론만으로는 알 수 없습니다.
+    </Step>
+    <Step state="first-order">
+      한 가지 기대는, 크로스오버가 끓는 물처럼 잠열을 가진 날카로운 1차 상전이로 바뀐다는 것입니다. 아직은 가설일 뿐입니다.
+    </Step>
+    <Step state="critical-point">
+      그렇다면 매끄러운 선과 날카로운 선이 <Term id="critical-point">임계점</Term>(critical point)에서 만납니다. 물의 액체–기체 선이 끝나는 점과 같습니다. 임계점은 존재할까요? 어디에 있을까요? 우리는 모릅니다. 직접 찾아 나서야 합니다.
+    </Step>
+    <Step state="energy-scan">
+      어떻게요? 충돌 에너지를 낮춥니다. 앞에서 느린 원자핵은 서로를 멈춰 세운다고 했습니다. 불덩이는 덜 뜨겁지만 더 빽빽해집니다. 충돌 에너지마다 지도 위의 다른 점에 도달합니다. 이것이 <Term id="beam-energy-scan">빔 에너지 스캔</Term>(beam energy scan, BES)입니다.
+    </Step>
+    <Step state="freezeout-curve">
+      에너지마다 화학 동결 지점을 통계 모형으로 찾으면, 점들이 하나의 곡선으로 늘어섭니다. 왼쪽 위의 LHC에서 오른쪽의 가장 낮은 에너지까지 이어집니다.
+    </Step>
+  </Scene>
+
+  <Deeper title="물, 그리고 비유의 한계">
+    물에서는 1차 전이선이 액체와 증기를 가르다가 임계점에서 끝납니다. 그 너머에서는 액체와 증기가 같은 초임계 유체가 됩니다. QCD 크로스오버는 이 점을 돌아가는 길과 비슷합니다. 비유는 완전하지 않습니다. 물에는 뚜렷한 질서 변수가 있지만, QCD 크로스오버에는 유일한 정의가 없어서 전이 온도가 어떤 관측량을 쓰느냐에 따라 달라집니다. 또 쿼크-글루온 플라스마는 보통 입자의 기체가 아닙니다.
+  </Deeper>
+
+  <Widget name="EnergyScan" />
+
+  <Scene id="hi.bes-signals">
+    <Step state="fluctuations">
+      임계점은 어떻게 알아챌까요? 사건마다 순양성자 수(양성자 빼기 반양성자)를 셉니다. 임계점 근처에서는 이 순수의 요동이 커지고, 그 크기가 충돌 에너지에 따라 단조롭지 않게 변해야 합니다. 이 변화가 우리가 찾는 신호입니다. 이를 재려면 입자 식별이 정확해야 합니다.
+    </Step>
+    <Step state="directed-flow">
+      두 번째 탐침: <Term id="directed-flow">방향 흐름</Term>(directed flow), 곧 불덩이가 빔 축을 따라 옆으로 밀리는 현상입니다. 1차 전이처럼 상태 방정식이 물러지면, 에너지에 따른 기울기의 변화가 달라지고 부호까지 바뀔 수 있습니다.
+    </Step>
+    <Step state="turn-off">
+      세 번째: 플라스마는 어디서 사라질까요? 에너지를 낮추면 강한 제트 억제나 쿼크 수에 따른 흐름의 스케일링 같은 신호가 꺼져야 합니다. 그 에너지가 플라스마가 더 이상 만들어지지 않는 경계입니다.
+    </Step>
+    <Step state="dileptons">
+      네 번째: 이중 렙톤. 전자나 뮤온 쌍은 빽빽한 물질에서도 산란 없이 빠져나와, 그 온도와 그 안에서 강입자가 어떻게 변하는지를 알려 줍니다. HADES와 CBM은 이를 위해 설계되었습니다.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="개념도: 임계점이 있다면 충돌 에너지에 따른 순양성자 요동에서 어떻게 보일지. 아이디어를 보여 주는 안내도이며 측정값이 아닙니다.">
+    <Scene id="hi.bes-signals">
+      <Step state="fluctuations-plot">
+        $\sqrt{s_{NN}}$에 대한 비단조적 의존성이 단서가 될 것입니다. 측정은 진행 중이며, 아래에서 다시 다룹니다.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="누율과 상관 길이">
+    요동은 사건별 순양성자 수의 누율 $C_n$으로 나타냅니다. $C_4/C_2 = \kappa\sigma^2$ 같은 비율은 부피 의존성을 없애 줍니다. 임계점 근처에서 상관 길이 $\xi$가 커지고, 누율도 함께 커집니다.
+
+    $$C_2 \sim \xi^{2},\quad C_3 \sim \xi^{4.5},\quad C_4 \sim \xi^{7}$$
+
+    (가장 단순한 이론에서 정성적으로 그렇다는 뜻입니다.) 따라서 같은 임계 성장에도 높은 차수의 누율이 더 크게 반응합니다. 주의할 점이 둘 있습니다. 불덩이는 잠깐만 살기 때문에 $\xi$가 한없이 자랄 수 없고, 양성자는 보존되는 바리온 수의 대리 지표일 뿐입니다.
+  </Deeper>
+
+  <Scene id="hi.phase-diagram">
+    <Step state="experiments">
+      지도의 어느 부분을 누가 탐사할까요? 시설도 많고 기법도 다양합니다. 가장 높은 에너지에서 충돌시키는 곳은 몇 곳뿐이고, 가장 빽빽한 영역에는 여러 고정 표적 계획이 닿습니다.
+    </Step>
+  </Scene>
+
+  | 시설 · 실험 | 방식 | 대략 어디를 보는가 |
+  |---|---|---|
+  | LHC · ALICE | 충돌기 | 최고 에너지, 바리온 밀도 거의 0 |
+  | RHIC · STAR (BES-I/II) | 충돌기와 고정 표적 | 수 GeV에서 200 GeV, 지도를 넓게 훑음 |
+  | SPS · NA61/SHINE | 고정 표적 | 중간 에너지, 원자핵 크기도 바꿈 |
+  | GSI · HADES | 고정 표적 | 낮은 에너지, 높은 밀도 |
+  | FAIR · CBM | 고정 표적, 초고속 | 수 GeV, 가장 빽빽한 영역, 방대한 통계 |
+  | NICA · MPD, BM@N | 충돌기와 고정 표적 | 수 GeV |
+  | J-PARC-HI | 고정 표적 (계획) | 높은 밀도 |
+
+  **지금 어디까지 왔을까요 (2025년 기준)?** 흥미로운 경향이 보고되었지만, 임계점이 존재하는지는 **아직 열려 있습니다**. STAR의 두 번째 빔 에너지 스캔(BES-II)의 정밀 결과와 FAIR의 앞으로의 데이터가 다음 단계입니다.
+</Layer>
+
+<Layer id="detection">
+  <Scene id="hi.geometry">
+    <Step state="collider">
+      충돌시키는 방법은 두 가지입니다. 충돌기(collider)에서는 두 빔이 정면으로 만나 입자가 사방으로 날아가므로, 검출기는 충돌점을 둘러싼 원통 모양입니다. ALICE, STAR, sPHENIX, MPD가 이 유형입니다.
+    </Step>
+    <Step state="fixed-target">
+      <Term id="fixed-target">고정 표적</Term>(fixed-target) 실험에서는 빔 하나가 얇은 표적을 때립니다. 계 전체가 실험실에서 앞으로 움직이므로 입자는 앞쪽 원뿔 안으로 날아가고, 검출기는 빔을 따라 일렬로 놓입니다. CBM, HADES, NA61/SHINE이 이 유형입니다.
+    </Step>
+  </Scene>
+
+  검출기 물리의 네 가지 아이디어가 일의 대부분을 해냅니다. 낯설다면 상자를 열어 보세요.
+
+  <Primer id="silicon-sensor" />
+  <Primer id="magnetic-tracking" />
+  <Primer id="ionization" />
+  <Primer id="tpc" />
+
+  <Walkthrough scene="hi.walkthrough-collider" experiment="ALICE" also="STAR(시간 투영 상자와 솔레노이드 사용), sPHENIX, MPD.">
+    <Step state="birth" kind="goal">
+      목표: 불덩이에서 나온 하전 입자 하나를 골라, 어디에서 태어났는지, 운동량이 얼마인지, 어떤 입자인지 알아냅니다.
+    </Step>
+    <Step state="pixels" kind="signal">
+      먼저 빔 파이프 바로 바깥의 얇은 실리콘 픽셀 층들이 궤적 위의 몇 점을 기록합니다. 이 점들을 거슬러 이으면 탄생 꼭짓점을 얻습니다. 꼭짓점에서 조금 떨어진 곳에서 태어난 입자는, 더 무겁고 수명이 짧은 입자가 붕괴해서 나온 것입니다.
+    </Step>
+    <Step state="curvature" kind="signal">
+      솔레노이드 자석이 궤적을 호로 휘게 합니다. 반지름은 운동량을, 휘는 방향은 전하의 부호를 알려 줍니다.
+    </Step>
+    <Step state="tpc-drift" kind="signal">
+      궤적은 시간 투영 상자의 큰 기체 공간을 지나갑니다. 기체를 이온화하고, 떨어져 나온 전자는 끝면으로 표류합니다. 도착 위치가 두 좌표를, 도착 시각이 세 번째 좌표를 줍니다. 전하량은 에너지 손실 dE/dx를 줍니다.
+    </Step>
+    <Step state="tof" kind="signal">
+      상자 바깥의 비행시간 층은 입자의 도착 시각을 수십 피코초 정밀도로 기록합니다. 알려진 경로 길이에 걸린 비행시간으로 속도를 구합니다.
+    </Step>
+    <Step state="identity" kind="readout">
+      운동량에 속도(dE/dx나 비행시간에서 구함)를 합치면 질량이 나오고, 입자가 파이온인지 카온인지 양성자인지 식별됩니다. 한 사건에서 수천 개의 궤적에 대해 이 과정을 거칩니다.
+    </Step>
+    <Step state="pid-trick" kind="trick">
+      요령은 이렇습니다. 같은 운동량이면 무거운 입자가 더 느리고 더 많이 이온화합니다. 그래서 운동량을 고정하면 입자 종류마다 신호가 다릅니다. 직접 해 보세요.
+    </Step>
+  </Walkthrough>
+
+  <Widget name="BetheBloch" mode="pid" />
+
+  <Deeper title="검출 과정 뒤의 공식들">
+    자기장에 수직인 운동량: $p_T\,[\text{GeV}/c] \approx 0.3\,B\,[\text{T}]\,R\,[\text{m}]$.
+
+    경로 길이 $L$에 대한 비행시간으로 구한 질량: $m c= p\sqrt{\dfrac{c^2t^2}{L^2}-1}$.
+
+    기체에서의 평균 에너지 손실(베테–블로흐, 단순화):
+
+    $$\left\langle\frac{dE}{dx}\right\rangle \approx K z^2\frac{Z}{A}\frac{1}{\beta^2}\left[\frac{1}{2}\ln\frac{2m_ec^2\beta^2\gamma^2 T_{\max}}{I^2}-\beta^2-\frac{\delta}{2}\right].$$
+
+    질량 하나가 아니라 속도 $\beta$에 의존합니다. 그래서 운동량에 대해 그린 dE/dx가 입자 종류를 가릅니다.
+  </Deeper>
+
+  <Bridge id="hi-its-to-sc-its3" />
+
+  같은 질문, 다른 구조: 고정 표적 실험은 어떻게 작동할까요?
+
+  <Walkthrough scene="hi.walkthrough-fixed-target" experiment="CBM" also="HADES, NA61/SHINE, 고정 표적 모드의 STAR.">
+    <Step state="cone" kind="goal">
+      목표: 핵자당 수 GeV의 금–표적 충돌에서, 초당 최대 1000만 번의 충돌 가운데 전자쌍이나 s 쿼크·c 쿼크를 가진 입자 같은 희귀 탐침을 잽니다. 입자는 앞쪽 원뿔 안으로 나옵니다.
+    </Step>
+    <Step state="silicon-stations" kind="signal">
+      추적은 앞쪽 원뿔 안에서 빔을 따라 쌓인 실리콘 검출기 스테이션들이 맡습니다. 표적에 가장 가까운 곳에는 픽셀 층(MAPS)이, 그보다 바깥에는 띠 층이 놓입니다.
+    </Step>
+    <Step state="bend" kind="signal">
+      스테이션들은 쌍극자 자석 안에 있습니다. 궤적은 수평면에서 휘고, 그 곡률이 운동량과 전하를 알려 줍니다. 원통형 구조와 똑같습니다.
+    </Step>
+    <Step state="time-stamp" kind="signal">
+      바깥쪽 검출기가 입자를 식별합니다. 비행시간 벽은 속도를 재고, 체렌코프 검출기는 가장 빠른 전자를 파이온과 가려냅니다. 모든 신호에는 타임스탬프이 찍혀 있습니다.
+    </Step>
+    <Step state="reconstruct" kind="readout">
+      소프트웨어가 신호를 모아 궤적에 배정합니다. 궤적을 사건으로 묶고, 사건에서 전자쌍 같은 희귀 신호를 찾습니다.
+    </Step>
+    <Step state="free-streaming" kind="trick">
+      요령은 이렇습니다. 충돌이 너무 빨라서 하나씩 골라낼 수 없습니다. 그래서 모든 검출기가 트리거 없이 모든 신호를 타임스탬프과 함께 흘려보냅니다. 나중에 컴퓨터가 시간과 위치를 써서 충돌별로 분류합니다.
+    </Step>
+  </Walkthrough>
+
+  <Primer id="cherenkov" />
+
+  <Figure kind="simulated" caption="시뮬레이션 예시이며 실제 데이터가 아닙니다. 왼쪽: 고에너지 중심 충돌. 수천 개의 하전 궤적이 원통형 검출기 안에서 휘어집니다. 오른쪽: 저에너지 고정 표적 충돌. 수백 개의 궤적이 앞쪽 원뿔 안에 있습니다.">
+    <Scene id="hi.event-replay">
+      <Step state="collider-high">
+        고에너지 중심 충돌에서는 수천 개의 하전 입자가 사방으로 나옵니다.
+      </Step>
+      <Step state="fixed-target-low">
+        에너지가 낮으면 수백 개의 궤적이 원뿔 모양으로 앞쪽을 향합니다.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Primer id="particle-id" />
+
+  <Figure kind="schematic" caption="개념도: 단순화한 베테–블로흐 식으로 그린, 운동량에 따른 에너지 손실 dE/dx. 입자 종류마다 자기만의 띠가 있습니다.">
+    <Scene id="hi.pid">
+      <Step state="momentum-axis">
+        많은 궤적의 dE/dx를 운동량에 대해 그려 봅니다.
+      </Step>
+      <Step state="bands">
+        궤적들은 입자 종류마다 하나씩, 전자, 파이온, 카온, 양성자의 띠 위에 놓입니다. 낮은 운동량에서는 무거운 입자일수록 에너지를 더 잃습니다.
+      </Step>
+      <Step state="overlap">
+        띠는 어떤 운동량에서 교차하며, 이 방법으로는 가릴 수 없습니다. 그러면 비행시간 같은 다른 측정이 이어받습니다. 양성자 요동 측정은 이 식별이 정확해야 성립합니다.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Bridge id="hi-pid-to-det-interactions" />
+
+  **데이터에서 물리로.** 어느 실험에서나 방법은 같습니다. 사건을 중심도로 나눕니다. 수율, $v_2$, $R_{AA}$ 같은 관측량을 잽니다. 상대론적 유체역학 같은 모형과 비교합니다. 그런 다음 불덩이의 점성, 온도, 바리온 밀도를 추론합니다. 결과에서 원인으로, 거꾸로 추론하는 것입니다.
+</Layer>
+
+<Layer id="frontier">
+  <Scene id="hi.frontier">
+    <Step state="bes-next">
+      **임계점 탐색.** STAR의 BES-II가 분석되고 있고(2025년 기준), 가장 높은 바리온 밀도까지 닿는 고정 표적 확장도 포함됩니다. FAIR의 SIS100 가속기에서 하는 CBM 실험은 가동되면 이전의 어떤 실험보다 높은 속도로 데이터를 모을 것이며, 2020년대 말에 시작할 예정입니다(2025년 기준). JINR의 NICA는 또 다른 접근을 더합니다. 임계점이 존재하는지, 아니면 선 전체가 매끄러운 크로스오버로 남는지는 이 정밀 측정들이 가려낼 것입니다.
+    </Step>
+    <Step state="small-systems">
+      **유체는 얼마나 작아질 수 있을까?** 많은 입자를 만드는 양성자–양성자, 양성자–납 충돌에서도 흐름과 비슷한 신호가 나타납니다. 아주 작은 방울 속의 같은 유체역학적 행동일까요, 아니면 초기 상태 상관 같은 다른 메커니즘일까요? 플라스마는 어디서부터 플라스마가 아닐까요? 아직 논쟁 중입니다.
+    </Step>
+    <Step state="shapes">
+      **원자핵의 모양.** 2025년 7월, LHC는 처음으로 산소–산소, 네온–네온 충돌을 일으켰습니다. 네온-20은 길쭉하고, 산소-16은 거의 둥글며 어쩌면 알파 입자 덩어리를 가질 것으로 예상됩니다. 이런 작은 충돌의 흐름은 원자핵의 모양에 민감해서, 모양을 시험할 방법이 됩니다. 분석은 2025년 기준으로 진행 중이었습니다.
+    </Step>
+    <Step state="future">
+      **다음 장치들.** 2030년대를 겨냥해 제안된 전 실리콘 후속 장치 ALICE 3는 무거운 맛깔 입자와 이중 렙톤으로 정밀도를 넓힐 것입니다. 2030년대에 계획된 브룩헤이븐의 전자–이온 충돌기(Electron–Ion Collider, EIC)는 전자로 원자핵 안의 글루온을 지도로 그릴 것입니다.
+    </Step>
+    <Step state="astro">
+      **중이온이 천체물리와 만나다.** 중성자별 합병에서 나온 중력파는 핵 밀도의 몇 배에 이르는 차가운 물질의 성질을 제약합니다. 중이온 충돌은 비슷한 밀도의 뜨거운 물질을 탐사합니다. 둘이 함께 같은 상태 방정식을 제약합니다.
+    </Step>
+  </Scene>
+
+  <Gallery>
+    <GalleryItem title="CERN — LHC, ALICE">
+      가장 높은 충돌 에너지(핵자 쌍당 수 TeV). SPS의 고정 표적 NA61/SHINE도 여기 있습니다.
+    </GalleryItem>
+    <GalleryItem title="BNL — RHIC, STAR, sPHENIX">
+      2000년부터 가동된 최초의 중이온 충돌기. 마지막 가동은 2025년이었고, 이후 고리는 EIC로 다시 지어집니다. 빔 에너지 스캔이 여기서 이루어졌습니다.
+    </GalleryItem>
+    <GalleryItem title="GSI / FAIR — HADES, CBM">
+      수 GeV의 빽빽한 물질. SIS100은 건설 중입니다.
+    </GalleryItem>
+    <GalleryItem title="JINR — NICA">
+      핵자당 수 GeV용 충돌기로, 두브나에 있습니다.
+    </GalleryItem>
+    <GalleryItem title="J-PARC">
+      높은 바리온 밀도를 겨냥해 제안된 중이온 계획.
+    </GalleryItem>
+  </Gallery>
+
+  이 페이지는 단순화한 그림을 쓰며 실제 데이터는 담지 않았습니다. 자세한 내용은 아래 참고문헌의 Busza, Rajagopal, van der Schee 리뷰부터 읽어 보세요.
+</Layer>

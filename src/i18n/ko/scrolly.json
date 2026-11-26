@@ -1,0 +1,23 @@
+{
+  "scrolly.scene.missing": "이 장면은 아직 만들어지지 않았습니다.",
+  "scrolly.scene.missingHint": "옆의 글은 완성되어 있습니다.",
+  "scrolly.scene.error": "사용 중인 기기에서 이 애니메이션을 시작할 수 없습니다.",
+  "scrolly.scene.label": "인터랙티브 그림: {id}",
+  "scrolly.widget.missing": "인터랙티브 “{name}”은(는) 아직 만들어지지 않았습니다.",
+  "scrolly.widget.loading": "인터랙티브를 불러오는 중…",
+  "scrolly.widget.error": "인터랙티브를 불러오지 못했습니다.",
+  "scrolly.kind.goal": "목표",
+  "scrolly.kind.signal": "신호",
+  "scrolly.kind.readout": "판독",
+  "scrolly.kind.trick": "핵심 요령",
+  "scrolly.walkthrough.experiment": "대표 실험",
+  "scrolly.walkthrough.also": "같은 원리",
+  "scrolly.portal.continue": "다음 층으로 계속",
+  "scrolly.gallery.label": "가로 갤러리 — 옆으로 스크롤하거나 방향키를 사용하세요",
+  "scrolly.gauge.current": "현재 층",
+  "scrolly.layer.tier": "깊이: {tier}",
+  "scrolly.hero.draft": "초안",
+  "scrolly.figure.label": "그림",
+  "scrolly.figure.schematic": "개념도이며 실제 데이터가 아닙니다.",
+  "scrolly.figure.simulated": "시뮬레이션 예시입니다."
+}

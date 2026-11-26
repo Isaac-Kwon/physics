@@ -1,0 +1,471 @@
+---
+topic: detectors
+lang: it
+title: Rivelatori di particelle
+subtitle: Vedere l'invisibile dalla scia che lascia
+description: "Le particelle sono troppo piccole per essere viste. Scopriamo come i rivelatori leggono le tracce che lasciano nella materia: ionizzazione, sciami, luce e traiettorie curve."
+tagline: Una particella non la vediamo mai. Leggiamo ciò che si lascia dietro.
+layers:
+  - { id: hook, title: Vediamo soltanto tracce }
+  - { id: history, title: Breve storia delle tracce }
+  - { id: interactions, title: Che cosa fa una particella alla materia }
+  - { id: measurement, title: Dalla traccia alla misura }
+  - { id: design, title: Progettare un rivelatore vero }
+references:
+  - title: "Review of Particle Physics: Passage of particles through matter"
+    author: "Particle Data Group"
+    url: "https://pdg.lbl.gov/"
+    note: "Reference. Short and dense; the source of many numbers on this page."
+  - title: "Review of Particle Physics: Particle detectors (accelerator and non-accelerator)"
+    author: "Particle Data Group"
+    url: "https://pdg.lbl.gov/"
+    note: "Reference. Chapters on tracking, calorimetry, particle identification and detector systems."
+  - title: "Particle Detectors"
+    author: "Claus Grupen, Boris Shwartz — Cambridge University Press (2nd edition, 2008)"
+    note: "Textbook. Readable for undergraduates; covers every detector type on this page."
+  - title: "Particle Detectors: Fundamentals and Applications"
+    author: "Hermann Kolanoski, Norbert Wermes — Oxford University Press (2020)"
+    note: "Textbook. More modern and more detailed, with a long chapter on signal formation."
+  - title: "Radiation Detection and Measurement"
+    author: "Glenn F. Knoll — Wiley (4th edition, 2010)"
+    note: "Classic textbook. Strong on scintillators, photosensors and gas detectors."
+asOf: "2025"
+draft: true
+---
+
+<Layer id="hook">
+  <Scene id="det.hook" mode="scrub">
+    <Step state="dark">Una particella è troppo piccola per essere vista.</Step>
+    <Step state="burst">Così guardiamo la scia che lascia.</Step>
+    <Step state="detector">Intorno alla scia, una macchina grande quanto un palazzo.</Step>
+  </Scene>
+  <BigNumber value={1e8} unit="canali" approx caption="Un grande rivelatore di LHC legge circa cento milioni di canali, tutti per ricostruire le tracce di particelle che nessuno vedrà mai direttamente." />
+</Layer>
+
+<Layer id="history">
+  <Scene id="det.history">
+    <Step state="scintillation-screen">
+      1909. Geiger e Marsden siedono in una stanza buia e contano deboli lampi su uno schermo di solfuro di zinco. Ogni lampo è una particella alfa. Il rivelatore è un occhio umano.
+    </Step>
+    <Step state="cloud-chamber">
+      1911. Charles Wilson costruisce la camera a nebbia: aria sovrasatura di vapore, in cui si formano goccioline lungo il percorso di una particella. Le fotografie di queste tracce rivelarono il positrone nel 1932 e il muone nel 1936.
+    </Step>
+    <Step state="emulsion">
+      L'emulsione fotografica registra le tracce come catene di grani d'argento. Nel 1947 emulsioni esposte in cima alle montagne mostrarono il pione.
+    </Step>
+    <Step state="bubble-chamber">
+      1952. Donald Glaser inventa la camera a bolle: un liquido tenuto appena al di sopra della temperatura di ebollizione, con bolle lungo ogni percorso. Era densa, quindi le particelle interagivano. Furono scoperte molte nuove risonanze, e nel 1973 la camera Gargamelle del CERN vide le correnti neutre.
+    </Step>
+    <Step state="wire-chamber">
+      1968. Georges Charpak costruisce una camera di sottili fili che dà un impulso elettrico per ogni particella che passa. Le fotografie escono di scena. Entrano dati che un computer sa leggere, e le frequenze salgono di ordini di grandezza.
+    </Step>
+    <Step state="electronic">
+      Dagli anni Ottanta, le microstrip e i pixel di silicio portano la precisione del micrometro, e i calorimetri a cristalli densi quella sull'energia. Oggi tutto questo è combinato in rivelatori grandi come un palazzo.
+    </Step>
+  </Scene>
+
+  <Scene id="det.cloud-chamber">
+    <Step state="vapour">
+      Si può costruire una camera a nebbia in casa: una scatola sigillata con il fondo freddo e vapore d'alcol sopra. Il vapore diventa sovrasaturo, pronto a condensare.
+    </Step>
+    <Step state="track">
+      Una particella carica veloce ionizza il vapore lungo il suo percorso. Gli ioni sono i semi delle goccioline. Compare una sottile linea bianca di nebbia, che svanisce dopo un secondo.
+    </Step>
+    <Step state="muons">
+      Gran parte delle linee dritte che si vedono sono muoni dei raggi cosmici, circa uno al minuto su un'area grande come una mano. Le tracce corte e spesse sono particelle alfa.
+    </Step>
+  </Scene>
+
+  Lo stesso trucco, la ionizzazione che fa nascere un cambiamento visibile, ritorna in tutti i rivelatori che seguono. È cambiata soltanto la lettura: dagli occhi, alla pellicola, all'elettronica.
+</Layer>
+
+<Layer id="interactions">
+  <Scene id="det.matter-block">
+    <Step state="ionization">
+      Ogni rivelazione comincia con un'interazione. Una particella carica veloce che attraversa la materia spinge gli elettroni degli atomi vicini al suo percorso e a volte ne libera uno. Questa è la <Term id="ionization">ionizzazione</Term>. Ogni evento costa alla particella una piccolissima parte della sua energia, ma lungo un centimetro accade un centinaio di volte in un gas e migliaia di volte in un solido.
+    </Step>
+  </Scene>
+
+  L'energia media persa per unità di percorso, detta dE/dx, segue una curva caratteristica in funzione della velocità: scende ripidamente man mano che la particella accelera, raggiunge un ampio minimo e poi risale lentamente. Una particella al minimo è una **particella al minimo di ionizzazione** (MIP). Perde da 1 a 2 MeV per ogni g/cm² di materiale attraversato (circa 2 nei materiali leggeri come la plastica o l'acqua, circa 1,1 nel piombo), quindi la perdita per unità di massa cambia sorprendentemente poco da un materiale all'altro. Provate voi: scegliete un impulso e guardate dove si colloca ogni particella sulla curva.
+
+  <Widget name="BetheBloch" />
+
+  <Deeper title="La formula di Bethe–Bloch e la coda di Landau">
+    Per una particella di carica $z$ e velocità $\beta$ in un mezzo di numero atomico $Z$ e numero di massa $A$, la perdita media è
+
+    $$\left\langle -\frac{dE}{dx}\right\rangle = K z^2\frac{Z}{A}\frac{1}{\beta^2}\left[\frac{1}{2}\ln\frac{2m_ec^2\beta^2\gamma^2 T_{\max}}{I^2}-\beta^2-\frac{\delta(\beta\gamma)}{2}\right],$$
+
+    con $K = 0{,}307\ \text{MeV cm}^2/\text{mol}$, $I$ l'energia media di eccitazione (circa $10\,Z$ eV) e $T_{\max}$ la massima energia trasferibile a un singolo elettrone. Il termine $1/\beta^2$ dà la discesa, il logaritmo la lenta risalita, e la correzione di densità $\delta$ appiattisce la risalita ad alta energia. La formula vale per particelle pesanti da circa $\beta\gamma = 0{,}1$ a $1000$.
+
+    In uno strato sottile la perdita effettiva fluttua molto, perché poche collisioni rare liberano elettroni con grande energia. La distribuzione è asimmetrica: una **distribuzione di Landau** con una lunga coda dal lato alto. Il suo valore più probabile è più basso della media, quindi un rivelatore sottile riporta la perdita più probabile, non quella media.
+  </Deeper>
+
+  <Scene id="det.matter-block">
+    <Step state="brems">
+      Gli elettroni sono speciali. Sono così leggeri che, quando vengono deviati da un nucleo atomico, irraggiano fotoni: è la **bremsstrahlung**, la radiazione di frenamento. Ad alta energia domina sulla ionizzazione. Un elettrone perde la maggior parte della sua energia in una distanza detta <Term id="radiation-length">lunghezza di radiazione</Term> $X_0$: circa 0,5 cm nel piombo, 10 cm nel silicio, 36 cm nell'acqua. Un muone è duecento volte più pesante e irraggia circa quarantamila volte meno. Ecco perché attraversa le cose.
+    </Step>
+    <Step state="photon-pe">
+      I fotoni non hanno carica, quindi non lasciano alcuna traccia propria. Si rivelano solo dopo che a loro è successo qualcosa, una volta sola e in modo totale. A bassa energia (fino ad alcune centinaia di keV nel piombo), un fotone viene assorbito da un atomo e libera un elettrone: è l'effetto fotoelettrico.
+    </Step>
+    <Step state="photon-compton">
+      A energie intermedie, intorno a un MeV, il fotone viene diffuso da un elettrone e perde parte della sua energia: è l'effetto Compton. Continua in una nuova direzione, mentre un elettrone veloce viene espulso.
+    </Step>
+    <Step state="photon-pair">
+      Sopra 1,022 MeV, il doppio della massa dell'elettrone, il fotone può trasformarsi in un elettrone e un positrone nel campo di un nucleo: è la produzione di coppie. Ad alta energia questo processo prende completamente il sopravvento. Quale processo prevale dipende dall'energia e dal materiale.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schema: quale processo domina per un fotone, in funzione dell'energia del fotone e del numero atomico Z del materiale. I confini tra le regioni sono approssimati.">
+    <Scene id="det.photon-regions">
+      <Step state="regions">
+        Bassa energia e Z alto: effetto fotoelettrico. Energia intermedia e Z basso: effetto Compton. Alta energia: produzione di coppie. Nel piombo le regioni Compton e di coppie si incontrano a qualche MeV; nel silicio, solo a decine di MeV.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Scene id="det.matter-block">
+    <Step state="em-shower">
+      Mettiamo insieme i pezzi. Un elettrone ad alta energia irraggia un fotone. Il fotone crea una coppia elettrone-positrone. Ciascuno dei due irraggia di nuovo. Il numero di particelle raddoppia a ogni lunghezza di radiazione circa, mentre l'energia per particella si dimezza. Questa catena è uno <Term id="shower">sciame elettromagnetico</Term>.
+    </Step>
+    <Step state="had-shower">
+      Gli adroni come i pioni e i protoni risentono della forza forte. Urtano i nuclei, li frantumano e producono nuove particelle. Si forma così uno <Term id="shower">sciame adronico</Term>. È più largo, più lungo e più irregolare di uno elettromagnetico, perché un terzo dei pioni prodotti lungo il cammino è neutro. Decadono subito in due fotoni, ciascuno dei quali dà inizio a un piccolo sciame elettromagnetico al suo interno.
+    </Step>
+  </Scene>
+
+  <Primer id="quarks-gluons" />
+
+  <Deeper title="Un modello semplificato di sciame elettromagnetico (Heitler)">
+    Dopo $t$ lunghezze di radiazione ci sono $N = 2^t$ particelle, ciascuna con energia $E_0/2^t$. La moltiplicazione si ferma quando l'energia per particella scende all'energia critica $E_c$ (circa 7 MeV nel piombo), al di sotto della quale la ionizzazione prevale sull'irraggiamento. Ciò accade a
+
+    $$t_{\max} = \frac{\ln(E_0/E_c)}{\ln 2}.$$
+
+    Quindi la profondità dello sciame cresce solo logaritmicamente con l'energia, mentre il numero di particelle al massimo, $E_0/E_c$, cresce in proporzione all'energia. Questa proporzionalità è il motivo per cui un calorimetro può misurare l'energia contando le particelle. Il modello giocattolo coglie giusta la scala e solo approssimativamente i numeri. Gli sciami adronici scalano con la lunghezza di interazione nucleare $\lambda_I$ (circa 17 cm nel ferro, circa dieci volte il suo $X_0$) al posto di $X_0$.
+  </Deeper>
+
+  <Scene id="det.matter-block">
+    <Step state="neutral">
+      Le particelle neutre non lasciano ionizzazione propria. Un neutrone deve colpire un nucleo, e si rivelano poi i frammenti carichi che ne vengono scagliati. Un neutrino non interagisce quasi mai: per i neutrini del Sole servirebbe circa un anno luce di piombo per fermarne la metà. Lo rileviamo da ciò che manca, oppure da rare interazioni in bersagli molto grandi.
+    </Step>
+    <Step state="cherenkov">
+      Una particella carica può anche brillare. In un mezzo con indice di rifrazione $n$, la luce viaggia a $c/n$. Se la particella è più veloce, emette luce <Term id="cherenkov-radiation">Čerenkov</Term> su un cono con angolo di apertura $\cos\theta_c = 1/(n\beta)$. Nell'acqua la soglia è $\beta = 0{,}75$, e la luce esce a 41° per una particella vicina alla velocità della luce. La radiazione di transizione, un debole lampo di raggi X quando una particella velocissima passa tra due materiali, svolge un ruolo simile per gli elettroni.
+    </Step>
+    <Step state="scintillation">
+      Infine, alcuni materiali restituiscono l'energia depositata sotto forma di luce visibile, in proporzione a quanta ne è stata depositata. È la scintillazione. Un MeV di energia produce dell'ordine di diecimila fotoni in un buon scintillatore, qualche centinaio di fotoni Čerenkov per centimetro nell'acqua, e nessuno per una particella neutra che non interagisce.
+    </Step>
+  </Scene>
+
+  <Deeper title="L'angolo Čerenkov e il numero di fotoni">
+    I fronti d'onda emessi in ogni punto del percorso si sovrappongono formando un cono. Nel tempo $t$ la particella percorre $\beta c t$ e la luce $ct/n$, quindi
+
+    $$\cos\theta_c = \frac{ct/n}{\beta c t} = \frac{1}{n\beta}.$$
+
+    Il numero di fotoni per unità di lunghezza di percorso e per unità di lunghezza d'onda è
+
+    $$\frac{d^2N}{dx\,d\lambda} = \frac{2\pi\alpha z^2}{\lambda^2}\left(1-\frac{1}{\beta^2n^2}\right) = \frac{2\pi\alpha z^2}{\lambda^2}\sin^2\theta_c,$$
+
+    il che dà qualche centinaio di fotoni per cm nel visibile per $z = 1$ nell'acqua. La luce Čerenkov porta soltanto una piccolissima frazione dell'energia della particella, rispetto alla ionizzazione.
+  </Deeper>
+
+  Questo è l'elenco completo. Tutto ciò che fa un rivelatore è una di queste cose: ionizzazione, irraggiamento, collisione nucleare, luce. Il prossimo strato si chiede come trasformare ciascuna in un numero.
+</Layer>
+
+<Layer id="measurement">
+  Ogni rivelatore deve fare due cose: convertire una traccia in un segnale elettrico e decidere che cosa significa quel segnale. Cominciamo dalla conversione.
+
+  <Scene id="det.signal-chain">
+    <Step state="charge">
+      **Raccogliere la carica.** La ionizzazione libera elettroni. Un campo elettrico li attira verso un elettrodo, dove producono una piccola corrente. In un gas gli elettroni possono essere amplificati vicino a un filo sottile, dove il campo è abbastanza intenso da produrre valanghe. Nel silicio, dove bastano 3,6 eV per liberare una coppia di cariche, un sottile wafer dà migliaia di coppie e l'impulso non ha bisogno di amplificazione nel mezzo.
+    </Step>
+  </Scene>
+
+  <Primer id="silicon-sensor" />
+
+  <Bridge id="det-measurement-to-sc-mechanism" />
+
+  <Scene id="det.signal-chain">
+    <Step state="scintillation">
+      **Raccogliere la luce.** Uno scintillatore trasforma energia in fotoni. Questi devono essere riconvertiti in elettroni: un fotomoltiplicatore (PMT) amplifica un singolo fotoelettrone un milione di volte, e un fotomoltiplicatore al silicio fa lo stesso in un formato compatto e tollerante ai campi magnetici. Lo scintillatore plastico è veloce ed economico. I cristalli densi fermano i fotoni di alta energia.
+    </Step>
+    <Step state="cherenkov">
+      **Raccogliere la luce Čerenkov.** Gli stessi fotosensori catturano un cono di luce. Il suo angolo, o la sua forma, indica la velocità della particella e, in una vasca molto grande di acqua o ghiaccio, la direzione di un singolo neutrino.
+    </Step>
+  </Scene>
+
+  <Bridge id="det-measurement-to-nu-detection" />
+
+  Supponiamo ora di saper leggere i segnali. Vale la pena misurare quattro grandezze: posizione e impulso, energia, identità e tempo. Richiedono strumenti diversi, quindi un rivelatore vero le dispone a strati una dopo l'altra.
+
+  <Scene id="shared.magnetic-track">
+    <Step state="tracks">
+      **L'impulso, da una curva.** Una particella carica che si muove in un campo magnetico segue un arco. Il suo raggio dà l'impulso, e il verso della curvatura dà il segno della carica. Un tracciatore registra punti lungo il percorso e la curvatura si ricava interpolandoli.
+    </Step>
+    <Step state="fit">
+      La regola pratica: $p\,[\text{GeV}/c] \approx 0{,}3\,B\,[\text{T}]\,R\,[\text{m}]$. In un solenoide da 4 T, una traccia da 10 GeV/c si curva su una circonferenza di raggio 8 m. Una traccia da 1 TeV/c, su 800 m: quasi una retta, ed è per questo che gli impulsi alti sono difficili.
+    </Step>
+  </Scene>
+
+  <Widget name="TrackCurvature" />
+
+  <Deeper title="Da dove viene p = 0,3 B R">
+    La forza magnetica fornisce la forza centripeta: $qvB = mv^2/R$, quindi $p = qBR$. In unità di GeV/c, tesla e metri, per carica $q = e$, diventa
+
+    $$p\,[\text{GeV}/c] = c\times 10^{-9}\,B\,[\text{T}]\,R\,[\text{m}] \approx 0{,}2998\,B\,R.$$
+
+    Qui $p$ è la componente perpendicolare al campo. Una particella con impulso lungo il campo si muove a spirale, come un'elica. La freccia misurata su una lunghezza di traccia $L$ è $s = L^2/8R = 0{,}3\,B L^2/8p$, che diminuisce come $1/p$. È l'origine del comportamento della risoluzione discusso nell'ultimo strato.
+  </Deeper>
+
+  <Primer id="tpc" />
+
+  <Scene id="shared.tpc">
+    <Step state="drift">
+      **Un'intera traccia in un colpo solo.** In una camera a proiezione temporale, gli elettroni della ionizzazione derivano a velocità costante lungo il campo fino al piano di lettura, che registra dove arriva ciascuno. Questo dà due coordinate. Il tempo di arrivo dà la terza.
+    </Step>
+    <Step state="readout">
+      La quantità di carica lungo la traccia dà dE/dx. Il prezzo è il tempo: una deriva richiede da microsecondi a millisecondi, tanto rispetto all'intervallo tra le collisioni.
+    </Step>
+  </Scene>
+
+  <Bridge id="det-measurement-to-dm-direct" />
+  <Bridge id="det-measurement-to-hi-detection" />
+
+  <Walkthrough scene="det.walkthrough-calorimeter" experiment="il calorimetro elettromagnetico di CMS" also="ATLAS (argon liquido tra lastre di piombo), PHOS di ALICE e ogni calorimetro di collider o a bersaglio fisso.">
+    <Step state="goal" kind="goal">
+      Obiettivo: misurare l'energia di un singolo elettrone o fotone fermandolo completamente in un blocco di cristallo scintillante denso.
+    </Step>
+    <Step state="shower" kind="signal">
+      La particella entra in un cristallo di tungstato di piombo, la cui lunghezza di radiazione è inferiore al centimetro. Avvia uno sciame entro pochi centimetri, e lo sciame riempie circa 25 lunghezze di radiazione, un cristallo profondo circa 23 cm. Nessuna energia sfugge dal retro.
+    </Step>
+    <Step state="light" kind="signal">
+      Le particelle cariche dello sciame eccitano il cristallo, che scintilla. La quantità di luce è proporzionale all'energia depositata, quindi la luce totale è proporzionale all'energia della particella incidente.
+    </Step>
+    <Step state="photosensor" kind="signal">
+      Un fotosensore incollato sul retro del cristallo converte la luce in carica. Il cristallo è largo alcuni centimetri, quindi ciascuno legge una piccola parte del profilo trasversale dello sciame, circa il 90 % del quale sta dentro un raggio di Molière di 2 cm.
+    </Step>
+    <Step state="sum" kind="readout">
+      I segnali dei cristalli attorno allo sciame vengono sommati. La somma dà l'energia; il baricentro della distribuzione dà la posizione, con una finezza migliore di un cristallo.
+    </Step>
+    <Step state="containment" kind="trick">
+      Il trucco: lo sciame è assorbito per intero, quindi a più energia corrispondono più particelle. La precisione relativa migliora perciò con l'energia, perché le fluttuazioni statistiche di un numero maggiore di particelle sono relativamente più piccole.
+    </Step>
+  </Walkthrough>
+
+  <Figure kind="schematic" caption="Schema: risoluzione relativa in energia di un calorimetro in funzione dell'energia. Tre termini con diversa dipendenza dall'energia, e la loro somma in quadratura.">
+    <Scene id="det.energy-resolution">
+      <Step state="stochastic">
+        Il primo termine è statistico: il numero di particelle nello sciame fluttua come $\sqrt{N}$, quindi $\sigma/E \propto 1/\sqrt{E}$. Domina a bassa energia.
+      </Step>
+      <Step state="noise">
+        Il secondo termine è il rumore elettronico, una quantità fissa di energia in ogni caso. Rispetto al segnale scende come $1/E$ e conta a energie molto basse.
+      </Step>
+      <Step state="constant">
+        Il terzo termine è una frazione costante: errori di calibrazione e disuniformità scalano con il segnale stesso. Fissa il limite ad alta energia.
+      </Step>
+      <Step state="sum">
+        Si sommano in quadratura: $\sigma/E = a/\sqrt{E} \oplus b \oplus c/E$. Quale termine domina dipende dall'energia e dal rivelatore.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="La risoluzione in numeri">
+    $$\frac{\sigma_E}{E} = \frac{a}{\sqrt{E}} \oplus b \oplus \frac{c}{E}, \qquad x\oplus y = \sqrt{x^2+y^2},$$
+
+    con $E$ in GeV. Valori tipici del termine stocastico $a$: circa 2-3 % per un calorimetro a cristalli, 10 % per un calorimetro a campionamento con assorbitore di piombo e circa 50 % per un calorimetro adronico. Il termine costante $b$ è circa l'1 % nei casi buoni. Per un elettrone da 100 GeV in un calorimetro a cristalli si ottiene all'incirca $0{,}03/10 \oplus 0{,}005 \approx 0{,}6\,\%$, mentre i valori dei calorimetri adronici sono peggiori di un ordine di grandezza. Ecco perché i calorimetri elettromagnetici e adronici sono strati separati.
+  </Deeper>
+
+  <Scene id="det.signal-chain">
+    <Step state="timing">
+      **Il tempo.** La luce percorre 30 cm in un nanosecondo. Gli strati di timing, costruiti con silicio veloce o scintillatore, registrano il passaggio di una particella con una precisione di decine di picosecondi: il tempo che la luce impiega ad attraversare qualche millimetro. Un orologio così fine può separare collisioni sovrapposte e misurare la velocità di una particella su una distanza nota.
+    </Step>
+  </Scene>
+
+  <Primer id="particle-id" />
+
+  <Walkthrough scene="det.walkthrough-rich" experiment="il rivelatore Čerenkov a immagine d'anello di LHCb" also="Belle II (i contatori ARICH e TOP), HMPID di ALICE e gli esperimenti sui neutrini che riprendono anelli nell'acqua.">
+    <Step state="goal" kind="goal">
+      Obiettivo: distinguere un kaone da un pione allo stesso impulso, con un impulso misurato di decine di GeV/c.
+    </Step>
+    <Step state="cone" kind="signal">
+      La particella attraversa un radiatore, un gas o un blocco di aerogel, con indice di rifrazione di poco superiore a uno. Viaggia più veloce della luce in quel materiale ed emette un cono di luce Čerenkov.
+    </Step>
+    <Step state="ring" kind="signal">
+      Uno specchio sferico focalizza il cono su un piano di rivelatori di fotoni. Qualunque sia il punto del percorso in cui un fotone è stato emesso, arriva su una circonferenza. I fotoni formano un anello.
+    </Step>
+    <Step state="radius" kind="readout">
+      Il raggio dell'anello dà l'angolo di apertura $\theta_c$, e l'angolo dà la velocità tramite $\cos\theta_c = 1/(n\beta)$. Con l'impulso misurato dal tracciatore se ne ricava la massa. Un pione produce un anello più grande di un kaone con lo stesso impulso.
+    </Step>
+    <Step state="focus" kind="trick">
+      Il trucco: lo specchio trasforma l'angolo in raggio, quindi l'anello non si sfoca quando il punto di emissione si sposta lungo la traccia. Due radiatori con indici diversi coprono un ampio intervallo di impulsi, perché ciascuno è cieco sotto la propria soglia.
+    </Step>
+  </Walkthrough>
+
+  <Widget name="BetheBloch" mode="pid" />
+
+  <Scene id="det.onion">
+    <Step state="assembled">
+      **Mettere tutto insieme.** I rivelatori veri sono costruiti come una cipolla. Ogni strato misura qualcosa di diverso, ed è scelto in modo da disturbare il più poco possibile lo strato successivo.
+    </Step>
+    <Step state="vertex">
+      Gli strati più interni sono pixel di silicio, a pochi centimetri dal tubo del fascio. Registrano pochi punti precisi, sufficienti a localizzare dove è partita una particella, e se proviene da un decadimento avvenuto a pochi millimetri di distanza.
+    </Step>
+    <Step state="tracker">
+      Segue il tracciatore, in un forte campo magnetico. È costruito leggero, perché ogni briciolo di materiale diffonde le particelle che si cerca di misurare. Fornisce carica e impulso.
+    </Step>
+    <Step state="ecal">
+      Poi viene il calorimetro elettromagnetico. È denso, per fermare elettroni e fotoni in poche decine di centimetri. È distruttivo di proposito.
+    </Step>
+    <Step state="hcal">
+      Poi il calorimetro adronico, più spesso e fatto di ferro, ottone o acciaio, ferma gli adroni. Tutto ciò che non è un muone o un neutrino viene assorbito qui.
+    </Step>
+    <Step state="magnet">
+      Oltre i calorimetri, un magnete e il suo giogo di ritorno. In alcuni rivelatori il solenoide si trova dentro il calorimetro; in altri il campo è all'esterno.
+    </Step>
+    <Step state="muon">
+      Lo strato più esterno è il sistema dei muoni. Solo i muoni, che irraggiano pochissimo e non risentono della forza forte, arrivano fin qui. Una traccia qui fuori è un muone.
+    </Step>
+  </Scene>
+
+  <Primer id="standard-model" />
+
+  <Scene id="det.signatures">
+    <Step state="photon">
+      **Fotone.** Nessuna traccia nel tracciatore. Uno sciame nel calorimetro elettromagnetico.
+    </Step>
+    <Step state="electron">
+      **Elettrone.** Una traccia nel tracciatore, che termina in uno sciame nel calorimetro elettromagnetico, con un'energia che corrisponde all'impulso.
+    </Step>
+    <Step state="muon">
+      **Muone.** Una traccia nel tracciatore, una debole impronta in ciascun calorimetro e una traccia nel sistema dei muoni.
+    </Step>
+    <Step state="charged-hadron">
+      **Adrone carico.** Una traccia nel tracciatore, e uno sciame che inizia tardi e finisce nel calorimetro adronico.
+    </Step>
+    <Step state="neutral-hadron">
+      **Adrone neutro.** Nessuna traccia. Uno sciame nel calorimetro adronico.
+    </Step>
+    <Step state="neutrino">
+      **Neutrino.** Niente di niente. L'unica traccia è l'impulso mancante: le particelle visibili non sommano a zero nel piano perpendicolare al fascio.
+    </Step>
+  </Scene>
+
+  <Widget name="ParticleSignatures" />
+
+  <Walkthrough scene="det.walkthrough-muon" experiment="lo spettrometro per muoni di ATLAS" also="CMS (tubi a deriva e camere a piani resistivi) e i telescopi per muoni dei raggi cosmici.">
+    <Step state="goal" kind="goal">
+      Obiettivo: misurare il percorso e l'impulso di un muone che ha appena attraversato l'intero rivelatore, metri di assorbitore.
+    </Step>
+    <Step state="drift-tube" kind="signal">
+      Il muone attraversa lunghi tubi pieni di gas, ciascuno con un sottile filo lungo il proprio asse. Ionizza il gas, e gli elettroni liberati derivano verso il filo.
+    </Step>
+    <Step state="circles" kind="signal">
+      Il tempo che gli elettroni impiegano a raggiungere il filo dà la distanza della traccia da quel filo, ma non la direzione: una circonferenza attorno al filo. Più strati di tubi danno più circonferenze.
+    </Step>
+    <Step state="fit" kind="readout">
+      La traccia è la retta tangente a tutte le circonferenze. La sua curvatura in un grande campo magnetico toroidale dà l'impulso, misurato meglio di 100 micrometri in ogni tubo, su alcuni metri.
+    </Step>
+    <Step state="muon-trick" kind="trick">
+      Il trucco: il sistema dei muoni sta dietro a tutto l'assorbitore. Adroni, elettroni e fotoni sono fermati molto prima, quindi qualunque cosa lasci una traccia qui può essere identificata come un muone con poca ambiguità.
+    </Step>
+  </Walkthrough>
+
+  Questo elenco di principi è lo stesso in ogni esperimento. Nell'ultimo strato ci chiediamo come assemblarli in uno strumento funzionante.
+</Layer>
+
+<Layer id="design">
+  <Scene id="det.trigger">
+    <Step state="rate">
+      **Che cosa conservare.** A LHC i pacchetti di protoni si incrociano 40 milioni di volte al secondo, e ogni incrocio è un possibile evento. Scriverli tutti è impossibile: i dati riempirebbero in pochi secondi un grande archivio di dischi. Solo circa mille eventi al secondo possono essere conservati in modo permanente. Il rivelatore deve decidere, in tempo reale, quali valga la pena tenere.
+    </Step>
+    <Step state="levels">
+      È il compito del <Term id="trigger">trigger</Term>. Un primo livello, costruito con elettronica veloce su misura, guarda grossolanamente i calorimetri e il sistema dei muoni e decide entro pochi microsecondi, portando la frequenza a circa centomila al secondo. Un secondo stadio, che esegue software su una farm di calcolatori, ricostruisce l'evento in modo più completo e ne conserva circa uno su cento. Ciò che viene scartato è perso per sempre, quindi il trigger codifica ciò che l'esperimento sta cercando.
+    </Step>
+    <Step state="streaming">
+      La tendenza recente è di selezionare di meno. Quando le domande riguardano molti eventi comuni più che pochi eventi rari, un rivelatore può leggere tutto in continuo, con ogni colpo marcato nel tempo, e ordinare dopo. ALICE lo fa dal Run 3 (al 2025), e LHCb è passato a un trigger puramente software. Il costo è spostare molti più dati, molto più in fretta.
+    </Step>
+  </Scene>
+
+  <Deeper title="Il volume dei dati, in numeri">
+    Supponiamo che un evento pesi 1 MB. A 40 MHz il flusso sarebbe di 40 TB al secondo. Dopo un primo livello con una frequenza di accettazione di circa 100 kHz, diventa 100 GB al secondo, e dopo lo stadio software con un'uscita di alcuni kHz, alcuni GB al secondo. Anche quest'ultima cifra significa petabyte all'anno. Gli eventi reali hanno dimensioni variabili e i rivelatori comprimono i loro dati, ma l'ordine di grandezza spiega perché esiste il trigger.
+  </Deeper>
+
+  <Figure kind="schematic" caption="Schema: risoluzione relativa sull'impulso di un tracciatore in funzione dell'impulso. A basso impulso domina lo scattering multiplo. La misura della curvatura domina ad alto impulso, dove cresce in proporzione a p.">
+    <Scene id="det.momentum-resolution">
+      <Step state="terms">
+        Non esiste un rivelatore migliore in assoluto, solo compromessi. Prendiamo l'impulso. Una traccia lunga e fortemente curvata, misurata in molti punti accurati, è un buon caso. Ma ad alto impulso la traccia è quasi dritta, quindi l'errore cresce con $p$. A basso impulso la particella viene deviata da ogni atomo che incontra, e l'errore è fissato dal materiale, non dai sensori.
+      </Step>
+      <Step state="lever-arm">
+        Di quali leve dispone il progettista? Una traccia più lunga, un campo più forte, più punti e più accurati. La risoluzione migliora come $1/(BL^2)$, quindi raddoppiare il raggio del tracciatore la migliora di quattro volte, ma l'area di silicio, il magnete e il costo crescono molto più in fretta.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="La risoluzione sull'impulso, in modo quantitativo">
+    Per $N$ punti equidistanti di risoluzione $\sigma_x$ su una lunghezza $L$ in un campo $B$ (formula di Gluckstern),
+
+    $$\frac{\sigma_{p_T}}{p_T} = \frac{\sigma_x\,p_T}{0{,}3\,B\,L^2}\sqrt{\frac{720}{N+4}},$$
+
+    in GeV, tesla e metri. Lo scattering multiplo aggiunge alla risoluzione relativa un termine indipendente da $p_T$,
+
+    $$\left(\frac{\sigma_{p_T}}{p_T}\right)_{\text{MS}} \approx \frac{0{,}0136}{0{,}3\,B\,L\,\beta}\sqrt{\frac{L}{X_0}}\times\text{(un fattore dell'ordine di 1)},$$
+
+    con $L/X_0$ il materiale totale in lunghezze di radiazione. Il primo termine cresce con $p_T$, il secondo non ne dipende. La somma è minima a un certo impulso intermedio.
+  </Deeper>
+
+  <Scene id="det.tradeoffs">
+    <Step state="material">
+      **Il materiale.** Ogni sensore, filo, cavo e tubo di raffreddamento è materia che diffonde le particelle e che fa convertire i fotoni in coppie prima che raggiungano il calorimetro. I tracciatori al silicio puntano a qualche percento di una lunghezza di radiazione per strato. Più sottile è meglio per la misura, ma più sottile significa meno segnale.
+    </Step>
+    <Step state="readout">
+      **Velocità, potenza, raffreddamento.** Una lettura più veloce richiede più potenza, e la potenza si trasforma in calore che va portato via attraverso altro materiale. Il progettista scambia tempo di lettura con potenza e massa del raffreddamento. Tutti e tre limitano la velocità con cui si può leggere un pixel.
+    </Step>
+    <Step state="radiation">
+      **Radiazione e costi.** Vicino al fascio la dose di radiazione è abbastanza alta da danneggiare il silicio e accecare i fotosensori. I componenti devono sopravvivere, oppure essere sostituiti con gli aggiornamenti. E tutto deve essere costruito entro un budget, in un tempo fissato, da centinaia di istituti.
+    </Step>
+  </Scene>
+
+  <Scene id="det.simulation">
+    <Step state="generate">
+      **Costruirlo prima al computer.** Prima di tagliare l'acciaio, il rivelatore esiste come simulazione. Un generatore produce le particelle di una collisione.
+    </Step>
+    <Step state="transport">
+      Un programma come **Geant4** segue poi ogni particella attraverso un modello 3D completo del rivelatore, passo dopo passo, campionando ogni interazione descritta in questa pagina: ionizzazione, irraggiamento, diffusione, sciami, luce.
+    </Step>
+    <Step state="digitize">
+      Un modello dell'elettronica trasforma i depositi di energia nei segnali che darebbero i sensori veri: rumore, soglie, canali morti.
+    </Step>
+    <Step state="compare">
+      Lo stesso software di ricostruzione viene eseguito su eventi simulati e reali. Si producono miliardi di particelle virtuali prima di scegliere un progetto, e l'accordo con i dati viene verificato di continuo. Dove non coincidono, è sbagliata la fisica oppure il modello.
+    </Step>
+  </Scene>
+
+  <Scene id="det.frontier">
+    <Step state="timing4d">
+      **Rivelatori in quattro dimensioni.** Strati di timing con risoluzioni di poche decine di picosecondi vengono aggiunti ai grandi rivelatori di LHC per l'aggiornamento ad alta luminosità, previsto intorno al 2030. Con posizione e tempo insieme si possono distinguere collisioni sovrapposte avvenute nello stesso incrocio di pacchetti.
+    </Step>
+    <Step state="ml">
+      **Apprendimento automatico.** Le reti neurali sono già usate nei trigger, nella ricerca delle tracce e nell'identificazione dei jet. Possono funzionare dentro l'elettronica dedicata abbastanza velocemente per il primo livello di trigger. La questione aperta è il controllo: come essere sicuri che un algoritmo non abbia imparato i difetti della simulazione al posto della fisica.
+    </Step>
+    <Step state="next">
+      **Le prossime macchine.** Gli esperimenti proposti per gli anni 2030 e oltre, come ALICE 3 e i rivelatori per i collider futuri, puntano a un silicio ancora più sottile, a un timing più fine e a calorimetri più compatti. Al 2025 restano progetti allo studio.
+    </Step>
+  </Scene>
+
+  <Gallery>
+    <GalleryItem title="Tracciatore">
+      Pixel e microstrip di silicio, eventualmente una camera a gas. Misura carica e impulso disturbando il meno possibile.
+    </GalleryItem>
+    <GalleryItem title="Calorimetro">
+      Materiale denso che assorbe l'intera particella. Misura l'energia e la posizione dello sciame.
+    </GalleryItem>
+    <GalleryItem title="Identificazione delle particelle">
+      Tempo di volo, anelli Čerenkov e radiazione di transizione. Misura la velocità e, con l'impulso, la massa.
+    </GalleryItem>
+    <GalleryItem title="Sistema dei muoni">
+      Camere a gas dietro tutto l'assorbitore. Misura l'unica particella che passa.
+    </GalleryItem>
+    <GalleryItem title="Trigger e acquisizione dati">
+      Elettronica veloce e computer. Decidono che cosa si conserva.
+    </GalleryItem>
+  </Gallery>
+
+  Questa pagina usa immagini semplificate e nessun dato reale. Per approfondire, cominciate dalle rassegne del Particle Data Group e dai due testi nei riferimenti qui sotto.
+</Layer>

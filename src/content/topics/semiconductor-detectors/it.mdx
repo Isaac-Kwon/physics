@@ -1,0 +1,510 @@
+---
+topic: semiconductor-detectors
+lang: it
+title: Rivelatori a semiconduttore
+subtitle: Come il silicio della fotocamera del telefono è diventato l'occhio più acuto della fisica delle particelle
+description: Una fetta di silicio trasforma il passaggio di una particella in un impulso elettrico. Vediamo come funzionano i sensori, come si collaudano e perché ALICE sta piegando il silicio in cilindri.
+tagline: Dal chip della fotocamera di un telefono all'occhio più acuto della fisica delle particelle.
+layers:
+  - { id: hook, title: Dieci miliardi di pixel }
+  - { id: intuition, title: Trasformare una particella in elettricità }
+  - { id: mechanism, title: Dentro il silicio }
+  - { id: zoo, title: Uno zoo di rivelatori a semiconduttore }
+  - { id: research, title: Come si costruisce e si collauda un sensore }
+  - { id: case-its3, title: Piegare il silicio, e che cosa viene dopo }
+references:
+  - title: "Semiconductor Detector Systems"
+    author: "Helmuth Spieler — Oxford University Press (2005)"
+    note: "Textbook. The first chapters on signal formation and noise are written for physics students."
+  - title: "Semiconductor Radiation Detectors: Device Physics"
+    author: "Gerhard Lutz — Springer (1999, revised 2007)"
+    note: "Textbook. Band structure, junctions and depletion, from the basics."
+  - title: "Radiation Detection and Measurement"
+    author: "Glenn F. Knoll — Wiley (4th edition, 2010)"
+    note: "Classic textbook. The chapters on semiconductor diode detectors and on germanium detectors."
+  - title: "Particle Detectors: Fundamentals and Applications"
+    author: "Hermann Kolanoski, Norbert Wermes — Oxford University Press (2020)"
+    note: "Textbook with a long chapter on solid-state detectors."
+  - title: "Evolution of Silicon Sensor Technology in Particle Physics"
+    author: "Frank Hartmann — Springer Tracts in Modern Physics (2nd edition, 2017)"
+    note: "From strips to pixels, radiation damage and the road to the HL-LHC."
+  - title: "Review of Particle Physics: Particle detectors (chapters on passage of particles through matter and on detectors)"
+    author: "Particle Data Group"
+    url: "https://pdg.lbl.gov/"
+    note: "Reference. Short, dense, and the source of many numbers on this page."
+asOf: "2025"
+draft: true
+---
+
+<Layer id="hook">
+  <Scene id="sc.hook" mode="scrub">
+    <Step state="wafer">Una fetta di silicio, lo stesso materiale della fotocamera del tuo telefono.</Step>
+    <Step state="chips">Tagliata in migliaia di chip, ciascuno grande quanto un francobollo.</Step>
+    <Step state="staves">I chip vengono incollati in lunghe e sottili «stave».</Step>
+    <Step state="barrel">Gli stave avvolgono il tubo del fascio, a pochi centimetri dalla collisione.</Step>
+  </Scene>
+  <BigNumber value={1e10} unit="pixel" approx caption="Il solo tracciatore interno di ALICE: più di dieci miliardi di pixel su circa 10 metri quadrati di silicio. Ogni pixel misura poche decine di micrometri, meno di metà di un capello." />
+</Layer>
+
+<Layer id="intuition">
+  <Primer id="ionization" />
+
+  <Scene id="sc.charge-ladder">
+    <Step state="ladder">
+      Immaginiamo il silicio come un edificio con il piano terra pieno e il primo piano vuoto. Gli elettroni sono bloccati al piano di sotto. Per saltare da un piano all'altro, un elettrone ha bisogno di una piccola quantità di energia, sempre la stessa.
+    </Step>
+    <Step state="kick">
+      Una particella che attraversa il silicio a gran velocità dà agli elettroni quella spinta. Alcuni saltano al piano superiore, dove possono muoversi liberamente.
+    </Step>
+    <Step state="hole">
+      Ogni salto lascia un posto vuoto al piano di sotto, una «lacuna». La lacuna si comporta come una carica positiva che può muoversi anch'essa. Una <Term id="electron-hole-pair">coppia elettrone-lacuna</Term> è l'unità del segnale.
+    </Step>
+  </Scene>
+
+  <Scene id="sc.camera-vs-particle">
+    <Step state="camera">
+      La fotocamera di un telefono fa la stessa cosa con la luce. Ogni pixel raccoglie le coppie create da migliaia di fotoni nell'arco di una frazione di secondo, e l'immagine è la somma.
+    </Step>
+    <Step state="particle">
+      Un rivelatore di particelle ha un problema diverso. Una sola particella, che passa in pochi picosecondi, deve lasciare un segno netto in un punto preciso e in un istante preciso. E ci riesce: una singola particella veloce lascia decine di migliaia di coppie.
+    </Step>
+  </Scene>
+
+  <Scene id="sc.mip-charge">
+    <Step state="crossing">
+      Prendiamo una particella carica veloce che perde quasi la minima energia possibile per una particella: una «particella al minimo di ionizzazione», o MIP. Facciamola attraversare un sensore di silicio spesso 300 micrometri, circa tre volte lo spessore di un foglio di carta.
+    </Step>
+    <Step state="pairs">
+      Libera circa 80 coppie elettrone-lacuna per ogni micrometro percorso. Su 300 micrometri fanno più di 20 000 coppie. Un'elettronica può misurarle.
+    </Step>
+  </Scene>
+
+  <Widget name="MipCharge" />
+
+  <Bridge id="sc-mip-to-det-interactions" />
+
+  **Il silicio trasforma il passaggio di una particella in un pacchetto di carica che si può contare. Il resto di questa pagina racconta come raccogliere quella carica e che cosa costruirci.**
+
+  <Deeper title="Perché 80 coppie per micrometro?">
+    La perdita media di energia di una particella al minimo di ionizzazione nel silicio è circa $3{,}9\ \text{MeV/cm}$, cioè $0{,}39\ \text{keV}/\mu\text{m}$. Dividendo per l'energia necessaria per coppia, $w \approx 3{,}6\ \text{eV}$, si ottengono in media circa 108 coppie per micrometro. Il valore *più probabile* è più basso, circa 75-80, perché la distribuzione della perdita di energia (una distribuzione di Landau) ha una lunga coda di perdite rare e grandi che spingono in alto la media. I rivelatori rispondono al valore più probabile, perciò citiamo circa 80.
+
+    $$N_{\text{coppie}} \approx \frac{\Delta E}{w}, \qquad N_{\text{coppie}}(300\,\mu\text{m}) \approx 80 \times 300 = 2{,}4\times 10^4 .$$
+  </Deeper>
+</Layer>
+
+<Layer id="mechanism">
+  <Scene id="sc.band-gap">
+    <Step state="bands">
+      In un cristallo, le energie permesse agli elettroni formano delle bande. Nel silicio la banda di valenza, piena, e la banda di conduzione, vuota, sono separate da una <Term id="band-gap">banda proibita</Term> (gap) di 1,12 eV. Un <Term id="semiconductor">semiconduttore</Term> ha una banda proibita abbastanza piccola da essere superata con una spinta modesta, ma abbastanza grande perché a temperatura ambiente quasi nessun elettrone la attraversi da solo.
+    </Step>
+    <Step state="pair-energy">
+      A una particella servono in media 3,6 eV per creare una coppia, circa tre volte il gap. Il resto va in vibrazioni del reticolo. In un gas ne servono circa 30, quindi a parità di energia depositata il silicio dà circa dieci volte più carica.
+    </Step>
+    <Step state="n-type">
+      Il silicio puro ha pochi portatori di carica liberi. Li aggiungiamo di proposito. Sostituendo un atomo di silicio su un milione con il fosforo, che ha un elettrone in più, si ottiene silicio di tipo n, con elettroni liberi.
+    </Step>
+    <Step state="p-type">
+      Sostituendo invece con il boro, a cui manca un elettrone, si ottiene il tipo p: lacune mobili. Questo è il drogaggio.
+    </Step>
+  </Scene>
+
+  <Deeper title="Portatori intrinseci, e perché il gap conta">
+    Nel silicio puro, a temperatura $T$, la densità di portatori eccitati termicamente è
+
+    $$n_i = \sqrt{N_c N_v}\;e^{-E_g/2k_BT} \approx 10^{10}\ \text{cm}^{-3} \quad (300\ \text{K}),$$
+
+    contro $5\times 10^{22}$ atomi per cm³. In un sensore da 300 µm sono migliaia di portatori termici sotto ogni pixel da 50 µm, paragonabili al segnale di una MIP: ecco perché bisogna spazzarli via (nei passi successivi). Il germanio ha $E_g = 0{,}67$ eV e così tanti portatori termici che deve essere raffreddato con azoto liquido. Empiricamente, l'energia di creazione di una coppia segue $w \approx 2{,}8\,E_g + 0{,}6\ \text{eV}$, vicino a 3,6 eV per il silicio.
+  </Deeper>
+
+  <Scene id="sc.junction">
+    <Step state="contact">
+      Ora mettiamo accanto silicio di tipo p e silicio di tipo n. Gli elettroni del lato n vanno a riempire le lacune del lato p. Vicino al confine si annullano a vicenda.
+    </Step>
+    <Step state="depletion">
+      Resta un sottile strato senza cariche libere, soltanto gli atomi fissi e carichi: la <Term id="depletion-region">regione di svuotamento</Term>. Attraverso di essa c'è un campo elettrico. Ogni coppia creata al suo interno viene separata subito, prima di potersi ricombinare. Questo strato è il volume attivo di un rivelatore.
+    </Step>
+    <Step state="reverse-bias">
+      Colleghiamo una batteria in modo che il lato n sia positivo. È la <Term id="reverse-bias">polarizzazione inversa</Term>. Allontana ancora di più i portatori liberi dal confine, e lo strato svuotato si ispessisce.
+    </Step>
+    <Step state="full-depletion">
+      A una tensione abbastanza alta lo strato attraversa l'intero sensore. Oltre questa «tensione di svuotamento completo», il campo continua a crescere e la carica viene raccolta più in fretta. Provate voi.
+    </Step>
+  </Scene>
+
+  <Widget name="BiasDepletion" />
+
+  <Deeper title="La larghezza della regione di svuotamento">
+    Risolviamo l'equazione di Poisson per una giunzione brusca in cui il drogaggio da un lato è molto più basso che dall'altro (un rivelatore tipico: volume poco drogato, con drogaggio effettivo $N_{\text{eff}}$). La larghezza svuotata è
+
+    $$W = \sqrt{\frac{2\varepsilon\,(V_{bi}+V)}{q\,N_{\text{eff}}}}, \qquad V_{bi} = \frac{k_BT}{q}\ln\frac{N_A N_D}{n_i^2}\approx 0{,}6\ \text{V},$$
+
+    con $\varepsilon = 11{,}9\,\varepsilon_0$ per il silicio. Per $N_{\text{eff}} = 10^{12}\ \text{cm}^{-3}$ e $V = 100$ V, $W \approx 360\ \mu\text{m}$. Imponendo che $W$ sia uguale allo spessore $d$ si ottiene la tensione di svuotamento completo
+
+    $$V_{fd} \approx \frac{q\,N_{\text{eff}}\,d^2}{2\varepsilon} \;(\approx 70\ \text{V per } d = 300\,\mu\text{m}).$$
+
+    In termini di resistività, $W \propto \sqrt{\rho V}$: il silicio ad alta resistività (poco drogato) si svuota più in profondità a parità di tensione. Il sensore svuotato si comporta come un condensatore a facce piane, $C = \varepsilon A / W$, ed è così che le misure $C$–$V$ trovano $V_{fd}$ (si veda lo strato sulla ricerca).
+  </Deeper>
+
+  <Scene id="sc.drift">
+    <Step state="mip-crossing">
+      Una particella attraversa il sensore svuotato e lascia una sottile linea di coppie lungo il suo percorso.
+    </Step>
+    <Step state="drift">
+      Il campo spinge gli elettroni verso l'elettrodo positivo e le lacune verso quello negativo. Si muovono nel cristallo con una velocità proporzionale al campo, urtando di continuo contro il reticolo. È la deriva.
+    </Step>
+    <Step state="speed">
+      Gli elettroni sono circa tre volte più mobili delle lacune. Su un sensore da 300 micrometri, gli elettroni arrivano in pochi nanosecondi e le lacune in qualche decina di nanosecondi. È abbastanza veloce per rivelatori che contano decine di milioni di particelle al secondo.
+    </Step>
+  </Scene>
+
+  <Scene id="sc.signal-induction">
+    <Step state="weighting-field">
+      Quando compare il segnale? Non quando le cariche raggiungono l'elettrodo. Ogni carica in movimento induce una corrente sugli elettrodi fin da subito, in proporzione a quanto fortemente l'elettrodo «vede» la carica in quella posizione.
+    </Step>
+    <Step state="moving-charge">
+      Vicino a un piccolo elettrodo di pixel la sensibilità è massima. Una carica vicina al pixel contribuisce molto, una lontana quasi per nulla. Così la maggior parte del segnale si forma nell'ultimo tratto prima del pixel.
+    </Step>
+    <Step state="pulse">
+      Sommando elettroni e lacune si ottiene un breve impulso di corrente, di pochi nanosecondi. L'area sotto l'impulso è la carica totale. La sua forma racconta come si è mossa la carica.
+    </Step>
+  </Scene>
+
+  <Deeper title="Il teorema di Shockley–Ramo">
+    Sia $\mathbf{E}_w(\mathbf{x})$ il *campo di peso*: il campo elettrico che si avrebbe se l'elettrodo di lettura fosse al potenziale unitario e tutti gli altri a zero. Una carica $q$ che si muove con velocità $\mathbf{v}$ induce su quell'elettrodo una corrente
+
+    $$i(t) = -\,q\,\mathbf{v}\cdot\mathbf{E}_w(\mathbf{x}(t)).$$
+
+    La carica indotta è $Q=-q\,[\phi_w(\mathbf{x}_f)-\phi_w(\mathbf{x}_i)]$, cioè la variazione del potenziale di peso lungo il percorso. Per piani paralleli $E_w = 1/d$ è uniforme, quindi la corrente è proporzionale a $v$ ed entrambi i portatori contribuiscono per tutta la loro deriva. Per un piccolo pixel $E_w$ è concentrato vicino all'elettrodo (l'«effetto di piccolo pixel»), e il segnale è dominato dall'ultima parte della deriva.
+
+    La velocità di deriva è $v = \mu E$ a campo basso, con $\mu_e \approx 1400$ e $\mu_h \approx 450\ \text{cm}^2/\text{Vs}$ nel silicio, e satura a circa $10^7$ cm/s (100 µm per ns) a campo alto. In un campo magnetico, i portatori derivano con l'angolo di Lorentz $\tan\theta_L\approx \mu_H B$ rispetto al campo, il che sposta la posizione misurata.
+  </Deeper>
+
+  <Scene id="sc.charge-sharing">
+    <Step state="cloud">
+      Mentre deriva, la carica si allarga per diffusione in una nuvola. Dopo aver attraversato qualche centinaio di micrometri, è larga tipicamente una decina di micrometri.
+    </Step>
+    <Step state="pixels">
+      Se la particella passa vicino al confine tra due pixel, la nuvola viene divisa tra i vicini. Due pixel si accendono, ciascuno con una parte della carica.
+    </Step>
+    <Step state="centroid">
+      Pesando la posizione di ogni pixel con la sua carica si ottiene il baricentro della nuvola. Questo localizza la particella meglio della dimensione del pixel. Una buona lettura analogica arriva ad alcuni micrometri.
+    </Step>
+    <Step state="binary">
+      Se l'elettronica dice solo «colpito» o «non colpito», l'informazione sulla carica va persa. L'hit è allora in un punto qualsiasi del pixel, e l'errore è il passo diviso per la radice quadrata di 12.
+    </Step>
+  </Scene>
+
+  <Widget name="ChargeSharing" />
+
+  <Deeper title="La diffusione e la risoluzione binaria">
+    La larghezza della nuvola cresce come $\sigma = \sqrt{2Dt}$ con $D = \mu k_BT/q$ (relazione di Einstein). Per gli elettroni, $D\approx 36\ \text{cm}^2/\text{s}$, quindi dopo $t = 10$ ns, $\sigma \approx 8\ \mu\text{m}$.
+
+    Una particella che colpisce con uguale probabilità un punto qualsiasi di un pixel di larghezza $p$, letto come «colpito al centro del pixel», ha un errore con varianza $\int_{-p/2}^{p/2} x^2\,dx/p = p^2/12$, quindi $\sigma_x = p/\sqrt{12}\approx 0{,}29\,p$. Un passo di 50 µm dà 14 µm. Se la nuvola è condivisa e le cariche sono misurate, l'interpolazione può migliorare il risultato di diverse volte.
+  </Deeper>
+
+  **Riassumendo: si droga il silicio per fare una giunzione, la si polarizza inversamente per svuotare uno strato, si lascia che la particella lo riempia di coppie e si legge l'impulso indotto dal loro moto.**
+
+  <Primer id="silicon-sensor" />
+</Layer>
+
+<Layer id="zoo">
+  Ogni rivelatore di questo zoo segue la stessa ricetta: un volume svuotato trasforma una particella in coppie, e gli elettrodi leggono la carica. Ciò che cambia è un'astuzia per ciascuno. Seguiremo una particella attraverso tre di essi, poi faremo un rapido giro degli altri.
+
+  <Scene id="sc.strip">
+    <Step state="strips">
+      **Microstrip.** Si taglia l'elettrodo in lunghe strisce parallele, larghe decine di micrometri e lunghe vari centimetri. Ogni striscia fornisce una coordinata. Un solo sensore copre una grande area con poche centinaia di canali di lettura, quindi le strisce costano poco. Si usano nei grandi tracciatori esterni.
+    </Step>
+    <Step state="stereo">
+      Per una seconda coordinata si incollano due strati con le strisce inclinate di un piccolo angolo. Una particella accende una striscia in ciascuno strato, e il punto in cui le due strisce si incrociano dà la posizione. Il prezzo da pagare sono gli incroci «fantasma» quando arrivano molte particelle insieme.
+    </Step>
+  </Scene>
+
+  <Walkthrough scene="sc.walkthrough-hybrid" experiment="ATLAS pixel detector" also="Lo stesso principio: i pixel di CMS, il VELO di LHCb e i chip Timepix usati in medicina e nello spazio.">
+    <Step state="goal" kind="goal">
+      Obiettivo: segnare con esattezza dove è passata una particella, in due dimensioni, anche quando ogni secondo ne arrivano milioni di altre.
+    </Step>
+    <Step state="drift" kind="signal">
+      La particella libera coppie in un sensore di silicio ad alta resistività, completamente svuotato. La carica deriva verso una griglia di piccoli elettrodi di pixel, larghi circa 50 micrometri ciascuno.
+    </Step>
+    <Step state="bump" kind="signal">
+      Sotto ogni pixel c'è una minuscola sfera di saldatura, un «bump». Collega il pixel al suo amplificatore in un chip di lettura separato, posato faccia a faccia sotto il sensore.
+    </Step>
+    <Step state="amplify" kind="signal">
+      L'amplificatore trasforma poche migliaia di elettroni in un impulso di tensione. Un discriminatore confronta poi l'impulso con una soglia. Se la supera: questo pixel è stato colpito.
+    </Step>
+    <Step state="readout" kind="readout">
+      Il chip registra quali pixel si sono accesi, spesso anche con l'altezza dell'impulso. Un gruppo di pixel accesi è il passaggio di una particella, e il suo baricentro è la posizione.
+    </Step>
+    <Step state="trick" kind="trick">
+      Il trucco: sensore ed elettronica sono fabbricati separatamente, ciascuno con il processo che gli si addice di più. Il sensore è ottimizzato per la resistenza alle radiazioni, il chip per la velocità. I bump li collegano, pixel per pixel.
+    </Step>
+  </Walkthrough>
+
+  <Walkthrough scene="sc.walkthrough-maps" experiment="ALICE ITS2 (ALPIDE chip)" also="Lo stesso principio: il rivelatore di vertice a MAPS di STAR, il micro-rivelatore di vertice di CBM e il futuro ITS3 di ALICE.">
+    <Step state="goal" kind="goal">
+      Obiettivo: costruire un tracciatore sottilissimo e leggerissimo, in cui le particelle siano appena disturbate nel loro cammino verso l'esterno, a basso costo e su molti metri quadrati.
+    </Step>
+    <Step state="epi-layer" kind="signal">
+      Il sensore è uno strato sottile e poco drogato, fatto crescere sopra un chip di silicio, spesso circa 25 micrometri. Le particelle creano coppie all'interno di quello strato.
+    </Step>
+    <Step state="collect" kind="signal">
+      In parte dello strato il campo è debole. Le coppie si disperdono per diffusione finché raggiungono il piccolo elettrodo di raccolta, dove vengono raccolte. È più lento della deriva, ma più che abbastanza veloce per questo uso.
+    </Step>
+    <Step state="in-pixel" kind="signal">
+      Sullo stesso chip, nello stesso pixel, ci sono un amplificatore, un discriminatore e una cella di memoria. I circuiti sono protetti dalla carica da un pozzo profondo, così non la sottraggono.
+    </Step>
+    <Step state="readout" kind="readout">
+      Dal chip escono solo gli indirizzi dei pixel che si sono accesi. Nient'altro viene inviato, perciò la potenza per unità di superficie resta abbastanza bassa da raffreddare con aria o con un po' d'acqua.
+    </Step>
+    <Step state="trick" kind="trick">
+      Il trucco: sensore ed elettronica sono lo stesso pezzo di silicio, realizzato in una comune fabbrica di chip. Niente bump bonding, quindi il chip può essere assottigliato fino a circa 50 micrometri, e un intero rivelatore costa molto meno.
+    </Step>
+  </Walkthrough>
+
+  <Walkthrough scene="sc.walkthrough-lgad" experiment="ATLAS High-Granularity Timing Detector (HGTD)" also="Lo stesso principio: l'endcap timing layer (ETL) di CMS. Gli strati di timing aggiungono un orologio al tracciamento.">
+    <Step state="goal" kind="goal">
+      Obiettivo: assegnare il tempo di arrivo di una particella con una precisione di poche decine di picosecondi, per distinguere le particelle di collisioni che si sovrappongono nello spazio ma non nel tempo.
+    </Step>
+    <Step state="drift" kind="signal">
+      Un sensore di silicio sottile, spesso solo circa 50 micrometri, crea le coppie come al solito. Sottile significa deriva breve e impulso breve.
+    </Step>
+    <Step state="gain-layer" kind="signal">
+      Vicino all'elettrodo c'è uno strato in più, drogato in modo speciale, con un campo intenso. Gli elettroni che lo attraversano acquistano energia a sufficienza per strappare altre coppie: una valanga. Il segnale viene moltiplicato per un fattore da dieci a trenta circa.
+    </Step>
+    <Step state="fast-edge" kind="signal">
+      Un impulso più grande ha un fronte di salita più ripido, e un fronte più ripido si può datare con una piccola frazione della larghezza dell'impulso. Il sensore sottile mantiene netto il fronte.
+    </Step>
+    <Step state="timestamp" kind="readout">
+      L'elettronica registra l'istante in cui il fronte supera una soglia. Il tempo di arrivo, con una precisione di circa 30-50 picosecondi, viene salvato insieme al colpo.
+    </Step>
+    <Step state="trick" kind="trick">
+      Il trucco: il guadagno si mantiene basso, circa 20, non le migliaia di un contatore Geiger. Basta per sollevare il fronte sopra il rumore, e l'impulso resta proporzionale alla carica originale.
+    </Step>
+  </Walkthrough>
+
+  <Deeper title="Perché la risoluzione temporale dipende da guadagno, rumore e spessore">
+    Il jitter di un attraversamento di soglia è il rumore diviso per la pendenza del segnale: $\sigma_t \approx \sigma_n / (dV/dt)$. Il guadagno aumenta $dV/dt$ senza aumentare il rumore dell'elettronica, quindi $\sigma_t$ diminuisce. I sensori sottili rendono breve l'impulso e ripida la sua pendenza, ma riducono anche la carica, da qui il ricorso al guadagno. Un secondo termine, dovuto alle fluttuazioni di dove e come la carica viene depositata lungo la traccia (fluttuazioni di Landau), impone un limite minimo di alcune decine di picosecondi per sensori più spessi di circa 50 µm.
+
+    In un LGAD la moltiplicazione nello strato di guadagno è $M = \exp\!\big(\int \alpha(E)\,dx\big)$, con il coefficiente di ionizzazione per impatto $\alpha(E)$ che sale rapidamente con il campo vicino a $3\times 10^{5}$ V/cm. Il guadagno è quindi molto sensibile alla tensione di polarizzazione e alla temperatura.
+  </Deeper>
+
+  Il resto dello zoo cambia il materiale, oppure ciò che si legge.
+
+  <Scene id="sc.zoo-more">
+    <Step state="hpge">
+      **Germanio iperpuro (HPGe).** Un grande cristallo raffreddato di germanio ultrapuro, spesso centimetri, usato come un unico enorme diodo. La sua piccola banda proibita (0,67 eV) dà più coppie per keV rispetto al silicio, quindi la carica fluttua meno. Offre la migliore risoluzione in energia tra i rivelatori comuni per i raggi gamma, circa lo 0,2 % a 1 MeV. Viene raffreddato a circa 77 K per sopprimere i portatori termici. Il germanio si usa nella spettroscopia nucleare e nella caccia al doppio decadimento beta senza neutrini.
+    </Step>
+    <Step state="ccd">
+      **Dispositivo ad accoppiamento di carica (CCD).** Un chip di silicio i cui elettrodi fanno da secchi. La carica di ogni pixel viene passata, secchio dopo secchio, a un unico amplificatore di uscita. È quello che c'è in una fotocamera e nei telescopi. I CCD al silicio di grado scientifico raggiungono un rumore molto basso e sanno registrare singoli fotoni visibili.
+    </Step>
+    <Step state="skipper">
+      **CCD skipper.** Un CCD modificato il cui stadio di uscita può misurare più e più volte lo stesso pacchetto di carica senza distruggerlo. Mediando N misure, il rumore diminuisce come $1/\sqrt{N}$ finché si distingue un singolo elettrone. Poiché nel silicio basta circa 1 eV per liberare un elettrone, un chip simile può accorgersi di depositi di energia molto piccoli. Si usa nelle ricerche di materia oscura come SENSEI e DAMIC-M.
+    </Step>
+    <Step state="sipm">
+      **Fotomoltiplicatore al silicio (SiPM).** Una matrice di minuscoli diodi polarizzati appena oltre la soglia di breakdown (modo Geiger). Un singolo fotone innesca in una cella una valanga completa di circa un milione di elettroni. Ogni cella è un interruttore acceso/spento, e la somma conta i fotoni. I SiPM leggono gli scintillatori nei tomografi PET e nella fisica delle particelle.
+    </Step>
+    <Step state="3d">
+      **Sensori 3D.** Invece di elettrodi piani sulla superficie, si scavano sottili colonne che attraversano tutto il silicio. La carica deriva allora lateralmente, per una breve distanza tra le colonne, e viene raccolta in fretta; inoltre l'intrappolamento dopo un forte irraggiamento conta meno. Una parte dello strato di pixel più interno di ATLAS usa sensori 3D.
+    </Step>
+    <Step state="wide-gap">
+      **Materiali a banda larga.** Il diamante (5,5 eV), il carburo di silicio e il nitruro di gallio sono più difficili da danneggiare e lavorano anche a caldo, al prezzo di meno coppie per MeV. Il loro impiego principale è il monitoraggio di fasci intensi.
+    </Step>
+  </Scene>
+
+  <Bridge id="sc-hpge-to-nu-frontier" />
+  <Bridge id="sc-ccd-to-dm-direct" />
+
+  <Deeper title="Risoluzione in energia e fattore di Fano">
+    Per $N = E/w$ coppie create da eventi indipendenti, la statistica di conteggio darebbe $\sigma_N = \sqrt{N}$. I passaggi che creano le coppie non sono indipendenti, perché l'energia totale è fissata, e la varianza si riduce a $\sigma_N^2 = F N$, con il fattore di Fano $F\approx 0{,}1$ per silicio e germanio. La risoluzione in energia intrinseca è allora
+
+    $$\frac{\sigma_E}{E} = \sqrt{\frac{F\,w}{E}}, \qquad \text{FWHM}=2{,}355\,\sigma_E .$$
+
+    Per il germanio ($w=2{,}96$ eV) a 1,33 MeV, $\sigma_E\approx 0{,}6$ keV (FWHM $\approx 1{,}5$ keV) dalla sola statistica, e i rivelatori reali raggiungono una FWHM di circa 2 keV una volta inclusi il rumore elettronico e la raccolta incompleta. Uno scintillatore con fotomoltiplicatore dà un risultato circa dieci volte peggiore. I rivelatori al silicio funzionano allo stesso modo, con il rumore elettronico (da qualche decina a centinaia di elettroni) che di solito costituisce il limite.
+  </Deeper>
+</Layer>
+
+<Layer id="research">
+  Gran parte dell'anno di un fisico dei rivelatori non è dedicata a guardare i dati dell'esperimento. È dedicata ai sensori, molto prima che arrivino vicino a un esperimento. Ecco il percorso di un sensore, dall'idea al rivelatore. Lo chiamiamo la filiera.
+
+  <Scene id="sc.lab-pipeline">
+    <Step state="tcad">
+      **1. Progettare e simulare.** Prima di costruire qualunque cosa, una simulazione del dispositivo (TCAD) risolve il campo elettrico, lo svuotamento e la raccolta di carica all'interno del silicio, con modelli per il danno da radiazione. Una simulazione delle particelle (Geant4, insieme al framework Allpix²) segue una particella attraverso il sensore e l'elettronica, e prevede che cosa vedrebbe la lettura.
+    </Step>
+    <Step state="asic">
+      **1b. Progettare la lettura.** Un segnale debole deve essere amplificato, formato e confrontato con una soglia. Amplificando di più si ottiene più rumore; abbassando la soglia, il rumore comincia ad accendere pixel da solo; spendendo più potenza, il rivelatore si scalda. Scegliere il compromesso è il compito del progettista di circuiti.
+    </Step>
+    <Step state="probe">
+      **2. Produrre e controllare i wafer.** Dopo la fabbricazione, una probe station tocca i contatti di ogni sensore. Due misure sono standard: corrente in funzione della tensione (I–V) e capacità in funzione della tensione (C–V). Insieme danno la tensione di breakdown e la tensione che svuota completamente il sensore.
+    </Step>
+    <Step state="source">
+      **3. Sorgenti radioattive.** Una sorgente di ⁹⁰Sr emette elettroni che si comportano quasi come MIP. Una sorgente di ⁵⁵Fe emette raggi X da 5,9 keV che liberano ciascuno circa 1600 coppie, una carica nota e comoda per calibrare il guadagno di un chip.
+    </Step>
+    <Step state="tct">
+      **3b. Scansioni laser.** Un laser infrarosso focalizzato genera carica in un punto scelto. Facendolo scorrere sul sensore, o focalizzandolo a profondità diverse con l'assorbimento a due fotoni (TPA-TCT), si ottiene una mappa di quanto bene viene raccolta la carica, in profondità e in posizione.
+    </Step>
+    <Step state="testbeam">
+      **4. Test su fascio.** Il sensore viene portato a un acceleratore (per esempio DESY o l'SPS del CERN) e posto in un fascio di particelle vere e veloci, tra piani di riferimento. È la prova vera, e la prossima sezione ne parla.
+    </Step>
+    <Step state="irradiation">
+      **5. Irraggiamento.** Il sensore viene bombardato con neutroni o protoni per invecchiarlo, come farebbero anni di funzionamento. Poi viene collaudato di nuovo.
+    </Step>
+    <Step state="integration">
+      **6. Costruire il rivelatore.** Molti sensori vengono montati su supporti leggeri, collegati con wire bonding, raffreddati e connessi a un sistema di lettura. È tanto ingegneria meccanica e termica quanto fisica.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schema: corrente del sensore in funzione della tensione di polarizzazione. Una lieve corrente di fuga, poi una brusca salita al breakdown. Non sono dati reali.">
+    <Scene id="sc.iv-curve">
+      <Step state="iv">
+        La curva I–V di un buon sensore è piatta e piccola, decine di nanoampere per centimetro quadrato, fino al breakdown. Poi la corrente schizza in alto. Il sensore deve funzionare ben al di sotto di questa tensione.
+      </Step>
+      <Step state="cv">
+        Nella C–V, la capacità diminuisce man mano che lo strato di svuotamento cresce, e resta piatta quando il sensore è completamente svuotato. Il ginocchio dà la tensione di svuotamento completo.
+      </Step>
+    </Scene>
+  </Figure>
+
+  <Deeper title="Leggere la C–V e il rumore dai principi primi">
+    Per un diodo svuotato di area $A$, $C = \varepsilon A/W$, quindi usando $W\propto\sqrt{V}$ sotto lo svuotamento completo, $1/C^2 \propto V$ con pendenza $2/(q\varepsilon A^2 N_{\text{eff}})$, da cui si ricava $N_{\text{eff}}$. Sopra $V_{fd}$, $C = \varepsilon A/d$ è costante.
+
+    Il rumore di lettura si indica come carica equivalente di rumore (ENC), la carica di segnale per cui segnale e rumore sono uguali. Per un amplificatore di carica dipende dalla capacità del sensore, dalla corrente di fuga $I_L$ e dal tempo di formazione $\tau$ approssimativamente come
+    $$\text{ENC}^2 \approx a\,\frac{C^2}{\tau} + b\,I_L\,\tau + c .$$
+    Una formazione breve favorisce la velocità ma alza il primo termine (serie), una formazione lunga lo abbassa ma alza il secondo (parallelo), e quindi esiste un ottimo. Una soglia fissata a circa cinque volte l'ENC rende rari i colpi di rumore. Scansionando la soglia e contando i colpi si traccia una funzione errore a forma di S, la «curva a S», la cui larghezza è il rumore.
+  </Deeper>
+
+  <Primer id="magnetic-tracking" />
+
+  <Scene id="sc.testbeam">
+    <Step state="telescope">
+      Un «telescopio di fascio» è una fila di piani di pixel di precisione con il dispositivo da collaudare (DUT) nel mezzo. Un fascio di particelle li attraversa tutti. Ogni piano fornisce un punto, e una retta passante per i piani di riferimento prevede dove la particella dovrebbe colpire il DUT.
+    </Step>
+    <Step state="track">
+      Un software collega gli hit in una traccia, la estrapola fino al DUT e verifica se anche il DUT si è acceso. La frazione di volte in cui è successo è l'efficienza. La dimensione del cluster dice qualcosa sulla condivisione di carica.
+    </Step>
+    <Step state="residual">
+      La distanza tra il punto previsto e quello misurato è il residuo. Raccogliendone molti, i residui formano un istogramma a campana. La sua larghezza dà la risoluzione di posizione, una volta sottratta l'incertezza del telescopio stesso.
+    </Step>
+  </Scene>
+
+  <Widget name="TestbeamResiduals" />
+
+  <Deeper title="Dalla larghezza dei residui alla risoluzione">
+    Il residuo combina l'errore proprio del DUT con l'incertezza della previsione della traccia:
+    $$\sigma_{\text{res}}^2 = \sigma_{\text{DUT}}^2 + \sigma_{\text{pred}}^2 .$$
+    L'errore di previsione del telescopio dipende dalla risoluzione dei piani, dalla loro distanza e dallo scattering multiplo, che piega leggermente la traccia in ogni strato. Per una particella di impulso $p$ che attraversa un materiale di spessore $x$ e lunghezza di radiazione $X_0$ (9,4 cm nel silicio), l'angolo di diffusione è all'incirca
+    $$\theta_0 \approx \frac{13{,}6\ \text{MeV}}{\beta c\,p}\sqrt{\frac{x}{X_0}}.$$
+    Un impulso del fascio più alto diffonde meno, ed è per questo che si cercano test su fascio con energie di diversi GeV. I framework software (per esempio EUDAQ per l'acquisizione dei dati e Corryvreckan per l'analisi) sono una parte importante del lavoro.
+  </Deeper>
+
+  <Scene id="sc.radiation-damage">
+    <Step state="defects">
+      Una particella veloce a volte colpisce un nucleo di silicio con forza sufficiente a strappare un atomo dalla sua posizione. Resta un difetto nel cristallo. Nel cuore di un rivelatore di un collider questo accade miliardi di volte. Il danno da radiazione si misura in «equivalenti di neutroni da 1 MeV» per centimetro quadrato, un flusso integrato standard.
+    </Step>
+    <Step state="leakage">
+      I difetti creano livelli di energia dentro la banda proibita. Gli elettroni salgono più facilmente, il che aumenta la corrente di fuga in proporzione al flusso integrato.
+    </Step>
+    <Step state="doping">
+      Alcuni difetti agiscono anche da droganti carichi, quindi il drogaggio effettivo del volume cambia, e con esso la tensione di svuotamento completo. Ad alti flussi integrati, il sensore richiede una tensione molto più alta per svuotarsi.
+    </Step>
+    <Step state="trapping">
+      Altri difetti intrappolano elettroni e lacune durante la deriva. La carica intrappolata non raggiunge mai l'elettrodo, e il segnale si riduce.
+    </Step>
+    <Step state="anneal">
+      I difetti evolvono nel tempo, e il calore accelera il processo. Alcuni guariscono, altri peggiorano. Per questo un sensore si tiene freddo, il che riduce anche la corrente di fuga, e il piano prevede periodi di riscaldamento.
+    </Step>
+  </Scene>
+
+  <Deeper title="La scala del danno, in numeri">
+    Nell'ipotesi della perdita di energia non ionizzante (NIEL), il danno scala con l'energia di spostamento e non con il tipo di particella, quindi i flussi integrati si esprimono in equivalenti di neutroni da 1 MeV, $\Phi_{eq}$. L'aumento della corrente di fuga è
+    $$\Delta I = \alpha\,\Phi_{eq}\,V_{\text{act}}, \qquad \alpha\approx 4\times10^{-17}\ \text{A/cm}\ \text{(dopo annealing, 20 °C)},$$
+    e si dimezza per ogni 7 K circa di raffreddamento. L'intrappolamento accorcia la vita media dei portatori come $1/\tau_{\text{eff}} = \beta\,\Phi_{eq}$ con $\beta\sim 5\times10^{-16}\ \text{cm}^2/\text{ns}$, quindi a $\Phi_{eq} = 10^{15}\ \text{cm}^{-2}$ il tempo di intrappolamento è circa 2 ns, più breve del tempo di raccolta di un sensore spesso. Gli strati interni dei tracciatori di HL-LHC sono progettati per circa $10^{16}$. I rivelatori lontani dal fascio vedono $10^{13}$ o meno.
+  </Deeper>
+
+  **I giorni di fascio a un test su fascio sono una piccola parte del lavoro. Ciò che lo rende possibile sono i mesi di simulazioni e di misure al banco che lo precedono, e il raffreddamento e la meccanica che lo seguono.**
+</Layer>
+
+<Layer id="case-its3">
+  <Scene id="sc.its3" mode="scrub">
+    <Step state="its2">
+      L'attuale tracciatore interno di ALICE (ITS2, in funzione dal 2021) ha sette strati cilindrici di MAPS attorno al tubo del fascio. Lo strato più interno si trova a circa 2,2 centimetri dalla collisione, e ciascuno dei suoi strati è spesso circa lo 0,35 % di una lunghezza di radiazione.
+    </Step>
+    <Step state="limits">
+      Due cose lo limitano oggi. Gli strati interni sono fatti di molti chip piatti su un supporto, e i supporti, i tubi di raffreddamento e i cavi aggiungono molto più materiale del silicio stesso. E il tubo del fascio stabilisce quanto ci si può avvicinare.
+    </Step>
+    <Step state="flat-wafer">
+      L'idea di ITS3: usare un intero wafer come un solo chip. Lo stitching, la stessa tecnica che costruisce i chip di grandi dimensioni, permette di affiancare blocchi identici per ottenere un sensore lungo circa 26 centimetri. Poi lo si assottiglia a poche decine di micrometri.
+    </Step>
+    <Step state="bending">
+      Un silicio così sottile è flessibile, come la carta. Si piega.
+    </Step>
+    <Step state="cylinder">
+      Due semicilindri formano ogni strato. Il sensore è la propria struttura. Sostenuto soltanto da una schiuma leggera, raffreddato da un flusso d'aria, praticamente non c'è altro materiale oltre al silicio. Lo strato più interno si avvicina a circa 2 centimetri.
+    </Step>
+    <Step state="material">
+      Il materiale per strato scende a circa lo 0,07 % di una lunghezza di radiazione, alcune volte meno di prima. Le particelle diffondono meno, e il parametro d'impatto, la distanza di cui una traccia manca il punto di collisione, viene misurato con una precisione circa doppia.
+    </Step>
+  </Scene>
+
+  <Figure kind="schematic" caption="Schema: un sensore piatto delle dimensioni di un wafer si piega in un semicilindro. Non in scala.">
+    <Scene id="sc.its3-bending">
+      <Step state="wafer">Un sensore piatto e assottigliato, grande quanto un wafer, un po' più lungo di un righello.</Step>
+      <Step state="half-cylinder">Piegato al raggio dello strato, mantiene la sua forma.</Step>
+    </Scene>
+  </Figure>
+
+  <Walkthrough scene="sc.walkthrough-its3-heavyflavour" experiment="ALICE ITS3" also="Lo stesso principio: qualunque rivelatore di vertice. Più il primo strato è vicino e sottile, migliore è la risoluzione sul vertice.">
+    <Step state="goal" kind="goal">
+      Obiettivo: distinguere una particella con charm che decade dopo una frazione di millimetro dalle molte particelle prodotte nel punto stesso della collisione.
+    </Step>
+    <Step state="vertex" kind="signal">
+      Il primo strato misura un punto molto vicino alla collisione, e il secondo strato un altro. I due definiscono una retta che risale al vertice.
+    </Step>
+    <Step state="extrapolate" kind="signal">
+      Si estrapola la retta fino al punto di collisione. Poiché il primo punto è vicino, gli errori di posizione e lo scattering nel tubo del fascio e nel primo strato pesano poco.
+    </Step>
+    <Step state="displaced" kind="readout">
+      Una traccia che manca il vertice primario di decine di micrometri proviene da un decadimento più a valle. Gli adroni con charm e beauty, che vivono circa un picosecondo, producono proprio tracce di questo tipo.
+    </Step>
+    <Step state="trick" kind="trick">
+      Il trucco: la risoluzione sulla distanza di mancato incontro va come la somma dell'errore del sensore e dell'errore di scattering, scalata in base alla vicinanza del primo strato. Meno materiale e un raggio minore migliorano entrambi.
+    </Step>
+  </Walkthrough>
+
+  <Deeper title="La risoluzione sul parametro d'impatto">
+    Per due strati ai raggi $r_1 < r_2$, con risoluzioni di posizione $\sigma_1,\sigma_2$, e trascurando lo scattering, l'errore di estrapolazione al vertice è
+    $$\sigma_{d_0}^2 = \frac{r_2^2\,\sigma_1^2 + r_1^2\,\sigma_2^2}{(r_2-r_1)^2}.$$
+    Lo scattering multiplo nel primo strato di spessore $x$ aggiunge
+    $$\sigma_{\text{ms}} \approx r_1\,\theta_0\propto \frac{r_1}{p}\sqrt{x/X_0},$$
+    quindi la risoluzione migliora con un $r_1$ più piccolo (primo termine) e un $x/X_0$ più basso (secondo termine). Passare da $r_1\approx 2{,}2$ cm a circa 1,9 cm e dallo 0,35 % allo 0,07 % di $X_0$ porta al miglioramento citato sopra, soprattutto a basso impulso, dove lo scattering conta. I numeri sono indicativi: dipendono dal progetto finale.
+  </Deeper>
+
+  **A che punto siamo (al 2025)?** ITS3 è nella fase di ingegnerizzazione e di prototipazione. I primi sensori delle dimensioni di un wafer e i prototipi piegati sono stati collaudati, anche in fascio. L'installazione è prevista durante il lungo arresto che precede il Run 4 di LHC, alla fine del decennio. Le date cambiano, quindi consultate le pagine di ALICE.
+
+  <Bridge id="sc-its3-to-hi-detection" />
+
+  <Scene id="sc.cbm-silicon">
+    <Step state="mvd">
+      La stessa idea in un altro esperimento. CBM, a FAIR, studia la materia alla massima densità barionica. Il suo micro-rivelatore di vertice colloca stazioni di MAPS subito a valle del bersaglio, nel vuoto, per trovare le particelle di vita breve con quark strange o charm.
+    </Step>
+    <Step state="sts">
+      Dietro, stazioni di microstrip di silicio a doppia faccia si trovano dentro un magnete dipolare. Misurano la curvatura di ogni traccia, e quindi l'impulso, per milioni di collisioni al secondo. Il rivelatore legge in continuo, con una marca temporale su ogni colpo. L'avvio della presa dati è previsto per la fine del decennio, al 2025.
+    </Step>
+  </Scene>
+
+  <Scene id="sc.future">
+    <Step state="timing-4d">
+      **Quattro dimensioni.** I tracciatori di oggi forniscono tre coordinate spaziali per ogni hit. Sensori che danno anche un tempo con precisione di decine di picosecondi, come gli LGAD e i MAPS veloci, ne aggiungerebbero una quarta. Alle frequenze più alte, il tempo è il modo per distinguere collisioni sovrapposte.
+    </Step>
+    <Step state="alice3">
+      **ALICE 3.** Un esperimento di ioni pesanti di prossima generazione proposto per gli anni 2030, costruito quasi interamente in silicio. Gli strati più interni starebbero dentro il vuoto del tubo del fascio, a pochi millimetri dal fascio, ritratti durante l'iniezione. Al 2025 è in fase di progetto.
+    </Step>
+    <Step state="fcc">
+      **Futuri collider.** Proposte come il collisore elettrone-positrone FCC-ee richiedono rivelatori di vertice con ancora meno materiale e una risoluzione di pochi micrometri, che i sensori monolitici sono i candidati principali a fornire.
+    </Step>
+    <Step state="beyond">
+      **Oltre il collider.** I tracciatori al silicio volano nei telescopi spaziali e negli esperimenti sui raggi cosmici, e i chip a pixel ibridi sono usati per l'imaging negli ospedali e per il monitoraggio delle radiazioni. La fisica di questa pagina è la stessa ovunque.
+    </Step>
+  </Scene>
+
+  Questa pagina usa immagini semplificate e nessun dato reale. Per approfondire, cominciate dai testi di Spieler e di Lutz e dai capitoli di rassegna sui rivelatori al silicio nei riferimenti qui sotto.
+</Layer>
